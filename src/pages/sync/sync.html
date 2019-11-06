@@ -1,0 +1,135 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button menuToggle>
+                <i class="icon-menu"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "SYNC" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <div class="orData sync">
+        <div class="orRepat">
+            <ion-card *ngIf="role=='$sph' || (currentUserSessionData['userId'] != currentUserSessionData['userIdG'] && currentUserSessionData['userIdG'] )">
+
+                <ion-item>
+                    <a href="javascript:void(0);" [ngClass]="{ 'spinRt': hpbSyncBtn }" (click)="hpbSync()" class="syncBtn orderBtnCls"></a>
+                    <div class="orDataCm">
+                        <p>{{ "SYNC DPB" | translate }}</p>
+                        <h2 *ngIf="hpbSyncUpdatedDate && hpbSyncUpdatedDate!=''">{{ "LAST UPDATED" | translate }}: {{hpbSyncUpdatedDate}}</h2>
+                    </div>
+                </ion-item>
+
+                <ion-item>
+                    <a href="javascript:void(0);" [ngClass]="{ 'spinRt': projectsSyncBtn }" (click)="projectsSync()" class="syncBtn orderBtnCls"></a>
+                    <div class="orDataCm">
+                        <p>{{ "SYNC PROJECTS" | translate }}</p>
+                        <h2 *ngIf="projectsSyncUpdatedDate && projectsSyncUpdatedDate!=''">{{ "LAST UPDATED" | translate }}: {{projectsSyncUpdatedDate}}</h2>
+                    </div>
+                </ion-item>
+                <!--            
+                <ion-item>
+                    <a href="javascript:void(0);" [ngClass]="{ 'spinRt': receiptsSyncBtn }" (click)="receiptsSync()"  class="syncBtn orderBtnCls"></a>
+                    <div class="orDataCm">
+                        <p>{{ "SYNC PRODUCT RECEIPTS" | translate }}</p>
+                        <h2 *ngIf="receiptsSyncUpdatedDate!=''">Last Updated : {{receiptsSyncUpdatedDate}}</h2>
+                    </div>
+                </ion-item>-->
+
+                <!--<ion-item>
+                    <a href="javascript:void(0);" [ngClass]="{ 'spinRt': productRequestSyncBtn }" (click)="productRequestSync()"  class="syncBtn orderBtnCls"></a>
+                    <div class="orDataCm">
+                        <p>Sync Product Request</p>
+                       <h2 *ngIf="productRequestSyncUpdatedDate!=''">Last Updated : {{productRequestSyncUpdatedDate}}</h2>
+                    </div>
+                </ion-item>-->
+
+                <ion-item>
+                    <a href="javascript:void(0);" [ngClass]="{ 'spinRt': rdsViSyncBtn }" (click)="rdsViSync()" class="syncBtn orderBtnCls"></a>
+                    <div class="orDataCm">
+                        <p>{{ "SYNC RETAILER / DISTRIBUTORS VISITS" | translate }}</p>
+                        <h2 *ngIf="rdsViSyncUpdatedDate && rdsViSyncUpdatedDate!=''">{{ "LAST UPDATED" | translate }}: {{rdsViSyncUpdatedDate}}</h2>
+                    </div>
+                </ion-item>
+                <ion-item>
+                        <a href="javascript:void(0);" [ngClass]="{ 'spinRt': eapLeadsyncBtn }" (click)="eapLeadsSync()" class="syncBtn orderBtnCls"></a>
+                        <div class="orDataCm">
+                            <p>{{ "DUTA HOLCIM LEADS" | translate }}</p>
+                            <h2 *ngIf="eapLeadsSyncUpdatedDate && eapLeadsSyncUpdatedDate!=''">{{ "LAST UPDATED" | translate }}: {{eapLeadsSyncUpdatedDate}}</h2>
+                        </div>
+                </ion-item>
+                <ion-item>
+                    <a href="javascript:void(0);" [ngClass]="{ 'spinRt': targetsSyncBtn }" (click)="targetsSync()" class="syncBtn orderBtnCls"></a>
+                    <div class="orDataCm">
+                        <p>{{ "SYNC TARGETS" | translate }}</p>
+                        <h2 *ngIf="targetsSyncUpdatedDate && targetsSyncUpdatedDate!=''">{{ "LAST UPDATED" | translate }}: {{targetsSyncUpdatedDate}}</h2>
+                    </div>
+                </ion-item>
+                <ion-item>
+                    <a href="javascript:void(0);" [ngClass]="{ 'spinRt': allMasterSyncBtn }" (click)="allMasterSync()" class="syncBtn orderBtnCls"></a>
+                    <div class="orDataCm">
+                        <p>{{ "SYNC ALL MASTER" | translate }}</p>
+                        <h2 *ngIf="allMasterSyncUpdatedDate && allMasterSyncUpdatedDate!=''">{{ "LAST UPDATED" | translate }}: {{allMasterSyncUpdatedDate}}</h2>
+                    </div>
+                </ion-item>
+                <ion-item>
+                    <a href="javascript:void(0);" [ngClass]="{ 'spinRt': homeStatsSyncBtn }" (click)="homeStatsSync()" class="syncBtn orderBtnCls"></a>
+                    <div class="orDataCm">
+                        <p>{{ "SYNC STATS" | translate }}</p>
+                        <h2 *ngIf="homeStatsSyncUpdatedDate && homeStatsSyncUpdatedDate!=''">{{ "LAST UPDATED" | translate }}: {{homeStatsSyncUpdatedDate}}</h2>
+                    </div>
+                </ion-item>
+
+            </ion-card>
+
+            <ion-card *ngIf="role=='$tlh' && ( !currentUserSessionData['userIdG'] || currentUserSessionData['userId'] == currentUserSessionData['userIdG'] ) ">
+                <ion-item>
+                    <a href="javascript:void(0);" [ngClass]="{ 'spinRt': homeStatsSyncBtn }" (click)="homeTlhStatsSync()" class="syncBtn orderBtnCls"></a>
+                    <div class="orDataCm">
+                        <p>{{ "SYNC STATS" | translate }}</p>
+                        <h2 *ngIf="homeStatsSyncUpdatedDate && homeStatsSyncUpdatedDate!=''">{{ "LAST UPDATED" | translate }}: {{homeStatsSyncUpdatedDate}}</h2>
+                    </div>
+                </ion-item>
+            </ion-card>
+
+            <ion-card *ngIf="role=='$ac' && ( !currentUserSessionData['userIdG'] || currentUserSessionData['userId'] == currentUserSessionData['userIdG'] ) ">
+                <ion-item>
+                    <a href="javascript:void(0);" [ngClass]="{ 'spinRt': homeStatsSyncBtn }" (click)="homeAcStatsSync()" class="syncBtn orderBtnCls"></a>
+                    <div class="orDataCm">
+                        <p>{{ "SYNC STATS" | translate }}</p>
+                        <h2 *ngIf="homeStatsSyncUpdatedDate && homeStatsSyncUpdatedDate!=''">{{ "LAST UPDATED" | translate }}: {{homeStatsSyncUpdatedDate}}</h2>
+                    </div>
+                </ion-item>
+            </ion-card>
+            <ion-card *ngIf="role=='$am' && ( !currentUserSessionData['userIdG'] || currentUserSessionData['userId'] == currentUserSessionData['userIdG'] ) ">
+                <ion-item>
+                    <a href="javascript:void(0);" [ngClass]="{ 'spinRt': homeStatsSyncBtn }" (click)="homeAmStatsSync()" class="syncBtn orderBtnCls"></a>
+                    <div class="orDataCm">
+                        <p>{{ "SYNC STATS" | translate }}</p>
+                        <h2 *ngIf="homeStatsSyncUpdatedDate!=''">{{ "LAST UPDATED" | translate }}: {{homeStatsSyncUpdatedDate}}</h2>
+                    </div>
+                </ion-item>
+            </ion-card>
+
+            <ion-card class="backupDivider">
+                <ion-item>
+                    <a href="javascript:void(0);" [ngClass]="{ 'spinRt': backupBtn }" (click)="backuCF()" class="syncBtn orderBtnCls"></a>
+                    <div class="orDataCm">
+                        <p>{{ "BACKUP" | translate }}</p>
+                        <h2 *ngIf="backupUpdatedDate && backupUpdatedDate!=''">{{ "LAST BACKUP" | translate }}: {{backupUpdatedDate}}</h2>
+                    </div>
+                </ion-item>
+                <ion-item>
+                    <a href="javascript:void(0);" [ngClass]="{ 'spinRt': resetBtn }" (click)="resetCF()" class="syncBtn orderBtnCls"></a>
+                    <div class="orDataCm">
+                        <p>{{ "RESET" | translate }}</p>
+                        <h2 *ngIf="resetUpdatedDate && resetUpdatedDate!=''">{{ "LAST RESET" | translate }}: {{resetUpdatedDate}}</h2>
+                    </div>
+                </ion-item>
+            </ion-card>
+        </div>
+    </div>
+</ion-content>

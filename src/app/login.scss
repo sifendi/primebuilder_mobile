@@ -1,0 +1,105 @@
+//Login Page Start Here
+.enterMobileNo {
+    background: $login-color;
+
+    .enterMbBX {
+        width: $width90 - 10%;
+        margin: $size * 3 $auto $zero $auto;
+
+        h2 {
+            font-family: $fontRg;
+            color: $dark-color;
+        }
+        .contMid {
+            width: $width90 - 10;
+
+            .error {
+                p {
+                    font-family: $fontRg;
+                    color: $white-color;
+                }
+            }
+        }
+        .btn {
+            text-align: $center;
+
+            .button {
+                font-family: $fontMd;
+                background: $black-color;
+            }
+        }
+        .userForm {
+            background: $transparent;
+            padding: $zero;
+
+            .inputBox {
+                .rdIn {
+                    .item {
+                        &.item-block {
+                            .item-inner {
+                                border-bottom: 2px solid $white-color;
+
+                                .text-input {
+                                    color: $white-color;
+                                    line-height: $size + 1;
+                                }
+                                .label {
+                                    color: $white-color;
+                                }
+                            }
+                        }
+                        &.input-has-focus {
+                            &:after {
+                                border-bottom: 2px $solid $black-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.selectLanguage {
+        h2 {
+            color: $white-color;
+            text-align: $center;
+            font-family: $fontMd;
+            font-size: $size - .2;
+        }
+        .btn {
+            @include flex-direction (column);
+
+            .button {
+                @include flex-basis (inherit);
+                font-family: $fontRg;
+                font-size: $size - .2;
+                padding: $size - .5 $size - 1;
+                color: $white-color;
+                position: $relative;
+                margin-bottom: $size - 1;
+                width: $width90 + 10;
+
+                .button-inner {
+                    @include justify-content (flex-start);
+                }
+                .icon-next-thin {
+                    width: $auto;
+                    background: $transparent;
+                    height: $auto;
+                    right: $size - .5;
+                    @include transformY;
+                    font-size: $size - 1;
+                    color: $white-color;
+                }
+            }
+        }
+    }
+}
+.OPTtimer {
+    P {
+        margin: $size $zero;
+        font-size: $size + 1;
+        text-align: $center;
+        color: $dark-color;
+        font-family: $fontMd;
+    }
+}

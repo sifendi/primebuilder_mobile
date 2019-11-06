@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ hpbName }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}" class="hpbTabs">
+
+    <super-tabs [selectedTabIndex]="selectedIndex" (tabSelect)="onTabSelect($event)" (tabSelect)="onTabChange()">
+        <super-tab [root]="page1" [rootParams]="paramsData" title="Details"></super-tab>
+        <super-tab [root]="page2" [rootParams]="paramsData" title="Projects"></super-tab>
+        <super-tab [root]="page3" [rootParams]="paramsData" title="Receipts"></super-tab>
+        <super-tab [root]="page4" [rootParams]="paramsData" title="Requests"></super-tab>
+    </super-tabs>
+
+
+</ion-content>

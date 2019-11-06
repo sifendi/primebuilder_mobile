@@ -1,0 +1,141 @@
+<!--
+  Generated template for the RedeemHistoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <h4 class="totalR">Total points redeem till today: 12000</h4>
+    <ion-list class="listWrap" *ngFor="let reward of rewardList">
+        <div class="itemWrap">
+            <ion-item class="listItem receipt">
+                <div class="flexWrap mobileWrap">
+                    <div class="projectWrap reedem-left">
+                        <p class="value">Induction Cooktops</p>
+                        <p class="value">Sandwich Makers</p>
+                        <!--<span class="gridValue">Sandwich Makers</span>-->
+                    </div>
+                    <div class="projectWrap reedem-right">
+                        <p class="value diffDate pointV">1 May 17</p>
+                        <span class="value points diffDate"> 12000 points</span>
+                    </div>
+                </div>
+
+            </ion-item>
+        </div>
+        <div class="itemWrap">
+            <ion-item class="listItem receipt">
+                <div class="flexWrap mobileWrap">
+                    <div class="projectWrap reedem-left">
+                        <p class="value">Ceramic Mug</p>
+                        <p class="value">Sandwich Makers</p>
+                    </div>
+                    <div class="projectWrap reedem-right">
+                        <p class="value diffDate pointV">1 May 17</p>
+                        <span class="value points diffDate"> 12000 points</span>
+                    </div>
+                </div>
+
+            </ion-item>
+        </div>
+        <div class="itemWrap">
+            <ion-item class="listItem receipt">
+                <div class="flexWrap mobileWrap">
+                    <div class="projectWrap reedem-left">
+                        <p class="value">Ceramic Mug</p>
+                        <p class="value">Sandwich Makers</p>
+                    </div>
+                    <div class="projectWrap reedem-right">
+                        <p class="value diffDate pointV">1 May 17</p>
+                        <!--<span class="value points diffDate"> 12000 points</span>-->
+                    </div>
+                </div>
+                <ion-grid class="gridWrap">
+                    <ion-row>
+                        <ion-col>
+                            <div class="projectWrap contMid">
+                                <span class="gridValue dColor"><i class="icon-approved"></i>{{ "APPROVED" | translate }}</span>
+                            </div>
+                        </ion-col>
+                        <ion-col>
+                            <div class="projectWrap rightAlign">
+                                <p class="title">Points</p>
+                                <span class="gridValue pointV">30000</span>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+            </ion-item>
+            <div class="filterTag resultbg">
+                <p class="resultRes">Reason:</p>
+                <p>Lorem Ipsum is simply dummy text Reason: Lorem Ipsum is simply dummy text </p>
+            </div>
+        </div>
+        <div class="itemWrap">
+            <ion-item class="listItem receipt">
+                <div class="flexWrap mobileWrap">
+                    <div class="projectWrap reedem-left">
+                        <p class="value">Ceramic Mug</p>
+                        <p class="value">Sandwich Makers</p>
+                    </div>
+                    <div class="projectWrap reedem-right">
+                        <p class="value diffDate pointV">1 May 17</p>
+                        <!--<span class="value points diffDate"> 12000 points</span>-->
+                    </div>
+                </div>
+                <ion-grid class="gridWrap">
+                    <ion-row>
+                        <ion-col>
+                            <div class="projectWrap contMid">
+                                <span class="gridValue pColor"><i class="icon-pending"></i>{{ "PENDING" | translate }}</span>
+                            </div>
+                        </ion-col>
+                        <ion-col>
+                            <div class="projectWrap rightAlign">
+                                <p class="title">Points</p>
+                                <span class="gridValue pointV">30000</span>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+            </ion-item>
+        </div>
+        <div class="itemWrap">
+            <ion-item class="listItem receipt">
+                <div class="flexWrap mobileWrap">
+                    <div class="projectWrap reedem-left">
+                        <p class="value">Ceramic Mug</p>
+                        <p class="value">Sandwich Makers</p>
+                    </div>
+                    <div class="projectWrap reedem-right">
+                        <p class="value diffDate pointV">1 May 17</p>
+                        <!--<span class="value points diffDate"> 12000 points</span>-->
+                    </div>
+                </div>
+                <ion-grid class="gridWrap">
+                    <ion-row>
+                        <ion-col>
+                            <div class="projectWrap contMid">
+                                <span class="gridValue fColor"><i class="icon-failed"></i>{{ "REJECTED" | translate }}</span>
+                            </div>
+                        </ion-col>
+                        <ion-col>
+                            <div class="projectWrap rightAlign">
+                                <p class="title">Points</p>
+                                <span class="gridValue pointV">30000</span>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+            </ion-item>
+        </div>
+
+
+    </ion-list>
+</ion-content>

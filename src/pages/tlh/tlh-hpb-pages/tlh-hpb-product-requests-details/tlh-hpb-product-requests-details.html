@@ -1,0 +1,120 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ "PRODUCT REQUESTS DETAILS" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy,message:busyMessage, minDuration: 600}">
+    <div class="distributorDetails">
+        <div class="userSpace">
+            <ion-list class="inputBox">
+                <div class="two_coloum">
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{ "PRODUCT STATUS" | translate }}</ion-card-header>
+                        <ion-card-content *ngIf="productRequestData['product_request_status']==0 || productRequestData['product_request_status']=='0'">{{ "IN PROGRESS" | translate }}</ion-card-content>
+                        <ion-card-content *ngIf="productRequestData['product_request_status']==1 || productRequestData['product_request_status']=='1'">{{ "DEAL" | translate }}</ion-card-content>
+                        <ion-card-content *ngIf="productRequestData['product_request_status']==-1 || productRequestData['product_request_status']=='-1'">{{ "FAILED" | translate }}</ion-card-content>
+                    </ion-card>
+
+                    <ion-card class="cardRow" *ngIf="productRequestData['product_request_status']==-1 || productRequestData['product_request_status']=='-1'">
+                        <ion-card-header>{{ "REASON" | translate }}</ion-card-header>
+                        <ion-card-content>{{productRequestData['product_request_status_remark']?productRequestData['product_request_status_remark']:"-"}}</ion-card-content>
+
+                    </ion-card>
+
+                </div>
+
+
+                <div class="filterTag resultbg reasonBg" *ngIf="(productRequestData['product_request_status']==-1 || productRequestData['product_request_status']=='-1' ) && productRequestData['product_request_status_remark']=='others'">
+                    <p class="resultRes">{{ "REASON COMMENT" | translate }}: </p>
+                    <p>{{productRequestData['product_request_status_remark_comment']?productRequestData['product_request_status_remark_comment']:"-"}}</p>
+                </div>
+
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "DATE" | translate }}</ion-card-header>
+                    <ion-card-content>{{productRequestData['request_date']?appCom.timeStampToDate(productRequestData['request_date']):"-"}}</ion-card-content>
+                </ion-card>
+
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "PROJECT" | translate }}</ion-card-header>
+                    <ion-card-content>{{productRequestData['project']?productRequestData['project']:"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "SPH NAME" | translate }}</ion-card-header>
+                    <ion-card-content>{{productRequestData['realm']?productRequestData['realm']:"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "DPB NAME" | translate }}</ion-card-header>
+                    <ion-card-content>{{productRequestData['hpb_name']?productRequestData['hpb_name']:"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "QUANTITY REQUIRED" | translate }}</ion-card-header>
+                    <ion-card-content>{{productRequestData['quantity_required']?productRequestData['quantity_required']:"-"}}</ion-card-content>
+                </ion-card>
+                <!--<ion-card class="cardRow">
+                        <ion-card-header>{{ "RETAILER / DISTRIBUTOR" | translate }}</ion-card-header>
+                        <ion-card-content>{{productRequestData['rds_name']?productRequestData['rds_name']:"-"}}</ion-card-content>
+                    </ion-card>-->
+
+                <h2 class="labelHeading">{{ "PERSON IN CHARGE" | translate }}</h2>
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "SAME AS ABOVE" | translate }}</ion-card-header>
+                    <ion-card-content>{{productRequestData['pic_same_as_hpb']?"Yes":"No"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow" *ngIf="!productRequestData['pic_same_as_hpb']">
+                    <ion-card-header>{{ "NAME" | translate }}</ion-card-header>
+                    <ion-card-content>{{productRequestData['pic_name']?productRequestData['pic_name']:"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow" *ngIf="!productRequestData['pic_same_as_hpb']">
+                    <ion-card-header>{{ "DESIGNATION" | translate }}</ion-card-header>
+                    <ion-card-content>{{productRequestData['pic_designation']?productRequestData['pic_designation']:"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow" *ngIf="!productRequestData['pic_same_as_hpb']">
+                    <ion-card-header>{{ "MOBILE NO." | translate }}</ion-card-header>
+                    <ion-card-content>{{productRequestData['pic_mobile']?productRequestData['pic_mobile']:"-"}}</ion-card-content>
+                </ion-card>
+
+            </ion-list>
+        </div>
+        <div class="userSpaceRepet" *ngIf="productRequestData['brand_captured']">
+            <h2 class="labelHeading">{{ "BRAND IN USE" | translate }}</h2>
+            <div *ngFor="let brandData of productRequestData['brand_captured'];let i=index">
+                <div class="deleBox"><span>{{ "BRAND" | translate }} {{i+1}} </span></div>
+                <ion-list class="inputBox">
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{ "RETAILER / DISTRIBUTOR" | translate }}</ion-card-header>
+                        <ion-card-content>{{brandData['req_rds_name']?brandData['req_rds_name']:"-"}}</ion-card-content>
+                    </ion-card>
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{ "BRAND NAME" | translate }}</ion-card-header>
+                        <ion-card-content>{{brandData['product_name']?brandData['product_name']:"-"}}</ion-card-content>
+                    </ion-card>
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{ "PRICE" | translate }}</ion-card-header>
+                        <ion-card-content>{{brandData['price']?brandData['price']:"-"}}</ion-card-content>
+                    </ion-card>
+                </ion-list>
+            </div>
+        </div>
+        <div class="userSpace">
+            <ion-list class="inputBox">
+
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "SUGGESTED PRICE" | translate }}</ion-card-header>
+                    <ion-card-content>{{productRequestData['new_price_request']?productRequestData['new_price_request']:"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "TERM OF PAYMENT" | translate }}</ion-card-header>
+                    <ion-card-content>{{productRequestData['term_of_payment']?productRequestData['term_of_payment']:"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "NOTE" | translate }}</ion-card-header>
+                    <ion-card-content>{{productRequestData['additional_comments']?productRequestData['additional_comments']:"-"}}</ion-card-content>
+                </ion-card>
+                <div class="digital_sign_img" *ngIf="digitalSignaturePath">
+                    <img [src]="digitalSignaturePath?.serverPath" *ngIf="digitalSignaturePath?.serverPath">
+                </div>
+
+            </ion-list>
+        </div>
+    </div>
+</ion-content>

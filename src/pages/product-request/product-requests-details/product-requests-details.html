@@ -1,0 +1,121 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button *ngIf="(dataDisplayObj['product_request_status']==0 || dataDisplayObj['product_request_status']=='0') && editBtnEnb" (click)="goToEditPage()">
+        <i class="icon-edit"></i>
+      </button>
+        </ion-buttons>
+        <ion-title>{{ "PRODUCT REQUEST DETAILS" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy,message:busyMessage, minDuration: 600}">
+    <div class="distributorDetails">
+        <div class="userSpace">
+            <ion-list class="inputBox">
+                <div class="two_coloum">
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{ "PRODUCT STATUS" | translate }}</ion-card-header>
+                        <ion-card-content *ngIf="dataDisplayObj['product_request_status']==0 || dataDisplayObj['product_request_status']=='0'">{{ "IN PROGRESS" | translate }}</ion-card-content>
+                        <ion-card-content *ngIf="dataDisplayObj['product_request_status']==1 || dataDisplayObj['product_request_status']=='1'">{{ "DEAL" | translate }}</ion-card-content>
+                        <ion-card-content *ngIf="dataDisplayObj['product_request_status']==-1 || dataDisplayObj['product_request_status']=='-1'">{{ "FAILED" | translate }}</ion-card-content>
+                    </ion-card>
+                    <ion-card class="cardRow" *ngIf="dataDisplayObj['product_request_status']==-1 || dataDisplayObj['product_request_status']=='-1'">
+                        <ion-card-header>{{ "REASON" | translate }}</ion-card-header>
+                        <ion-card-content>{{dataDisplayObj['product_request_status_remark']?dataDisplayObj['product_request_status_remark']:"-"}}</ion-card-content>
+                    </ion-card>
+                </div>
+                <div class="filterTag resultbg reasonBg" *ngIf="(dataDisplayObj['product_request_status']==-1 || dataDisplayObj['product_request_status']=='-1') && dataDisplayObj['product_request_status_remark']=='others'">
+                    <p class="resultRes">{{ "REASON COMMENT" | translate }}: </p>
+                    <p>{{dataDisplayObj['product_request_status_remark_comment']?dataDisplayObj['product_request_status_remark_comment']:"-"}}</p>
+                </div>
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "DATE" | translate }}</ion-card-header>
+                    <ion-card-content>{{dataDisplayObj['request_date']?appCom.timeStampToDate(dataDisplayObj['request_date']):"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "PROJECT" | translate }}</ion-card-header>
+                    <ion-card-content>{{dataDisplayObj['project_name']?dataDisplayObj['project_name']:"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "DPB NAME" | translate }}</ion-card-header>
+                    <ion-card-content>{{dataDisplayObj['hpb_name']?dataDisplayObj['hpb_name']:"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "QUANTITY REQUIRED" | translate }}</ion-card-header>
+                    <ion-card-content>{{dataDisplayObj['quantity_required']?dataDisplayObj['quantity_required']:"-"}}</ion-card-content>
+                </ion-card>
+                <!-- <ion-card class="cardRow" >
+                        <ion-card-header>{{ "RETAILER / DISTRIBUTOR" | translate }}</ion-card-header>
+                        <ion-card-content>{{dataDisplayObj['rds_name']?dataDisplayObj['rds_name']:"-"}}</ion-card-content>
+                    </ion-card> -->
+                <h2 class="labelHeading">{{ "PERSON IN CHARGE" | translate }}</h2>
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "SAME AS ABOVE" | translate }}</ion-card-header>
+                    <ion-card-content>{{dataDisplayObj['pic_same_as_hpb']?"Yes":"No"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow" *ngIf="!dataDisplayObj['pic_same_as_hpb']">
+                    <ion-card-header>{{ "NAME" | translate }}</ion-card-header>
+                    <ion-card-content>{{dataDisplayObj['pic_name']?dataDisplayObj['pic_name']:"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow" *ngIf="!dataDisplayObj['pic_same_as_hpb']">
+                    <ion-card-header>{{ "DESIGNATION" | translate }}</ion-card-header>
+                    <ion-card-content>{{dataDisplayObj['pic_designation']?dataDisplayObj['pic_designation']:"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow" *ngIf="!dataDisplayObj['pic_same_as_hpb']">
+                    <ion-card-header>{{ "MOBILE NO." | translate }}</ion-card-header>
+                    <ion-card-content>{{dataDisplayObj['pic_mobile']?dataDisplayObj['pic_mobile']:"-"}}</ion-card-content>
+                </ion-card>
+            </ion-list>
+        </div>
+        <div class="userSpaceRepet" *ngIf="dataDisplayObj['brandDatas']">
+            <h2 class="labelHeading">{{ "BRAND IN USE" | translate }}</h2>
+            <div *ngFor="let brandData of dataDisplayObj['brandDatas'];let i=index">
+                <div class="deleBox"><span>BRAND {{i+1}} </span></div>
+                <ion-list class="inputBox">
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{ "RETAILER / DISTRIBUTOR" | translate }}*</ion-card-header>
+                        <ion-card-content>{{brandData['req_rds_name']?brandData['req_rds_name']:"-"}}</ion-card-content>
+                    </ion-card>
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{ "BRAND NAME" | translate }}</ion-card-header>
+                        <ion-card-content>{{brandData['product_name']?brandData['product_name']:"-"}}</ion-card-content>
+                    </ion-card>
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{ "PRICE" | translate }}</ion-card-header>
+                        <ion-card-content>{{brandData['price']?brandData['price']:"-"}}</ion-card-content>
+                    </ion-card>
+                </ion-list>
+            </div>
+        </div>
+        <div class="userSpace">
+            <ion-list class="inputBox">
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "SUGGESTED PRICE" | translate }}</ion-card-header>
+                    <ion-card-content>{{dataDisplayObj['new_price_request']?dataDisplayObj['new_price_request']:"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "TERM OF PAYMENT" | translate }}</ion-card-header>
+                    <ion-card-content>{{dataDisplayObj['term_of_payment']?dataDisplayObj['term_of_payment']:"-"}}</ion-card-content>
+                </ion-card>
+                <ion-card class="cardRow">
+                    <ion-card-header>{{ "NOTE" | translate }}</ion-card-header>
+                    <ion-card-content>{{dataDisplayObj['additional_comments']?dataDisplayObj['additional_comments']:"-"}}</ion-card-content>
+                </ion-card>
+                <div class="digital_sign_img" *ngIf="dataDisplayObj['hpb_digital_sign']">
+                    <!--  <img [src]="dataDisplayObj['hpb_digital_sign'][0]?.path" *ngIf="dataDisplayObj['hpb_digital_sign'][0]?.path">  -->
+                    <img [src]=" appCom.getImageLocalPathFull( dataDisplayObj['hpb_digital_sign'][0] )" *ngIf="dataDisplayObj['hpb_digital_sign'][0]?.path">
+                </div>
+            </ion-list>
+        </div>
+    </div>
+</ion-content>
+<ion-footer class="ntpr">
+    <!-- <div class="btn">
+        <button ion-button type="button">
+            {{ "ADD PROJECT" | translate }}
+        </button>
+        <button ion-button type="button">
+           {{ "CHECK OUT" | translate }}
+        </button>
+    </div> -->
+</ion-footer>

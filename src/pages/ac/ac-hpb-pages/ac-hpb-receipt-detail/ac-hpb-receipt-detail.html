@@ -1,0 +1,132 @@
+<ion-header>
+    <ion-navbar>
+        <!--<ion-buttons end>
+            <button ion-button menuToggle>
+                  <i class="icon-edit"></i>
+            </button>
+        </ion-buttons>-->
+        <ion-title>{{ "RECEIPT DETAILS" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <div class="userForm">
+        <div class="form_list">
+            <ion-grid class="gridWrap">
+                <div class="row" [innerHTML]="appCom.renderTHAppStatusARP(productReceiptData?.app)">
+                </div>
+            </ion-grid>
+            <ion-card>
+                <ion-card-header>
+                    {{ "PROJECTS" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ productReceiptData?.project?productReceiptData['project']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    {{ "HBP NAME" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ productReceiptData?.hpb_name?productReceiptData['hpb_name']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "SRKU" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ productReceiptData?.is_srku?productReceiptData['is_srku']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "HBP STATUS" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ productReceiptData?.hpb_status?productReceiptData['hpb_status']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <ion-card>
+                <ion-card-header>
+                    {{ "PRODUCT" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ productReceiptData?.product?productReceiptData['product']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "QUANTITY" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ productReceiptData?.quantity?productReceiptData['quantity']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "UNIT" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ productReceiptData?.unit?productReceiptData['unit']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <ion-card>
+                <ion-card-header>
+                    {{ "RETAILER / DISTRIBUTOR" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ productReceiptData?.retailer?productReceiptData['retailer']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "PURCHASE DATE" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ productReceiptData?.purchase_date?timeStampToDate(productReceiptData['purchase_date']):"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "INVOICE QUANTITY" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ productReceiptData?.invoice_quantity?productReceiptData['invoice_quantity']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <div class="rdIn">
+                <div>
+                    <div class="photo_uploaded">
+                        <h2 class="labelHeading">{{ "INVOICE" | translate }}</h2>
+                        <div class="id_photos">
+                            <div class="id_items" *ngFor="let photo of productInvoicePhotoObj">
+                                <img [src]="photo.display" (click)="openFile(photo.path)" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ion-card>
+                <ion-card-header>
+                    {{ "NOTE" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ productReceiptData?.additional_comments?productReceiptData['additional_comments']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="singTitle">
+                <h2 class="labelHeading">{{ "DPB SIGNATURE" | translate }}</h2>
+                <div class="digital_sign_img">
+                    <img src="{{ digitalSignPath?digitalSignPath:'' }}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

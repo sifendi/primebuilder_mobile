@@ -1,0 +1,150 @@
+<!--
+  Generated template for the RedeemInvoicePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-title>{{ "REDEEM INVOICE" | translate }}</ion-title>
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button iconHome menuToggle>
+        <i class="icon-menu" name="menu"></i>
+      </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false">
+    <ion-card class="redeemPoint">
+        <ion-card-header>
+            <ul class="rdPoint">
+                <li>{{ "REDEEM" | translate }}</li>
+                <li>{{ "POINTS" | translate }}</li>
+            </ul>
+        </ion-card-header>
+        <ion-card-content *ngFor="let product of selectedProducts">
+            <div class="redeRpt">
+                <ul>
+                    <li class="redeLeft">
+                        <h3>{{product.name}}</h3>
+                        <p>{{product.description}}</p>
+                    </li>
+                    <li class="pointNum">
+                        <h4 *ngIf="product.points != null">{{product.points}}</h4>
+                        <h4 *ngIf="product.promo_points != null">{{product.promo_points}}</h4>
+                    </li>
+                </ul>
+            </div>
+        </ion-card-content>
+        <ion-card-content class="redeFixd">
+            <div class="redeRpt">
+                <ul>
+                    <li class="redeLeft">
+                        <h3>{{ "CLAIMED POINTS" | translate }}</h3>
+                    </li>
+                    <li class="pointNum">
+                        <h4>{{totalPointsUsed.toLocaleString()}}</h4>
+                    </li>
+                </ul>
+            </div>
+            <div class="balPoint">
+                <ul>
+                    <li class="redeLeft">
+                        <h3>{{ "BALANCE POINTS" | translate }}</h3>
+                    </li>
+                    <li class="pointNum">
+                        <h4>{{remainingPoints.toLocaleString(appCom.getCurrCCode())}}</h4>
+                    </li>
+                </ul>
+            </div>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
+<ion-footer class="ntpr">
+    <div class="redeemCheck" *ngIf="currUserRole == '$sph'">
+        <div class="diffCheck">
+            <ion-checkbox (click)="terms()" checked="false" [(ngModel)]="termsFlag.checked" color="dark"></ion-checkbox>
+            <p>
+                <a href="javascript:void(0)" (click)="openRedeemTC()" tapable role="button">{{ "I AGREE TO T&C" | translate }}</a>
+            </p>
+        </div>
+    </div>
+    <div class="btn ">
+        <button ion-button type="button " [disabled]="redeemDisabled" (click)="confirmRedeem(0) ">
+      {{ "REDEEM " | translate }}
+    </button>
+        <button ion-button type="button " (click)="cancel() ">
+      {{ "CANCEL " | translate }}
+    </button>
+    </div>
+</ion-footer>
+<!--
+<ion-content fullscreen="false ">
+    <ion-card class="redeemPoint ">
+        <ion-card-header>
+            <ul class="rdPoint ">
+                <li>Redeem</li>
+                <li>Points</li>
+            </ul>
+        </ion-card-header>
+
+        <ion-card-content>
+            <div class="redeRpt ">
+                <ul>
+                    <li class="redeLeft ">
+                        <h3>Ceramic Mug</h3>
+                        <p>It is made of Superior quality ceramic.</p>
+                    </li>
+                    <li class="pointNum ">
+                        <h4>12000</h4>
+                    </li>
+                </ul>
+            </div>
+            <div class="redeRpt ">
+                <ul>
+                    <li class="redeLeft ">
+                        <h3>Brunch Box</h3>
+                        <p>Brunch Box an insulated tiffin keeps food hot for long hours</p>
+                    </li>
+                    <li class="pointNum ">
+                        <h4>1000</h4>
+                    </li>
+                </ul>
+            </div>
+        </ion-card-content>
+        <ion-card-content class="redeFixd ">
+            <div class="redeRpt ">
+                <ul>
+                    <li class="redeLeft ">
+                        <h3>Claimed Points</h3>
+                    </li>
+                    <li class="pointNum ">
+                        <h4>13000</h4>
+                    </li>
+                </ul>
+            </div>
+            <div class="balPoint ">
+                <ul>
+                    <li class="redeLeft ">
+                        <h3>Balance Points</h3>
+                    </li>
+                    <li class="pointNum ">
+                        <h4>17000</h4>
+                    </li>
+                </ul>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>
+
+<ion-footer class="ntpr ">
+    <div class="btn ">
+        <button ion-button type="button ">
+           Cancel
+        </button>
+        <button ion-button type="button " (click)="addHPB() ">
+            Redeem
+        </button>
+    </div>
+</ion-footer> -->

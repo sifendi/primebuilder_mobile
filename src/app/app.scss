@@ -1,0 +1,851 @@
+// Fonts Style Start Here
+@font-face {
+    font-family: 'TheSans B8';
+    src: url('../assets/fonts/hinted-TheSans-B8ExtraBold.eot');
+    src: url('../assets/fonts/hinted-TheSans-B8ExtraBold.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/hinted-TheSans-B8ExtraBold.woff') format('woff'), url('../assets/fonts/hinted-TheSans-B8ExtraBold.ttf') format('truetype'), url('../assets/fonts/hinted-TheSans-B8ExtraBold.svg#TheSans-B8ExtraBold') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TheSans B4 SemiLight';
+    src: url('../assets/fonts/hinted-TheSans-B4SemiLight.eot');
+    src: url('../assets/fonts/hinted-TheSans-B4SemiLight.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/hinted-TheSans-B4SemiLight.woff') format('woff'), url('../assets/fonts/hinted-TheSans-B4SemiLight.ttf') format('truetype'), url('../assets/fonts/hinted-TheSans-B4SemiLight.svg#TheSans-B4SemiLight') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TheSans B6';
+    src: url('../assets/fonts/hinted-TheSans-B6SemiBold.eot');
+    src: url('../assets/fonts/hinted-TheSans-B6SemiBold.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/hinted-TheSans-B6SemiBold.woff') format('woff'), url('../assets/fonts/hinted-TheSans-B6SemiBold.ttf') format('truetype'), url('../assets/fonts/hinted-TheSans-B6SemiBold.svg#TheSans-B6SemiBold') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+.loading-content {
+    white-space: nowrap $important;
+}
+
+ion-spinner * {
+    width: 28px;
+    height: 28px;
+    stroke: #444;
+    fill: #222;
+}
+
+.page-center-loader {
+    text-align: center;
+    top: 150px;
+    position: relative;
+}
+
+// Flex Box Start Here
+@mixin display-flex {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+@mixin flex-wrap($value) {
+    -webkit-flex-wrap: $value;
+    flex-wrap: $value;
+}
+
+@mixin flex-grow($value) {
+    -webkit-flex-grow: $value;
+    flex-grow: $value;
+}
+
+@mixin flex-shrink($value) {
+    -webkit-flex-shrink: $value;
+    flex-shrink: $value;
+}
+
+@mixin flex-basis($value) {
+    -webkit-flex-basis: $value;
+    flex-basis: $value;
+}
+
+@mixin flex($value) {
+    -webkit-flex: $value;
+    flex: $value;
+}
+
+@mixin justify-content($value) {
+    -webkit-justify-content: $value;
+    justify-content: $value;
+}
+
+@mixin align-items($value) {
+    -webkit-align-items: $value;
+    align-items: $value;
+}
+
+@mixin flex-direction($value) {
+    -webkit-flex-direction: $value;
+    flex-direction: $value;
+}
+
+@mixin align-self($value) {
+    -webkit-align-self: $value;
+    align-self: $value;
+}
+
+// Flex Box Ends Here
+// Border Radius Start Here
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+// Border Radius Start Here
+//Media Query
+@mixin media-query($arg) {
+    @media screen and (min-width: $arg) {
+        @content;
+    }
+}
+
+@mixin media-query-max($argM) {
+    @media screen and (max-width: $argM) {
+        @content;
+    }
+}
+
+// Object Property Start Here
+@mixin fill($value) {
+    -o-object-fit: $value;
+    object-fit: $value;
+}
+
+@mixin contain($value) {
+    -o-object-fit: $value;
+    object-fit: $value;
+}
+
+@mixin cover($value) {
+    -o-object-fit: $value;
+    object-fit: $value;
+}
+
+@mixin none($value) {
+    -o-object-fit: $value;
+    object-fit: $value;
+}
+
+@mixin scale-down($value) {
+    -o-object-fit: $value;
+    object-fit: $value;
+}
+
+// Object Property Ends Here
+@mixin transformY {
+    top: $width90 - 40;
+    position: $absolute;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+@mixin transformXY {
+    top: $width90 - 40;
+    left: $width90 - 40;
+    position: $absolute;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+
+@mixin circleIcon {
+    @include border-radius(100px);
+    border: 1px $solid #999;
+    padding: $size - 1.5;
+}
+
+@mixin iconButton {
+    background: $transparent;
+    box-shadow: $none;
+    padding: 0;
+    border-radius: 100px;
+}
+
+@mixin grid ($cols,
+$mgn) {
+    float: $left;
+    margin-right: $mgn;
+    margin-bottom: $mgn;
+    width: ((100% - (($cols - 1) * $mgn)) / $cols);
+    &:nth-child(#{$cols}n) {
+        margin-right: 0;
+    }
+}
+
+// Spin Start Here
+@mixin spin($dur,
+$dir: cw) {
+    $from: 0deg !default;
+    $to: 360deg !default;
+    @if $dir==ccw {
+        $from: 360deg;
+        $to: 0deg;
+    }
+    @keyframes spin-#{$dir} {
+        from {
+            transform: rotate($from);
+        }
+        to {
+            transform: rotate($to);
+        }
+    }
+    animation: spin-#{$dir} #{$dur}s linear infinite;
+}
+
+// Label Style overwrite Start Here
+.userForm .item-md.item-input.input-has-focus .item-inner,
+.userForm .item-ios.item-input.input-has-focus .item-inner,
+.userForm .item-wp.item-input.input-has-focus .item-inner {
+    border-bottom: $zero $solid $dark-primary;
+    box-shadow: $inherit;
+}
+
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
+.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child,
+.item-ios.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
+.list-ios .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child {
+    border-bottom: $zero $solid $dark-primary;
+    box-shadow: $inherit;
+}
+
+.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner,
+.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+    border-bottom: $zero $solid $dark-primary;
+    box-shadow: $inherit;
+}
+
+.list-md .item-input.input-has-focus:last-child {
+    border-bottom: $zero $solid $dark-primary;
+    box-shadow: $inherit;
+}
+
+// Button Start Here
+.btn {
+    padding: $size - 1 $zero;
+    text-align: $center;
+    @include display-flex;
+    @include flex-direction(row);
+    @include flex-wrap(wrap);
+    .button {
+        @include flex-grow(1);
+        @include flex-basis (0);
+        background: $btn-color;
+        font-family: $fontBold;
+        margin: $zero $auto;
+        padding: $size - .5 $size - 1;
+        @include border-radius(5px);
+        font-size: $size - .4;
+        box-shadow: $none;
+        text-transform: $uppercase;
+        height: $auto;
+        @include media-query(560px) {
+            font-size: $size + .4;
+        }
+    }
+    &.detailButton {
+        padding-bottom: $size - 1;
+        margin-top: $size;
+        .button {
+            width: $width90 - 40;
+        }
+    }
+}
+
+.bar-buttons {
+    .bar-button {
+        .ion-md-trash {
+            @include media-query(560px) {
+                padding: $size - 1.7;
+                font-size: $size + 1.5;
+                line-height: .67;
+            }
+        }
+        .ion-md-create {
+            margin-right: $size - 1.5;
+            @include media-query(560px) {
+                padding: $size - 1.7;
+                font-size: $size + 1.5;
+                line-height: .67;
+            }
+        }
+    }
+}
+
+.anchButton {
+    height: $auto;
+    padding: $zero $size - 1.5;
+    margin: $zero;
+    @include border-radius(100%);
+    position: $absolute;
+    right: $size - 1;
+    .icon-close {
+        font-size: $size + 1;
+        color: $grey-dark;
+        @include media-query(560px) {
+            font-size: $size + 3;
+        }
+    }
+}
+
+// Button Ends Here
+// Radio Button Style
+.radio {
+    // @include media-query(560px) {
+    //     margin-right: $size + .5 !important;
+    // }
+    .radio-icon {
+        border-color: $dark-primary;
+        @include media-query(560px) {
+            width: $size + .3;
+            height: $size + .3;
+        }
+    }
+    .radio-checked {
+        border-color: $dark-primary;
+        .radio-inner {
+            background-color: $solid-danger !important;
+            @include media-query(560px) {
+                width: $size - .5;
+                height: $size - .5;
+            }
+        }
+    }
+}
+
+.radio-md .radio-inner,
+.radio-ios .radio-inner {
+    background-color: $transparent !important;
+}
+
+// Container Start Here Middle
+.contMid {
+    position: $absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    margin: $auto;
+}
+
+.contCenter {
+    position: $absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%-50%);
+    -webkit-transform: translate(-50%, -50%);
+    margin: $auto;
+}
+
+.scroll-content {
+    padding-bottom: $zero $important;
+}
+
+//  Card Details Start Here
+.tabTitle {
+    padding: $size $size $zero $size - 1;
+    @include flex(1);
+}
+
+.cardDetailData {
+    margin: $zero;
+    width: calc(100%);
+    border-radius: $zero;
+    box-shadow: $inherit;
+    border-bottom: 1px $solid $border-color;
+    padding: $size $zero;
+    position: $relative;
+    @include display-flex;
+    .tagWrap {
+        margin: $size $size - 1 $zero $zero;
+        @include media-query(560px) {
+            margin: $size $size + 1 $zero $zero;
+        }
+    }
+    .cardInner {
+        padding: $zero $size - 1;
+        .card-header {
+            padding: $size - .5 $zero $zero $zero;
+            h2 {
+                font-size: $size - .4;
+                color: $dark-color;
+                font-family: $fontBold;
+                white-space: normal;
+                line-height: 1.3;
+                @include media-query(560px) {
+                    font-size: $size;
+                }
+            }
+            @include media-query(560px) {
+                padding: $size $zero $zero $zero;
+            }
+        }
+        .card-content {
+            padding: $size - 1.5 $zero;
+            p {
+                font-family: $fontRg;
+                font-size: $size - .2;
+                color: $base-color;
+                line-height: 1.3;
+                @include media-query(400px) {
+                    font-size: $size;
+                }
+                @include media-query(560px) {
+                    font-size: $size + .5;
+                }
+            }
+        }
+        .gtTag {
+            h2 {
+                color: $dark-primary;
+            }
+            .upTime {
+                font-size: $size - .6;
+                @include media-query(560px) {
+                    font-size: $size - .2;
+                }
+            }
+        }
+    }
+    .numberTag {
+        border-radius: $zero;
+        background-color: $yellow;
+        font-size: $size;
+        position: $relative;
+        left: $zero;
+        padding: 3px 5px;
+        &::before {
+            position: $absolute;
+            top: $zero;
+            left: $width90 + 10;
+            border-top: 13px $solid $transparent;
+            border-left: 10px $solid $yellow;
+            border-bottom: 13px $solid $transparent;
+            content: "";
+        }
+        @include media-query(560px) {
+            font-size: $size + 1.5;
+            &::before {
+                border-top: 21px $solid $transparent;
+                border-left: 20px $solid $yellow;
+                border-bottom: 21px $solid $transparent;
+                content: "";
+            }
+        }
+    }
+    .detailsIcon {
+        color: $dark-primary;
+        @include display-flex;
+        i {
+            margin-right: $size - 1;
+        }
+        .iconCont {
+            font-family: $fontBold;
+            @include display-flex;
+            @include flex-direction(column);
+            @include flex-grow(1);
+            span {
+                font-size: $size - .7;
+                line-height: 1.2;
+            }
+            .detText {
+                font-size: $size - .3;
+            }
+            @include media-query(560px) {
+                span {
+                    font-size: $size - .3;
+                }
+                .detText {
+                    font-size: $size;
+                }
+            }
+        }
+        &.detailGreen {
+            color: $green-color;
+            i {
+                line-height: 1.2;
+            }
+        }
+        &.detailBlue {
+            color: $blue-color;
+        }
+    }
+    //Card Vertical
+    &.cardVertical {
+        padding: $size $zero;
+        display: $block;
+        .gtTag {
+            @include display-flex;
+            @include justify-content(space-between);
+            @include align-items(center);
+            .card-header {
+                padding: $zero;
+                width: $width90 - 50;
+                margin-right: $width90 - 85;
+            }
+            .card-content {
+                padding: $zero;
+                width: $width90 - 35;
+            }
+        }
+        // Convert To Order
+        &.conVertoOrder {
+            .gtTag {
+                display: $inherit;
+                .card-header {
+                    width: $width90 + 10;
+                    margin-right: $zero;
+                }
+                .card-content {
+                    width: $width90 + 10;
+                    .checkButton {
+                        padding: $size - 1 $zero;
+                    }
+                }
+                .typeNoBags {
+                    dl {
+                        @include display-flex;
+                        @include justify-content(space-between);
+                        @include align-items(center);
+                        dd:first-child {
+                            width: $width90 - 30;
+                            margin-right: $width90 - 85;
+                        }
+                        dd {
+                            padding: $zero;
+                            width: $width90 - 55;
+                        }
+                    }
+                }
+            }
+            &.converView {
+                .gtTag {
+                    @include display-flex;
+                    @include justify-content(space-between);
+                    @include align-items(center);
+                    .card-header {
+                        width: $width90 - 50;
+                        margin-right: $width90 - 85;
+                    }
+                    .card-content {
+                        width: $width90 - 35;
+                        .yNCont {
+                            margin: $size - 1 $zero;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// details Hide and Show
+.detailHide {
+    display: $none;
+    &.activeShow {
+        display: $block;
+    }
+}
+
+//Edit Button
+.editCont {
+    @include display-flex;
+    @include justify-content(space-between);
+    @include align-items(center);
+    .editButton {
+        background: $dark-color;
+        padding: $size - 1.2 $size - 1;
+        height: $auto;
+        box-shadow: $inherit;
+        margin: $size - 1 $size - 1 $zero $zero;
+        .icon-edit {
+            font-size: $size - .5;
+        }
+        @include media-query(560px) {
+            font-size: $size;
+            padding: $size - .8 $size - 1;
+            .icon-edit {
+                font-size: $size + .2;
+            }
+        }
+    }
+}
+
+.ion-page>ion-content.content {
+    top: $zero;
+}
+
+
+/*No Data found*/
+
+.no_data {
+    text-align: center;
+    padding: $size - .4;
+}
+
+
+/* auto complete search */
+
+.scroll-y {
+    max-height: 40vh;
+    min-height: 40vh;
+    z-index: 10;
+    width: $width90 + 10;
+    margin: $zero $auto;
+    background: $white-color;
+    border: 1px $solid $base-color;
+    border-top: $none;
+    border-radius: $zero $zero $size - 1.5 $size - 1.5;
+    .list {
+        margin: $zero;
+        .item {
+            margin: $zero;
+            border-bottom: 1px $solid $grey-light $important;
+            .label {
+                color: $base-color $important;
+                padding: $size - 1 $zero $size - 1 $size - .5;
+                font-weight: normal $important;
+                @include media-query(560px) {
+                    font-size: $size $important;
+                    padding: $size - 1 $size - .5;
+                }
+            }
+        }
+    }
+}
+
+
+/* auto search End */
+
+.bold {
+    font-family: $fontBold;
+}
+
+// Terms and Conditions
+.diffCheck {
+    @include display-flex;
+    margin-top: $size - .5;
+    @include media-query(560px) {
+        margin: $size - .5 $zero;
+        overflow: hidden;
+    }
+    p {
+        @include media-query(560px) {
+            font-size: $size;
+        }
+    }
+    ion-checkbox.checkbox-ios {
+        .checkbox-inner {
+            left: $size - 1.3;
+            width: $size - 1.5;
+            height: $size - .7;
+            top: 1px;
+        }
+    }
+    ion-checkbox {
+        margin: $zero $size - 1 $zero $zero;
+        .checkbox-icon {
+            width: $size;
+            height: $size;
+            border: 2px $solid $black-color;
+            @include media-query(560px) {
+                width: $size + 1;
+                height: $size + 1;
+            }
+            .checkbox-inner {
+                left: $size - 1.6;
+                width: $size - 1.3;
+                height: $size - .7;
+                @include media-query(560px) {
+                    left: $size - 1.2;
+                    width: $size - 1.2;
+                    height: $size;
+                }
+            }
+        }
+    }
+    p {
+        width: $width90 - 2;
+        text-align: $left;
+        float: $left;
+        margin-top: 2px;
+    }
+    a {
+        color: $white-color;
+        display: inline-block;
+        width: $width90 + 10;
+    }
+}
+
+.custPaddingBot50 {
+    padding-bottom: 50px !important;
+}
+
+.nofooter {
+    .scroll-content {
+        margin-bottom: $zero !important;
+    }
+}
+
+.back-button-text-ios {
+    display: none;
+}
+
+.extraMarg {
+    &.nofooter {
+        .scroll-content {
+            padding-bottom: 0px !important;
+        }
+    }
+    .scroll-content {
+        padding-bottom: 50px !important;
+    }
+}
+
+.noData {
+    text-align: $center;
+    margin: $zero !important;
+    font-size: $size;
+    color: $black-color;
+    @include media-query(560px) {
+        font-size: $size + .5;
+    }
+    @include media-query-max(320px) {
+        font-size: $size - .5;
+    }
+}
+
+
+/** toaster style **/
+
+ion-toast {
+    .toast-wrapper {
+        width: $width90 + 5 !important;
+        @include border-radius(5px);
+        .toast-message {
+            text-align: $center;
+        }
+    }
+    .toast-message {
+        text-align: $center;
+    }
+}
+
+.centre {
+    text-align: center !important;
+}
+
+.header-md::after,
+.tabs-md[tabsPlacement="top"]>.tabbar::after,
+.footer-md::before,
+.tabs-md[tabsPlacement="bottom"]>.tabbar::before {
+    background-image: url(../assets/images/bg.png);
+    height: 0;
+    border: none;
+    bottom: 0;
+    width: 0;
+    left: -5px;
+    position: inherit;
+}
+
+
+/***Transparent scrollbar ***/
+
+super-tab .scroll-content::-webkit-scrollbar,
+.project_slider::-webkit-scrollbar {
+    border: $none;
+    width: $zero;
+    background: $transparent;
+}
+
+super-tab .scroll-content::-webkit-scrollbar-track,
+.project_slider::-webkit-scrollbar {
+    border: $none;
+    width: $zero;
+    background: $transparent;
+}
+
+super-tab .scroll-content::-webkit-scrollbar-thumb,
+.project_slider::-webkit-scrollbar {
+    border: $none;
+    width: $zero;
+    background: $transparent;
+}
+
+.ng-busy-default-sign {
+    top: 50% $important;
+    left: 50% $important;
+    transform: translate(-50%, -50%) $important;
+    -webkit-transform: translate(-50%, -50%) $important;
+    position: fixed $important;
+    border: 1px solid #d8d8d8 $important;
+    border-top: 1px solid #d8d8d8 $important;
+    border-radius: 4px $important;
+    border-top-left-radius: 4px $important;
+    border-top-right-radius: 4px $important;
+    // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    //  background: #f8f8f8;
+    // color: #333;
+    white-space: nowrap;
+}
+
+.form_list {
+    @include media-query(400px) {
+        margin-bottom: $size + 2.5;
+    }
+    @include media-query(560px) {
+        margin-bottom: $size + 3;
+    }
+}
+
+.projectsMArg {
+    margin-bottom: $size - .5;
+}
+
+.disabledDiv {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.disabledDiv {
+    br {
+        display: none;
+    }
+}
+
+
+.backupDivider {
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+    margin-top: 10px !important;
+}
+
+
+/***Transparent scrollbar End***/
+
+// Container Middle Ends Hrere
+// Label Style overwrite Ends Here
+// Spin Ends Here
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.

@@ -1,0 +1,131 @@
+html, body {
+    font-family: $fontMd;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+[padding] h1:first-child, [padding] h2:first-child, [padding] h3:first-child, [padding] h4:first-child, [padding] h5:first-child, [padding] h6:first-child, h1+h2, h1+h3, h2+h3 {
+    margin-top: $zero;
+}
+// common style
+h1, h2, h3, h4, h5, h6 {
+    font-family: $fontMd;
+    margin-top: $size - 1;
+}
+h1 {
+    font-size: $size + .6;
+    margin-bottom: 0.2em;
+    text-transform: $uppercase;
+}
+h2 {
+    font-size: $size - .6;
+    margin-bottom: 0.5em;
+    color: $white-color;
+
+    @include media-query(400px) {
+        font-size: $size - .4;
+    }
+    @include media-query(560px) {
+        font-size: $size + .2;
+    }
+}
+h3 {
+    font-family: $fontMd;
+    font-size: $size - .3;
+    color: $dark-color;
+
+    @include media-query(400px) {
+        font-size: $size - .2;
+    }
+    @include media-query(560px) {
+        font-size: $size + .3;
+    }
+}
+h4 {
+    font-size: $size - .4;
+    color: $grey-dark;
+
+    @include media-query(560px) {
+        font-size: $size + .1;
+    }
+}
+h5 {
+    font-size: $size - .3;
+}
+h6 {
+    font-size: $size - .4;
+    margin-bottom: 0.2em;
+    text-transform: $uppercase;
+}
+p {
+    font-size: $size - .7;
+
+    @include media-query(400px) {
+        font-size: $size - .4;
+    }
+    @include media-query(560px) {
+        font-size: $size + .5;
+    }
+    margin: $zero;
+    padding: $zero;
+}
+dd {
+    margin: $zero;
+}
+figure {
+    margin: 0;
+}
+ul, li {
+    list-style: $none;
+    margin: $zero;
+    padding: $zero;
+}
+::-webkit-input-placeholder {
+    font-family: $fontMd;
+    color: $place-holder;
+    font-size: $size - .7;
+    text-align: $right;
+    font-style: italic;
+    opacity: .6;
+    letter-spacing: $zero;
+    padding-right: 5px;
+    line-height: normal;
+
+    @include media-query(560px) {
+        font-size: $size + .2;
+    }
+}
+::-moz-placeholder {
+    font-family: $fontMd;
+    color: $place-holder;
+    font-size: $size - .7;
+    text-align: $right;
+    font-style: italic;
+    line-height: normal;
+    opacity: .6;
+    letter-spacing: $zero;
+    padding-right: 5px;
+    line-height: normal;
+
+    @include media-query(560px) {
+        font-size: $size + .2;
+    }
+}
+:-moz-placeholder {
+    font-family: $fontMd;
+    color: $place-holder;
+    font-size: $size - .7;
+    text-align: $right;
+    font-style: italic;
+    opacity: .6;
+    letter-spacing: $zero;
+    padding-right: 5px;
+    line-height: normal;
+
+    @include media-query(560px) {
+        font-size: $size + .2;
+    }
+}
+.content {
+    top: -1px;
+}

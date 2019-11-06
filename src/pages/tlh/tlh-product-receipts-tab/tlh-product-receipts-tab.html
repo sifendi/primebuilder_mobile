@@ -1,0 +1,19 @@
+
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ "PRODUCT RECEIPTS" | translate }}</ion-title>
+            <ion-buttons end>
+            <button ion-button (click)="openProductReceiptFilter()" >
+                <i class="icon-filter"></i>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content fullscreen="false">
+    <super-tabs (tabSelect)="onTabSelect($event)" >
+        <super-tab [root]="page1" title="{{ 'PENDING' | translate }}"></super-tab>
+        <super-tab [root]="page2" title="{{ 'ALL' | translate }}"></super-tab>
+    </super-tabs>
+</ion-content>

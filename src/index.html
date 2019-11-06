@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DPB App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4e8ef7">
+
+
+
+    <!-- cordova.js required for cordova apps -->
+    <script src="cordova.js"></script>
+
+    <!-- un-comment this code to enable service worker
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('service worker installed'))
+        .catch(err => console.error('Error', err));
+    }
+  </script>-->
+
+
+    <link type="text/css" href="assets/css/icomoon.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/busy.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/mobiscroll/css/mobiscroll.custom.min.css">
+    <link href="build/main.css" rel="stylesheet">
+
+    <script>
+        Array.prototype.uniqueObjects = function() {
+            function compare(a, b) {
+                for (var prop in a) {
+                    if (a[prop] != b[prop]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return this.filter(function(item, index, list) {
+                for (var i = 0; i < index; i++) {
+                    if (compare(item, list[i])) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+        }
+        var consoleHolder = console.log;
+        var debugDataCustom = null;
+        var sessionUserGlobalData = null;
+        var globalInternetCheckConnection = false;
+        var globalSyncInProgressFlag = false;
+        var selectedDistrict = false;
+        var pleaseWaitTxtTransl = "Please Wait...";
+        var mobisPlaceHolderWaitTxtTransl = "Please select";
+        var mobisSetBtnTxtTransl = "set";
+        var mobisClearBtnTxtTransl = "clear";
+        var mobisCancelBtnTxtTransl = "cancel";
+        var mobisBtnArr = [{
+            handler: "set",
+            text: 'SET'
+        }, {
+            handler: "clear",
+            text: 'CLEAR'
+        }, {
+            handler: "cancel",
+            text: 'CANCEL'
+        }];
+        var filterEmptyText = "No results";
+        var filterPlaceholderText = "Type to filter";
+        var allAppPendRejObj = {
+            a: "Approved",
+            p: "pending",
+            r: "Rejected"
+        };
+        var appDeviceInfo = {};
+        var hpbTabIndexG = 0;
+        var selectedACUid = true;
+
+        // this test comments
+
+        var appDebugModeD = false;
+
+        // this test comments
+
+        function DydDebugConsole(bool) {
+            if (!bool) {
+                console.log = function() {};
+            } else {
+                console.log = consoleHolder;
+            }
+        }
+        DydDebugConsole(appDebugModeD);
+    </script>
+</head>
+
+<body>
+
+    <!-- Ionic's root component and where the app will load -->
+    <ion-app></ion-app>
+
+    <!-- The polyfills js is generated during the build process -->
+    <script src="build/polyfills.js"></script>
+    
+    <script src="build/vendor.js"></script>
+    <!-- The bundle js is generated during the build process -->
+    <script src="build/main.js"></script>
+
+    <script>
+        var vers = Math.random();
+        // var appTypeMainTran = "training"; // training app
+        var appTypeMainTran = "main"; // normal main app
+
+        // Old URL
+        //var remotPath = "http://hpbapi.experiencecommerce.com:9000/"; //Stage
+        //var remotPath = "https://primebuilder.id/"; //LIVE
+        // var remotPath = "http://hpb-id.hssanet.com/"; //QA
+        //var remotPath = "http://54.255.153.14/"; //QA
+        // var remotPath = "clear"; //QA
+        // var hotCodePushPath = remotPath + "apps_remote/updates";
+
+        // Cxrus Development URL
+        // var remotPath = "http://172.20.103.129:9000/"
+
+        // New Holcim Production URL
+        var remotPath = "https://pb.solusibangunindonesia.com/"
+
+        var elementCSS = document.createElement("link");
+        elementCSS.setAttribute("rel", "stylesheet");
+        elementCSS.setAttribute("type", "text/css");
+        elementCSS.setAttribute("href", remotPath + "apps_remote/hpb_triggerAction_css.css?vers=" + vers);
+        document.getElementsByTagName("head")[0].appendChild(elementCSS);
+        document.write("<script src='" + remotPath + "apps_remote/hpb_triggerAction_js.js?vers=" + vers + "' defer><\/script>");
+    </script>
+
+</body>
+
+</html>

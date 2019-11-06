@@ -1,0 +1,284 @@
+<!--
+Generated template for the HpbDetailsPage page.
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<!--<ion-header>
+    <ion-navbar>-->
+<!--<ion-buttons class="backBtn">
+            <button ion-button>
+                <i class="icon-back"></i>
+            </button>
+        </ion-buttons>-->
+<!--<ion-buttons end>
+            <button ion-button (click)="editCurrentHpb()">
+                <i class="icon-edit"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>HPB Details</ion-title>
+    </ion-navbar>
+</ion-header>-->
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <div class="user_profile">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-5>
+                    <div class="user_photo" *ngIf="hpbData['hpb_profile_pic'] !=undefined && hpbData['hpb_profile_pic'] !='' " >
+                        <img [src]="hpbData['hpb_profile_pic']" (click)="openFile(hpbData['hpb_profile_pic'])" alt="">
+                    </div>
+                </ion-col>
+                <ion-col col-7>
+                    <div class="user_details">
+                        <!-- <h6>{{ "POINTS" | translate }}</h6>
+                        <h4>
+                            0
+                        </h4> -->
+                        <button ion-button type="button" *ngIf="hpbRedeemBtnShow" (click)="redeem(hpbServerId)">{{ "REDEEM POINTS" | translate }}</button>
+                    </div>
+                    <div class="user_details">
+                        <ion-row>
+                            <ion-col col-6 *ngIf="hpbData['hpb_status'] !=undefined && hpbData['hpb_status'] !='' ">
+                                <h6>{{ "DPB STATUS" | translate }}</h6>
+                                <h5>{{ hpbData['hpb_status'] }}</h5>
+                            </ion-col>
+                            <ion-col col-6 *ngIf="hpbData['hpb_type'] !=undefined && hpbData['hpb_type'] !='' ">
+                                <h6>{{ "DPB TYPE" | translate }}</h6>
+                                <h5>{{ hpbData['hpb_type'] }}</h5>
+                            </ion-col>
+                        </ion-row>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+    <div class="userForm">
+        <div class="form_list">
+            <h2 class="labelHeading">{{ "PERSONAL DETAILS" | translate }}</h2>
+            <ion-card>
+                <ion-card-header>
+                    {{ "NAME" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ (hpbData['hpb_name'])?hpbData['hpb_name']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    {{ "ID CARD NO." | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ hpbData['id_card_number']?hpbData['id_card_number']:"-" }}
+                    <div class="notificationIndicator">
+                        <span class="pColor" *ngIf="hpbData['idapprovalstatus']==0"><i class="icon-pending"></i>Pending</span>
+                        <span class="fColor" *ngIf="hpbData['idapprovalstatus']==-1"><i class="icon-failed"></i>Rejected</span>
+                        <span class="dColor" *ngIf="hpbData['idapprovalstatus']==1"><i class="icon-deal"></i>Approved</span>
+                    </div>
+                </ion-card-content>
+                <div class="filterTag resultbg" *ngIf="hpbData['idapprovalstatus']==-1">
+                    <p class="resultRes">{{ "REASON" | translate }}:</p>
+                    <p>{{hpbData['idapprovalreason']?hpbData['idapprovalreason']:"-"}}</p>
+                </div>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    {{ "ID CARD ADDRESS" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ hpbData['id_card_address']?hpbData['id_card_address']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "PROVINCE" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData['id_card_province']?hpbData['id_card_province']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "CITY" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData['id_card_city']?hpbData['id_card_city']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "SUB DISTRICT" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData['id_card_sub_district']?hpbData['id_card_sub_district']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "POSTAL CODE" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData['id_card_pincode']?hpbData['id_card_pincode']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <div class="rdIn">
+                <div class="photo_uploaded">
+                    <h2 class="labelHeading">{{ "ID CARD PHOTO" | translate }}</h2>
+                    <div class="id_photos">
+                        <div class="id_items" *ngFor="let photo of hpbIdPhotoObj">
+                            <img [src]="photo" (click)="openFile(photo)" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ion-card>
+                <ion-card-header>
+                    {{ "DOMICILE ADDRESS" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ hpbData['domicile_address']?hpbData['domicile_address']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "PROVINCE" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData['domicile_province']?hpbData['domicile_province']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "CITY" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData['domicile_city']?hpbData['domicile_city']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "SUB DISTRICT" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData['domicile_sub_district']?hpbData['domicile_sub_district']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "POSTAL CODE" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData['domicile_pincode']?hpbData['domicile_pincode']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <!-- <div class="two_coloum"> -->
+                <ion-card>
+                    <ion-card-header>
+                        {{ "PRIMARY MOBILE NO." | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData['primary_mobile_no']?hpbData['primary_mobile_no']:"-" }}
+                        <div class="notificationIndicator">
+                            <span class="pColor" *ngIf="hpbData['mobapprovalstatus']==0"><i class="icon-pending"></i>Pending</span>
+                            <span class="fColor" *ngIf="hpbData['mobapprovalstatus']==-1"><i class="icon-failed"></i>Rejected</span>
+                            <span class="dColor" *ngIf="hpbData['mobapprovalstatus']==1"><i class="icon-deal"></i>Approved</span>
+                        </div>
+                    </ion-card-content>
+                    <div class="filterTag resultbg" *ngIf="hpbData['mobapprovalstatus']==-1">
+                        <p class="resultRes">{{ "REASON" | translate }}:</p>
+                        <p>{{hpbData['mobapprovalreason']?hpbData['mobapprovalreason']:"-"}}</p>
+                    </div>
+                </ion-card>
+            <!-- </div> -->
+            <ion-card *ngIf=" hpbData['secondary_mobile_no'] != undefined && hpbData['secondary_mobile_no'] != '' ">
+                <ion-card-header>
+                    {{ "SECONDARY MOBILE NO." | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ hpbData['secondary_mobile_no']?hpbData['secondary_mobile_no']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    {{ "EMAIL" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ hpbData['hpb_email']?hpbData['hpb_email']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "PLACE OF BIRTH" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData['place_of_birth']?hpbData['place_of_birth']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "DATE OF BIRTH" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ dateOfBirth?dateOfBirth:"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <div *ngIf="hpbData['hpb_type'] == 'contractor'">
+                <h2 class="labelHeading">{{ "COMPANY DETAILS" | translate }}</h2>
+                <ion-card *ngIf=" hpbData['company_name'] !=undefined && hpbData['company_name'] !='' ">
+                    <ion-card-header>
+                        {{ "COMPANY NAME" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData['company_name']?hpbData['company_name']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card *ngIf=" hpbData['company_representative_name'] !=undefined && hpbData['company_representative_name'] !='' ">
+                    <ion-card-header>
+                        {{ "COMPANY REPRESENTATIVE" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData['company_representative_name']?hpbData['company_representative_name']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card *ngIf=" hpbData['company_designation'] !=undefined && hpbData['company_designation'] !='' ">
+                    <ion-card-header>
+                        {{ "DESIGNATION" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData['company_designation']?hpbData['company_designation']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+
+            </div>
+            <ion-card>
+                <ion-card-header>
+                    {{ "NOTE" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ hpbData['additional_comments']?hpbData['additional_comments']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="digital_sign_img">
+                <img [src]="hpbData['hpb_digital_sign']" alt="">
+            </div>
+        </div>
+    </div>
+</ion-content>
+<ion-footer class="ntpr">
+    <div class="btn">
+        <!--<button ion-button type="button" (click)="addProject()">
+            Add project
+        </button>
+        <button ion-button type="button" (click)="addHPB()">
+            ADD PRIME BUILDER
+        </button>-->
+    </div>
+</ion-footer>

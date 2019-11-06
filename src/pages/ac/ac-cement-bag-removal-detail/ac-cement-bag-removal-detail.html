@@ -1,0 +1,151 @@
+<ion-header>
+    <ion-navbar>
+        <!--<ion-buttons end>
+            <button ion-button menuToggle>
+                <i class="icon-menu"></i>
+            </button>
+        </ion-buttons>-->
+        <ion-title>{{ "CEMENT BAG REMOVAL DETAILS" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <div class="userForm">
+        <div class="form_list">
+            <!--<h2 class="labelHeading">{{ "CEMENT BAG REMOVAL DETAILS" | translate }}</h2>-->
+            <ion-card>
+                <ion-card-header>
+                    {{ "DISTRICT" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ cBagRemovData['district_name']?cBagRemovData['district_name']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "FROM DATE" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ cBagRemovData['from_date']?timeStampToDate(cBagRemovData['from_date']):"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "TO DATE" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ cBagRemovData['to_date']?timeStampToDate(cBagRemovData['to_date']):"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <ion-card>
+                <ion-card-header>
+                    {{ "QUANTITY" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ cBagRemovData['quantity']?(cBagRemovData['quantity']):"0" }}
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    {{ "LOCATION NAME" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ cBagRemovData['location_name']?(cBagRemovData['location_name']):"-" }}
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    {{ "ADDRESS" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ cBagRemovData['address']?(cBagRemovData['address']):"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "POSTAL CODE" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ cBagRemovData['postal_code']?(cBagRemovData['postal_code']):"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "PROVINCE" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ cBagRemovData['province']?(cBagRemovData['province']):"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "CITY / MUNICIPALITY" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ cBagRemovData['city']?(cBagRemovData['city']):"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "SUB DISTRICT" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ cBagRemovData['sub_district']?(cBagRemovData['sub_district']):"-" }}
+                    </ion-card-content>
+                </ion-card>
+
+            </div>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "WITNESS NAME" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ cBagRemovData['witness_name']?(cBagRemovData['witness_name']):"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "WITNESS DESIGNATION" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ cBagRemovData['witness_designation']?(cBagRemovData['witness_designation']):"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+
+            <div class="rdIn">
+                <div>
+                    <div class="photo_uploaded">
+                        <h2 class="labelHeading">{{ "PROOF" | translate }}</h2>
+                        <div class="id_photos">
+                            <div class="id_items" *ngFor="let photo of proofPhotoObj">
+                                <img [src]="photo.display" (click)="openFile(photo.path)" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <ion-card>
+                <ion-card-header>
+                    {{ "NOTE" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ cBagRemovData['additional_comments']?cBagRemovData['additional_comments']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="singTitle">
+                <h2 class="labelHeading">{{ "WITNESS SIGNATURE" | translate }}</h2>
+                <div class="digital_sign_img">
+                    <img src="{{ digitalSignPath?digitalSignPath:'' }}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

@@ -1,0 +1,315 @@
+.create_profile {
+    padding: $size;
+    position: $relative;
+    min-height: $size * 8 + 1;
+    background: url('../assets/img/details_bg.jpg') no-repeat;
+    background-attachment: fixed;
+    margin-bottom: $size;
+    @include media-query(400px) {
+        padding: $size $size * 3 $zero;
+        min-height: $size * 9;
+    }
+    @include media-query(560px) {
+        min-height: 25rem;
+    }
+    .profile_container {
+        @include media-query(400px) {
+            margin-top: $size + 1;
+        }
+        @include media-query(560px) {
+            margin-top: $size;
+        }
+    }
+    @include media-query(560px) {
+        padding: $size * 3 $size * 3 $size;
+    }
+    .profile_img {
+        height: 13rem;
+        width: 13rem;
+        @include border-radius(10px);
+        margin: $zero $auto;
+        position: $absolute;
+        left: $zero;
+        right: $zero;
+        bottom: - $size;
+        z-index: 2;
+        overflow: hidden;
+        background: $white-color;
+        border: 1px $solid $profile-redeem;
+        @include media-query(400px) {
+            height: 150px;
+            width: 150px;
+        }
+        @include media-query(560px) {
+            height: 180px;
+            width: 180px;
+        }
+        img {
+            width: 100%;
+            height: 13rem;
+            @include media-query(400px) {
+                height: 150px;
+            }
+            @include media-query(560px) {
+                height: 180px;
+            }
+        }
+        .btn {
+            padding: $zero;
+            margin: $zero;
+            .button {
+                background: $none;
+                border: $zero;
+                box-shadow: $none;
+                padding: $zero;
+                width: $auto;
+            }
+            .icon-Camera {
+                position: $absolute;
+                bottom: $zero;
+                left: $zero;
+                right: $zero;
+                color: $white-color;
+                width: $size * 2;
+                margin: $zero $auto;
+                background: $btn-color;
+                @include border-radius(0px);
+                height: $size;
+                padding-top: $size - 1.9;
+                font-size: $size;
+                @include media-query(560px) {
+                    width: $size * 3;
+                    height: $size + 2;
+                    font-size: $size * 2;
+                }
+            }
+        }
+    }
+}
+
+.user_profile {
+    background: url('../assets/img/details_bg.jpg') no-repeat;
+    padding: $size $size - 1.5 0;
+    background-attachment: fixed;
+    .profileTitle {
+        margin-top: $zero;
+        margin-left: $size;
+    }
+    .user_details {
+        h6 {
+            color: $white-color;
+            font-size: $size - .4;
+            text-transform: capitalize;
+            @include media-query-max(320px) {
+                font-size: $size - .7;
+            }
+            @include media-query(560px) {
+                font-size: $size + .4;
+            }
+        }
+        h5 {
+            color: $white-color;
+            font-size: $size - .2;
+            text-transform: capitalize;
+            @include media-query-max(320px) {
+                font-size: $size - .5;
+            }
+            @include media-query(560px) {
+                font-size: $size + 1;
+            }
+        }
+        h4 {
+            color: $white-color;
+            font-size: $size + 1;
+            margin-top: $zero;
+            @include media-query-max(320px) {
+                font-size: $size + .5;
+            }
+            @include media-query(560px) {
+                font-size: $size + .8;
+            }
+        }
+        .button {
+            background: $white-color;
+            border: $zero;
+            box-shadow: $none;
+            color: $blue-color;
+            @include border-radius(5px);
+            font-family: $fontBold;
+            font-size: $size - .5;
+            height: $size + 1;
+            margin-top: - $size + 1.5;
+            display: inline-block;
+            @include media-query(560px) {
+                font-size: $size;
+                height: $size + 3.5;
+            }
+        }
+    }
+}
+
+.user_photo {
+    height: 13rem;
+    width: 13rem;
+    @include border-radius(50%);
+    overflow: hidden;
+    @include media-query(320px) {
+        height: 10rem;
+        width: 10rem;
+        img {
+            width: 10rem;
+            height: 10rem;
+            @include cover(cover);
+        }
+    }
+    @include media-query(560px) {
+        height: 20rem;
+        width: 20rem;
+        img {
+            width: 20rem;
+            height: 20rem;
+            @include cover(cover);
+        }
+    }
+}
+
+.reddemProfile {
+    .userBg {
+        position: $relative;
+        padding-top: $size;
+        &:before {
+            content: "";
+            position: $absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+            height: 50%;
+            background: $dark-primary;
+        }
+    }
+    .user_profile {
+        background: url('../assets/img/redeem_profile.jpg') no-repeat;
+        padding: $size $size - 1.5 0;
+        background-size: cover;
+        background-attachment: fixed;
+        padding-bottom: $size;
+        margin: 0 $size - .5;
+        box-shadow: 0 15px 15px -6px rgba($shadow-colorOne, .5);
+        @include border-radius (5px);
+        position: $relative;
+        z-index: 2;
+        .button {
+            color: $white-color;
+            background: $dark-primary;
+        }
+    }
+    .todaysVisits {
+        margin: $zero;
+        width: 100%;
+        margin-top: $size;
+        padding: $size - 1 $size $size;
+        .textBtn {
+            margin-bottom: $zero;
+        }
+    }
+    .listWrap {
+        .listItem {
+            margin-bottom: $size - 1;
+        }
+    }
+    .user_photo {
+        height: 10rem;
+        width: 10rem;
+        @include border-radius(5%);
+        overflow: hidden;
+        box-shadow: 0px 8px 23px 0px rgba(189, 114, 48, 1);
+        img {
+            width: 100%;
+            height: 100%;
+        }
+        @include media-query(320px) {
+            height: 9rem;
+            width: 9rem;
+        }
+        @include media-query(560px) {
+            height: 14rem;
+            width: 14rem;
+        }
+    }
+}
+
+.toll_profile {
+    background: url('../assets/img/toll_profile.jpg') no-repeat;
+    padding: $size * 2 $size - 1.5 $size + 5;
+    background-attachment: fixed;
+    background-size: cover;
+    @include media-query(560px) {
+        padding: $size * 2 $size - 1.5 $size * 3 + 1;
+    }
+    @extend .user_profile
+}
+
+.projectTitle {
+    h3 {
+        color: $white-color;
+        font-size: $size - .3;
+        padding-left: $size - 1.5;
+        @include media-query(560px) {
+            font-size: $size + .2;
+        }
+    }
+}
+
+.project_slider {
+    // white-space: nowrap;
+    // overflow-x: scroll;
+    margin-top: -6.5rem;
+    // padding-left: $size - 1.5;
+    .project_list {
+        //  position: relative;
+        //  margin: 0 auto;
+        //  text-align: center;
+        @include display-flex;
+        @include justify-content(center);
+        @include flex-wrap(wrap);
+        .project_item {
+            //  flex-grow: 1;
+            // display: inline-block;
+            // text-align: center;
+            // line-height: 48px;
+            padding: 2px;
+            // margin: 0;
+            // text-transform: uppercase;
+            width: 20%;
+            // margin-right: $size - 1.5;
+            overflow: hidden;
+            height: 100px;
+            @include media-query(560px) {
+                height: 150px;
+            }
+            img {
+                border: 2px solid $photo-border;
+                width: 100%;
+                display: block;
+                height: 100%;
+                @include cover(cover);
+            }
+        }
+        &:-webkit-scrollbar {
+            display: none;
+        }
+        &:after {
+            content: "";
+        }
+    }
+}
+
+.customerPhoto {
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+    margin-bottom: $size * 2;
+    img {
+        width: 100%;
+    }
+}

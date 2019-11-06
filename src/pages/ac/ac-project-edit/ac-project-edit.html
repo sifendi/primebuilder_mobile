@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+             <i class="icon-close"></i>
+           </button>
+        </ion-buttons>
+        <ion-title>{{"PROJECT EDIT" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <form class="userForm">
+      <ion-list class="inputBox">
+         <div class="rdIn">
+                <div class="date_picker">
+                    <div class="date_list">
+                        <ion-item class="inputLable">
+                            <ion-label stacked>{{"COMPLETION DATE" | translate }}*</ion-label>
+                            <ion-input [(ngModel)]="projData.project_completion_date" #ProjectCompletionDateMob="mobiscroll" #ProjectCompletionDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsG" required></ion-input>
+
+                        </ion-item>
+                        <i tappable role="button" class="icon-arrow"></i>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="(submitted)" class="alert alert-danger error">
+                <p [hidden]="projData.project_completion_date">
+                    {{"PROJECT COMPLETION DATE IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{"CEMENT ESTIMATION" | translate }}*</ion-label>
+                    <ion-input type="tel" placeholder="{{ 'E.G.' | translate }} 1000" class="input_item" pattern="^[1-9][0-9]*$" [(ngModel)]="projData.project_quantity_estimation" #ProjectQuantityEstimation="ngModel" [ngModelOptions]="{standalone: true}" maxlength="10" required></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="ProjectQuantityEstimation.errors && (ProjectQuantityEstimation.dirty || ProjectQuantityEstimation.touched || submitted)" class="alert alert-danger error">
+                <p [hidden]="!ProjectQuantityEstimation.errors.required">
+                    {{"CEMENT ESTIMATION IS REQUIRED" | translate }}
+                </p>
+                <p *ngIf="projData.project_quantity_estimation != undefined && projData.project_quantity_estimation != ''" [hidden]="!ProjectQuantityEstimation.errors.pattern && (projData.project_quantity_estimation.trim() == null || parseInt(projData.project_quantity_estimation) < 1 ) ">
+
+                    {{"PLEASE ENTER A VALID ESTIMATION" | translate }}
+                </p>
+            </div>
+         </ion-list>
+        <div class="btn">
+            <button ion-button type="button" (click)="submit()">{{"SUBMIT" | translate }}</button>
+        </div>
+    </form>
+</ion-content>
+
+<ion-footer class="ntpr">
+
+</ion-footer>

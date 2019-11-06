@@ -1,0 +1,97 @@
+
+<ion-header>
+    <ion-navbar>
+
+        <ion-buttons end>
+            <button ion-button  (click)="dismiss()" >
+                  <i class="icon-close"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "FILTER BY" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false">
+    <form class="userForm">
+        <ion-list class="inputBox">
+            
+          <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "PRODUCT" | translate }}*</ion-label>
+                    <!--<ion-select (ionChange)="onSelectProduct($event)" [(ngModel)]="prodReceiptFilterArr.product" #Product="ngModel" required [ngModelOptions]="{standalone: true}">
+                        <ion-option value="{{ product['product_id'] }}" *ngFor="let product of productsArr">{{ product['product_name'] }}</ion-option>
+                    </ion-select>-->
+                     <ion-input  [(ngModel)]="prodReceiptFilterArr.product"  #Product="ngModel" #ProductMob="mobiscroll"  mbsc-select [mbsc-options]="mobiScollPRODSettings" [mbsc-data]="productsArr"  [ngModelOptions]="{standalone: true}" required></ion-input>
+                </ion-item>
+            </div>
+
+
+            <div class="rdIn">
+                <div class="date_picker">
+                   <div class="date_list" >
+                        <ion-item class="inputLable">
+                            <ion-label floating>{{ "FROM DATE" | translate }}</ion-label>
+                            <!--<ion-datetime displayFormat="DD MMM YYYY"></ion-datetime>-->
+                            <ion-input [(ngModel)]="prodReceiptFilterArr.fromDate" #fromDateMob="mobiscroll" #fromDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsFrom" required></ion-input>	
+                        </ion-item>
+                        <i tappable role="button" class="icon-arrow"></i>
+                    </div>
+                    <div class="date_list" [class.disabledDiv]="disableToDateFlag"  >
+                        <ion-item class="inputLable">
+                            <ion-label floating>{{ "TO DATE" | translate }}</ion-label>
+                            <!--<ion-datetime displayFormat="DD MMM YYYY"></ion-datetime>-->
+                             <ion-input [(ngModel)]="prodReceiptFilterArr.toDate" #toDateMob="mobiscroll" #toDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsTo" required></ion-input>	
+                        </ion-item>
+                        <i tappable role="button" class="icon-arrow"></i>
+                    </div>
+                </div>
+            </div>
+        </ion-list>
+
+        <div class="checkButton">
+            <h2 class="labelHeading">{{ "APPROVAL STATUS" | translate }}</h2>
+            <div class="rdIn project_stage_btn" [(ngModel)]="prodReceiptFilterArr.status" [ngModelOptions]="{standalone: true}" [class.disabledDiv]="disableStatusFlag" radio-group>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "APPROVED" | translate }}</ion-label>
+                    <ion-radio value="1" ></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "PENDING" | translate }}</ion-label>
+                    <ion-radio value="0" ></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "REJECTED" | translate }}</ion-label>
+                    <ion-radio value="-1" ></ion-radio>
+                </ion-item>
+            </div>
+        </div>
+        <div class="static_radio_btn">
+          <h2 class="labelHeading">{{ "ROLE" | translate }}</h2>
+          <ion-list [(ngModel)]="prodReceiptFilterArr.by" [ngModelOptions]="{standalone: true}" [class.disabledDiv]="prodReceiptFilterArr.receiptType=='pending'" radio-group>
+            <ion-item>
+              <ion-label>{{ "TLH" | translate }}</ion-label>
+              <ion-radio value="$tlh" item-left></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>{{ "AC" | translate }}</ion-label>
+              <ion-radio value="$ac" item-left></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>{{ "ADMIN" | translate }}</ion-label>
+              <ion-radio value="$sa" item-left></ion-radio>
+            </ion-item>
+          </ion-list>
+        </div>
+
+        
+        <!--<div class="btn">
+            <button ion-button type="button" (click)="search()" >{{ "SEARCH" | translate }}</button>
+        </div>-->
+    </form>
+</ion-content>
+
+<ion-footer class="ntpr">
+        <div class="btn">
+             <button ion-button type="button" (click)="search()">{{ "SEARCH" | translate }}</button>
+              <button ion-button type="button" (click)="resetFilter()">{{ "RESET" | translate }}</button>
+        </div>
+</ion-footer>

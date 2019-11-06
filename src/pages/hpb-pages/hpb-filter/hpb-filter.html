@@ -1,0 +1,72 @@
+
+<ion-header>
+     <ion-navbar>
+    <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+             <i class="icon-close"></i>
+           </button>
+        </ion-buttons>      
+        <ion-title>{{"SEARCH BY" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false">
+    <form class="userForm_filter">
+        <ion-list class="inputBox">
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{ "CITY" | translate }}</ion-label>
+                    <!--<ion-select [(ngModel)]="hpbFilterArr.city" [ngModelOptions]="{standalone: true}">
+                        <ion-option value="{{ city['citykabname'] }}" *ngFor="let city of allCityData" >{{ city['citykabname'] }}</ion-option>
+                    </ion-select>-->
+                     <ion-input  [(ngModel)]="hpbFilterArr.city"  #City="ngModel" #CityMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollCitySettings" [mbsc-data]="allCityData"  [ngModelOptions]="{standalone: true}" ></ion-input>
+                </ion-item>
+            </div>
+        </ion-list>
+        <div class="checkButton project_stage ">
+            <h2 class="labelHeading">{{ "DPB TYPE" | translate }}</h2>
+            <div class="rdIn disabledDiv" [(ngModel)]="hpbFilterArr.hpbType" [ngModelOptions]="{standalone: true}" radio-group>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "MASON" | translate }}</ion-label>
+                    <ion-radio value="mason"></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "CONTRACTOR" | translate }}</ion-label>
+                    <ion-radio value="contractor"></ion-radio>
+                </ion-item>
+            </div>
+            <h2 class="labelHeading">{{ "DPB STATUS" | translate }}</h2>
+            <div class="rdIn" [(ngModel)]="hpbFilterArr.hpbStatus" [ngModelOptions]="{standalone: true}" radio-group>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "PROSPECT" | translate }}</ion-label>
+                    <ion-radio value="prospect"></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "SWITCHING" | translate }}</ion-label>
+                    <ion-radio value="switching"></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "MAINTAIN" | translate }}</ion-label>
+                    <ion-radio value="maintain"></ion-radio>
+                </ion-item>
+            </div>
+
+            <!--<h2 class="labelHeading">Is SRKU</h2>
+            <div class="rdIn" [(ngModel)]="projFilterArr.isSrku" [ngModelOptions]="{standalone: true}" radio-group>
+                <ion-item class="halfWidth">
+                    <ion-label>Yes</ion-label>
+                    <ion-radio value="yes"></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>No</ion-label>
+                    <ion-radio value="no"></ion-radio>
+                </ion-item>
+            </div>-->
+        </div>
+    </form>
+</ion-content>
+<ion-footer class="ntpr">
+  <div class="btn">
+    <button ion-button (click)="search()" type="button">{{ "SEARCH" | translate }}</button>
+    <button ion-button type="button" (click)="resetFilter()">{{ "RESET" | translate }}</button>
+  </div>
+</ion-footer>

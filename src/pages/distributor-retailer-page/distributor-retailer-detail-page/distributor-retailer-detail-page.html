@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-navbar>
+        <!--<ion-buttons class="backBtn">
+            <button ion-button>
+                <i class="icon-back"></i>
+            </button>
+        </ion-buttons>-->
+        <ion-buttons end>
+            <!--<button ion-button menuToggle>
+                <i class="icon-filter"></i>
+            </button>-->
+        </ion-buttons>
+        <ion-title>{{ rdsDataArr['rds_name']?rdsDataArr['rds_name']:"-" }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+
+    <super-tabs [selectedTabIndex]="selectedIndex" (tabSelect)="onTabSelect($event)">
+        <super-tab [root]="page2" [rootParams]="paramsData" title="Details"></super-tab>
+        <super-tab [root]="page1" [rootParams]="paramsData" title="Visits"></super-tab>
+    </super-tabs>
+
+
+</ion-content>
+<ion-footer class="ntpr">
+    <div class="btn">
+        <!--<button ion-button type="button" (click)="goToVisitForm()" *ngIf="globalCheckInData['checkinFlag'] == true">
+            Add Visits
+        </button>-->
+
+        <button ion-button type="button" (click)="goToVisitForm()" *ngIf="globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == rdsDataArr['server_rds_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == rdsDataArr['rds_type']">
+            {{ "ADD VISITS" | translate }}                   
+        </button>
+        <button ion-button type="button" (click)="checkOut()" *ngIf="globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == rdsDataArr['server_rds_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == rdsDataArr['rds_type']">
+            {{ "CHECK OUT" | translate }}                 
+        </button>
+        <button ion-button type="button" (click)="checkIn()" [disabled]="globalCheckInData['checkinFlag'] == true" *ngIf="globalCheckInData['checkinFlag'] == false">
+            {{ "CHECK IN" | translate }}
+        </button>
+        <button ion-button type="button" *ngIf="globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] != rdsDataArr['server_rds_id']" (click)="alreadyCheckInAlert()">
+            {{ "CHECK IN" | translate }}
+        </button>
+
+    </div>
+    <!-- <div class="homeFt">
+        <div class="btn">
+            <button ion-button type="button">
+                Add project
+            </button>
+        </div>
+    </div> -->
+</ion-footer>

@@ -1,0 +1,42 @@
+
+<ion-header>
+        <ion-navbar>
+        <ion-buttons end>
+                <button ion-button menuToggle>
+                    <i class="icon-menu"></i>
+                </button>
+            </ion-buttons>
+            <ion-title>{{ "INQUIRY" | translate }}</ion-title> 
+        </ion-navbar>
+    </ion-header>
+    <ion-content class="notification" fullscreen="false"  [ngBusy]="{busy: busy, minDuration: 600}"> 
+        <div class="userForm" *ngIf="showChatTextBoxBtn">
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-textarea placeholder="write here" [(ngModel)]="chat_mesage" #chatMesage="ngModel" class="textAarea" required [ngModelOptions]="{standalone: true}"></ion-textarea>
+                </ion-item>
+            </div>
+            <div class="btn">
+                <button ion-button type="button" (click)="submitChat()">{{ "SEND" | translate }}</button>
+            </div>
+        </div>
+        <ion-list class="listWrap">
+            <div *ngIf="leadChatDatas.length==0">
+                <h2 class="noData contMid">{{"NO INQUIRY FOUND" | translate }}</h2>
+            </div>
+            <div class="itemWrap">
+                <ion-item class="msgBox chatBox" *ngFor="let chatDobj of leadChatDatas" [ngClass]="{'left': chatDobj['chat_from_id']==leadChatLeadObj['assigned_sph'], 'rigth':chatDobj['chat_from_id']!=leadChatLeadObj['assigned_sph']}">
+                    <div class="flexWrap">
+                        <span class="date">{{chatDobj['created_date']?appCom.timeStampToDate(chatDobj['created_date']):appCom.timeStampToDate(chatDobj['local_created_date'])}}</span>
+                        <!-- <span class="name">{{(chatDobj['chat_from_id']==currentUserId)?"You":((chatDobj['chat_from_id']==chatDobj['assigned_sph'])?(chatDobj['sphDetail'][0]?chatDobj['sphDetail'][0]['realm']:"-"):"Anonymous")}}</span> -->
+                        <span class="name">
+                            {{(chatDobj['chat_from_id']==currentUserId)?"You":((chatDobj['chat_from_id']==leadChatLeadObj['assigned_sph'])?(leadChatLeadObj['sphDetail'][0]?leadChatLeadObj['sphDetail'][0]['realm']:"-"):leadChatLeadObj['createdBy'])}}
+                        </span>
+                    </div>
+                    <div class="message">
+                        <p>{{chatDobj['chat_mesage']?chatDobj['chat_mesage']:"-"}}</p>
+                    </div>
+                </ion-item>
+            </div>
+        </ion-list>
+    </ion-content>

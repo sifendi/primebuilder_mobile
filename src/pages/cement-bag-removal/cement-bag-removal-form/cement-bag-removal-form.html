@@ -1,0 +1,185 @@
+<!--
+Generated template for the AddProjectPage page.
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button menuToggle>
+                <i class="icon-menu"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "CEMENT BAG REMOVAL" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false">
+    <form class="userForm">
+        <ion-list class="inputBox">
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "DISTRICT" | translate }}*</ion-label>
+                    <ion-input [(ngModel)]="cBagRemovData.district" mbsc-select [mbsc-options]="mobiScollDistrictSettings" [mbsc-data]="districtArrG" #district="ngModel" required [ngModelOptions]="{standalone: true}"></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="district.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!district.errors.required">
+                    {{ "DISTRICT IS REQUIRED" | translate }}.
+                </p>
+            </div>
+
+
+            <div class="rdIn">
+                <div class="date_picker">
+                    <div class="date_list">
+                        <ion-item class="inputLable">
+                            <ion-label floating>{{ "FROM DATE" | translate }}*</ion-label>
+                            <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="cBagRemovData.fromDate" #fromDate="ngModel" [ngModelOptions]="{standalone: true}" (ngModelChange)="fromDateSelected(fromDate)"></ion-datetime>
+                        </ion-item>
+                        <i tappable role="button" class="icon-arrow"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rdIn">
+                <div class="date_picker">
+                    <div class="date_list">
+                        <ion-item class="inputLable">
+                            <ion-label floating>{{ "TO DATE" | translate }}*</ion-label>
+                            <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="cBagRemovData.toDate" #toDate="ngModel" [ngModelOptions]="{standalone: true}" (ngModelChange)="toDateSelected(toDate)" min="{{toMinDate}}"></ion-datetime>
+                        </ion-item>
+                        <i tappable role="button" class="icon-arrow"></i>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="rdIn">
+                <div class="quantityBags">
+                    <ion-card>
+                        <ion-card-header>
+                            {{ "QUANTITY" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                            1000 bags
+                        </ion-card-content>
+                    </ion-card>
+                </div>
+            </div>
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "LOCATION NAME" | translate }}*</ion-label>
+                    <ion-input type="text" placeholder=" {{ 'E.G. HALAMAN DISTRIBUTOR' | translate }}" class="input_item"></ion-input>
+                </ion-item>
+            </div>
+            <div class="rdIn locate_btn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "ADDRESS" | translate }}*</ion-label>
+                    <ion-textarea class="textAarea"></ion-textarea>
+                </ion-item>
+                <button ion-button>{{ "LOCATE" | translate }} <i class="icon-location"></i></button>
+            </div>
+
+
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{ "POSTAL CODE" | translate }}*</ion-label>
+                    <ion-input [(ngModel)]="cBagRemovData.postalCode" mbsc-select [mbsc-options]="mobiScollPincodeSettings" [mbsc-data]="postalCodeArrF" #postalCode="ngModel" required [ngModelOptions]="{standalone: true}"></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="postalCode.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!postalCode.errors.required">
+                    {{ "POSTAL CODE IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <div class="rdIn" [class.disabledDiv]="cBagRemovData.postalCode && cBagRemovData.postalCode!='' ">
+                <ion-item class="inputLable">
+                    <ion-label stacked> {{ "PROVINCE" | translate }}*</ion-label>
+                    <ion-input [(ngModel)]="cBagRemovData.province" mbsc-select [mbsc-options]="mobiScollProvinceSettings" [mbsc-data]="provinceArrF" #province="ngModel" required [ngModelOptions]="{standalone: true}"></ion-input>
+
+                </ion-item>
+            </div>
+            <div *ngIf="province.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!province.errors.required">
+                    {{ "PROVINCE IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <div class="rdIn" [class.disabledDiv]="(cBagRemovData.postalCode && cBagRemovData.postalCode!='') || (cBagRemovData.province==null || cBagRemovData.province=='' || !cBagRemovData.province)">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{ "CITY / MUNICIPALITY" | translate }}*</ion-label>
+                    <ion-input [(ngModel)]="cBagRemovData.city" mbsc-select [mbsc-options]="mobiScollCitySettings" [mbsc-data]="municipalityArrF" #city="ngModel" required [ngModelOptions]="{standalone: true}"></ion-input>
+
+                </ion-item>
+            </div>
+            <div *ngIf="city.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!city.errors.required">
+                    {{ "CITY / MUNICIPALITY IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <div class="rdIn" [class.disabledDiv]="(cBagRemovData.postalCode && cBagRemovData.postalCode!='') ||  (cBagRemovData.city==null || cBagRemovData.city=='' || !cBagRemovData.city) ">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{ "SUB DISTRICT" | translate }}*</ion-label>
+                    <ion-input [(ngModel)]="cBagRemovData.subDistrict" mbsc-select [mbsc-options]="mobiScollSubDistrictSettings" [mbsc-data]="subDistrictArrF" #subDistrict="ngModel" required [ngModelOptions]="{standalone: true}"></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="subDistrict.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!subDistrict.errors.required">
+                    {{ "SUB DISTRICT IS REQUIRED." | translate }}
+                </p>
+            </div>
+
+
+
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "WITNESS NAME" | translate }}*</ion-label>
+                    <ion-input type="text" placeholder="{{ 'PERSON NAME' | translate }}" class="input_item"></ion-input>
+                </ion-item>
+            </div>
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "WITNESS DESIGNATION" | translate }}*</ion-label>
+                    <ion-input type="text" placeholder="{{ 'E.G. MANAGER' | translate }}" class="input_item"></ion-input>
+                </ion-item>
+            </div>
+            <div class="rdIn">
+                <div class="upload_proof">
+                    <h2 class="labelHeading">{{ "UPLOAD PROOF" | translate }}*</h2>
+                    <div class="id_photos">
+                        <div class="id_items" text-right>
+                            <button ion-button color="light" class="close_btn">
+                                x
+                            </button>
+                        </div>
+                        <div class="id_items" text-right>
+                            <button ion-button color="light" class="close_btn">
+                                x
+                            </button>
+                        </div>
+                        <div class="id_items upload" text-center>
+                            <button ion-button color="light" class="upload_btn">
+                                <i class="icon-Camera"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="comment_note">
+                <ion-list class="inputBox">
+                    <div class="rdIn">
+                        <h2 class="labelHeading">{{ "NOTE" | translate }}</h2>
+                        <ion-item class="inputLable">
+                            <ion-textarea placeholder="{{ 'COMMENT' | translate }}" class="textAarea"></ion-textarea>
+                        </ion-item>
+                    </div>
+                </ion-list>
+            </div>
+        </ion-list>
+        <div class="btn digital_sign">
+            <button ion-button type="button">{{ "WITNESS SIGNATURE" | translate }}*</button>
+        </div>
+        <div class="btn">
+            <button ion-button type="button" (click)="submitCementBagRemForm()">{{ "SUBMIT" | translate }}</button>
+        </div>
+    </form>
+</ion-content>

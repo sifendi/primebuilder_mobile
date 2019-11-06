@@ -1,0 +1,205 @@
+// Alert Box OverWrite Start Here
+.alert-wrapper {
+    @include border-radius(0 $important);
+    background-color: $white-color $important;
+    max-width: $width90;
+    min-width: $width90;
+    box-shadow: 0px 10px 30px -6px rgba(0, 0, 0, .9) $important;
+    -webkit-box-shadow: 0px 15px 15px -6px rgba(0, 0, 0, .9) $important;
+    .alert-head {
+        padding: $size;
+        .alert-title {
+            font-size: $size - .6;
+            color: $base-color;
+            text-transform: $inherit;
+            text-align: $center;
+            @include media-query(400px) {
+                font-size: $size - .2;
+            }
+            @include media-query(560px) {
+                font-size: $size + .3;
+            }
+            p {
+                font-size: $size - .5;
+                @include media-query(400px) {
+                    font-size: $size - .2;
+                }
+                @include media-query(560px) {
+                    font-size: $size + .4;
+                }
+            }
+        }
+        .alert-sub-title {
+            text-transform: $inherit;
+            color: $base-color;
+            margin-top: $zero;
+            text-align: $center;
+            margin-top: $size - 1;
+            @include media-query(320px) {
+                font-size: $size - .6;
+            }
+            @include media-query(400px) {
+                font-size: $size - .2;
+            }
+            @include media-query(560px) {
+                font-size: $size;
+            }
+        }
+    }
+    .alert-message {
+        font-size: $size - .6;
+        padding: $size + .4;
+        color: $dark-color;
+        font-family: $fontMd;
+        @include media-query(400px) {
+            font-size: $size - .2;
+        }
+        @include media-query(400px) {
+            font-size: $size + .4;
+        }
+    }
+    .alert-radio-group {
+        border-top: $zero;
+        border-bottom: $zero;
+        .alert-radio-label {
+            color: $dark-color;
+            font-size: $size - .6;
+            white-space: normal;
+            @include media-query(560px) {
+                font-size: $size + .2;
+            }
+        }
+    }
+    .alert-button-group {
+        @include border-radius(0);
+        padding: $zero;
+        .alert-button {
+            border-left: 1px $solid $white-color;
+            color: $base-color;
+            text-align: $center;
+            margin: $zero;
+            border-top: $zero;
+            @include flex-grow(1);
+            background-color: $btn-color;
+            color: $white-color;
+            flex-basis: 0;
+            padding: $size - 1;
+            @include border-radius(0);
+            @include media-query(560px) {
+                padding: $size $size - 1;
+            }
+            @include flex-basis(0);
+            .button-inner {
+                @include justify-content(center);
+            }
+            &:first-child {
+                border-left: $zero;
+            }
+            @include media-query(560px) {
+                font-size: $size + .2;
+            }
+        }
+    }
+    .alert-message:empty {
+        padding: $zero;
+    }
+    [aria-checked=true] .alert-radio-inner {
+        border-color: $dark-primary;
+    }
+    .alert-input-wrapper {
+        .alert-input {
+            @include media-query(560px) {
+                font-size: $size + .2;
+            }
+            &:focus {
+                border-bottom: 2px $solid $solid-danger;
+            }
+        }
+    }
+}
+
+.customAlertBox {
+    .alert-wrapper {
+        min-width: $width90;
+        border-radius: 0 $important;
+        -webkit-border-radius: 0 $important;
+        .alert-head {
+            padding: $size - .5 $size + .4;
+            background: $transparent;
+            .alert-title {
+                color: $dark-color;
+                text-align: $center;
+            }
+            .alert-sub-title {
+                color: $dark-color;
+                text-align: $center;
+                @include media-query(320px) {
+                    font-size: $size - .6;
+                }
+                @include media-query(400px) {
+                    font-size: $size - .2;
+                }
+                @include media-query(560px) {
+                    font-size: $size + 1;
+                }
+            }
+        }
+        .alert-button-group {
+            background: $dark-color;
+            @include border-radius(0);
+            margin: $size - 1.5;
+            .alert-button {
+                width: $width90 + 10;
+                @include border-radius(0);
+            }
+        }
+    }
+}
+
+.alert-radio {
+    .alert-radio-icon {
+        border-color: $dark-primary;
+    }
+    .alert-radio-inner {
+        background-color: $solid-danger;
+    }
+}
+
+.alert-md [aria-checked=true] .alert-radio-icon {
+    border-color: $dark-primary;
+}
+
+.editPicWrap {
+    .list-header {
+        font-size: $size;
+        margin-bottom: 0;
+    }
+    .item {
+        .label {
+            i {
+                margin-right: 10px;
+                display: inline-block;
+                font-size: 1.8rem;
+                vertical-align: middle;
+            }
+            .icon-Camera {
+                font-size: 2.5rem;
+                margin-right: 7px;
+            }
+        }
+    }
+}
+
+.select-alert {
+    .alert-wrapper {
+        .alert-head {
+            padding: $size;
+        }
+    }
+}
+
+ion-alert {
+    &.alert-top {
+        @include align-items(center);
+    }
+}

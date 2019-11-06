@@ -1,0 +1,157 @@
+// Ionic Variables and Theming. For more info, please see: // http://ionicframework.com/docs/v2/theming/
+$font-path:"../assets/fonts";
+@import "ionic.globals";
+$background-color: #ffffff;
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see: // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+$colors:(primary:#387ef5, secondary:#32db64, danger:#f53d3d, light:#f4f4f4, dark:#222);
+//custome variables start here
+// Color Start Here
+$dark-primary: #262626;
+$base-color: #666666;
+$btn-color: #d83431;
+$login-color:#ee3126;
+$white-color: #fff;
+$blue-color: #0c3764;
+$green-color: #35702c;
+$lightgreen-color: #afaf16;
+$lightred-color: #f73837;
+$off-white: #f6f6f6;
+$shadow-colorOne: #ea892c;
+$shadow-colorTwo: #6a324f;
+$shadow-colorThree: #215786;
+$shadow-colorFour: #407a52;
+$shadow-btn: #eaeef2;
+$border-color: #e2e2e2;
+$grey-dark: #7e7f7e;
+$pin-color: #efefef;
+$extra-secondary: #271617;
+$solid-danger: #ed212d;
+$md-main: #7a0d14;
+$tab-primary: #fe9ba2;
+$dark-color: #333333;
+$yellow: #fb8c00;
+$grey-light: #ececec;
+$black-color: #000;
+$extra-grey: #f7f5f5;
+$pop-color: #f7f5f6;
+$tc-color: #7f7f7f;
+$light-color: #ebebeb;
+$border-secondary: #7a0d14;
+$place-holder: #999999;
+$photo-box: #d7d7d7;
+$photo-border: #707070;
+$form-border: #d5d5d5;
+$checkout-btn: #959595;
+$profile-color: #e5e3e3;
+$profile-redeem: #cccccc;
+// Color Ends Here
+// Common css property Start Here
+$size: 2rem;
+$auto: auto;
+$zero: 0;
+$width90:90%;
+$inherit: inherit;
+$none: none;
+$block: block;
+$inline-block: inline-block;
+$right: right;
+$left: left;
+$center: center;
+$capitalize: capitalize;
+$uppercase: uppercase;
+$transparent: transparent;
+$fullHeight: 100vh;
+$important: !important;
+$cover: cover;
+$relative: relative;
+$absolute: absolute;
+$solid: solid;
+// Common css property Ends Here
+// Font Family Start Here
+$fontRg: 'TheSans B4 SemiLight';
+$fontMd: 'TheSans B6';
+$fontBold: 'TheSans B8';
+// Font Family Ends Here
+// Font Family and Style Starts Here
+$font-weight-base: $fontMd,
+arial;
+$font-weight-md-base: $font-weight-base;
+// Font Family and Style Ends Here
+// label Color Start Here
+$label-md-text-color: $white-color;
+$label-md-text-color-focused: $white-color;
+$label-ios-text-color: $white-color;
+$label-ios-text-color-focused: $white-color;
+// label Color Ends Here
+// ToolBar Background Color Start Here
+$toolbar-md-background: $dark-primary;
+$toolbar-ios-background: $dark-primary;
+// ToolBar Background Color Ends Here
+// ToolBar Text Color Start Here
+$toolbar-md-text-color: $white-color;
+$toolbar-ios-text-color: $white-color;
+// ToolBar Text Color Start Here
+// ToolBar Title Font Size Start Here
+$toolbar-md-title-font-size: $size;
+$toolbar-ios-title-font-size: $size;
+// ToolBar Title Font Size Start Here
+@media screen and (max-width:320px) {
+    .toolbar-title.toolbar-title {
+        font-size: $size - .3rem;
+    }
+}
+
+
+/*** custom variables ***/
+
+
+/*** custom variables ***/
+
+// ToolBar Input Color Start Here
+$toolbar-md-title-text-color: $white-color;
+$toolbar-ios-title-text-color: $white-color;
+// ToolBar Input Color Ends Here
+$toolbar-ios-button-color: $white-color;
+$content-padding: $zero;
+// Menu Header Background Color Start Here
+$menu-md-background: $dark-primary;
+// Menu Header Background Color Start Here
+//avatar
+$item-md-avatar-size: $size+3;
+// App iOS Variables
+$toolbar-ios-height: 56px;
+$cordova-ios-statusbar-padding: $zero;
+// --------------------------------------------------
+// iOS only Sass variables can go here
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+@import "ionic.theme.default";
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see: // http://ionicframework.com/docs/v2/ionicons/
+@import "ionic.ionicons";
+// Fonts
+// --------------------------------------------------
+@import "roboto";
+@import "noto-sans";

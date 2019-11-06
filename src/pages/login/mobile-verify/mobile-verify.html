@@ -1,0 +1,40 @@
+<ion-content class="enterMobileNo" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <div class="enterMbBX">
+        <div class="contMid">
+            <img src="assets/images/logo.png" class="loginLogo" title="Holcim" alt="Holcim" />
+            <form class="userForm">
+                <ion-list class="inputBox">
+                    <div class="rdIn">
+                        <ion-item class="inputLable">
+                            <ion-label floating>{{ "ENTER MOBILE NO." | translate }}*</ion-label>
+                            <ion-input type="tel" name="mobilenumber" #mobilenumber="ngModel" [(ngModel)]="mobileNumD" minlength="10" maxlength="15" pattern="[0-9]+" [ngModelOptions]="{standalone: true}" required></ion-input>
+                        </ion-item>
+                    </div>
+                    <!--<div *ngIf="mobilenumber.errors && (mobilenumber.dirty || mobilenumber.touched || submitted)" class="alert alert-danger error">
+                        <p [hidden]="!mobilenumber.errors.required">
+                            Mobile no. is required
+                        </p>
+                        <p [hidden]="!mobilenumber.errors.pattern">
+                            Mobile no. is invalid
+                        </p>
+                        <p [hidden]="!mobilenumber.errors.minlength">
+                            Mobile no. must be at least 10 numbers long.
+                        </p>
+                        <p [hidden]="!mobilenumber.errors.maxlength">
+                            Mobile no. cannot be more than 12 numbers long.
+                        </p>
+                    </div>-->
+                </ion-list>
+
+                <div class="diffCheck" [hidden]="termsCondHide">
+                    <ion-checkbox checked="false" name="accept_terms" [(ngModel)]="accept_terms_default" color="dark"></ion-checkbox>
+                    <p><a href="javascript:void(0)" (click)="openTermsAndCond()" tapable role="button">{{ "TERMS AND CONDITIONS" | translate }}</a></p>
+                </div>
+                <div class="btn">
+                    <button ion-button type="button" tapable (click)="submitMobileVerfiy()">{{ "SUBMIT" | translate }}</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</ion-content>

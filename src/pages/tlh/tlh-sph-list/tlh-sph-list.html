@@ -1,0 +1,35 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{ "SPH / TLH LIS" | translate }}</ion-title>
+    </ion-navbar>
+    <ion-searchbar [(ngModel)]="myInput" (ionInput)="searchHpb($event)" name="searchBar" placeholder="{{ 'SEARCH' | translate }}"></ion-searchbar>
+</ion-header>
+
+
+<ion-content fullscreen="false">
+    <ion-list class="listWrap">
+        <div class="itemWrap">
+            <ion-item class="listItem receipt">
+                <div class="leftContent">
+                    <div class="projectWrap">
+                        <p class="title">{{"SPH NAME" | translate }}</p>
+                        <span class="value">Jamadi Ridwani</span>
+                    </div>
+                    <div class="mobileWrap">
+                        <p class="title inline">{{"MOBILE NO" | translate }}</p>
+                        <span class="value inline">9029908944</span>
+                        <button ion-button color="light">
+                             <i class="icon-call"></i>
+                        </button>
+                    </div>
+                    <div class="projectWrap">
+                        <p class="title">{{"SUB DISTRICT" | translate }}</p>
+                        <span class="value">Cakung, Cempaka Putih, Cengkareng</span>
+                    </div>
+                </div>
+                <i class="icon-next-thin checkIn"></i>
+            </ion-item>
+        </div>
+    </ion-list>
+</ion-content>

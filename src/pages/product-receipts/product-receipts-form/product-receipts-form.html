@@ -1,0 +1,210 @@
+<ion-header>
+    <ion-navbar>
+        <!-- <ion-buttons class="backBtn">
+            <button ion-button>
+                <i class="icon-back"></i>
+            </button>
+        </ion-buttons> -->
+        <ion-buttons end>
+            <button ion-button menuToggle>
+                  <i class="icon-menu"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "PRODUCT RECEIPT FORM" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <form class="srku_details">
+        <ion-list class="inputBox">
+            <div class="form_list">
+                <ion-card>
+                    <ion-card-content>
+                        {{ "PROJECT" | translate }}: {{ projData['project_name']?projData['project_name']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-content>
+                        {{ "DPB NAME" | translate }}: {{ hpbName?hpbName:"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+        </ion-list>
+        <div class="checkButton">
+            <h2 class="labelHeading">{{ "DPB STATUS" | translate }}</h2>
+            <div class="rdIn" [(ngModel)]="hpbStatus" [ngModelOptions]="{standalone: true}" [disabled]="true" radio-group>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "PROSPECT" | translate }}</ion-label>
+                    <ion-radio value="prospect"></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "SWITCHING" | translate }}</ion-label>
+                    <ion-radio value="switching"></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "MAINTAIN" | translate }}</ion-label>
+                    <ion-radio value="maintain"></ion-radio>
+                </ion-item>
+            </div>
+        </div>
+        <div class="checkButton project_stage">
+            <h2 class="labelHeading">{{ "SRKU" | translate }}</h2>
+            <div class="rdIn" [(ngModel)]="projData['is_srku']" [ngModelOptions]="{standalone: true}" [disabled]="true" radio-group>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "YES" | translate }}</ion-label>
+                    <ion-radio value="1"></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "NO" | translate }}</ion-label>
+                    <ion-radio value="0"></ion-radio>
+                </ion-item>
+            </div>
+        </div>
+
+        <ion-list class="inputBox">
+
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{ "PRODUCT" | translate }}*</ion-label>
+                    <!--<ion-select (ionChange)="onSelectProduct($event)" [(ngModel)]="ReceiptData.Product" #Product="ngModel" required [ngModelOptions]="{standalone: true}">-->
+                    <!--<ion-option value="{{ product['server_product_id'] }}" *ngFor="let product of productsArr">{{ product['product_name'] }}</ion-option>-->
+                    <ion-input [(ngModel)]="ReceiptData.Product" #Product="ngModel" #productMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollPRODSettings" [mbsc-data]="productsArr" [ngModelOptions]="{standalone: true}" required (ngModelChange)="changeProductRecpt($event)"></ion-input>
+                    <!--</ion-select>-->
+                </ion-item>
+            </div>
+            <div *ngIf="Product.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!Product.errors.required">
+                    {{ "PRODUCT IS REQUIRED" | translate }}
+                </p>
+            </div>
+
+
+
+            <div class="rdIn" [class.disabledDiv]="!ReceiptData.Product">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{ "UNIT" | translate }}*</ion-label>
+                    <!--<ion-select [(ngModel)]="ReceiptData.Unit" #Unit="ngModel" required [ngModelOptions]="{standalone: true}" [disabled]="!disableUnitFlag">-->
+                    <!--<ion-option value="{{ unit['product_unit'] }}" *ngFor="let unit of unitArr">{{ unit['product_unit'] }}</ion-option>-->
+                    <ion-input [(ngModel)]="ReceiptData.Unit" #UnitM="mobiscroll" #Unit="ngModel" #unitMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollUnitSettings" [mbsc-data]="unitArr" [ngModelOptions]="{standalone: true}" required></ion-input>
+                    <!--</ion-select>-->
+                </ion-item>
+            </div>
+            <div *ngIf="Unit.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!Unit.errors.required">
+                    {{ "UNIT IS REQUIRED" | translate }}
+                </p>
+            </div>
+
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{ "QUANTITY" | translate }}*</ion-label>
+                    <ion-input type="tel" placeholder="{{ 'E.G.' | translate }} 1000" class="input_item" [(ngModel)]="ReceiptData.Quantity" #Quantity="ngModel" required [ngModelOptions]="{standalone: true}" pattern="^[1-9][0-9]*$" minlength="1" maxlength="5"></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="Quantity.errors && (Quantity.dirty || Quantity.touched || submitted)" class="alert alert-danger error">
+                <p [hidden]="!Quantity.errors.required">
+                    {{ "QUANTITY IS REQUIRED" | translate }}
+                </p>
+                <p [hidden]="!Quantity.errors.pattern">
+                    {{ "QUANTITY IS INVALID" | translate }}
+                </p>
+            </div>
+
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label stacked> {{ "RETAILER / DISTRIBUTOR" | translate }}*</ion-label>
+                    <!--<ion-select [(ngModel)]="ReceiptData.RetDist" #RetDist="ngModel" required [ngModelOptions]="{standalone: true}">-->
+                    <!--<ion-option *ngFor="let rds of rdsArr" value="{{ rds['server_rds_id'] }}">{{ rds['rds_name'] }}</ion-option>-->
+                    <ion-input [(ngModel)]="ReceiptData.RetDist" #RetDist="ngModel" #RetDistMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollRDSSettings" [mbsc-data]="rdsArr" [ngModelOptions]="{standalone: true}" required></ion-input>
+                    <!--</ion-select>-->
+                </ion-item>
+            </div>
+            <div *ngIf="(RetDist.errors && submitted)" class="alert alert-danger error">
+                <p [hidden]="!RetDist.errors.required">
+                    {{ "RETAILER / DISTRIBUTOR IS REQUIRED" | translate }}
+                </p>
+            </div>
+
+            <div class="rdIn">
+                <div class="date_picker">
+                    <div class="date_list">
+                        <ion-item class="inputLable">
+                            <ion-label stacked>{{ "PURCHASE DATE" | translate }}*</ion-label>
+                            <!-- <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="ReceiptData.PurchaseDate" #PurchaseDate="ngModel" [ngModelOptions]="{standalone: true}" required></ion-datetime> -->
+                            <ion-input [(ngModel)]="ReceiptData.PurchaseDate" #PurchaseDateMob="mobiscroll" #PurchaseDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsG" required></ion-input>
+
+                        </ion-item>
+                        <i tappable role="button" class="icon-arrow"></i>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="(submitted)" class="alert alert-danger error">
+                <p [hidden]="ReceiptData.PurchaseDate">
+                    {{ "PURCHASE DATE IS REQUIRED" | translate }}
+                </p>
+            </div>
+
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "INVOICE QUANTITY" | translate }}*</ion-label>
+                    <ion-input type="tel" placeholder="{{ 'E.G.' | translate }} 10" class="input_item" [(ngModel)]="ReceiptData.InvoiceQuantity" #InvoiceQuantity="ngModel" required [ngModelOptions]="{standalone: true}" pattern="^[0-9]*$" minlength="1" maxlength="5"></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="InvoiceQuantity.errors && (InvoiceQuantity.dirty || InvoiceQuantity.touched || submitted)" class="alert alert-danger error">
+                <p [hidden]="!InvoiceQuantity.errors.required">
+                    {{ "INVOICE QUANTITY IS REQUIRED" | translate }}
+                </p>
+                <p [hidden]="!InvoiceQuantity.errors.pattern">
+                    {{ "INVOICE QUANTITY IS REQUIRED" | translate }}
+                </p>
+            </div>
+
+            <div class="rdIn">
+                <div class="upload_proof">
+                    <h2 class="labelHeading"> {{ "UPLOAD INVOICE" | translate }}*</h2>
+                    <div class="id_photos">
+                        <div class="id_items" text-right *ngFor="let image of invoicePhotoObj; let i = index;">
+                            <img [src]="image" alt="">
+                            <button ion-button color="light" class="close_btn" (click)="removeInvoiceImage(i)">
+                                <i class="icon-close-thin"></i>
+                            </button>
+                        </div>
+                        <div class="id_items upload" text-center (click)="openSelectCameraPop($event,'invoice_photo')">
+                            <button ion-button color="light" class="upload_btn">
+                                <i class="icon-Camera"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf=" ( invoicePhotoObj == undefined || invoicePhotoObj == '' || invoicePhotoObj.length == 0 ) && (submitted) " class="alert alert-danger error">
+                    <p>{{ "INVOICE PHOTO IS REQUIRED" | translate }}</p>
+                </div>
+            </div>
+
+        </ion-list>
+
+        <div class="comment_note">
+            <ion-list class="inputBox">
+                <div class="rdIn">
+                    <h2 class="labelHeading">{{ "NOTE" | translate }}</h2>
+                    <ion-item class="inputLable">
+                        <ion-textarea placeholder="Comment" class="textAarea" [(ngModel)]="ReceiptData.AdditionalComments" #AdditionalComments="ngModel" [ngModelOptions]="{standalone: true}"></ion-textarea>
+                    </ion-item>
+                </div>
+            </ion-list>
+        </div>
+
+        <div class="digital_sign_img" *ngIf="digitalSignPath !=undefined && digitalSignPath !=''">
+            <img [src]="digitalSignPath" alt="">
+        </div>
+        <div class="btn digital_sign">
+            <button ion-button type="button" (click)="getSignature()">{{ "DPB SIGNATURE" | translate }}*</button>
+        </div>
+        <div *ngIf=" (digitalSignPath ==undefined || digitalSignPath =='') && (submitted) " class="alert alert-danger error">
+            <p>{{ "SIGNATURE IS REQUIRED" | translate }}</p>
+        </div>
+
+        <div class="btn">
+            <button ion-button type="button" (click)="submitProductReceiptForm()">{{ "SUBMIT" | translate }}</button>
+        </div>
+    </form>
+</ion-content>

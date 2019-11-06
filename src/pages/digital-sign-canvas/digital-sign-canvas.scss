@@ -1,0 +1,21 @@
+page-digital-sign-canvas {
+}
+.signature-pad {
+	width: 100%;
+}
+.dgtl_sign {
+	h2 {
+		color: $blue-color;
+		font-size: $size + 0.5;
+		font-family: $fontMd;
+		text-align: center;
+		background: $off-white;
+		padding: $size - 1  $zero;
+	}
+	.ntpr {
+		position: fixed;
+		width: 100%;
+		left: 0;
+		bottom: 0;
+	}
+}

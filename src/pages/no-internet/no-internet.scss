@@ -1,0 +1,48 @@
+no-internet {
+    .noInternetWrap {
+        width: $width90;
+        margin: $zero $auto;
+        text-align: $center;
+        font-family: $fontMd;
+
+        @include media-query(560px) {
+            width: $width90 - 15;
+        }
+        a {
+            text-decoration: uppercase;
+            padding-bottom: 2px;
+            display: inline-block;
+            color: #139dd7;
+        }
+    }
+    .noIter {
+        width: $width90 - 40;
+        margin: $size * 2 + 1 $auto;
+        margin: $width90 - 62 $auto $size * 2 + 1;
+        display: $block;
+    }
+    .resend {
+        padding: $size + .2, $size + .5, $size + .5, $size + .5;
+        border-color: $btn-color;
+        box-shadow: 0px 1px 5px $place-holder;
+        font-weight: normal !important;
+        margin: $size $zero;
+        background: $btn-color;
+        color: $white-color;
+
+        @include media-query(560px) {
+            font-size: 2.4rem;
+        }
+    }
+    ion-spinner * {
+        width: $size + .8;
+        height: $size + .8;
+        stroke: #444;
+        fill: #222;
+    }
+    .diff1 {
+        @include media-query(560px) {
+            white-space: pre;
+        }
+    }
+}

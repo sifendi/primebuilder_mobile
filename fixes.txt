@@ -1,0 +1,43 @@
+// 	Issue 1 Fix	
+//	add below code at the end of build.gradle file  --------- file path - DPB\platforms\android\build.gradle
+// 	fix when added ionic 2 file opener it started cropping
+//	url - https://forum.ionicframework.com/t/solved-ionic-run-android-com-android-support-conflicting-v26-alpha1-and-v25-3-1/91826/4
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.1'
+            }
+        }
+    }
+}
+
+
+// 	Issue 2 Fix
+// 	add below code for provider to open file in from fileopener 
+//	add below code in <application> tag
+
+AndroidMainfest
+
+<provider android:authorities="${applicationId}.opener.provider" android:exported="false" android:grantUriPermissions="true" android:name="io.github.pwlin.cordova.plugins.fileopener2.FileProvider">
+	<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/opener_paths" />
+</provider>
+
+**********************************************************************************************
+
+google-services.json in android folder copy
+
+Then, I somehow realize that the build.gradle file exists in project-folder/platforms/android. So I added this code snippet to end of the gradle file. It worked magically!
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.1'
+            }
+        }
+    }
+}

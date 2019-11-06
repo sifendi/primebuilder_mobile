@@ -1,0 +1,8 @@
+<ion-content class="card-background-page" padding>
+    <img class="noIter" src="assets/images/No-Internet.png">
+    <div class="noInternetWrap">
+        <p class="diff1">{{ "NO INTERNET CONNECTION. MAKE SURE THAT" | translate }} <a href="#">{{ "WIFI" | translate }}</a> {{ "OR" | translate }} <a href="#">{{ "CELLULAR MOBILE DATA" | translate }}</a> {{ "IS TURNED ON, THEN RETRY AGAIN" | translate }}.</p>
+        <button ion-button *ngIf="checkInternetConnectionFlag" color="light" class="resend diff1 darkGray" (click)="checkInternetConnection()" outline tappable>Retry</button>
+        <ion-spinner *ngIf="!checkInternetConnectionFlag" name="crescent"></ion-spinner>
+    </div>
+</ion-content>

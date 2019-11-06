@@ -1,0 +1,68 @@
+<ion-content class="setPinOuter" fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 1000}">
+    <div class="setPinWrapper">
+        <section class="setPin">
+
+            <dl class="pinBoxMian">
+                <dd>
+                    <h2>{{ "ENTER PASSCODE" | translate }}</h2>
+                </dd>
+                <dd>
+                    <div class="noRow">
+                        <button ion-button (click)="removePin()" tapable class="backSpace">
+                            <ion-icon class="ion-md-backspace"  name="backspace"></ion-icon>
+                        </button>
+                        <div class="pinCodeLine actiLine">
+                            <div class="bottomVal">{{pinCode.substring(0, 1)}}</div>
+                            <div class="bottomVal">{{pinCode.substring(1, 2)}}</div>
+                            <div class="bottomVal">{{pinCode.substring(2, 3)}}</div>
+                            <div class="bottomVal">{{pinCode.substring(3, 4)}}</div>
+
+                        </div>
+                    </div>
+                    <div class="inputButton">
+                        <h3 class="forgotPin"><button class="resend" ion-button clear tapable (click)="forgotPassClick()">{{ "FORGOT PASSCODE?" | translate }}</button></h3>
+                        <div class="pinBtnMain">
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" tapable (click)="addPin(1)">1</button>
+                            </div>
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" tapable (click)="addPin(2)">2</button>
+                            </div>
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" tapable (click)="addPin(3)">3</button>
+                            </div>
+                        </div>
+                        <div class="pinBtnMain">
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" tapable (click)="addPin(4)">4</button>
+                            </div>
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" tapable (click)="addPin(5)">5</button>
+                            </div>
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" tapable (click)="addPin(6)">6</button>
+                            </div>
+                        </div>
+                        <div class="pinBtnMain">
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" tapable (click)="addPin(7)">7</button>
+                            </div>
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" tapable (click)="addPin(8)">8</button>
+                            </div>
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" tapable (click)="addPin(9)">9</button>
+                            </div>
+                        </div>
+                        <div class="pinBtnMain">
+                            <div class="pinBtnPress fullWidth">
+                                <button ion-button class="pinBtn" tapable (click)="addPin(0)">0</button>
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+
+            </dl>
+        </section>
+    </div>
+</ion-content>

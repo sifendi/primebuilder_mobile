@@ -1,0 +1,55 @@
+.staticPageWrap {
+    padding: $size - 1;
+}
+
+.contentWrap {
+    padding: $size - 1 $zero;
+    .title {
+        color: $dark-primary;
+        font-size: $size - .4;
+        margin: $size - .8 $zero;
+        @include media-query(560px) {
+            font-size: $size + .2;
+            margin: $size - .2 $zero $size - .8 $zero;
+        }
+    }
+    section {
+        border-bottom: 1px $solid $border-color;
+        padding: $zero $size - 1;
+    }
+    p {
+        margin-bottom: $size + 1;
+        font-size: $size - .4;
+        color: $base-color;
+        font-family: $fontRg;
+        line-height: 1.5;
+        @include media-query(560px) {
+            font-size: $size + .5;
+        }
+    }
+    ul {
+        margin-bottom: $size - .3;
+        li:before {
+            content: "\2022";
+            color: $dark-primary;
+            font-size: $size + .5;
+            position: $absolute;
+            top: -7px;
+            left: $zero;
+            @include media-query(560px) {
+                font-size: $size * 2;
+                top: -12px;
+            }
+        }
+        li {
+            @extend p;
+            margin-bottom: $size;
+            position: $relative;
+            padding-left: $size - .8;
+            @include media-query(560px) {
+                margin-bottom: $size * 2;
+                padding-left: $size;
+            }
+        }
+    }
+}

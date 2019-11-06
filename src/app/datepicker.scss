@@ -1,0 +1,110 @@
+//Date Picker code Start Here
+.datePicker {
+    ion-grid {
+        padding: $zero $size - 1.5 $zero $size - 1.5;
+        margin-bottom: $size - 1;
+        ion-col:first-child {
+            margin-left: 0;
+        }
+        ion-col {
+            border-bottom: 2px $solid $base-color;
+            margin-left: 1em;
+            position: $relative;
+            ion-label {
+                font-family: $fontMd;
+                color: $dark-primary;
+                margin: 0px 8px 0px 0;
+                text-transform: $capitalize;
+            }
+            ion-datetime {
+                font-family: $fontRg;
+                padding: 5px 8px 2px 0px;
+                font-size: $size - .3;
+                color: $base-color;
+                position: $relative;
+                z-index: 1;
+            }
+            ion-icon {
+                font-size: $size + .6;
+                position: $absolute;
+                right: $size - 1.8;
+                top: $size + .6;
+                color: $dark-primary;
+            }
+            @include media-query(320px) {
+                ion-label {
+                    font-size: $size - .7;
+                }
+                ion-datetime {
+                    font-size: $size - .5;
+                    color: $base-color;
+                    position: $relative;
+                    z-index: 1;
+                }
+                ion-icon {
+                    font-size: $size;
+                    top: $size + 1;
+                    right: $size - 1.6;
+                }
+            }
+            @include media-query(560px) {
+                ion-label {
+                    font-size: $size;
+                }
+                ion-datetime {
+                    font-size: $size + .5;
+                }
+                ion-icon {
+                    font-size: $size + 1.5;
+                    top: $size + 1;
+                    right: $size - 2;
+                }
+            }
+        }
+    }
+    @include media-query(560px) {
+        width: $width90;
+        margin: $zero $auto;
+    }
+}
+
+//Date Picker Ends Here
+// Calendar OverWrite Start  Here
+.picker-wrapper {
+    background: $white-color $important;
+    .picker-toolbar {
+        background: $dark-primary $important;
+        @include justify-content(space-around);
+        .picker-toolbar-button {
+            border-left: 1px $solid $white-color;
+            width: $width90 - 40%;
+            text-align: $center;
+            button {
+                &.picker-opt-selected {
+                    color: $dark-primary $important;
+                }
+                width: ($width90 + 10);
+                color: $white-color;
+                @include media-query(400px) {
+                    font-size: $size - .2;
+                }
+            }
+            &:first-child {
+                border-left: $zero;
+            }
+        }
+    }
+    .picker-opts {
+        button {
+            &.picker-opt-selected {
+                color: $dark-primary $important;
+            }
+        }
+    }
+    .picker-opt {
+        font-size: $size + .5;
+        color: $tc-color;
+    }
+}
+
+// Calendar OverWrite Ends  Here

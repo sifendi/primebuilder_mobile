@@ -1,0 +1,17 @@
+
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button menuToggle>
+                <i class="icon-menu"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "NOTIFICATIONS" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <super-tabs>
+        <super-tab [root]="page1" title="New"></super-tab>
+        <super-tab [root]="page2" title="Archive"></super-tab>
+    </super-tabs>
+</ion-content>

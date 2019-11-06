@@ -1,0 +1,166 @@
+.footer-md::before, .footer-ios::before {
+    background: $none;
+}
+.btn {
+    margin: $size - 1 $zero;
+    width: $width90 + 10;
+
+    .button {
+        box-shadow: $inherit;
+        text-transform: $uppercase;
+        font-size: $size - .4;
+
+        i {
+            background: $white-color;
+            width: $size + .6;
+            height: $size + .6;
+            @include border-radius(100px);
+            color: $dark-primary;
+            line-height: 1.6;
+            font-size: $size - .2;
+            margin-left: $size - 1;
+
+            @include media-query(560px) {
+                line-height: 1.6;
+            }
+        }
+        @include media-query(560px) {
+            font-size: $size + .1;
+            padding: 2.2rem 1rem;
+        }
+        &:last-child {
+            margin-right: $zero;
+        }
+    }
+}
+//Footer Start Here
+
+
+ion-footer {
+    bottom: 0;
+    text-align: $center;
+
+    .toolbar-background {
+        background: $grey-dark;
+    }
+}
+.ntpr {
+    .btn {
+        background: $btn-color;
+        margin: $zero;
+        padding: $zero;
+
+        .button {
+            font-size: $size - .6;
+            @include border-radius(0px);
+            border-right: 2px $solid $white-color;
+
+            @include media-query(560px) {
+                font-size: $size;
+            }
+            &:last-child {
+                border-right: 0;
+            }
+            &.vDetail {
+                background-color: #f3c089;
+                color: $dark-color;
+                width: $width90 - 40;
+            }
+            &.vProject {
+                background-color: #9da5be;
+                color: $dark-color;
+                width: $width90 - 40;
+            }
+            &.CheckOut {
+                background-color: #eea88d;
+                color: $dark-color;
+                width: $width90 - 40;
+            }
+        }
+    }
+}
+.homeFt {
+    .btn {
+        padding: $zero;
+        margin-top: $size - 1.8;
+
+        .button {
+            @include border-radius(0);
+        }
+    }
+}
+.check_out {
+    text-align: $left;
+
+    .button {
+        background: $checkout-btn;
+        border: $zero;
+        box-shadow: $none;
+        color: $white-color;
+        @include border-radius(20px);
+        font-family: $fontBold;
+        font-size: $size - .9;
+        height: $size * 2;
+
+        i {
+            font-size: $size;
+        }
+        @include media-query(560px) {
+            @include border-radius(40px);
+            font-size: $size + .2;
+            height: $size + 3;
+        }
+    }
+}
+.add_project {
+    text-align: $right;
+    padding-right: $size;
+
+    .button {
+        background: $black-color;
+        border: $zero;
+        box-shadow: $none;
+        color: $white-color;
+        @include border-radius(50%);
+        font-family: $fontBold;
+        font-size: $size;
+        padding: $zero;
+        height: $size + 2;
+        width: $size + 2;
+        line-height: $size + 2;
+
+        @include media-query(560px) {
+            font-size: $size + 2;
+            height: $size * 3;
+            width: $size * 3;
+            line-height: $size + 3;
+        }
+        .button-inner {
+            @include media-query(560px) {
+                margin-top: -5px;
+            }
+        }
+    }
+}
+.chatBtn {
+    text-align: $right;
+    padding-right: $size + 1;
+    padding-bottom: $size;
+    position: fixed;
+    right: $zero;
+    bottom: $zero;
+
+    .button {
+        background: $btn-color;
+        color: $white-color;
+        height: $size * 3;
+        width: $size * 3;
+        box-shadow: -1px 1px 60px -1px rgba(216, 52, 49, 1);
+        @include border-radius(50%);
+
+        i {
+            color: $white-color;
+            font-size: $size + 1;
+        }
+    }
+}

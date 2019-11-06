@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end *ngIf="editFlag">
+            <button ion-button (click)="editProject()">
+                <i class="icon-edit"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ projectName }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <super-tabs id="mainTabs" [selectedTabIndex]="selectedIndex" (tabSelect)="onTabSelect($event)">
+        <super-tab [root]="page1" [rootParams]="paramsData" title="{{ 'DETAILS' | translate }}" id="detail"></super-tab>
+        <super-tab [root]="page2" [rootParams]="paramsData" title="{{ 'RECEIPTS' | translate }}"></super-tab>
+        <super-tab [root]="page3" [rootParams]="paramsData" title="{{ 'REQUESTS' | translate }}"></super-tab>
+    </super-tabs>
+
+
+</ion-content>
+<ion-footer class="ntpr">
+    <div class="btn">
+        <button ion-button type="button"  (click)="goToProductReceiptForm()">
+            {{"ADD RECEIPT" | translate }}
+        </button>
+         <button ion-button type="button" (click)="goToProductRequestForm()" *ngIf="globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == projData['project_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == 'project' && selectedIndex==2">
+            {{"ADD REQUEST" | translate }}
+        </button>
+        <button ion-button type="button" (click)="checkOut()" *ngIf="globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == projData['project_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == 'project'">
+            {{"CHECK OUT" | translate }}
+        </button>
+
+        <button ion-button type="button" (click)="checkIn()" *ngIf="globalCheckInData['checkinFlag'] == false">
+            {{"CHECK IN" | translate }}
+        </button>
+        <button ion-button type="button" *ngIf="globalCheckInData['checkinFlag'] == true  && (globalCheckInData['checkinDetails']['check_in_out_type_id'] != projData['project_id'] ||  globalCheckInData['checkinDetails']['check_in_out_type'] != 'project') && (projData['server_hpb_id']?projData['server_hpb_id']:'-') != '-' "
+            (click)="alreadyCheckInAlert()">
+            {{"CHECK IN" | translate }}
+        </button>
+        <!---checkin disabled no Hpb added button function button {{ (projData['hpbName']?projData['hpbName']:'-') }} ---->
+        <!--<button ion-button type="button" (click)="hpbNotAssigned()" *ngIf=" (projData['server_hpb_id']?projData['server_hpb_id']:'-') == '-'">
+            {{"CHECK IN" | translate }}
+        </button>-->
+        <!--<button ion-button type="button" (click)="goToProductReceiptForm()" *ngIf="selectedIndex == 1 && globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == projData['project_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == 'project'">
+            Add Receipt
+        </button>-->
+    </div>
+    <!--<div class="homeFt">
+        <div class="btn">
+            <button ion-button type="button">
+                Add project
+            </button>
+        </div>
+    </div> -->
+</ion-footer>

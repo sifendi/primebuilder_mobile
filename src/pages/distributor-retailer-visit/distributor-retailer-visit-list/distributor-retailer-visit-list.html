@@ -1,0 +1,158 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons class="backBtn">
+            <!--<button ion-button>
+                <i class="icon-back"></i>
+            </button>-->
+        </ion-buttons>
+        <ion-buttons end>
+            <button ion-button menuToggle>
+                <i class="icon-home"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "VISIT LIST" | translate }}</ion-title>
+    </ion-navbar>
+    <ion-searchbar [(ngModel)]="myInput" placeholder="Search"></ion-searchbar>
+
+</ion-header>
+<ion-content fullscreen="false">
+    <div class="filterTag">
+        <p>{{ "SEARCH BY" | translate }} : Bekasi, 1/12/17 - 19/12/17, </p>
+        <button ion-button color="light" class="closeStyle">
+            <i class="icon-close-thin"></i>
+        </button>
+    </div>
+    <!-- <ion-list class="listWrap">
+        <div class="itemWrap">
+            <ion-item class="listItem receipt">
+                <div class="leftContent">
+                    <div class="mobileWrap">
+                        <div class="projectWrap">
+                            <p class="title">Name</p>
+                            <span class="value">Shadab Khan</span>
+                            <p class="difMarg title">Distributor</p>
+                        </div>
+                    </div>
+                </div>
+                <span class="hpbStatus"><i class="icon-Close"></i>In progress</span>
+                <span class="tag">1 May 17</span>
+                <i class="icon-next-thin checkIn"></i>
+            </ion-item>
+        </div>
+        <div class="itemWrap">
+            <ion-item class="listItem receipt">
+                <div class="leftContent">
+                    <div class="mobileWrap">
+                        <div class="projectWrap">
+                            <p class="title">Name</p>
+                            <span class="value">Shadab Khan</span>
+                            <p class="difMarg title">Distributor</p>
+                        </div>
+                    </div>
+                </div>
+                <span class="hpbStatus"><i class="icon-Close"></i>In progress</span>
+                <span class="tag">1 May 17</span>
+                <i class="icon-next-thin checkIn"></i>
+            </ion-item>
+        </div>
+    </ion-list>-->
+    <ion-list class="listWrap">
+        <!--<div *ngIf="hpbData == undefined || hpbData == '' ">
+            <h2 class="noData">No Masons Found</h2>
+        </div>-->
+        <div class="itemWrap">
+            <ion-item class="listItem receipt">
+                <ion-avatar item-left>
+                    <img src="assets/img/user_create.png">
+                </ion-avatar>
+                <div class="leftContent">
+                    <div class="projectWrap">
+                        <p class="title">{{ "DISTRIBUTOR" | translate }}</p>
+                        <span class="value">Jamadi Ridwani</span>
+                    </div>
+                    <div class="mobileWrap">
+                        <p class="title inline">{{ "MOBILE NO" | translate }}.</p>
+                        <span class="value inline">9029908944</span>
+                        <button ion-button color="light">
+                                        <i class="icon-call"></i>
+                                    </button>
+                        <p class="title dark marg5">{{ "CITY / MUNICIPALITY" | translate }}: <span>Mumbai</span></p>
+                    </div>
+                </div>
+                <!--<span class="tag" *ngIf="hpb['hpb_status'] !=undefined && hpb['hpb_status'] !=''">{{ hpb['hpb_status'] }}</span>-->
+                <!--<div class="arrow_box notVisit">
+                                Not Visited
+                            </div>-->
+                <!--<button class="checkIn nextTo" ion-button color="light">
+                            CHECK IN<i class="icon-next"></i>
+                        </button>-->
+            </ion-item>
+            <div class="ntpr">
+                <div class="btn">
+                    <button class="vDetail" ion-button type="button">
+                        {{ "VIEW DETAILS" | translate }}
+                    </button>
+                    <button class="vProject" ion-button type="button">
+                        {{ "CHECK IN" | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="itemWrap">
+            <ion-item class="listItem receipt">
+                <ion-avatar item-left>
+                    <img src="assets/img/user_create.png">
+                </ion-avatar>
+                <div class="leftContent">
+                    <div class="projectWrap">
+                        <p class="title">{{ "DISTRIBUTOR" | translate }}</p>
+                        <span class="value">Jamadi Ridwani</span>
+                    </div>
+                    <div class="mobileWrap">
+                        <p class="title inline">{{ "MOBILE NO" | translate }}.</p>
+                        <span class="value inline">9029908944</span>
+                        <button ion-button color="light">
+                                        <i class="icon-call"></i>
+                                    </button>
+                        <p class="title dark marg5">{{ "CITY / MUNICIPALITY" | translate }}: <span>Mumbai</span></p>
+                    </div>
+                </div>
+                <!--<span class="tag" *ngIf="hpb['hpb_status'] !=undefined && hpb['hpb_status'] !=''">{{ hpb['hpb_status'] }}</span>-->
+                <!--<div class="arrow_box notVisit">
+                                Not Visited
+                            </div>-->
+                <!--<button class="checkIn nextTo" ion-button color="light">
+                            CHECK IN<i class="icon-next"></i>
+                        </button>-->
+            </ion-item>
+            <div class="ntpr">
+                <div class="btn">
+                    <button class="vDetail" ion-button type="button">
+                       {{ "VIEW DETAILS" | translate }}
+                    </button>
+                    <button class="CheckOut" ion-button type="button">
+                        {{ "CHECK OUT" | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ion-list>
+
+</ion-content>
+<ion-footer class="ntpr">
+    <div class="btn">
+        <button ion-button type="button">
+            Add Request{{ "NOTE" | translate }}
+        </button>
+        <button ion-button type="button">
+            Check Out{{ "NOTE" | translate }}
+        </button>
+    </div>
+    <!-- <div class="homeFt">
+        <div class="btn">
+            <button ion-button type="button">
+               Check in
+            </button>
+        </div>
+    </div> -->
+</ion-footer>

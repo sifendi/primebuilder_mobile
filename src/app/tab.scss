@@ -1,0 +1,221 @@
+.tabs {
+    .tabbar {
+        background: $dark-primary;
+        position: $relative;
+        box-shadow: 5px 5px 10px $tab-primary;
+        -webkit-box-shadow: 5px 5px 10px $tab-primary;
+        .tab-button {
+            color: $tab-primary;
+            min-height: $size + 2.5;
+            padding: 0 5px;
+            .tab-button-text {
+                font-size: $size - .6;
+                font-family: $fontMd;
+                text-transform: $uppercase;
+                @include media-query(400px) {
+                    font-size: $size - .4;
+                }
+                @include media-query(560px) {
+                    font-size: $size;
+                }
+            }
+            .tab-button-icon {
+                &::before {
+                    color: $md-main;
+                }
+                @include media-query(400px) {
+                    font-size: $size + 1;
+                }
+                @include media-query(560px) {
+                    font-size: $size + 1.5;
+                }
+            }
+        }
+        .tab-button[aria-selected=true] {
+            border-bottom: 5px $solid $border-secondary;
+            color: $white-color;
+            .tab-button-icon {
+                &::before {
+                    color: $white-color;
+                }
+            }
+        }
+    }
+    &.textTab {
+        .tab-button {
+            .tab-button-icon {
+                &::before {
+                    color: $white-color;
+                }
+            }
+        }
+    }
+}
+
+
+/*** New Tab styling ***/
+
+.textTab {
+    .toolbar {
+        min-height: $size + 2.5;
+        padding: $zero $size - 1.5;
+        position: fixed;
+        .slide {
+            background-color: $border-secondary;
+        }
+        .segment-button {
+            color: $tab-primary;
+            font-size: $size - .4;
+            &.segment-activated {
+                color: $white-color;
+            }
+        }
+        &::after {
+            height: $zero;
+        }
+    }
+    .slides {
+        padding-top: $size + 2.5;
+        height: $width90 + 10 $important;
+    }
+}
+
+
+/*** tab stratucure ***/
+
+super-tabs {
+    .selected {
+        border-bottom: 5px $solid #fff;
+    }
+    &.homeTab {
+        height: 44vh;
+        position: $relative;
+        super-tabs-container {
+            height: 100%;
+            position: $absolute;
+            width: $width90 + 10;
+            left: $zero;
+            top: 28px;
+            @include media-query(560px) {
+                height: 400px !important;
+                top: 42px;
+            }
+        }
+    }
+    .selected {
+        border-bottom: none;
+    }
+    .selected {
+        .title {
+            color: $white-color !important;
+            border-bottom: 3px $solid $white-color;
+        }
+    }
+    .tab-buttons {
+        super-tab-button {
+            font-size: 12px !important;
+            padding: $zero !important;
+            height: $auto !important;
+            @include media-query-max(320px) {
+                font-size: 10px !important;
+            }
+            .title {
+                color: $place-holder;
+                padding: 8px 3px;
+                line-height: initial !important;
+            }
+        }
+    }
+    .selected {
+        .title {
+            color: $white-color;
+        }
+    }
+    .indicator {
+        background-color: transparent;
+    }
+    .toolbar::after {
+        content: none !important;
+    }
+    @include media-query(320px) {
+        &.homeTab {
+            height: 42vh;
+        }
+        .title-only {
+            font-size: 16px;
+        }
+    }
+    @include media-query(360px) {
+        &.homeTab {
+            height: 45vh;
+        }
+    }
+    @include media-query(400px) {
+        &.homeTab {
+            height: 48vh;
+        }
+    }
+    @include media-query(560px) {
+        &.homeTab {
+            height: 43vh;
+        }
+        .title {
+            font-size: $size;
+        }
+    }
+}
+
+super-tabs:not([no-shadow])>super-tabs-toolbar>ion-toolbar.toolbar::after {
+    height: $auto;
+}
+
+super-tabs-container {
+    height: 100% !important;
+}
+
+
+/*** tab stratucure end***/
+
+
+/**** segment ****/
+
+.segment {
+    .segment-button {
+        background-color: $white-color;
+        color: $black-color;
+        border: 1px $solid #ccc;
+        height: $auto;
+        @include border-radius(100px);
+        margin: $zero 5px;
+        @include media-query(560px) {
+            font-size: $size - .2;
+        }
+        @include media-query(560px) {
+            font-size: $size - .5;
+        }
+        &.segment-activated {
+            background-color: $btn-color;
+            color: $white-color;
+            border: 1px $solid $btn-color !important;
+        }
+    }
+}
+
+
+/**** segment end****/
+
+.redeemTabs {
+    @include media-query(560px) {
+        height: calc(100% - 40px);
+    }
+}
+
+.platform-android4.platform-android4_4 .redeemTabs {
+    height: calc(100% - 30px);
+}
+
+.hpbTabs {
+    .scroll-content {
+        margin-bottom: $zero $important;
+    }
+}

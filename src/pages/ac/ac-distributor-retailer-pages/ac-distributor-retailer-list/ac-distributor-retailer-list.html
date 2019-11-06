@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons class="backBtn">
+            <!--<button ion-button>
+                <i class="icon-back"></i>
+            </button>-->
+        </ion-buttons>
+        <ion-buttons end>
+            <button ion-button (click)="goToFilterPage()" >
+                   <i class="icon-filter"></i>  
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "DISTRIBUTOR/RETAILER LIST" | translate }}</ion-title>
+    </ion-navbar>
+    <ion-searchbar [(ngModel)]="myInput" placeholder="{{ 'SEARCH' | translate }}" (ionInput)="searchDRList($event)"></ion-searchbar>
+
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}" [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }" >
+<div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
+    <p>"{{ 'SEARCH BY' | translate }}" : {{ filterby }} </p>
+    <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
+        <i class="icon-close-thin"></i>
+    </button>
+</div> 
+  <div *ngIf="retailerDistributorAllData == undefined || retailerDistributorAllData == ''">
+            <h2 class="noData contMid">{{ "NO DISTRIBUTOR RETAILER FOUND." | translate }}</h2>
+        </div>
+    <ion-list class="listWrap">
+      
+        <div class="itemWrap" *ngFor="let rds of retailerDistributorAllData;let i = index;">
+            <ion-item class="listItem receipt" *ngIf="retailerDistributorAllData != undefined && retailerDistributorAllData != ''" >
+                <!--<ion-avatar item-left>
+                    <img src="assets/img/user_create.png">
+                </ion-avatar>-->
+                <div class="leftContent">
+                    <div class="projectWrap">
+                        <p class="title"> {{ rds['rds_type']?rds['rds_type']:"-" }}</p>
+                        <span class="value">{{ rds['rds_name']?rds['rds_name']:"-"  }}</span>
+                    </div>
+                    <div class="mobileWrap">
+                        <p class="title inline">{{ "MOBILE NO." | translate }}.</p>
+                        <span class="value inline">{{ rds['rds_phone']?rds['rds_phone']:"-" }}</span>
+                        <button ion-button color="light" (click)="makephonecall(rds['rds_phone'])" *ngIf="rds['rds_phone'] != undefined && rds['rds_phone'] != ''">
+                                        <i class="icon-call"></i>
+                                    </button>
+                        <p class="title dark marg5">{{ "CITY / MUNICIPALITY" | translate }}: <span>{{ rds['city_display_str']?rds['city_display_str']:"-" }}</span></p>
+                    </div>
+                </div>
+                <i class="icon-next-thin checkIn" (click)="goToRdsDetail(rds)"></i>
+            </ion-item>
+        </div>
+
+    </ion-list>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="!dataLoadCompleted">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>
+<ion-footer class="ntpr">
+
+</ion-footer>

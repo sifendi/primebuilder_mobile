@@ -1,0 +1,11 @@
+page-registration-form-details {
+	.digital_sign_img {
+		@include media-query(400px) {
+			margin-bottom: $size + 2.5;
+		}
+		@include media-query(560px) {
+			margin-bottom: $size;
+			line-height: auto;
+		}
+	}
+}

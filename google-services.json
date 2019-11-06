@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "324389439041",
+    "firebase_url": "https://hpb-app-29719.firebaseio.com",
+    "project_id": "hpb-app-29719",
+    "storage_bucket": "hpb-app-29719.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324389439041:android:2bdf7f53a2bc396f",
+        "android_client_info": {
+          "package_name": "com.holcim.hpb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324389439041-lfbgbdrk64kka815mrosrvcbfati2c1j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnvw-ePZ-PRiZcJnRddvWVc4T4vH6vwC8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

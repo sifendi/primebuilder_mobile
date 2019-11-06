@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end *ngIf="editFlag"> 
+            <button ion-button (click)="editProject()">
+                <i class="icon-edit"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ hpbName }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}" class="hpbTabs">
+
+    <super-tabs [selectedTabIndex]="selectedIndex" (tabSelect)="onTabSelect($event)" (tabSelect)="onTabChange()">
+        <super-tab [root]="page1" [rootParams]="paramsData" title="{{ 'DETAILS' | translate }}"></super-tab>
+        <super-tab [root]="page2" [rootParams]="paramsData" title="{{ 'PROJECTS' | translate }}"></super-tab>
+        <super-tab [root]="page3" [rootParams]="paramsData" title="{{ 'RECEIPTS' | translate }}"></super-tab>
+        <super-tab [root]="page4" [rootParams]="paramsData" title="{{ 'REQUESTS' | translate }}"></super-tab>
+    </super-tabs>
+
+
+</ion-content>
+<ion-footer class="ntpr">
+    <div class="btn">
+        <button ion-button type="button" *ngIf="selectedIndex == 1" (click)="goToProjectForm()">
+            {{ "ADD PROJECT" | translate }}
+        </button>
+        <!--<button ion-button type="button" *ngIf="(currentTabIndex == 2 || currentTabIndex == 3)">
+            CHECK OUT
+        </button>-->
+
+        <!--<button class="vProject" ion-button type="button" (click)="checkOut()" *ngIf="(false) && globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == projData['project_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == 'project'">
+                        CHECK OUT                    
+                    </button>
+        <button class="vProject" ion-button type="button" (click)="checkIn()" [disabled]="globalCheckInData['checkinFlag'] == true" *ngIf="(false) && globalCheckInData['checkinFlag'] == false">
+                        CHECK IN
+                    </button>
+        <button class="vProject" ion-button type="button" *ngIf="(false) && globalCheckInData['checkinFlag'] == true  && (globalCheckInData['checkinDetails']['check_in_out_type_id'] != projData['project_id'] ||  globalCheckInData['checkinDetails']['check_in_out_type'] != 'project') "
+            (click)="alreadyCheckInAlert()">
+                        CHECK IN
+        </button>-->
+
+
+    </div>
+    <!--<div class="homeFt">
+        <div class="btn">
+            <button ion-button type="button">
+                Add project
+            </button>
+        </div>
+    </div> -->
+</ion-footer>

@@ -1,0 +1,32 @@
+<!--
+  Generated template for the DigitalSignCanvasPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header #header>
+    <ion-navbar>
+        <ion-title>{{ "SIGN HERE" | translate }}</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="dismiss()">
+        <!--<span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>-->
+        <i class="icon-close"></i>
+      </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+<ion-content fullscreen="false" #ionContent>
+    <div class="dgtl_sign">
+        <div class="wrapper">
+            <signature-pad id="signature-pad" [options]="signaturePadOptions" class="signature-pad" height="400"></signature-pad>
+        </div>
+        <div class="ntpr" #footbutton>
+            <div class="btn">
+                <button ion-button type="button" (click)="save()">{{ "SAVE" | translate }}</button>
+                <button ion-button type="button" (click)="clear()">{{ "CLEAR" | translate }}</button>
+            </div>
+        </div>
+    </div>
+</ion-content>

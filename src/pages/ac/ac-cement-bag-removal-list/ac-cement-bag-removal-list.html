@@ -1,0 +1,115 @@
+<!--
+  Generated template for the AcCementBagRemovalListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{ "CEMENT BAG REMOVAL LIST" | translate }}</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="openFilterPage()" > 
+                <i class="icon-filter"></i>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+    <ion-searchbar [(ngModel)]="myInput" (ionInput)="searchCementBagRemReceipts($event)" name="searchBar" placeholder="{{ 'SEARCH' | translate }}"></ion-searchbar>
+
+</ion-header>
+
+
+<ion-content fullscreen="false"  [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}" [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }" >
+    
+    
+    <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
+        <p>"{{ 'SEARCH BY' | translate }}" : {{ filterby }} </p>
+        <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
+            <i class="icon-close-thin"></i>
+        </button>
+    </div> 
+   <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+
+    <ion-list class="listWrap">
+     <div *ngIf="removalAllData.length == 0"> 
+        <h2 class="noData contMid">{{ "NO REMOVAL RECEIPTS FOUND" | translate }}</h2>
+    </div>
+
+        <div class="itemWrap" *ngFor="let removalItem of removalAllData" >
+            <ion-item class="listItem receipt" tappable (click)="goToBagRemovalReceiptDetail(removalItem)" >
+                <div class="leftContent">
+                    <div class="mobileWrap">
+                        <div class="projectWrap">
+                            <p class="title">{{ "LOCATION NAME" | translate }}</p>
+                            <span class="value">{{ removalItem['location_name']?removalItem['location_name']:"-" }}</span>
+                        </div>
+                    </div>
+                </div>
+                <!--<span class="hpbStatus"><i class="icon-Close"></i>In progress</span>-->
+                <div class="projectWrap">
+                    <ion-grid class="gridWrap">
+                        <ion-row>
+                            <ion-col>
+                                <div class="projectWrap">
+                                    <p class="title">{{ "QUANTITY" | translate }}</p>
+                                    <span class="gridValue">{{ removalItem['quantity']?removalItem['quantity']:"0" }}</span>
+                                </div>
+                            </ion-col>
+                            <ion-col>
+                                <div class="projectWrap">
+                                    <p class="title">{{ "DISTRICT" | translate }}</p>
+                                    <span class="gridValue">{{ removalItem['district_name']?removalItem['district_name']:"-" }}</span>
+                                </div>
+                            </ion-col>
+                            <ion-col>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+                <ion-grid class="gridWrap">
+                    <ion-row>
+                        <ion-col>
+                            <div class="projectWrap">
+                                <p class="title">{{ "FROM DATE" | translate }}</p>
+                                <span class="gridValue">  {{ removalItem['from_date']?timeStampToDate(removalItem['from_date']):"-" }}</span>
+                            </div>
+                        </ion-col>
+                        <ion-col>
+                            <div class="projectWrap">
+                                <p class="title">{{ "TO DATE" | translate }}</p>
+                                <span class="gridValue">{{ removalItem['to_date']?timeStampToDate(removalItem['to_date']):"-" }}</span>
+                            </div>
+                        </ion-col>
+                        <ion-col>
+                            <div class="projectWrap">
+                                <p class="title">{{ "REMOVED ON" | translate }}</p>
+                                <span class="gridValue">{{ removalItem['created_date']?timeStampToDate(removalItem['created_date']):"-" }}</span>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+                <i class="icon-next-thin checkIn"></i>
+            </ion-item>
+        </div>
+       <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="!dataLoadCompleted">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ion-list>
+
+
+
+
+</ion-content>
+<ion-footer class="ntpr">
+    <div class="homeFt" (click)="goTRemovalForm()" >
+        <div class="btn">
+            <button ion-button type="button">
+                {{ "CEMENT BAG REMOVAL" | translate }}
+            </button>
+        </div>
+    </div>
+</ion-footer>

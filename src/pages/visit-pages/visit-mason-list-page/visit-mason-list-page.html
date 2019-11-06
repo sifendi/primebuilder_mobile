@@ -1,0 +1,188 @@
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, minDuration: 600}">
+    <ion-card class="todaysVisits">
+        <ion-card-content>
+            <div class="textBtn">
+                <h4 *ngIf="today == true">{{"TODAY'S PROGRESS" | translate }}</h4>
+                <h4 *ngIf="today != true">{{achiveDate}} {{"PROGRESS" | translate }}</h4>
+                <button ion-button class="icon-button" mbsc-calendar [mbsc-options]="settingsCalenders" #currentDataSelInst="mobiscroll" (change)="dateChange();" [(ngModel)]="currentDataSel" clear><i class="icon-calendar" tappable></i></button>
+            </div>
+            <div class="btnPerson achievement">
+                <button ion-button color="light">
+                    <p>{{"NEW MEMBER" | translate }}</p>
+                    <h3>{{newMemberTotal}}</h3>
+                   </button>
+                <button ion-button color="light">
+                    <p>{{"VISIT" | translate }}</p>
+                    <h3>{{visitTotal}}</h3>
+                   </button>
+                <button ion-button color="light">
+                    <p>{{"MAINTAIN" | translate }}</p>
+                    <h3>{{maintainTotal}} ton</h3>
+                  </button>
+                <button ion-button color="light">
+                    <p>{{"SWITCHING" | translate }}</p>
+                    <h3>{{switchingTotal}} ton</h3>
+                    </button>
+                <button ion-button color="light">
+                    <p>{{"SRKU" | translate }}</p>
+                    <h3>{{srkuTotal}} ton</h3>
+                </button>
+                <!--
+                    <button ion-button color="light">
+                        <p>{{"PRODUCT" | translate }}</p>
+                        <h3>{{productTotal}} ton/pcs</h3>
+                    </button>
+                -->
+            </div>
+            <!-- <div class="productList" *ngIf="AllDataProductTodayList.length>0">
+                <h4>Product</h4>
+                <div class="list">
+                    <div class="list-item" *ngFor="let productTodayList of AllDataProductTodayList">
+                        <p>{{productTodayList['product_name']}}</p>
+                        <small>{{productTodayList['quantity']}}</small>
+                    </div>
+                </div>
+            </div> -->
+        </ion-card-content>
+
+    </ion-card>
+    <!--<div class="flexWrap flexButtonWrap">
+
+        <button ion-button color="light" class="viewAll active" >Not Visited</button>
+        <button ion-button color="light" class="viewAll " >Visited</button>
+        <button ion-button color="light" class="viewAll " >All</button>
+
+    </div>-->
+    <ion-segment class="flexWrap flexButtonWrap" [(ngModel)]="visiListTab">
+        <ion-segment-button class="viewAll active" value="notvisited">
+            {{"NOT VISITED" | translate }}
+        </ion-segment-button>
+        <ion-segment-button class="viewAll" value="visited">
+            {{"VISITED" | translate }}
+        </ion-segment-button>
+        <ion-segment-button class="viewAll" value="all">
+            {{"ALL" | translate }}
+        </ion-segment-button>
+    </ion-segment>
+    <div [ngSwitch]="visiListTab">
+        <ion-list class="listWrap" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 1000}" *ngSwitchCase="'notvisited'">
+            <div *ngIf="nonVisitedData.length==0">
+                <h2 class="noData">{{"NO MASON FOUND" | translate }}</h2>
+            </div>
+            <div class="itemWrap" *ngFor="let masonObj of nonVisitedData">
+                <ion-item class="listItem noAvtar">
+                    <ion-avatar item-left>
+                        <img *ngIf="masonObj.proPic != ''" src="{{masonObj.proPic}}">
+                        <img *ngIf="masonObj.proPic == ''" src="assets/img/user_create.png">
+                    </ion-avatar>
+                    <div class="leftContent">
+                        <h2>{{masonObj.hpb_name}}</h2>
+                        <div class="mobileWrap">
+                            <p class="title">{{"MOBILE NO." | translate }}</p>
+                            <span class="value inline">{{masonObj.primary_mobile_no}}</span>
+                            <button ion-button color="light">
+                            <i class="icon-call" (click)="call(masonObj.primary_mobile_no)"></i>
+                        </button>
+                            <p class="title dark marg5">{{"CITY / MUNICIPLITY" | translate }}: <span> {{masonObj.domicile_city ?masonObj.domicile_city:'-' }}</span></p>
+                        </div>
+                    </div>
+                    <span class="tag">{{masonObj.hpb_status | uppercase | translate }}</span>
+
+                </ion-item>
+                <div class="ntpr">
+                    <div class="btn">
+                        <button class="vDetail" ion-button type="button" (click)="goToHpbDetail(masonObj)">
+                            {{"VIEW DETAILS" | translate }}
+                        </button>
+                        <button class="vProject" ion-button type="button" (click)="goToProjectList(masonObj)">
+                            {{"VIEW PROJECTS" | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </ion-list>
+        <ion-list class="listWrap" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 1000}" *ngSwitchCase="'visited'">
+            <div *ngIf="allDataVisitedList.length==0">
+                <h2 class="noData">{{"NO MASON FOUND" | translate }}</h2>
+            </div>
+            <div class="itemWrap" *ngFor="let masonObj of allDataVisitedList">
+                <ion-item class="listItem noAvtar">
+                    <ion-avatar item-left>
+                        <img *ngIf="masonObj.proPic != ''" src="{{masonObj.proPic}}">
+                        <img *ngIf="masonObj.proPic == ''" src="assets/img/user_create.png">
+                    </ion-avatar>
+                    <div class="leftContent">
+                        <h2>{{masonObj.hpb_name}}</h2>
+                        <div class="mobileWrap">
+                            <p class="title">{{"MOBILE NO." | translate }}</p>
+                            <span class="value inline">{{masonObj.primary_mobile_no}}</span>
+                            <button ion-button color="light">
+                            <i class="icon-call" (click)="call(masonObj.primary_mobile_no)"></i>
+                        </button>
+                            <p class="title dark marg5">{{"CITY / MUNICIPLITY" | translate }}: <span> {{masonObj.domicile_city ?masonObj.domicile_city:'-' }}</span></p>
+                        </div>
+                    </div>
+                    <span class="tag">{{masonObj.hpb_status | uppercase | translate }}</span>
+
+                </ion-item>
+                <div class="ntpr">
+                    <div class="btn">
+                        <button class="vDetail" ion-button type="button" (click)="goToHpbDetail(masonObj)">
+                            {{"VIEW DETAILS" | translate }}
+                        </button>
+                        <button class="vProject" ion-button type="button" (click)="goToProjectList(masonObj)">
+                            {{"VIEW PROJECTS" | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </ion-list>
+        <ion-list class="listWrap" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 1000}" *ngSwitchCase="'all'">
+            <div *ngIf="allData.length==0">
+                <h2 class="noData">{{"NO MASON FOUND" | translate }}</h2>
+            </div>
+            <div class="itemWrap" *ngFor="let masonObj of allData">
+                <ion-item class="listItem noAvtar">
+                    <ion-avatar item-left>
+                        <img *ngIf="masonObj.proPic != ''" src="{{masonObj.proPic}}">
+                        <img *ngIf="masonObj.proPic == ''" src="assets/img/user_create.png">
+                    </ion-avatar>
+                    <div class="leftContent">
+                        <h2>{{masonObj.hpb_name}}</h2>
+                        <div class="mobileWrap">
+                            <p class="title">{{"MOBILE NO." | translate }}</p>
+                            <span class="value inline">{{masonObj.primary_mobile_no}}</span>
+                            <button ion-button color="light">
+                            <i class="icon-call" (click)="call(masonObj.primary_mobile_no)"></i>
+                        </button>
+                            <p class="title dark marg5">{{"CITY / MUNICIPLITY" | translate }}: <span> {{masonObj.domicile_city ?masonObj.domicile_city:'-' }}</span></p>
+                        </div>
+                    </div>
+                    <span class="tag">{{masonObj.hpb_status | uppercase | translate }}</span>
+                    <div *ngIf="masonObj.visitStatus == false" class="arrow_box notVisit">
+                        {{"NOT VISITED" | translate }}
+                    </div>
+                    <!-- 
+                    <div *ngIf="masonObj.visitStatus == true" class="arrow_box notVisit">
+                        {{"VISITED" | translate }}
+                    </div>
+                    -->
+
+                </ion-item>
+                <div class="ntpr">
+                    <div class="btn">
+                        <button class="vDetail" ion-button type="button" (click)="goToHpbDetail(masonObj)">
+                            {{"VIEW DETAILS" | translate }}
+                        </button>
+                        <button class="vProject" ion-button type="button" (click)="goToProjectList(masonObj)">
+                            {{"VIEW PROJECTS" | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </ion-list>
+    </div>
+</ion-content>

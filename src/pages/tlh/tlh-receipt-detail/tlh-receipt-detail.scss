@@ -1,0 +1,7 @@
+page-tlh-receipt-detail {
+    @include media-query(560px) {
+        .scroll-content {
+            margin-bottom: 0 !important;
+        }
+    }
+}

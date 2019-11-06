@@ -1,0 +1,8 @@
+button {
+    [class^="icon-"],
+    [class*=" icon-"] {
+        @include media-query(560px) {
+            font-size: $size + 1.6;
+        }
+    }
+}

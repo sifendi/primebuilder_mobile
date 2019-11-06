@@ -1,0 +1,148 @@
+<ion-header>
+        <ion-navbar>
+        <ion-buttons end>
+                <button ion-button menuToggle>
+                    <i class="icon-menu"></i>
+                </button>
+            </ion-buttons>
+            <ion-title>{{ "PROJECT OR CUSTOMER DETAIL" | translate }}</ion-title>
+        </ion-navbar>
+    </ion-header>
+    <ion-content fullscreen="false" [ngBusy]="{busy: busy, minDuration: 600}">
+            <div class="userForm">
+                <div class="form_list">
+                <ion-card class="borderZero">
+                <ion-card-header>
+                    {{ "PROJECT OR CUSTOMER PHOTO" | translate }}
+                </ion-card-header>
+                 <ion-card-content>
+                    <div class="customerPhoto" *ngIf="!projDetailData?.lead_photos?.length>0">
+                        <img src="assets/images/user_create.png">
+                    </div>
+                     <div class="customerPhoto" >
+              
+                          <ul class="project_list">
+                            <li class="project_item" *ngFor="let photoDataObj of projDetailData.lead_photos">
+                                  <img [src]="photoDataObj?.serverPath" *ngIf="photoDataObj?.serverPath" (click)="openFile(photoDataObj?.serverPath)" >
+                            </li>
+                        </ul>
+                    </div>
+                </ion-card-content>
+                </ion-card>
+                       <ion-card>
+                        <ion-card-header>
+                            {{ "EMPLOYEE NAME" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                          {{projDetailData?.createdBy}}
+                        </ion-card-content>
+                    </ion-card>
+                    <ion-card>
+                        <ion-card-header>
+                            {{ "CUSTOMER NAME" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                          {{projDetailData?.lead_name}}
+                        </ion-card-content>
+                    </ion-card>
+                    <ion-card>
+                        <ion-card-header>
+                            {{ "VISIT DATE" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                            {{projDetailData['lead_visit_date']?appCom.timeStampToDate(projDetailData['lead_visit_date']):"-"}}
+                        </ion-card-content>
+                    </ion-card>
+                    <ion-card>
+                        <ion-card-header>
+                            {{ "CUSTOMER SEGMENT" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                          {{projDetailData['segmentDetail']?projDetailData.segmentDetail[0].segment_name:"-"}}
+                        </ion-card-content>
+                    </ion-card>
+                    <ion-card>
+                        <ion-card-header>
+                          {{ "CUSTOMER MOBILE NO." | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                           {{projDetailData?.lead_mobile}}
+                        </ion-card-content>
+                    </ion-card>
+                    <ion-card>
+                        <ion-card-header>
+                            {{ "CUSTOMER ADDRESS" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                             {{projDetailData?.lead_address}}
+                        </ion-card-content>
+                    </ion-card>
+                    <div class="two_coloum">
+                        <ion-card>
+                            <ion-card-header>
+                                {{ "POSTAL CODE" | translate }}
+                            </ion-card-header>
+                            <ion-card-content>
+                                 {{projDetailData?.lead_postal_code}}
+                            </ion-card-content>
+                        </ion-card>
+                        <ion-card>
+                            <ion-card-header>
+                                {{ "CITY" | translate }}
+                            </ion-card-header>
+                            <ion-card-content>
+                                {{projDetailData?.lead_city}}
+                            </ion-card-content>
+                        </ion-card>
+                    </div>
+                    <div class="two_coloum">
+                        <ion-card>
+                            <ion-card-header>
+                               {{ "SUB DISTRICT" | translate }}
+                            </ion-card-header>
+                            <ion-card-content>
+                                 {{projDetailData?.lead_sub_district}}
+                            </ion-card-content>
+                        </ion-card>
+                        <ion-card>
+                            <ion-card-header>
+                                {{ "PROVINCE" | translate }}
+                            </ion-card-header>
+                            <ion-card-content>
+                               {{projDetailData?.lead_province}}
+                            </ion-card-content>
+                        </ion-card>
+                    </div>
+                    <ion-card>
+                        <ion-card-header>
+                            {{ "INTERVIEW/DISCUSSION RESULT" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                             {{projDetailData?.lead_interview_result}}
+                        </ion-card-content>
+                    </ion-card>
+                    <ion-card class="noCardBot">
+                        <ion-card-header>
+                             {{ "SUPPORT FROM AC / ASM / KA ?" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                                 {{projDetailData?.lead_support_ac?"Yes":"No"}}
+                        </ion-card-content>
+                    </ion-card>
+                    <ion-card class="noCardBot" [hidden]="!(projDetailData.lead_segment==1 || projDetailData.lead_segment==2 || projDetailData.lead_segment==3 || projDetailData.lead_segment==4)">
+                        <ion-card-header>
+                            {{ "SUPPORT FROM TELESALES BETON ? " | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                            {{projDetailData?.lead_support_telesales?"Yes":"No"}}
+                        </ion-card-content>
+                    </ion-card>
+                </div>
+            </div>
+    
+        <div class="chatBtn" *ngIf="chatbtnShowFlag">
+            <button ion-button (click)="leadChatShow(projDetailData['lead_id'],projDetailData)">
+                <i class="icon-chat"></i>
+            </button>
+        </div>
+    </ion-content>

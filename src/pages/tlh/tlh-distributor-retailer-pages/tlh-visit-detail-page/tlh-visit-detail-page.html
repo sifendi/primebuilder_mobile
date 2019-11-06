@@ -1,0 +1,79 @@
+<ion-header>
+    <ion-navbar>
+        <!--<ion-buttons end>
+            <button ion-button (click)="openVisitEditPage()">
+                <i class="icon-edit"></i>
+            </button>
+        </ion-buttons>-->
+        <ion-title>{{"VISIT DETAIL" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false">
+    <form class="distributorDetails">
+        <div class="userSpace">
+            <ion-list class="inputBox">
+                <div class="form_list">
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{ rdsData['rds_type']?rdsData['rds_type']:"-" }}</ion-card-header>
+                        <ion-card-content>{{ rdsData['rds_name']?rdsData['rds_name']:"-" }}</ion-card-content>
+                    </ion-card>
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{"VISIT DATE" | translate }}</ion-card-header>
+                        <ion-card-content>{{ visitDate }}</ion-card-content>
+                    </ion-card>
+                </div>
+            </ion-list>
+        </div>
+        <div class="userSpaceRepet">
+            <h2 class="labelHeading">{{ "BRAND IN USE" | translate }}</h2>
+
+            <div *ngFor="let stock of stockData; let i = index;">
+                <div class="deleBox"><span>{{"BRAND" | translate }} {{(i+1)}} </span></div>
+                <ion-list class="inputBox">
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{"BRAND NAME" | translate }}</ion-card-header>
+                        <ion-card-content>{{ (stock['product_name']) ? stock['product_name']:"-" }}</ion-card-content>
+                    </ion-card>
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{"SELLING PRICE" | translate }}</ion-card-header>
+                        <ion-card-content>{{ (stock['stock_selling_price']) ? stock['stock_selling_price']:"-" }}</ion-card-content>
+                    </ion-card>
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{"TYPE OF PACKAGING" | translate }}</ion-card-header>
+                        <ion-card-content>{{ (stock['stock_unit']) ? stock['stock_unit']:"-" }}</ion-card-content>
+                    </ion-card>
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{"PROMOTION PROGRAM" | translate }}</ion-card-header>
+                        <ion-card-content>{{ (stock['stock_promo']) ? stock['stock_promo']:"-" }}</ion-card-content>
+                    </ion-card>
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{"QUANTITY STOCK" | translate }}</ion-card-header>
+                        <ion-card-content>{{ (stock['stock_quantity']) ? stock['stock_quantity']:"-" }}</ion-card-content>
+                    </ion-card>
+                </ion-list>
+            </div>
+
+            <div class="brandNote">
+                <ion-card class="cardRow">
+                    <ion-card-header>{{"NOTE" | translate }}</ion-card-header>
+                    <ion-card-content>{{ visitData['additional_comments']?visitData['additional_comments']:"-" }}</ion-card-content>
+                </ion-card>
+                <!--<div class="btn digital_sign">
+                    <button ion-button type="button">
+                        <img src="assets/img/sign.png" alt="">
+                    </button>
+                </div>-->
+            </div>
+        </div>
+    </form>
+</ion-content>
+<ion-footer class="ntpr">
+    <!--<div class="btn">
+        <button ion-button type="button" (click)="goToAddVisitForm()">
+            Add Visit
+        </button>
+        <button ion-button type="button">
+            Check out
+        </button>
+    </div>-->
+</ion-footer>

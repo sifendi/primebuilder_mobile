@@ -1,0 +1,6 @@
+Create WWW Folder
+npm install
+check
+
+
+ionic cordova plugin add phonegap-plugin-push --variable SENDER_ID=ionic cordova plugin add phonegap-plugin-push --variable SENDER_ID=324389439041

@@ -1,0 +1,68 @@
+
+<ion-header>
+    <ion-navbar>
+    <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+             <i class="icon-close"></i>
+           </button>
+        </ion-buttons>
+        <ion-title>{{ "SEARCH BY" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false">
+    <form class="userForm">
+        <ion-list class="inputBox">
+            <!--<div class="rdIn">
+                <div class="date_picker">
+                    <div class="date_list" >
+                        <ion-item class="inputLable">
+                            <ion-label floating>{{ "FROM DATE" | translate }}</ion-label>
+                           
+                            <ion-input [(ngModel)]="rdsFilterArr.fromDate" #fromDateMob="mobiscroll" #fromDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsFrom" required></ion-input>	
+                        </ion-item>
+                        <i tappable role="button" class="icon-arrow"></i>
+                    </div>
+                    <div class="date_list" [class.disabledDiv]="disableToDateFlag"  >
+                        <ion-item class="inputLable">
+                            <ion-label floating>{{ "TO DATE" | translate }}</ion-label>
+                           
+                             <ion-input [(ngModel)]="rdsFilterArr.toDate" #toDateMob="mobiscroll" #toDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsTo" required></ion-input>	
+                        </ion-item>
+                        <i tappable role="button" class="icon-arrow"></i>
+                    </div>
+                </div>
+            </div>-->
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{ "CITY / MUNICIPALITY" | translate }}</ion-label>
+                     <ion-input  [(ngModel)]="rdsFilterArr.city"  #City="ngModel" #cityMob="mobiscroll"  mbsc-select [mbsc-options]="mobiScollCitySettings" [mbsc-data]="cityArr"  [ngModelOptions]="{standalone: true}" required></ion-input>
+                </ion-item>
+            </div>
+            <!--<div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "BRAND" | translate }}</ion-label>
+                        <ion-input  [(ngModel)]="rdsFilterArr.brand"  #Product="ngModel"  mbsc-select [mbsc-options]="mobiScollPRODSettings" [mbsc-data]="productsArr"  [ngModelOptions]="{standalone: true}" required></ion-input>
+                </ion-item>
+            </div>-->
+        </ion-list>
+        <div class="checkButton">
+            <h2 class="labelHeading">{{ "TYPE" | translate }}</h2>
+            <div class="rdIn project_stage_btn" [(ngModel)]="rdsFilterArr.type" [ngModelOptions]="{standalone: true}" radio-group>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "DISTRIBUTOR" | translate }}</ion-label>
+                    <ion-radio value="distributor" ></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "RETAILER" | translate }}</ion-label>
+                    <ion-radio value="retailer" ></ion-radio>
+                </ion-item>
+            </div>
+        </div>
+    </form>
+</ion-content>
+<ion-footer class="ntpr">
+  <div class="btn">
+    <button ion-button (click)="search()" type="button">{{ "SEARCH" | translate }}</button>
+    <button ion-button type="button" (click)="clearFilter()">{{ "RESET" | translate }}</button>
+  </div>
+</ion-footer>

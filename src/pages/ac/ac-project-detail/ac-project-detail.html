@@ -1,0 +1,284 @@
+
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button (click)="editProject()">
+                <i class="icon-edit"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ projData['project_name']?projData['project_name']:"-" }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <div class="toll_profile">
+        <div class="user_details">
+            <ion-row>
+                <ion-col col-7>
+                    <h6>{{"DPB NAME" | translate }}</h6>
+                    <h5>{{ projData['hpb_name']?projData['hpb_name']:"-" }}</h5>
+                </ion-col>
+                <ion-col col-5>
+                    <h6>{{"COMPLETION DATE" | translate }}</h6>
+                    <h5>{{ projData['project_completion_date']?timeStampToDate(projData['project_completion_date']):"-" }}</h5>
+                </ion-col>
+            </ion-row>
+        </div>
+        <div class="projectTitle">
+            <h3>{{"PROJECT PHOTO" | translate }}</h3>
+        </div>
+    </div>
+    <div class="project_slider">
+        <ul class="project_list">
+            <li class="project_item" *ngFor="let photo of projPhotoObj">
+                <img [src]="photo" (click)="openFile(photo)" alt="">
+            </li>
+        </ul>
+    </div>
+
+    <!--<ion-grid class="gridWrap">
+        <div class="row" [innerHTML]="appCom.renderTHAppStatusARP(projData?.app)">
+        </div>
+    </ion-grid>-->
+
+    <div class="srku_details">
+        <div class="form_list">
+            <ion-grid class="gridWrap">
+                <div class="row" [innerHTML]="appCom.renderTHAppStatusARP(projData?.app)">
+                </div>
+            </ion-grid>
+            <ion-card>
+                <ion-card-header>
+                    {{"SPH NAME" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ projData['sph_name']?projData['sph_name']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    {{"PROJECT TYPE" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ projData['project_type_name']?projData['project_type_name']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    {{"PROJECT STAGE" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ projData['project_stage_name']?projData['project_stage_name']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    {{"CEMENT ESTIMATION" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ projData['project_quantity_estimation']?projData['project_quantity_estimation']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    {{"ADDRESS" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ projData['project_address']?projData['project_address']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{"POSTAL CODE" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ projData['project_pincode']?projData['project_pincode']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{"PROVINCE" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ projData['project_province']?projData['project_province']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{"CITY / MUNICIPALITY" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ projData['project_city']?projData['project_city']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{"SUB DISTRICT" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ projData['project_sub_district']?projData['project_sub_district']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+
+
+            <div *ngIf="projData['is_srku']==1">
+                <h2 class="labelHeading">SRKU Details</h2>
+                <ion-card>
+                    <ion-card-header>
+                        {{"OWNER" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ projData['srku_owner_name']?projData['srku_owner_name']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{"MOBILE NO." | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ projData['srku_owner_mobile_no']?projData['srku_owner_mobile_no']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{"ADDRESS" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ projData['srku_owner_address']?projData['srku_owner_address']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <div class="two_coloum">
+                    <ion-card>
+                        <ion-card-header>
+                            {{"POSTAL CODE" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                            {{ projData['srku_pincode']?projData['srku_pincode']:"-" }}
+                        </ion-card-content>
+                    </ion-card>
+                    <ion-card>
+                        <ion-card-header>
+                            {{"PROVINCE" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                            {{ projData['srku_province']?projData['srku_province']:"-" }}
+                        </ion-card-content>
+                    </ion-card>
+                </div>
+                <div class="two_coloum">
+                    <ion-card>
+                        <ion-card-header>
+                            {{"CITY / MUNICIPALITY" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                            {{ projData['srku_city']?projData['srku_city']:"-" }}
+                        </ion-card-content>
+                    </ion-card>
+                    <ion-card>
+                        <ion-card-header>
+                            {{"SUB DISTRICT" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                            {{ projData['srku_sub_district']?projData['srku_sub_district']:"-" }}
+                        </ion-card-content>
+                    </ion-card>
+                </div>
+                <ion-card>
+                    <ion-card-header>
+                        {{"FLOOR SIZE" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ projData['floor_size']?projData['floor_size']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{"NO. OF HOME UNITS" | translate }}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ projData['number_of_units']?projData['number_of_units']:"-" }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{"HAS MICRO CREDIT?" | translate }}
+                    </ion-card-header>
+                    <ion-card-content *ngIf="projData['is_micro_credit'] == 1">
+                        {{"YES" | translate }}
+                    </ion-card-content>
+                    <ion-card-content *ngIf="projData['is_micro_credit'] == 0">
+                        {{"NO" | translate }}
+                    </ion-card-content>
+                </ion-card>
+
+                <div *ngIf="projData['is_micro_credit'] == 1">
+                    <ion-card>
+                        <ion-card-header>
+                            {{"BANK NAME" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                            {{ projData['bank_name']?projData['bank_name']:"-" }}
+                        </ion-card-content>
+                    </ion-card>
+                    <div class="photo_uploaded">
+                        <h2 class="labelHeading">{{"BANK DOCUMENTS" | translate }}</h2>
+                        <div class="id_photos">
+                            <div class="id_items" *ngFor="let photo of bankPhotoObj">
+                                <img [src]="photo.display" (click)="openFile(photo.path)" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="projData['is_micro_credit'] == 0">
+                    <ion-card>
+                        <ion-card-header>
+                            {{"NMC TYPE" | translate }}
+                        </ion-card-header>
+                        <ion-card-content>
+                            {{ projData['non_micro_credit_type_name']?projData['non_micro_credit_type_name']:"-" }}
+                        </ion-card-content>
+                    </ion-card>
+                    <div class="photo_uploaded">
+                        <h2 class="labelHeading">{{"NMC Documents" | translate }}</h2>
+                        <div class="id_photos">
+                            <div class="id_items" *ngFor="let photo of nmcPhotoObj">
+                                <img [src]="photo.display" (click)="openFile(photo.path)" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <ion-card>
+                <ion-card-header>
+                    {{"NOTE" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ projData['additional_comments']?projData['additional_comments']:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <!--<div class="singTitle" *ngIf="digitalSignPath != undefined && digitalSignPath != ''">
+                <h2 class="labelHeading">{{"HPB SIGNATURE" | translate }}</h2>
+                <div class="digital_sign_img">
+                    <img [src]="digitalSignPath?digitalSignPath:''" alt="">
+                </div>
+            </div>-->
+        </div>
+    </div>
+</ion-content>
+<!--<ion-footer class="ntpr">
+    <div class="btn" *ngIf="showApproveBtnFlag">
+        <button ion-button type="button" (click)="approve()">
+            {{"APPROVE" | translate }}
+        </button>
+        <button ion-button type="button" (click)="reject()">
+        {{"REJECT" | translate }}
+        </button>
+    </div>
+</ion-footer>-->

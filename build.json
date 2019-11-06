@@ -1,0 +1,16 @@
+{
+    "ios": {
+        "debug": {
+            "codeSignIdentity": "iPhone Developer",
+            "provisioningProfile": "Dynamix DPB dev",
+            "developmentTeam": "B7MKVCTW4T",
+            "packageType": "development"
+        },
+        "release": {
+            "codeSignIdentity": "iPhone Developer",
+            "provisioningProfile": "Dynamix DPB distribution",
+            "developmentTeam": "B7MKVCTW4T",
+            "packageType": "ad-hoc"
+        }
+    }
+}

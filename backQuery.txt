@@ -1,0 +1,47 @@
+        //    resolve(true);
+
+        // window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "www/db.sql",(fileEntry)=>{
+                
+        //     fileEntry.file(function(file) {
+        //         var reader = new FileReader();
+        //         reader.onloadend = function(e) {
+        //         console.log("sql query is",this.result);
+
+        //             var successFn = function(count){
+        //               alert("Successfully imported "+count+" SQL statements to DB");
+        //             };
+        //             var errorFn = function(error){
+        //             alert("The following error occurred: "+error.message);
+        //             };
+        //             var progressFn = function(current, total){
+        //              console.log("Imported "+current+"/"+total+" statements");
+        //             };
+                    
+        //             let sqlQuery = new String(this.result);
+        //             let dbStorageSql = window.sqlitePlugin.openDatabase({name: "hpb.db",key: ALL_KEYS.DB_KEY, location: 'default'});
+        //             cordova.plugins.sqlitePorter.importSqlToDb(dbStorageSql, sqlQuery, {
+        //             successFn: successFn,
+        //             errorFn: errorFn,
+        //             progressFn: progressFn
+        //             });
+
+        //         }
+        //         reader.readAsText(file);
+        //     });
+
+        // },(e)=>{
+        //     console.log("FileSystem Error");
+        //     console.dir(e);
+        // });
+
+
+        //   let perDb = (<any>window).sqlitePlugin.openDatabase({name: 'hpb_db.db',location: 'default', createFromLocation: 1});
+        //     setTimeout(function(){
+        //             cordova.plugins.sqlitePorter.exportDbToSql(perDb, {
+        //             successFn: (sql, count)=>{
+        //             console.log("Exported SQL: "+sql);
+        //             console.log("Exported SQL contains "+count+" statements");
+        //             resolve(true);
+        //             }
+        //         });  
+        //      },5000);

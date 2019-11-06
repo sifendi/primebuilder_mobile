@@ -1,0 +1,139 @@
+<ion-header>
+    <ion-navbar>
+        <!--<ion-buttons class="backBtn">
+            <button ion-button (click)="goHome()">
+                <i class="icon-back"></i>
+            </button>
+        </ion-buttons>-->
+        <ion-buttons end>
+            <button ion-button (click)="goToFilterPage()">
+                <i class="icon-filter"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{"PROJECT LIST" | translate }}</ion-title>
+    </ion-navbar>
+    <ion-searchbar [(ngModel)]="projectSearchTxt" placeholder="{{ 'SEARCH' | translate }}" (ionInput)="searchProject($event)" name="searchbar"></ion-searchbar>
+
+</ion-header>
+<ion-content padding [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }" fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
+        <p>{{"SEARCH BY" | translate }} : {{ filterby }} </p>
+        <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
+            <i class="icon-close-thin"></i>
+        </button>
+    </div>
+    <ion-list class="listWrap">
+        <div *ngIf="projData.length==0">
+            <h2 class="noData contMid">{{"NO PROJECTS FOUND" | translate }}</h2>
+        </div>
+        <div class="itemWrap projectList" *ngFor="let projItem of projData">
+            <ion-item class="listItem receipt" tappable (click)="goToProjectDetail(projItem)">
+                <div class="leftContent">
+                    <div class="mobileWrap">
+                        <div class="projectWrap">
+                            <p class="title">{{"PROJECT NAME" | translate }}</p>
+                            <span class="value">{{ projItem['project_name']?projItem['project_name']:"-" }}</span>
+                        </div>
+                        <div class="projectWrap">
+                            <p class="title">{{"DPB NAME" | translate }}</p>
+                            <span class="value">{{  projItem['hpb_name']?projItem['hpb_name']:"-" }}</span>
+                        </div>
+                        <div class="projectWrap">
+                            <p class="title">{{"ADDRESS" | translate }}</p>
+                            <p class="title bColor">{{ projItem['project_address']?projItem['project_address']:"-" }}</p>
+                        </div>
+                    </div>
+                </div>
+                <!--<span class="hpbStatus"><i class="icon-Close"></i>In progress</span>-->
+                <ion-grid class="gridWrap">
+                    <ion-row>
+                        <ion-col>
+                            <div class="projectWrap blueLeft">
+                                <p class="title">{{"PROJECT TYPE" | translate }}</p>
+                                <span class="gridValue">{{ projItem['project_type']?projItem['project_type']:"-" }}</span>
+                            </div>
+                        </ion-col>
+                        <!--<ion-col>
+                            <div class="projectWrap greenLeft">
+                                <p class="title">HPB</p>
+                                <span class="gridValue" *ngIf=" projItem['user'] != undefined && projItem['user'] != '' ">{{ projItem['user']['hpb_type'] }}</span>
+                            </div>
+                        </ion-col>-->
+                        <ion-col>
+                            <div class="projectWrap redLeft">
+                                <p class="title">{{"IS SRKU" | translate }}</p>
+                                <span class="gridValue" *ngIf="projItem['is_srku'] == 1">{{"YES" | translate}}</span>
+                                <span class="gridValue" *ngIf="projItem['is_srku'] == 0 || projItem['is_srku'] == '0'">{{"NO" | translate}}</span>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+                <!--<i class="icon-next-thin checkIn"></i>-->
+
+                <div class="tag">
+                    <ion-grid class="gridWrap">
+                        <div class="row" *ngIf="projItem" [innerHTML]="appCom.renderSPHAppStatusARP(projItem)">
+                        </div>
+                    </ion-grid>
+                </div>
+
+            </ion-item>
+
+            <div class="filterTag resultbg" *ngIf="projItem['tlh_rejection_res']?projItem['tlh_rejection_res']:false">
+                <p class="resultRes">{{"REASON" | translate }}:</p>
+                <p> {{ projItem['tlh_rejection_res'] }} </p>
+            </div>
+
+            <div class="ntpr">
+                <div class="btn">
+                    <button class="vDetail" ion-button type="button" (click)="goToProjectDetail(projItem)">
+                        {{"VIEW DETAILS" | translate }}
+                    </button>
+
+                    <!-- <button class="CheckOut" *ngIf="checkInOutCheckCondition" ion-button type="button" checkInOut [data-cdata]="projItem" [data-ctype]="'project'"  [data-cdataid]="projItem['project_id']"  [data-cdisplay]="'list'">
+                        CHECK In                    
+                    </button> -->
+
+                    <button class="CheckOut" ion-button type="button" (click)="checkOut(projItem)" *ngIf="globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == projItem['project_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == 'project'">
+                        
+                         {{"CHECK OUT" | translate }}                    
+                    </button>
+
+                    <!---checkin function button ---->
+                    <button class="vProject" ion-button type="button" (click)="checkIn(projItem)" *ngIf="globalCheckInData['checkinFlag'] == false">
+                         {{"CHECK IN" | translate }}
+                    </button>
+
+                    <!---checkin disabled already checked in function button ---->
+                    <button class="vProject" ion-button type="button" *ngIf=" globalCheckInData['checkinFlag'] == true  && (globalCheckInData['checkinDetails']['check_in_out_type_id'] != projItem['project_id'] ||  globalCheckInData['checkinDetails']['check_in_out_type'] != 'project') "
+                        (click)="alreadyCheckInAlert()">
+                        {{"CHECK IN" | translate }}
+                    </button>
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </ion-list>
+</ion-content>
+<ion-footer class="ntpr">
+    <div class="btn">
+        <button ion-button type="button" (click)="goToAddProjectForm()">
+            {{"ADD PROJECT" | translate }}
+        </button>
+        <!--<button ion-button type="button">
+            Check out
+        </button>-->
+    </div>
+    <!-- <div class="homeFt">
+        <div class="btn">
+            <button ion-button type="button">
+                Add project
+            </button>
+        </div>
+    </div> -->
+</ion-footer>

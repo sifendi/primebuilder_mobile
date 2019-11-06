@@ -1,0 +1,73 @@
+<ion-content padding [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }" fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <ion-list class="listWrap">
+        <div *ngIf="projData.length == 0  ">
+            <h2 class="noData contMid">{{ "NO PROJECTS FOUND" | translate }}</h2>
+        </div>
+        <div class="itemWrap projectList" *ngFor="let projItem of projData">
+            <ion-item class="listItem receipt" tappable (click)="goToProjectDetail(projItem)">
+                <div class="leftContent">
+                    <div class="mobileWrap">
+                        <div class="projectWrap">
+                            <p class="title">{{ "PROJECT NAME" | translate }}</p>
+                            <span class="value" *ngIf="projItem['project_name'] != undefined && projItem['project_name'] != ''">{{ projItem['project_name']?projItem['project_name']:"-" }}</span>
+                        </div>
+                        <div class="projectWrap">
+                            <p class="title">{{ "DPB NAME" | translate }}</p>
+                            <span class="value" *ngIf=" projItem['hpb_name'] != undefined && projItem['hpb_name'] != '' ">{{  projItem['hpb_name']?projItem['hpb_name']:"-" }}</span>
+                        </div>
+                        <div class="projectWrap">
+                            <p class="title">{{ "SPH NAME" | translate }}</p> 
+                            <span class="value" *ngIf=" projItem['sph_name'] != undefined && projItem['sph_name'] != '' ">{{  projItem['sph_name']?projItem['sph_name']:"-" }}</span>
+                        </div>
+                        <div class="projectWrap">
+                            <p class="title">{{ "ADDRESS" | translate }}</p>
+                            <p class="title bColor" *ngIf="projItem['project_address'] != undefined && projItem['project_address'] != ''">{{ projItem['project_address']?projItem['project_address']:"-" }}</p>
+                        </div>
+                    </div>
+                </div>
+                <!--<span class="hpbStatus"><i class="icon-Close"></i>In progress</span>-->
+                <ion-grid class="gridWrap">
+                    <ion-row>
+                        <ion-col>
+                            <div class="projectWrap blueLeft">
+                                <p class="title">{{ "PROJECT TYPE" | translate }}</p>
+                                <span class="gridValue" *ngIf="projItem['project_type_name'] != undefined && projItem['project_type_name'] != ''">{{ projItem['project_type_name']?projItem['project_type_name']:"-" }}</span>
+                            </div>
+                        </ion-col>
+                        <!--<ion-col>
+                            <div class="projectWrap greenLeft">
+                                <p class="title">HPB</p>
+                                <span class="gridValue" *ngIf=" projItem['user'] != undefined && projItem['user'] != '' ">{{ projItem['user']['hpb_type'] }}</span>
+                            </div>
+                        </ion-col>-->
+                        <ion-col>
+                            <div class="projectWrap redLeft" *ngIf="projItem['is_srku'] == 0 || projItem['is_srku'] == '0'">
+                                <p class="title">{{ "IS SRKU?" | translate }}</p>
+                                <span class="gridValue">{{ "NO" | translate }}</span>
+                            </div>
+                            <div class="projectWrap redLeft" *ngIf="projItem['is_srku'] == 1 || projItem['is_srku'] == '1'">
+                                <p class="title">{{ "IS SRKU?" | translate }}</p>
+                                <span class="gridValue">{{ "YES" | translate }}</span>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+                <div class="tag">
+                    <ion-grid class="gridWrap">
+                        <div class="row" [innerHTML]="appCom.renderTHAppStatusARP(projItem?.app)">
+                        </div>
+                    </ion-grid>
+                </div>
+                <i class="icon-next-thin checkIn"></i>
+            </ion-item>
+            <div class="filterTag resultbg" *ngIf="projItem['app']['rejection_reason']?projItem['app']['rejection_reason']:false">
+                <p class="resultRes">{{ "REASON" | translate }}:</p>
+                <p> {{ projItem['app']['rejection_reason'] }}</p>
+            </div>
+
+        </div>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="!dataLoadCompleted">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,36 @@
+<ion-content padding class="noScroll" fullscreen="false">
+    <div class="blackShade"></div>
+    <ion-grid class="cardBgOne maintain">
+        <ion-row class="crdAll cardBlack">
+            <ion-col class="crdOne"><span class="preVal">{{maintainTodayTargetAchievPerc?maintainTodayTargetAchievPerc:"0"}}%</span></ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "TODAY'S TARGET" | translate }}</p>
+                <h3>{{maintainTodayTarget?maintainTodayTarget:"0"}} <sub>ton</sub></h3>
+            </ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "TODAY'S ACHIEVEMENT" | translate }}</p>
+                <h3>{{maintainTodayAchievementTarget?maintainTodayAchievementTarget:"0"}} <sub>ton</sub></h3>
+            </ion-col>
+        </ion-row>
+        <!-- <ion-row class="crdAll cardDiff"> -->
+        <ion-row class="crdAll" [ngClass]="{ 'cardDiff':todayActualPerc>maintainMonthlyTargetAchievPerc }">
+            <ion-col class="crdOne"><span class="preVal">{{maintainMonthlyTargetAchievPerc?maintainMonthlyTargetAchievPerc:"0"}}%</span></ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "MONTHLY TARGET" | translate }}</p>
+                <h3>{{maintainMonthlyTarget?maintainMonthlyTarget:"0"}} <sub>ton</sub></h3>
+            </ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "CURRENT ACHIEVEMENT" | translate }}</p>
+                <h3>{{achieved_target?achieved_target:"0"}} <sub>ton</sub></h3>
+            </ion-col>
+        </ion-row>
+        <ion-row class="crdAll cardDiff cardNoBorder">
+            <ion-col class="crdOne"></ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "ESTIMATED TARGET" | translate }}</p>
+                <h3>{{estimatedTarget?estimatedTarget:"0"}} <sub>ton</sub></h3>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

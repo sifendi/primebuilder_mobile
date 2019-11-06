@@ -1,0 +1,79 @@
+<ion-content class="setPinOuter" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <div class="setPinWrapper">
+        <!-- <p class="version">Retailer App 1.1.1</p> -->
+        <section class="setPin">
+            <dl class="pinBoxMian">
+                <dd>
+                    <h2>{{ "ENTER OTP RECEIVED" | translate }}</h2>
+                </dd>
+                <dd>
+                    <div class="noRow">
+
+                        <button ion-button (click)="removeBack()" tapable class="backSpace">
+                            <ion-icon class="ion-md-backspace"  name="backspace"></ion-icon>
+                        </button>
+                        <div class="pinCodeLine">
+                            <div class="bottomVal">{{pin.substring(0, 1)}}</div>
+                            <div class="bottomVal">{{pin.substring(1, 2)}}</div>
+                            <div class="bottomVal">{{pin.substring(2, 3)}}</div>
+                            <div class="bottomVal">{{pin.substring(3, 4)}}</div>
+                            <div class="bottomVal">{{pin.substring(4, 5)}}</div>
+                            <div class="bottomVal">{{pin.substring(5, 6)}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="pinMsg" *ngIf="error">
+                                <i class="fa fa-warning"></i>
+                                <span class="warning">{{ "WARNING" | translate }}:</span>
+                                <span class="inText"> {{error}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inputButton">
+                        <h3 class="forgotPin"><button class="resend" ion-button clear tapable *ngIf="otpcount < 3 && otpWait == 60" (click)="sendOtp();">{{ "RESEND OTP?" | translate }}</button></h3>
+                        <h3 class="forgotPin"><button class="resend" ion-button clear tapable *ngIf="otpWait != 60">Wait {{otpWait}} Sec</button></h3>
+                        <div class="pinBtnMain">
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" (click)="add(1)">1</button>
+                            </div>
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" (click)="add(2)">2</button>
+                            </div>
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" (click)="add(3)">3</button>
+                            </div>
+                        </div>
+                        <div class="pinBtnMain">
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" (click)="add(4)">4</button>
+                            </div>
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" (click)="add(5)">5</button>
+                            </div>
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" (click)="add(6)">6</button>
+                            </div>
+                        </div>
+                        <div class="pinBtnMain">
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" (click)="add(7)">7</button>
+                            </div>
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" (click)="add(8)">8</button>
+                            </div>
+                            <div class="pinBtnPress">
+                                <button ion-button class="pinBtn" (click)="add(9)">9</button>
+                            </div>
+                        </div>
+                        <div class="pinBtnMain">
+                            <div class="pinBtnPress fullWidth">
+                                <button ion-button class="pinBtn" (click)="add(0)">0</button>
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+
+            </dl>
+        </section>
+
+    </div>
+</ion-content>

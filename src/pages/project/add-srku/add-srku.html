@@ -1,0 +1,328 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button menuToggle>
+                 <i class="icon-menu"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{"ADD PROJECT" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <form class="srku_details">
+        <div *ngIf="isSrkuFlag">
+            <ion-list class="inputBox">
+                <h2 class="labelHeading">{{"ADD SRKU DETAILS" | translate }}</h2>
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{"OWNER" | translate }}*</ion-label>
+                        <ion-input type="text" placeholder="{{ 'FULL NAME' | translate }}" class="input_item" [(ngModel)]="projData.SrkuOwnerName" #SrkuOwnerName="ngModel" required [ngModelOptions]="{standalone: true}" minlength="4" maxlength="100" pattern="^[^-\s][a-zA-Z '\s-]+$"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="SrkuOwnerName.errors && (SrkuOwnerName.dirty || SrkuOwnerName.touched || submitted)" class="alert alert-danger error">
+                    <p [hidden]="!SrkuOwnerName.errors.required">
+                        {{"OWNER NAME IS REQUIRED" | translate }}
+                    </p>
+                    <p [hidden]="!SrkuOwnerName.errors.pattern">
+                        {{ "PLEASE ENTER A VALID OWNER NAME" | translate }}
+                    </p>
+                    <p [hidden]="!SrkuOwnerName.errors.minlength">
+                        {{"OWNER NAME MUST BE AT LEAST 4 CHARACTERS LONG" | translate }}.
+                    </p>
+                    <p [hidden]="!SrkuOwnerName.errors.maxlength">
+                        {{"OWNER NAME CANNOT BE MORE THAN 100 CHARACTERS LONG" | translate }}.
+                    </p>
+                </div>
+                
+
+                <div class="rdIn locate_btn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{"ADDRESS" | translate }}*</ion-label>
+                        <ion-textarea fz-elastic class="textAarea" [(ngModel)]="projData.SrkuOwnerAddress" #SrkuOwnerAddress="ngModel" required [ngModelOptions]="{standalone: true}"></ion-textarea>
+                    </ion-item>
+                    <button ion-button *ngIf="showLocateBtn" (click)="getAddress()">{{"LOCATE" | translate }} <i class="icon-location"></i></button>
+                </div>
+
+                <div *ngIf="SrkuOwnerAddress.errors && (SrkuOwnerAddress.dirty || SrkuOwnerAddress.touched || submitted)" class="alert alert-danger error">
+                    <p [hidden]="!SrkuOwnerAddress.errors.required">
+                        {{"OWNER ADDRESS IS REQUIRED" | translate }}.
+                    </p>
+                </div>
+                <div *ngIf=" projData.SrkuOwnerAddress != '' && projData.SrkuOwnerAddress != undefined ">
+                    <div *ngIf="( projData.SrkuOwnerAddress.trim() == '' || projData.SrkuOwnerAddress.trim() == undefined) && (SrkuOwnerAddress.dirty || SrkuOwnerAddress.touched || submitted) " class="alert alert-danger error">
+                        <p [hidden]="( projData.SrkuOwnerAddress.trim() != '' )">
+                            {{"OWNER ADDRESS IS INVALID" | translate }}.
+                        </p>
+                    </div>
+                </div>
+
+
+
+
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label stacked>{{"POSTAL CODE" | translate }}*</ion-label>
+                        <!--<ion-select (ionChange)="addressDataFiltersF($event,'postalcode')" [(ngModel)]="projData.SrkuPincode" #SrkuPincode="ngModel" [ngModelOptions]="{standalone: true}" required>
+                            <ion-option *ngFor="let pcode of postalCodeArrF" value="{{pcode}}">{{pcode}}</ion-option>
+                        </ion-select>-->
+                        <ion-input [(ngModel)]="projData.SrkuPincode" mbsc-select [mbsc-options]="mobiScollSrkuPincodeSettings" [mbsc-data]="postalCodeArrF" #SrkuPincode="ngModel" #pincodeMob="mobiscroll" required [ngModelOptions]="{standalone: true}"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="SrkuPincode.errors && (submitted)" class="alert alert-danger error">
+                    <p [hidden]="!SrkuPincode.errors.required">
+                        {{"POSTAL CODE IS REQUIRED" | translate }}.
+                    </p>
+                </div>
+                <div class="rdIn" [class.disabledDiv]="projData.SrkuPincode && projData.SrkuPincode!='' ">
+                    <ion-item class="inputLable">
+                        <ion-label stacked>{{"PROVINCE" | translate }}*</ion-label>
+                        <!--<ion-select (ionChange)="addressDataFiltersF($event,'province')" [(ngModel)]="projData.SrkuProvince" #SrkuProvince="ngModel" [ngModelOptions]="{standalone: true}" required>
+                            <ion-option *ngFor="let provName of provinceArrF" value="{{provName}}">{{provName}}</ion-option>
+                        </ion-select>-->
+
+                        <ion-input [(ngModel)]="projData.SrkuProvince" mbsc-select [mbsc-options]="mobiScollSrkuProvinceSettings" [mbsc-data]="provinceArrF" #SrkuProvince="ngModel" #ProvinceMob="mobiscroll" required [ngModelOptions]="{standalone: true}"></ion-input>
+
+
+                    </ion-item>
+                </div>
+                <div *ngIf="SrkuProvince.errors && (submitted)" class="alert alert-danger error">
+                    <p [hidden]="!SrkuProvince.errors.required">
+                        {{"PROVINCE IS REQUIRED" | translate }}.
+                    </p>
+                </div>
+                <div class="rdIn" [class.disabledDiv]="(projData.SrkuPincode && projData.SrkuPincode!='') || (projData.SrkuProvince==null || projData.SrkuProvince=='' || !projData.SrkuProvince)">
+                    <ion-item class="inputLable">
+                        <ion-label stacked>{{"CITY / MUNICIPALITY" | translate }}*</ion-label>
+                        <!--<ion-select (ionChange)="addressDataFiltersF($event,'citykabname')" [(ngModel)]="projData.SrkuCity" #SrkuCity="ngModel" [ngModelOptions]="{standalone: true}" required>
+                            <ion-option *ngFor="let muni of municipalityArrF" value="{{muni}}">{{muni}}</ion-option>
+                        </ion-select>-->
+                        <ion-input [(ngModel)]="projData.SrkuCity" mbsc-select [mbsc-options]="mobiScollSrkuCitySettings" [mbsc-data]="municipalityArrF" #SrkuCity="ngModel" #CityMob="mobiscroll" required [ngModelOptions]="{standalone: true}"></ion-input>
+
+                    </ion-item>
+                </div>
+                <div *ngIf="SrkuCity.errors && (submitted)" class="alert alert-danger error">
+                    <p [hidden]="!SrkuCity.errors.required">
+                        {{"CITY / MUNICIPALITY IS REQUIRED" | translate }}.
+                    </p>
+                </div>
+                <div class="rdIn" [class.disabledDiv]="(projData.SrkuPincode && projData.SrkuPincode!='') ||  (projData.SrkuCity==null || projData.SrkuCity=='' || !projData.SrkuCity) ">
+                    <ion-item class="inputLable">
+                        <ion-label stacked>{{"SUB DISTRICT" | translate }}*</ion-label>
+                        <!--<ion-select (ionChange)="addressDataFiltersF($event,'subdistrict')" [(ngModel)]="projData.SrkuSubDistrict" #SrkuSubDistrict="ngModel" [ngModelOptions]="{standalone: true}" required>
+                            <ion-option *ngFor="let subd of subDistrictArrF" value="{{subd}}">{{subd}}</ion-option>
+                        </ion-select>-->
+                        <ion-input [(ngModel)]="projData.SrkuSubDistrict" mbsc-select [mbsc-options]="mobiScollSrkuSubDistrictSettings" [mbsc-data]="subDistrictArrF" #SrkuSubDistrict="ngModel" #SubDistrictMob="mobiscroll" required [ngModelOptions]="{standalone: true}"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="SrkuSubDistrict.errors && (submitted)" class="alert alert-danger error">
+                    <p [hidden]="!SrkuSubDistrict.errors.required">
+                        {{"SUB DISTRICT IS REQUIRED" | translate }}.
+                    </p>
+                </div>
+
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{"OWNER MOBILE NO." | translate }}*</ion-label>
+                        <ion-input type="tel" placeholder="{{ 'E.G. 08292834235' | translate }}" class="input_item" [(ngModel)]="projData.SrkuOwnerMobileNumber" #SrkuOwnerMobileNumber="ngModel" required [ngModelOptions]="{standalone: true}" pattern="[0][0-9]+" minlength="10" maxlength="15"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="SrkuOwnerMobileNumber.errors && (SrkuOwnerMobileNumber.dirty || SrkuOwnerMobileNumber.touched || submitted)" class="alert alert-danger error">
+                    <p [hidden]="!SrkuOwnerMobileNumber.errors.required">
+
+                        {{"OWNER MOBILE NO. IS REQUIRED" | translate }}.
+                    </p>
+                    <p [hidden]="!SrkuOwnerMobileNumber.errors.pattern">
+                        {{"OWNER MOBILE NO. MUST START WITH 0" | translate }}.
+                    </p>
+                    <p [hidden]="!SrkuOwnerMobileNumber.errors.minlength">
+                        {{"OWNER MOBILE NO. MUST BE AT LEAST 10 NUMBERS LONG" | translate }}.
+
+                    </p>
+                    <p [hidden]="!SrkuOwnerMobileNumber.errors.maxlength">
+                        {{"OWNER MOBILE NO. CANNOT BE MORE THAN 15 NUMBERS LONG" | translate }}.
+                    </p>
+                </div>
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{"FLOOR SIZE" | translate }}*</ion-label>
+                        <ion-input type="tel" placeholder="{{ 'E.G. 100 SQ. MT' | translate }}" class="input_item" pattern="^[1-9][0-9]*$" [(ngModel)]="projData.FloorSize" #FloorSize="ngModel" [ngModelOptions]="{standalone: true}" required></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="FloorSize.errors && (FloorSize.dirty || FloorSize.touched || submitted)" class="alert alert-danger error">
+                    <p [hidden]="!FloorSize.errors.required">
+                        {{"FLOOR SIZE IS REQUIRED" | translate }}
+                    </p>
+                    <p *ngIf="projData.FloorSize != undefined && projData.FloorSize != ''" [hidden]="(projData.FloorSize.trim() == null)">
+                        {{"PLEASE ENTER VALID FLOOR SIZE" | translate }}
+                    </p>
+                </div>
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{"NO. OF HOME UNITS" | translate }}*</ion-label>
+                        <ion-input type="tel" placeholder="{{ 'E.G. 12' | translate }}" class="input_item" pattern="^[1-9][0-9]*$" [(ngModel)]="projData.NumberOfUnit" #NumberOfUnit="ngModel" [ngModelOptions]="{standalone: true}" required></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="NumberOfUnit.errors && (NumberOfUnit.dirty || NumberOfUnit.touched || submitted)" class="alert alert-danger error">
+                    <p [hidden]="!NumberOfUnit.errors.required">
+                        {{"NO. OF HOME UNITS IS REQUIRED" | translate }}
+                    </p>
+                    <p *ngIf="projData.NumberOfUnit != undefined && projData.NumberOfUnit != ''" [hidden]="(projData.NumberOfUnit.trim() == null)">
+                        {{"PLEASE ENTER VALID NO. OF HOME UNITS" | translate }}
+                    </p>
+                </div>
+            </ion-list>
+
+
+            <div class="checkButton project_stage">
+                <h2 class="labelHeading">{{"HAS MICRO CREDIT" | translate }}?*</h2>
+                <div class="rdIn" [(ngModel)]="projData.IsMicroCredit" #IsMicroCredit="ngModel" required [ngModelOptions]="{standalone: true}" radio-group>
+                    <ion-item class="halfWidth">
+                        <ion-label>{{"YES" | translate }}</ion-label>
+                        <ion-radio value="1" (click)="onMicroCreditChange(projData.IsMicroCredit)"></ion-radio>
+                    </ion-item>
+                    <ion-item class="halfWidth">
+                        <ion-label>{{"NO" | translate }}</ion-label>
+                        <ion-radio value="0" (click)="onMicroCreditChange(projData.IsMicroCredit)"></ion-radio>
+                    </ion-item>
+                </div>
+                <div *ngIf="IsMicroCredit.errors && (submitted)" class="alert alert-danger error">
+                    <p [hidden]="!IsMicroCredit.errors.required">
+                        {{"PLEASE CHOOSE AN OPTION" | translate }}
+                    </p>
+                </div>
+            </div>
+
+
+            <ion-list class="inputBox" *ngIf="projData.IsMicroCredit == 1">
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{"BANK NAME" | translate }}*</ion-label>
+                        <ion-input type="text" placeholder="{{ 'BANK NAME' | translate }}" class="input_item" [(ngModel)]="projData.BankName" #BankName="ngModel" required [ngModelOptions]="{standalone: true}" minlength="3" maxlength="100" pattern="^[^-\s][a-zA-Z '\s-]+$"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="BankName.errors && (BankName.dirty || BankName.touched || submitted)" class="alert alert-danger error">
+                    <p [hidden]="!BankName.errors.required">
+                        {{"BANK NAME IS REQUIRED" | translate }}
+                    </p>
+                    <p [hidden]="!BankName.errors.minlength">
+                        {{"BANK NAME MUST BE AT LEAST 3 CHARACTERS LONG" | translate }}.
+                    </p>
+                    <p [hidden]="!BankName.errors.maxlength">
+                        {{"BANK NAME CANNOT BE MORE THAN 100 CHARACTERS LONG" | translate }}.
+                    </p>
+                </div>
+                <div *ngIf=" projData.BankName != '' && projData.BankName != undefined ">
+                    <div *ngIf="( projData.BankName.trim() == '' || projData.BankName.trim() == undefined) && (BankName.dirty || BankName.touched || submitted) " class="alert alert-danger error">
+                        <p [hidden]="( projData.BankName.trim() != '' )">
+                            {{"PLEASE ENTER A VALID NAME" | translate }}.
+                        </p>
+                    </div>
+                </div>
+
+
+
+
+                <div class="rdIn">
+                    <div class="photoAdd">
+                        <h2 class="labelHeading">{{"UPLOAD BANK DOCUMENTS" | translate }}*</h2>
+                        <!--<ng-template *ngIf="idCardPhotoObj.length > 1">-->
+                        <div class="id_photos">
+                            <div class="id_items" text-right *ngFor="let image of bankDocPhotosObj; let i = index;">
+                                <img [src]="image" alt="">
+                                <button ion-button color="light" class="close_btn" (click)="removebankDocImage(i)">
+                                <i class="icon-close-thin"></i>
+                            </button>
+                            </div>
+                            <div class="id_items upload" text-center>
+                                <!-- <button ion-button color="light" class="upload_btn" (click)="openSelectCameraPop($event,'bank_doc_photo')"> -->
+                                <button ion-button color="light" class="upload_btn" (click)="openSelectCameraPop($event,'bank_doc_photo')">
+                                <i class="icon-Camera"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!--</ng-template>-->
+                    </div>
+                    <div *ngIf=" (bankDocPhotosObj ==undefined || bankDocPhotosObj =='') && (submitted) " class="alert alert-danger error">
+                        <p>{{"BANK DOCUMENTS IS REQUIRED" | translate }}</p>
+                    </div>
+                </div>
+
+
+            </ion-list>
+
+
+            <div *ngIf="projData.IsMicroCredit == 0">
+                <div class="checkButton">
+                    <h2 class="labelHeading">{{"NMC TYPE" | translate }}*</h2>
+                    <div class="rdIn project_stage_btn" [(ngModel)]="projData.NonMicroCreditTypeMid" #NonMicroCreditType="ngModel" required [ngModelOptions]="{standalone: true}" radio-group>
+                        <ion-item class="halfWidth" *ngFor="let NMCType of NMCTypes">
+                            <ion-label>{{NMCType.nmc_type}}</ion-label>
+                            <ion-radio value="{{NMCType.server_id}}" (click)="selectNMCType(NMCType)"></ion-radio>
+                        </ion-item>
+                    </div>
+                </div>
+                <div *ngIf="NonMicroCreditType.errors && (submitted)" class="alert alert-danger error">
+                    <p [hidden]="!NonMicroCreditType.errors.required">
+                        {{"NMC TYPE IS REQUIRED" | translate }}
+                    </p>
+                </div>
+
+                <ion-list class="inputBox">
+                    <div class="rdIn">
+                        <div class="photoAdd">
+                            <h2 class="labelHeading">{{"UPLOAD NMC DOCUMENTS" | translate }}*</h2>
+                            <!--<ng-template *ngIf="idCardPhotoObj.length > 1">-->
+                            <div class="id_photos">
+                                <div class="id_items" text-right *ngFor="let image of nmcDocPhotosObj; let i = index;">
+                                    <img [src]="image" alt="">
+                                    <button ion-button color="light" class="close_btn" (click)="removeNmcDocImage(i)">
+                                <i class="icon-close-thin"></i>
+                            </button>
+                                </div>
+                                <div class="id_items upload" text-center>
+                                    <button ion-button color="light" class="upload_btn" (click)="openSelectCameraPop($event,'nmc_doc_photo')">
+                                <i class="icon-Camera"></i>
+                            </button>
+                                </div>
+                            </div>
+                            <!--</ng-template>-->
+                        </div>
+                        <div *ngIf=" (nmcDocPhotosObj ==undefined || nmcDocPhotosObj =='') && (submitted) " class="alert alert-danger error">
+                            <p>{{"NMC DOCUMENTS IS REQUIRED" | translate }}</p>
+                        </div>
+                    </div>
+                </ion-list>
+            </div>
+        </div>
+
+
+        <ion-list class="inputBox">
+            <div class="comment_note">
+                <ion-list class="inputBox">
+                    <div class="rdIn">
+                        <h2 class="labelHeading">{{"ADDITIONAL NOTE" | translate }}</h2>
+                        <ion-item class="inputLable">
+                            <ion-textarea fz-elastic placeholder="{{ 'COMMENT' | translate }}" class="textAarea" [(ngModel)]="projData.AdditionalComments" [ngModelOptions]="{standalone: true}"></ion-textarea>
+                        </ion-item>
+                    </div>
+                </ion-list>
+            </div>
+        </ion-list>
+
+        <!--div *ngIf="signatureShow">
+            <div class="digital_sign_img" *ngIf="digitalSignPath !=undefined && digitalSignPath !=''">
+                <img [src]="digitalSignPath" alt="">
+            </div>
+            <div class="btn digital_sign">
+                <button ion-button type="button" (click)="getSignature()">{{"HPB SIGNATURE" | translate }}*</button>
+            </div>
+            <div *ngIf=" (digitalSignPath ==undefined || digitalSignPath =='') && (submitted) " class="alert alert-danger error">
+                <p>{{"SIGNATURE IS REQUIRED" | translate }}</p>
+            </div>
+        </div-->
+
+        <div class="btn">
+            <button ion-button type="button" (click)="addProject()">{{"SUBMIT" | translate }}</button>
+        </div>
+    </form>
+</ion-content>

@@ -1,0 +1,92 @@
+
+<ion-header>
+    <ion-navbar>
+           <ion-buttons end>
+            <button ion-button (click)="goToFilterPage()">
+                <i class="icon-filter"></i>
+            </button>
+        </ion-buttons>
+
+        <ion-title>{{ "PRODUCT RECEIPT LIST" | translate }}</ion-title>
+    </ion-navbar>
+    <ion-searchbar [(ngModel)]="myInput" placeholder="Search" (ionInput)="searchProductReceipt($event)" name="searchbar"></ion-searchbar>
+    <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
+        <p>Search by : {{ filterby }} </p>
+        <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
+            <i class="icon-close-thin"></i>
+        </button>
+    </div> 
+</ion-header>
+<ion-content fullscreen="false" [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }">
+    <ion-list class="listWrap">
+        <div *ngIf="productReceiptData == undefined || productReceiptData == '' ">
+            <h2 class="noData contMid">{{ "NO RECEIPTS FOUND" | translate }}</h2>
+        </div>
+        <div class="itemWrap" *ngFor="let productReceiptItem of productReceiptData">
+            <div (click)="goToProductReceiptDetail(productReceiptItem)">
+                <ion-item class="listItem receipt reject">
+                    <div class="leftContent">
+                        <div class="mobileWrap">
+                            <div class="projectWrap">
+                                <p class="title">{{ "PROJECT NAME" | translate }}</p>
+                                <span class="value">{{ productReceiptItem['project_name']  }}</span>
+                            </div>
+
+                            <div class="projectWrap">
+                                <p class="title">{{ "PRODUCT" | translate }}</p>
+                                <span class="value">{{ (productReceiptItem['product_name'])?productReceiptItem['product_name']:"-" }}</span>
+                            </div>
+                            <div class="projectWrap">
+                                <div class="flexWrap">
+                                    <div class="unit">
+                                        <p>{{ "QUANTITY" | translate }}: <span>{{ (productReceiptItem['quantity'])?productReceiptItem['quantity']:"-" }}</span></p>
+                                    </div>
+                                    <div class="unit">
+                                        <p>{{ "UNIT" | translate }}: <span>{{ (productReceiptItem['unit'])?productReceiptItem['unit']:"-" }}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ion-grid class="gridWrap">
+                        <div class="row" [innerHTML]="appCom.renderSPHAppStatusARP(productReceiptItem)">
+                        </div>
+                    </ion-grid>
+
+                    <span class="tag">{{    (productReceiptItem['local_created_date'])?timeStampToDate(productReceiptItem['local_created_date']):"-"   }}</span>
+                    <i class="icon-next-thin checkIn"></i>
+                </ion-item>
+                 <div class="filterTag resultbg" *ngIf="productReceiptItem?.tlh_approval == -1">
+                    <p class="resultRes">{{ "REASON" | translate }}:</p>
+                    <p>{{productReceiptItem?.tlh_rejection_res}}</p>
+                </div>
+                <div class="filterTag resultbg" *ngIf="productReceiptItem?.ac_approval == -1">
+                    <p class="resultRes">{{ "REASON" | translate }}:</p>
+                    <p>{{productReceiptItem?.ac_rejection_res}}</p>
+                </div>
+                <div class="filterTag resultbg" *ngIf="productReceiptItem?.sa_approval == -1">
+                    <p class="resultRes">{{ "REASON" | translate }}:</p>
+                    <p>{{productReceiptItem?.sa_rejection_res}}</p>
+                </div>
+            </div>
+        </div>
+    </ion-list>
+</ion-content>
+<ion-footer class="ntpr">
+    <!--<div class="btn">
+        <button ion-button type="button">
+            Add Request
+        </button>
+        <button ion-button type="button">
+            Check IN
+        </button>
+    </div>-->
+    <!-- <div class="homeFt">
+        <div class="btn">
+            <button ion-button type="button">
+               Check in
+            </button>
+        </div>
+    </div> -->
+</ion-footer>

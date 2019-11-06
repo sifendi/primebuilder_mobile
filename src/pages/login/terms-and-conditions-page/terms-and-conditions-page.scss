@@ -1,0 +1,23 @@
+terms-and-conditions-page {
+    .contentWrap {
+        p {
+            color: $tc-color;
+        }
+    }
+    .tcButtonWrap {
+        padding: $size - .5 $zero;
+        h3 {
+            color: $tc-color;
+            text-align: $center;
+            margin-bottom: $zero;
+        }
+        .btn {
+            button:first-child {
+                margin-right: $size - 1;
+            }
+            button {
+                width: $width90 - 50;
+            }
+        }
+    }
+}

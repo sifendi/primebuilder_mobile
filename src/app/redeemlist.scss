@@ -1,0 +1,211 @@
+.redeemWrapper {
+    padding: $size - .5;
+
+    .todaysVisits {
+        margin: $zero;
+        margin-bottom: $size;
+        width: 100%;
+        border-bottom: 1px dashed $place-holder;
+        padding-bottom: $size - 1;
+
+        .textBtn {
+            margin-bottom: $zero;
+
+            .viewAll {
+                background: #e9892c;
+                color: $white-color;
+                display: block;
+                @include flex-shrink(0);
+
+                i {
+                    color: $btn-color;
+                    margin-right: $size - 1;
+
+                    @include media-query(560px) {
+                        font-size: $size + .5;
+                    }
+                }
+            }
+            p {
+                font-size: $size + .2;
+                color: $blue-color;
+                font-family: $fontMd;
+                white-space: normal;
+                line-height: normal;
+                width: 70%;
+
+                @include media-query(320px) {
+                    font-size: $size - .5;
+                }
+                @include media-query(560px) {
+                    font-size: $size + .5;
+                }
+            }
+        }
+    }
+    .redeemBox {
+        padding: 0;
+        margin: 0;
+
+        .redeemList {
+            padding: 0;
+            background: $none;
+            margin-bottom: $size + .5;
+
+            .item-inner {
+                padding: 0;
+            }
+            .label {
+                margin: 0;
+            }
+            h3 {
+                font-size: $size;
+                color: $btn-color;
+                white-space: normal;
+                word-wrap: normal;
+
+                @include media-query(560px) {
+                    font-size: $size + .6;
+                }
+            }
+            p {
+                font-size: $size - .4;
+                margin: $size - 1 $zero;
+                color: $dark-color;
+                font-family: $fontMd;
+                white-space: normal;
+
+                @include media-query(560px) {
+                    font-size: $size;
+                }
+            }
+            img {
+                width: 100%;
+                display: block;
+                border: 1px $solid $profile-redeem;
+            }
+        }
+    }
+    .selectPoints {
+        @include display-flex;
+        @include align-items(center);
+        @include justify-content(space-between);
+        padding: $size - 1;
+        border: 1px $solid $profile-redeem;
+        border-top: $zero;
+        position: $relative;
+
+        h4 {
+            font-size: $size;
+            font-family: $fontMd;
+            color: $btn-color;
+
+            @include media-query-max(320px) {
+                font-size: $size - .2;
+            }
+            @include media-query(560px) {
+                font-size: $size + .6;
+            }
+        }
+        .selectors {
+            position: $absolute;
+            background: $btn-color;
+            height: 100%;
+            width: auto;
+            right: 0;
+            text-align: center;
+            top: 0;
+            padding: $zero $size - 1;
+
+            .button {
+                height: 100%;
+            }
+            .selectBtn {
+                background: $none;
+                box-shadow: $none;
+                border: $none;
+                font-size: $size - .4;
+                margin: $zero;
+
+                @include media-query(560px) {
+                    font-size: $size;
+                }
+            }
+        }
+    }
+    .selectPoints.active {
+        h4 {
+            color: #e9892c;
+        }
+        .selectors {
+            background: #e9892c;
+        }
+        .selectYes {
+            background: $none;
+            box-shadow: $none;
+            border: $none;
+            height: $auto;
+            margin: $zero;
+
+            i {
+                font-size: $size + .5;
+                color: $white-color;
+                line-height: 48px;
+
+                @include media-query(560px) {
+                    line-height: 55px;
+                }
+            }
+        }
+    }
+    @include media-query(560px) {
+        margin-bottom: 40px;
+    }
+}
+.filterTag.resultbg p{
+    word-break: break-all;
+}
+.reddemFooter {
+    .redeem_footer {
+        .balancePoints {
+            background: $dark-color;
+            padding: $size - 1;
+            text-align: center;
+
+            @include media-query(560px) {
+                padding: $size;
+            }
+            span {
+                font-size: $size - 0.5;
+                color: $white-color;
+
+                @include media-query(560px) {
+                    font-size: $size;
+                }
+            }
+        }
+        .homeFt {
+            .btn {
+                margin-top: $zero;
+            }
+        }
+    }
+}
+@include media-query(560px) {
+}
+.redeemCheck {
+    width: 100%;
+    padding: 10px 0;
+    background: #b2b2b2;
+    text-align: center;
+
+    .diffCheck {
+        justify-content: center;
+        align-items: center;
+        margin-top: 0;
+
+        p {
+            width: auto;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+<!--
+  Generated template for the AcProductReceiptPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ "PRODUCT RECEIPTS" | translate }}</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="openProductReceiptFilter()" >
+                <i class="icon-filter"></i>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false">
+    <super-tabs  (tabSelect)="onTabSelect($event)">
+        <super-tab [root]="page3" title="{{ 'PENDING' | translate }}"></super-tab>
+        <super-tab [root]="page4" title="{{ 'ALL' | translate }}"></super-tab>
+    </super-tabs>
+</ion-content>

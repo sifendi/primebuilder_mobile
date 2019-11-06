@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-navbar>
+        <!--<ion-buttons class="backBtn">
+            <button ion-button>
+                <i class="icon-back"></i>
+            </button>
+        </ion-buttons>-->
+        <ion-buttons end>
+            <!--<button ion-button menuToggle>
+                <i class="icon-filter"></i>
+            </button>-->
+        </ion-buttons>
+        <ion-title>{{ rdsDataArr['rds_name']?rdsDataArr['rds_name']:"-" }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+
+    <super-tabs [selectedTabIndex]="selectedIndex" (tabSelect)="onTabSelect($event)">
+        <super-tab [root]="page2" [rootParams]="paramsData" title="{{ 'DETAILS' | translate }}"></super-tab>
+        <super-tab [root]="page1" [rootParams]="paramsData" title="{{ 'VISITS' | translate }}"></super-tab>
+    </super-tabs>
+
+</ion-content>

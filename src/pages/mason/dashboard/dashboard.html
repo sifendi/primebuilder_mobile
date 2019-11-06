@@ -1,0 +1,88 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons class="iconLeft">
+            <button ion-button class="logo"></button>
+        </ion-buttons>
+        <ion-buttons end>
+            <!-- <button ion-button class="icon-notification" tapable (click)="goToNotifyPage()">
+                            <ion-badge *ngIf="notificationCtn > 0" class="badge-value">{{notificationCtn}}</ion-badge>
+            </button> -->
+            <button ion-button iconHome menuToggle>
+                <i class="icon-menu" name="menu"></i>
+            </button>
+        </ion-buttons>
+        <ion-title></ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <div class="reddemProfile">
+        <div class="userBg">
+            <div class="user_profile">
+                <h2 class="profileTitle">{{ "HELLO" | translate }}, {{userName}} </h2>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-4>
+                            <div class="user_photo">
+                                <img *ngIf="proPic != '' || proPic != null" src="{{proPic}}">
+                                <img *ngIf="proPic == '' || proPic == null" src="assets/img/user_create.png">
+                            </div>
+                        </ion-col>
+                        <ion-col col-8>
+                            <div class="user_details">
+                                <h6>{{ "COLLECTED POINTS" | translate }}</h6>
+                                <h4>{{totalPoints?totalPoints.toLocaleString(appCom.getCurrCCode()):0}}</h4>
+                                <button ion-button type="button" (click)="redeemNow()" [disabled]="disableBtn">{{ "REDEEM NOW" | translate }}</button>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </div>
+        <ion-card class="todaysVisits">
+            <ion-card-content>
+                <div class="textBtn">
+                    <h4>{{ "RECEIPT LIST" | translate }}</h4>
+                    <button *ngIf="receiptList.length > 0" ion-button class="viewAll" (click)="viewReceiptList();">{{ "VIEW ALL" | translate }}</button>
+                </div>
+            </ion-card-content>
+        </ion-card>
+        <div *ngIf="receiptList.length == 0">
+            <h2 class="noData ">{{ "NO RECEIPTS FOUND" | translate }}.</h2>
+        </div>
+        <ion-list class="listWrap" *ngFor="let receipt of receiptList | slice:0:2; let i=index" (click)="openReceipt(receipt.receipt_id)">
+            <div class="itemWrap">
+                <ion-item class="listItem receipt reject">
+                    <div class="leftContent">
+                        <div class="mobileWrap">
+                            <div class="projectWrap">
+                                <p class="title">{{ "PROJECT NAME" | translate }}</p>
+                                <span class="value">{{receipt.project}}</span>
+                            </div>
+                            <div class="projectWrap">
+                                <p class="title">{{ "PRODUCT" | translate }}</p>
+                                <span class="value">{{receipt.product}}</span>
+                            </div>
+                            <div class="rowData bottom0">
+                                <div class="flexWrap">
+                                    <p>{{ "QUANTITY" | translate }}</p><span>{{receipt.quantity}}: bags</span>
+                                </div>
+                                <div class="flexWrap">
+                                    <p>{{ "UNIT LIST" | translate }}</p><span>{{receipt.unit}}</span>
+                                </div>
+                                <div class="flexWrap">
+                                    <p>{{ "SPH NAME" | translate }}</p><span>{{receipt.sph_name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="tag">{{receipt.created_date}}</span>
+                    <i class="icon-next-thin checkIn"></i>
+                    <div *ngIf="receipt.points != 0 && receipt.points != null" class="pointPlace">
+                        <p>{{ "POINTS" | translate }}</p>
+                        <span>{{receipt['points'].toLocaleString(appCom.getCurrCCode())}}</span>
+                    </div>
+                </ion-item>
+            </div>
+        </ion-list>
+    </div>
+</ion-content>

@@ -1,0 +1,1172 @@
+
+import { DigitalSignCanvasPage } from '../../digital-sign-canvas/digital-sign-canvas';
+import { ImageSelectPopPage } from '../../image-select-pop/image-select-pop';
+import { ALL_MESSAGE } from '../../../providers/constant';
+import { HpbListPage } from "../hpb-list/hpb-list";
+import { SqlServices } from '../../../providers/sqlService';
+import { ShareService } from '../../../providers/ShareService';
+import { appCommonMethods } from '../../../providers/appCommonMethods';
+import { Component,ViewChild } from '@angular/core';
+import { Events, NavController, NavParams, PopoverController, ModalController, Platform } from 'ionic-angular';
+import { NgForm, NgModel,NgControl } from "@angular/forms";
+import {Subscription} from 'rxjs';
+import { SyncServices } from '../../../providers/syncServices';
+import { App_hpbApi } from "../../../shared/loopback_sdk/index";
+import * as moment from 'moment';
+
+
+
+declare var cordova;
+
+@Component({
+  selector: 'hpb-add-form',
+  templateUrl: 'hpb-add-form.html',
+})
+export class addHpbFormPage {
+ 
+  //HPB DATA OBJECT
+  HpbData:any={
+    HpbId:null,
+    HpbType:null,
+    HpbName:null,
+    HpbProfilePic:null,
+    MobileNo_1:null,
+    MobileNo_2:null,
+    HpbEmail:null,
+    PlaceOfBirth:null,
+    DateOfBirth:null,
+    IdCardNumber:null,
+    IdPhoto:[],
+    IdCardAddress :null,
+    IdCardProvince:null,
+    IdCardCity:null,
+    IdCardSubDistrict:null,
+    IdCardPincode:null,
+    DomicileSameAsIdCard:null,
+    DomicileAddress:null,
+    DomicileProvince:null,
+    DomicileCity:null,
+    DomicileSubDistrict:null,
+    DomicilePincode:null,
+    CompanyName:null,
+    CompanyRepresentativeName:null,
+    CompanyDesignation:null,
+    HpbStatus:null,
+    HpbDigitalSign:null,
+    AdditionalComments:null,
+    latitude:null,
+    longitude:null
+  };
+
+  oldHpbData:any=[];
+   
+   check:any=false;
+   submitted:boolean= false;
+   busy:  Promise<any>;
+   busy1:  Promise<any>;
+   busyMessage:any;
+   hideLocate:any=false;
+
+   @ViewChild('DateOfBirth') DateOfBirth: any; 
+
+   @ViewChild('HpbType') HpbType: any; 
+   @ViewChild('HpbName') HpbName: any; 
+   @ViewChild('IdCardNumber') IdCardNumber: any;  
+   @ViewChild('IdCardAddress') IdCardAddress: any;  
+   @ViewChild('IdCardProvince') IdCardProvince: any; 
+   @ViewChild('IdCardCity') IdCardCity: any;
+   @ViewChild('IdCardSubDistrict') IdCardSubDistrict: any; 
+   @ViewChild('IdCardPincode') IdCardPincode: any; 
+
+   @ViewChild('DomicileSameAsIdCard') DomicileSameAsIdCard: any;
+   @ViewChild('DomicileAddress') DomicileAddress: any;  
+   @ViewChild('DomicileProvince') DomicileProvince: any; 
+   @ViewChild('DomicileCity') DomicileCity: any;
+   @ViewChild('DomicileSubDistrict') DomicileSubDistrict: any; 
+   @ViewChild('DomicilePincode') DomicilePincode: any;
+
+   @ViewChild('MobileNo_1') MobileNo_1: any; 
+   @ViewChild('MobileNo_2') MobileNo_2: any; 
+   @ViewChild('HpbEmail') HpbEmail: any; 
+   @ViewChild('PlaceOfBirth') PlaceOfBirth: any; 
+   @ViewChild('CompanyName') CompanyName: any; 
+   @ViewChild('CompanyRepresentativeName') CompanyRepresentativeName: any; 
+   @ViewChild('CompanyDesignation') CompanyDesignation: any;  
+   @ViewChild('HpbStatus') HpbStatus: any; 
+   @ViewChild('AdditionalComments') AdditionalComments: any;
+
+   MaxDate:any;
+   MinDate:any;
+   pageTitle:any;
+   disableDomicileAddrFlag:any=0;
+   profimagePath:any="assets/img/user_create.png";
+   digitalSignPath:any;
+   idCardPhotoObj:any=[];
+   
+
+  allAddressDataG:any=[];
+  postalCodeArrG:any=[];
+  provinceArrG:any=[];
+  municipalityArrG:any=[];
+  subDistrictArrG:any=[];
+
+   allAddressDataF:any=[];
+   postalCodeArrF:any=[];
+   provinceArrF:any=[];
+   municipalityArrF:any=[];
+   subDistrictArrF:any=[];
+
+  allAddressDataS:any=[];
+  postalCodeArrS:any=[];
+  provinceArrS:any=[];
+  municipalityArrS:any=[];
+  subDistrictArrS:any=[]; 
+  selectSettings:any = {
+      inputClass: 'text-input',
+      theme: 'material',
+      showOnFocus: true,
+      group: false,
+      filter: true,
+      placeholder: 'Please select'
+  }
+  dobdateSettings:any = {
+      theme: 'material'
+  }
+  userId:any="";
+  internetStatus:any;
+
+  constructor(private syncS:SyncServices,public navCtrl: NavController, public navParams: NavParams,public popoverCtrl: PopoverController,public appCom:appCommonMethods,public events:Events,public modalCtrl: ModalController,public shareS:ShareService,public sqlS: SqlServices, public platform: Platform,private app_hpbApi:App_hpbApi) {
+    this.MaxDate=moment().subtract(15,'years').format();
+    this.MinDate=moment().subtract(99,'years').format();
+    this.pageTitle="Add DPB";
+    this.busyMessage = 'please wait..' ;   
+
+    this.getAddressData().then(()=>{
+
+        this.postalCodeArrF=this.postalCodeArrG;
+        this.provinceArrF=this.provinceArrG;
+        this.municipalityArrF=this.municipalityArrG;
+        this.subDistrictArrF=this.subDistrictArrG;
+
+        this.postalCodeArrS=this.postalCodeArrG;
+        this.provinceArrS=this.provinceArrG;
+        this.municipalityArrS=this.municipalityArrG;
+        this.subDistrictArrS=this.subDistrictArrG;  
+
+    });
+
+   
+
+  }
+
+  ionViewDidLoad() {
+      console.log('ionViewDidLoad addHpbFormPage');
+
+
+  	    //GET CURRENT USER DATA
+        this.platform.ready().then(() => {
+        this.appCom.getAppPreference("userCreds").then((resDataU)=>{
+                    console.log("resDataUser",resDataU);
+                    if( resDataU != undefined && resDataU != '' ){
+                    this.userId=resDataU['user']['id'];
+                    }else{
+                    this.userId="";
+                    }
+                },(err)=>{
+                    console.log('err ref',err);
+                });
+        console.log("Platform is ready");
+        });
+    
+    this.dobdateSettings['min']=moment().subtract(99,'years').toDate();
+    this.dobdateSettings['max']=moment().subtract(15,'years').toDate();
+    //this.DateOfBirth.instance.option(this.dobdateSettings);
+
+     let action = this.navParams.get("action"); 
+      console.log("action",action);
+      if( action == 'edit' || action == 'hpbSpecific' ){
+      //TREAT THIS PAGE AS EDIT HPB
+      this.pageTitle="EDIT DPB";
+      let insertData = [];
+      insertData = this.navParams.get("hpbData"); 
+
+
+      //FETCH DATA FROM DATABASE USING HPB ID..
+      var selectField = " * ";
+      var tablename = "hpb_master";
+      var where = " `hpb_id` = "+insertData['hpb_id'];
+      this.sqlS.selectTableData(selectField,tablename,where,"","").then((data) => {
+            console.log('data fetched', data);
+            for(let i=0;i<data['rows'].length;i++){       
+            insertData = ( data['rows'].item(i) );                
+            }
+            
+      console.log("insertData--check insert data->",insertData);
+      //PREFILL ALL FORM VALUES HERE    
+    
+      
+      this.HpbData['HpbId']=insertData['hpb_id'];
+      this.HpbData['HpbType']=insertData['hpb_type'] ;
+      this.HpbData['HpbName']=insertData['hpb_name'];
+      
+      console.log("insertData['hpb_profile_pic']---------->",insertData['hpb_profile_pic']);
+      console.log("insertData['hpb_digital_sign']---------->",insertData['hpb_digital_sign']);
+
+      let dp =[];
+      dp=JSON.parse(insertData['hpb_profile_pic']);     
+      this.HpbData['HpbProfilePic']=dp;
+       this.profimagePath= this.appCom.urlSanitizer(dp[0]['path']) ;
+      // this.HpbData['HpbProfilePic']=(insertData['hpb_profile_pic'].changingThisBreaksApplicationSecurity) ;
+      // this.profimagePath=  insertData['hpb_profile_pic'];
+        console.log(" this.HpbData['HpbProfilePic']**", this.HpbData['HpbProfilePic']);
+
+      this.oldHpbData['MobileNo_1']=insertData['primary_mobile_no'];
+
+      this.HpbData['MobileNo_1']=insertData['primary_mobile_no'];
+      this.HpbData['MobileNo_2']=insertData['secondary_mobile_no'];
+      this.HpbData['HpbEmail']=insertData['hpb_email'];
+      this.HpbData['DateOfBirth']= this.appCom.timeStampToDateMMM((insertData['date_of_birth']));
+      this.HpbData['PlaceOfBirth']=insertData['place_of_birth']; 
+      this.HpbData['IdCardNumber']=insertData['id_card_number']; 
+
+     
+      var idPhoto = JSON.parse(insertData['id_photo']);     
+      this.HpbData['IdPhoto']=idPhoto;
+      if( idPhoto !=undefined && idPhoto !=''  ){
+        this.idCardPhotoObj=[];
+        for( var i=0;i<idPhoto.length;i++ ){
+              this.idCardPhotoObj.push(  this.appCom.urlSanitizer(idPhoto[i]['path']) );  
+        }
+      }
+
+
+      this.HpbData['IdCardAddress']=insertData['id_card_address'];
+      this.HpbData['IdCardProvince']=insertData['id_card_province'];
+      this.HpbData['IdCardCity']=insertData['id_card_city'];
+      this.HpbData['IdCardSubDistrict']=insertData['id_card_sub_district'];
+      this.HpbData['IdCardPincode']=insertData['id_card_pincode'];
+      this.HpbData['DomicileSameAsIdCard']=(insertData['domicile_same_as_id_card'] == 1) ? true:false;
+      if( this.HpbData['DomicileSameAsIdCard'] ){
+        this.disableDomicileAddrFlag=1;
+      }else{
+        this.disableDomicileAddrFlag=0;
+      }
+
+      this.HpbData['DomicileAddress']=insertData['domicile_address'];
+      this.HpbData['DomicileProvince']=insertData['domicile_province'];
+      this.HpbData['DomicileCity']=insertData['domicile_city'];
+      this.HpbData['DomicileSubDistrict']=insertData['domicile_sub_district'];
+      this.HpbData['DomicilePincode']=insertData['domicile_pincode'];
+      this.HpbData['CompanyName']=insertData['company_name'];
+      this.HpbData['CompanyRepresentativeName']=insertData['company_representative_name'];
+      this.HpbData['CompanyDesignation']=insertData['company_designation'];
+      this.HpbData['HpbStatus']=insertData['hpb_status'];
+
+     
+      // this.HpbData['HpbDigitalSign']=insertData['hpb_digital_sign'].changingThisBreaksApplicationSecurity;
+      // if( this.HpbData['HpbDigitalSign'] !=undefined && this.HpbData['HpbDigitalSign'] !=""  ){
+
+      // }else{
+      //  this.HpbData['HpbDigitalSign']=insertData['hpb_digital_sign'];  
+      // }
+      // this.digitalSignPath=insertData['hpb_digital_sign'];
+      console.log("insertData['hpb_digital_sign']",insertData['hpb_digital_sign']);
+      let ds=[];
+      ds=JSON.parse(insertData['hpb_digital_sign']);     
+      this.HpbData['HpbDigitalSign']=ds;
+      if( this.HpbData['HpbDigitalSign'] !=undefined && this.HpbData['HpbDigitalSign'] !=""  ){
+          this.digitalSignPath= this.appCom.urlSanitizer(ds[0]['path']) ;
+      }else{
+      //this.HpbData['HpbDigitalSign']=insertData['hpb_digital_sign'];  
+
+      }
+     
+
+
+
+      this.HpbData['AdditionalComments']=insertData['additional_comments'];
+      // this.HpbData['latitude']=insertData['latitude'];
+      // this.HpbData['longitude']=insertData['longitude'];
+      //insertData['created_date']=Date.now().toString();
+      insertData['updated_date']="";
+      insertData['created_by']="";
+      insertData['updated_by']=""; 
+
+      console.log("HpbData",this.HpbData);
+      
+      }, (error) => {
+      console.log('Error', error);
+
+      });
+
+
+
+
+      }else if( action == "" || action == undefined || action == 'none'  ){
+      //TREAT THIS PAGE AS ADD HPB
+      this.pageTitle="ADD DPB";
+      }
+
+
+      //SUBSCRIPTION FOR CAMERA OR GALLERY PHOTO CAPTURED..
+      this.events.unsubscribe("getbase64Image");  
+      this.events.subscribe('getbase64Image',(base64ImgOBJ) => {
+   
+          let base64Image =  base64ImgOBJ.base64Image;
+          let extType=".jpeg";
+          var filename = this.appCom.generateRandomString()+extType;
+
+          this.appCom.savebase64AsImageFile(filename,base64Image,extType).then((path)=>{
+              
+                if( base64ImgOBJ.photo_source == "profile_pic" ){
+                  //IF PROFILE PICTURE
+                  //this.HpbData.HpbProfilePic=path;
+                  this.profimagePath = this.appCom.urlSanitizer(path);
+                  let t ={};
+                  t['path']=path;
+                  t['name']=filename;
+                  t['fileType']="jpeg";
+                  t['serverPath']="";
+                  t['sync_status']=0;
+                  t['container']="profile";
+                  let tArr=[];
+                  tArr.push(t);
+                  this.HpbData.HpbProfilePic=(tArr);
+
+
+                }else if( base64ImgOBJ.photo_source == "id_card_photo" ){
+                  //IF ID CARD MULTIPLE PICS
+                  //this.HpbData.IdPhoto.push(path);
+                  this.idCardPhotoObj.push(this.appCom.urlSanitizer(path));
+                  let t ={};
+                  t['path']=path;
+                  t['name']=filename;
+                  t['fileType']="jpeg";
+                  t['serverPath']="";
+                  t['sync_status']=0; 
+                  t['container']="doc";
+                  //let tArr=[];
+                  //tArr.push(t);
+                  this.HpbData.IdPhoto.push(t);
+
+
+
+                }else if( base64ImgOBJ.photo_source =="digital_sign" ){
+                  //IF DIGITAL SIGN PICTURE
+                  this.HpbData.HpbDigitalSign=path;
+                  this.digitalSignPath=this.appCom.urlSanitizer(path);
+                  let t ={};
+                  t['path']=path;
+                  t['name']=filename;
+                  t['fileType']="jpeg";
+                  t['sync_status']=0;
+                  t['serverPath']="";
+                  t['container']="doc";
+                  let tArr=[];
+                  tArr.push(t);
+                  this.HpbData.HpbDigitalSign=(tArr);
+                } 
+                //console.log("this.idCardPhotoObj",this.idCardPhotoObj);
+
+             
+              
+              },(error)=>{
+                console.log(error);
+              }
+
+          );
+
+      }); 
+
+  }
+
+
+  ionViewDidLeave(){
+      // console.log("leave page");
+      // var b=  this.events.unsubscribe("getbase64Image");  
+      // console.log("unsubscribed",b);
+  }
+
+  //SUBMIT HPB DATA FORM
+  submitHpbForm(){
+    this.submitted=true; 
+    let isvalid = false;
+    if( this.check == false ){
+    this.check = false;
+
+    this.internetStatus=this.shareS.getshareData('netConnection'); 
+                                     
+        if( this.HpbType.valid &&  this.HpbData.HpbType == "contractor" ){
+                isvalid = this.HpbName.valid && this.IdCardNumber.valid && this.IdCardAddress.valid &&
+                      this.IdCardProvince.valid && this.IdCardCity.valid && this.IdCardSubDistrict.valid && this.IdCardPincode.valid &&   
+                      this.MobileNo_1.valid && this.MobileNo_2.valid  && this.PlaceOfBirth 
+                      && this.CompanyName.valid && this.CompanyRepresentativeName.valid && this.CompanyDesignation.valid &&
+                      this.HpbStatus.valid  && this.profimagePath != 'assets/img/user_create.png' && this.profimagePath !=''&& this.digitalSignPath !='' && this.digitalSignPath !=undefined  
+                      && this.idCardPhotoObj !=undefined && this.idCardPhotoObj !="" && this.MobileNo_1.value != this.MobileNo_2.value
+                      && this.HpbName.value != undefined && this.HpbName.value != "" && this.HpbName.value.trim() != undefined && this.HpbName.value.trim() != ""
+                      && this.CompanyName.value != undefined && this.CompanyName.value != "" && this.CompanyName.value.trim() != undefined && this.CompanyName.value.trim() != ""
+                      && this.CompanyRepresentativeName.value != undefined && this.CompanyRepresentativeName.value != "" && this.CompanyRepresentativeName.value.trim() != undefined && this.CompanyRepresentativeName.value.trim() != ""
+                      && this.IdCardAddress.value != undefined && this.IdCardAddress.value != "" && this.IdCardAddress.value.trim() != undefined && this.IdCardAddress.value.trim() != "" 
+                      ;
+
+                if( this.HpbEmail.value != undefined && this.HpbEmail.value != '' && this.HpbEmail.value.trim() != '' ){
+                       isvalid = isvalid && this.HpbEmail.valid ;                     
+                }else{
+
+                }      
+                     
+                if( this.disableDomicileAddrFlag && isvalid ){
+                  isvalid = true;  
+                }else if( isvalid ){
+                  isvalid = isvalid && this.DomicileAddress.valid && this.DomicileProvince.valid && this.DomicileCity.valid && this.DomicileSubDistrict.valid && this.DomicilePincode.valid; 
+                }
+
+
+        }else if( this.HpbType.valid &&  this.HpbData.HpbType == "mason" ){
+                isvalid = this.HpbName.valid && this.IdCardNumber.valid && this.IdCardAddress.valid &&
+                      this.IdCardProvince.valid && this.IdCardCity.valid && this.IdCardSubDistrict.valid && this.IdCardPincode.valid &&   
+                      this.MobileNo_1.valid && this.MobileNo_2.valid  && this.PlaceOfBirth &&
+                      this.HpbStatus.valid && this.profimagePath != 'assets/img/user_create.png' && this.profimagePath !='' && this.digitalSignPath !='' && this.digitalSignPath !=undefined
+                      && this.idCardPhotoObj !=undefined && this.idCardPhotoObj !="" && this.MobileNo_1.value != this.MobileNo_2.value   
+                      && this.HpbName.value != undefined && this.HpbName.value != "" && this.HpbName.value.trim() != undefined && this.HpbName.value.trim() != ""
+                      && this.IdCardAddress.value != undefined && this.IdCardAddress.value != "" && this.IdCardAddress.value.trim() != undefined && this.IdCardAddress.value.trim() != "" 
+                      ;
+                
+                if( this.HpbEmail.value != undefined && this.HpbEmail.value != '' && this.HpbEmail.value.trim() != '' ){
+                       isvalid = isvalid && this.HpbEmail.valid ;                     
+                }else{
+
+                }   
+                      
+                if( this.disableDomicileAddrFlag && isvalid ){
+                  isvalid = true;  
+                }else if( isvalid ){
+                  isvalid = isvalid && this.DomicileAddress.valid && this.DomicileProvince.valid && this.DomicileCity.valid && this.DomicileSubDistrict.valid && this.DomicilePincode.valid; 
+                }      
+
+        }else{
+          //invalid
+          console.log("//invalid");
+          this.check = false;
+        }
+                                                                    
+        if(isvalid){
+
+
+          
+      
+            console.log("valid");
+            console.log(this.HpbData);                                         
+            //SAVE HPB TO DATABASE
+            let insertData = {};
+            insertData['hpb_type']=this.HpbData['HpbType'];
+            insertData['hpb_name']=this.HpbData['HpbName'].trim();
+            insertData['hpb_profile_pic']=JSON.stringify(this.HpbData['HpbProfilePic']);
+            insertData['primary_mobile_no']=this.HpbData['MobileNo_1'];
+            insertData['secondary_mobile_no']=this.HpbData['MobileNo_2'];
+            insertData['hpb_email']=this.HpbData['HpbEmail'];
+            insertData['place_of_birth']=this.HpbData['PlaceOfBirth'];
+            insertData['date_of_birth']= this.appCom.dateToTimeStamp(this.HpbData['DateOfBirth']);
+            insertData['id_card_number']=this.HpbData['IdCardNumber'];          
+            if(this.HpbData.IdPhoto != undefined && this.HpbData.IdPhoto != ''){
+              insertData['id_photo']= JSON.stringify( this.HpbData.IdPhoto ); 
+            }else{
+              insertData['id_photo']=''; 
+            }
+            insertData['id_card_address']=this.HpbData['IdCardAddress'].trim();
+            insertData['id_card_province']=this.HpbData['IdCardProvince'];
+            insertData['id_card_city']=this.HpbData['IdCardCity'];
+            insertData['id_card_sub_district']=this.HpbData['IdCardSubDistrict'];
+            insertData['id_card_pincode']=this.HpbData['IdCardPincode'];
+            insertData['domicile_same_as_id_card']=(this.HpbData['DomicileSameAsIdCard']) ? 1 : 0;
+            insertData['domicile_address']=this.HpbData['DomicileAddress'].trim();
+            insertData['domicile_province']=this.HpbData['DomicileProvince'];
+            insertData['domicile_city']=this.HpbData['DomicileCity'];
+            insertData['domicile_sub_district']=this.HpbData['DomicileSubDistrict'];
+            insertData['domicile_pincode']=this.HpbData['DomicilePincode'];
+            
+            if( this.HpbData['CompanyName'] != undefined && this.HpbData['CompanyName'] != '' ){
+            insertData['company_name']=this.HpbData['CompanyName'].trim();
+            }
+            if( this.HpbData['CompanyRepresentativeName'] != undefined && this.HpbData['CompanyRepresentativeName'] != '' ){
+            insertData['company_representative_name']=this.HpbData['CompanyRepresentativeName'].trim();
+            }
+            if( this.HpbData['CompanyDesignation'] != undefined && this.HpbData['CompanyDesignation'] != '' ){
+            insertData['company_designation']=this.HpbData['CompanyDesignation'].trim();
+            }
+
+            insertData['hpb_status']=this.HpbData['HpbStatus'];
+            insertData['hpb_digital_sign']=JSON.stringify(this.HpbData['HpbDigitalSign']);
+
+            if( this.HpbData['AdditionalComments'] != undefined && this.HpbData['AdditionalComments'] != '' ){
+            insertData['additional_comments']=this.HpbData['AdditionalComments'].trim();
+            }
+           
+                                                        
+            insertData['created_by']=this.userId;
+            insertData['updated_by']=this.userId;
+            
+            insertData['generated_by']=this.userId;
+            insertData['assigned_to']=this.userId;
+            insertData['sync_status']=0;
+
+
+            console.log("before update",insertData);
+
+            if( parseInt(this.HpbData['HpbId']) >0){
+                    console.log( "this.oldHpbData['MobileNo_1']",this.oldHpbData['MobileNo_1'] );
+                    console.log( "this.HpbData['MobileNo_1']",this.HpbData['MobileNo_1'] );
+                 if( this.oldHpbData['MobileNo_1'] != this.HpbData['MobileNo_1'] ){
+
+                              //check for valid primary mobile number..
+                              let selectField = "  `primary_mobile_no` ";
+                              let where =" `primary_mobile_no` ='"+this.MobileNo_1.value+"'";
+                              let tablename = "hpb_master";
+                              this.sqlS.selectTableData(selectField,tablename,where,"","").then((data) => {
+                                        let res =   data['rows'].item(0);
+                                        console.log("result data-->",data['rows'].item(0));    
+                                            if( res == undefined  ){
+                                              //mob no is unique  
+                                            }else{
+                                              this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.DUPLICATE_MOBNO_IN_DB,"Ok","");
+                                              return false;
+                                            }
+                                            
+                                      //NOW CHECK FOR DUPLICATE MOBILE NO IN SERVER DB
+                                          if( this.internetStatus ){ //IF INTERNET CONNECTION CHECK FOR DUPLICATE HPB
+                                          let wher = {"where":{"or":[{"primary_mobile_no":this.MobileNo_1.value}]}};
+                                          this.app_hpbApi.find(wher).subscribe((result)=>{
+                                          if( result.length == 0 || result == undefined || result == null ){ //ALLOW THIS UNIQUE PRIMARY MOBILE NO 
+                                                                                       
+                                          let currentTime = this.appCom.getCurrentTimeStamp();
+                                          insertData['local_updated_date']=currentTime;
+
+                                          //UPDATE EXISTING HPB DATA
+                                          insertData['assigned_to']=this.userId;
+                                          insertData['sync_status']=0;
+                                          insertData['updated_by']=this.userId;
+                                          insertData['updated_date']=Date.now();
+                                          var whereCond =" `hpb_id` = "+this.HpbData['HpbId'];
+                                          this.sqlS.updateData(insertData,"hpb_master",whereCond).then((data) => {
+                                              //this.appCom.showToast(ALL_MESSAGE.SUCCESS_MESSAGE.HPB_UPDATE_SUCCESS,"middle");
+                                              this.check == false
+                                              this.appCom.showAlert(ALL_MESSAGE.SUCCESS_MESSAGE.HPB_UPDATE_SUCCESS,"Ok","");
+                                              this.events.publish('globalSync');
+                                              let currView = this.navCtrl.getActive();
+                                              let index = this.navCtrl.indexOf(currView);
+                                              if( this.HpbData['HpbType'] == 'mason' ){
+                                                          this.navCtrl.push(HpbListPage,{
+                                                              "type":"mason"
+                                                          });
+                                                    }else if( this.HpbData['HpbType'] == 'contractor' ){
+                                                          this.navCtrl.push(HpbListPage,{
+                                                              "type":"contractor"
+                                                          }); 
+                                                    }
+                                              this.navCtrl.remove(index, 1,null);
+                                          }, (error) => {
+                                              console.log('Error', error);
+                                              //this.appCom.showToast(ALL_MESSAGE.ERROR_MESSAGE.HPB_UPDATE_ERR,"middle");
+                                              this.check == false
+                                              this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.HPB_UPDATE_ERR,"Ok","");
+                                          });              
+                                       }else{
+                                              this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.DUPLICATE_MOBNO_IN_DB,"Ok","");
+                                              return false;
+                                       }              
+                                  });
+                                }else{ //NO INTERNET CONNECTION
+                                          let currentTime = this.appCom.getCurrentTimeStamp();
+                                          insertData['local_updated_date']=currentTime;
+
+                                          //UPDATE EXISTING HPB DATA
+                                          insertData['assigned_to']=this.userId;
+                                          insertData['sync_status']=0;
+                                          insertData['updated_by']=this.userId;
+                                          insertData['updated_date']=Date.now();
+                                          var whereCond =" `hpb_id` = "+this.HpbData['HpbId'];
+                                          this.sqlS.updateData(insertData,"hpb_master",whereCond).then((data) => {
+                                              //this.appCom.showToast(ALL_MESSAGE.SUCCESS_MESSAGE.HPB_UPDATE_SUCCESS,"middle");
+                                              this.check == false
+                                              this.appCom.showAlert(ALL_MESSAGE.SUCCESS_MESSAGE.HPB_UPDATE_SUCCESS,"Ok","");
+                                              this.events.publish('globalSync');
+                                              let currView = this.navCtrl.getActive();
+                                              let index = this.navCtrl.indexOf(currView);
+                                              if( this.HpbData['HpbType'] == 'mason' ){
+                                                          this.navCtrl.push(HpbListPage,{
+                                                              "type":"mason"
+                                                          });
+                                                    }else if( this.HpbData['HpbType'] == 'contractor' ){
+                                                          this.navCtrl.push(HpbListPage,{
+                                                              "type":"contractor"
+                                                          }); 
+                                                    }
+                                              this.navCtrl.remove(index, 1,null);
+                                          }, (error) => {
+                                              console.log('Error', error);
+                                              //this.appCom.showToast(ALL_MESSAGE.ERROR_MESSAGE.HPB_UPDATE_ERR,"middle");
+                                              this.check == false
+                                              this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.HPB_UPDATE_ERR,"Ok","");
+                                          });              
+                                    }
+                          });
+                  }else{
+                                  //number not changed, do nothing and update as is
+                                  //UPDATE EXISTING HPB DATA
+                                  insertData['assigned_to']=this.userId;
+                                  insertData['sync_status']=0;
+                                  insertData['updated_by']=this.userId;
+                                  insertData['updated_date']=Date.now();
+                                  var whereCond =" `hpb_id` = "+this.HpbData['HpbId'];
+                                  this.sqlS.updateData(insertData,"hpb_master",whereCond).then((data) => {
+                                      //this.appCom.showToast(ALL_MESSAGE.SUCCESS_MESSAGE.HPB_UPDATE_SUCCESS,"middle");
+                                      this.check == false
+                                      this.appCom.showAlert(ALL_MESSAGE.SUCCESS_MESSAGE.HPB_UPDATE_SUCCESS,"Ok","");
+                                      this.events.publish('globalSync');
+                                      let currView = this.navCtrl.getActive();
+                                      let index = this.navCtrl.indexOf(currView);
+                                      if( this.HpbData['HpbType'] == 'mason' ){
+                                                  this.navCtrl.push(HpbListPage,{
+                                                      "type":"mason"
+                                                  });
+                                            }else if( this.HpbData['HpbType'] == 'contractor' ){
+                                                  this.navCtrl.push(HpbListPage,{
+                                                      "type":"contractor"
+                                                  }); 
+                                            }
+                                      this.navCtrl.remove(index, 1,null);
+                                  }, (error) => {
+                                      console.log('Error', error);
+                                      //this.appCom.showToast(ALL_MESSAGE.ERROR_MESSAGE.HPB_UPDATE_ERR,"middle");
+                                      this.check == false
+                                      this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.HPB_UPDATE_ERR,"Ok","");
+                                  }); 
+                    }
+                    
+            }else{
+           console.log("primary no check for duplicate");
+            //check for valid primary mobile number..
+            let selectField = "  `primary_mobile_no` ";
+            let where =" `primary_mobile_no` ='"+this.MobileNo_1.value+"'";
+            let tablename = "hpb_master";
+            this.sqlS.selectTableData(selectField,tablename,where,"","").then((data) => {
+                let res =   data['rows'].item(0);
+                console.log("result data-->",data['rows'].item(0));    
+                if( res == undefined  ){
+                  //mob no is unique  
+                }else{
+                  this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.DUPLICATE_MOBNO_IN_DB,"Ok","");
+                  return false;
+                } 
+                
+            //Check primary mobile number at server if internet is on    
+            if( this.internetStatus ){  //IF INTERNET CONNECTION CHECK FOR DUPLICATE HPB
+                let wher = {"where":{"or":[{"primary_mobile_no":this.MobileNo_1.value}]}};
+                this.app_hpbApi.find(wher).subscribe((result)=>{
+                if( result.length == 0 || result == undefined || result == null ){ //ALLOW THIS UNIQUE PRIMARY MOBILE NO 
+                      cordova.plugins.diagnostic.isGpsLocationEnabled((successCallback)=>{			
+                                  if(successCallback)	{
+                                            cordova.plugins.diagnostic.getLocationMode((res) => {
+                                            console.log("res",res);
+                                                if(res == 'high_accuracy'){                                                        
+                                                      this.busy=  this.appCom.getGeoLocationCordinates().then((geoCordinates)=>{
+                                                                console.log("geoCordinates------>",geoCordinates);
+                                                                this.HpbData.latitude=(geoCordinates['coords'])?geoCordinates['coords'].latitude:"";
+                                                                this.HpbData.longitude=(geoCordinates['coords'])?geoCordinates['coords'].longitude:""; 
+                                                                        //INSERT NEW HPB DATA
+                                                                        let currentTime = this.appCom.getCurrentTimeStamp();
+                                                                        insertData['local_created_date']=currentTime;
+                                                                        insertData['local_updated_date']=currentTime;
+
+                                                                        insertData['latitude']=this.HpbData.latitude;
+                                                                        insertData['longitude']= this.HpbData.longitude;
+                                                                        this.sqlS.insertData(insertData,"hpb_master").then((data) => {
+                                                                            //this.appCom.showToast(ALL_MESSAGE.SUCCESS_MESSAGE.HPB_ADD_SUCCESS,"middle");
+                                                                            this.check == false
+                                                                            this.appCom.showAlert(ALL_MESSAGE.SUCCESS_MESSAGE.HPB_ADD_SUCCESS,"Ok","");
+                                                                            let currView = this.navCtrl.getActive();
+                                                                            let index = this.navCtrl.indexOf(currView);
+                                                                                  if( this.HpbData['HpbType'] == 'mason' ){
+                                                                                        this.navCtrl.push(HpbListPage,{
+                                                                                          "type":"mason"
+                                                                                        });
+                                                                                  }else if( this.HpbData['HpbType'] == 'contractor' ){
+                                                                                        this.navCtrl.push(HpbListPage,{
+                                                                                          "type":"contractor"
+                                                                                        }); 
+                                                                                  }
+                                                                            this.events.publish('globalSync');
+                                                                            this.navCtrl.remove(index, 1,null);
+                                                                        }, (error) => {
+                                                                            console.log('Error', error);
+                                                                            //this.appCom.showToast(ALL_MESSAGE.ERROR_MESSAGE.HPB_ADD_ERR,"middle");
+                                                                            this.check == false
+                                                                            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.HPB_ADD_ERR,"Ok","");
+                                                                        });
+                                                                  
+                                                                },(error)=>{
+                                                                      console.log(error);
+                                                                      this.check = false
+                                                                      this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok","");
+                                                                    
+                                                                    });
+                                                              }else{
+                                                                //show pop up for set high accuracy..
+                                                                this.check = false
+                                                                this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");
+                                                                
+                                                              }
+                                                        },(err)=>{
+                                                            this.check = false
+                                                            console.log(err);
+                                                        });
+                                                }else{
+                                                  //show alert enable gps
+                                                  this.check = false
+                                                  this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");  
+                                                  
+                                                }	
+
+                                            },(err)=>{
+                                              console.log(err);
+                                              this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok",""); 
+                                            });
+                                    }else{
+                                          this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.DUPLICATE_MOBNO_IN_DB,"Ok","");
+                                          return false;
+                                    } 
+
+                                }); 
+                                                  
+                            }else{ //NO INTERNET CONNECTION
+
+                                  cordova.plugins.diagnostic.isGpsLocationEnabled((successCallback)=>{			
+                                  if(successCallback)	{
+                                            cordova.plugins.diagnostic.getLocationMode((res) => {
+                                            console.log("res",res);
+                                                if(res == 'high_accuracy'){
+                                                        
+                                                      this.busy=  this.appCom.getGeoLocationCordinates().then((geoCordinates)=>{
+                                                                console.log("geoCordinates------>",geoCordinates);
+                                                                this.HpbData.latitude=(geoCordinates['coords'])?geoCordinates['coords'].latitude:"";
+                                                                this.HpbData.longitude=(geoCordinates['coords'])?geoCordinates['coords'].longitude:""; 
+                                                                        //INSERT NEW HPB DATA
+                                                                        let currentTime = this.appCom.getCurrentTimeStamp();
+                                                                        insertData['local_created_date']=currentTime;
+                                                                        insertData['local_updated_date']=currentTime;
+
+                                                                        insertData['latitude']=this.HpbData.latitude;
+                                                                        insertData['longitude']= this.HpbData.longitude;
+                                                                        this.sqlS.insertData(insertData,"hpb_master").then((data) => {
+                                                                            //this.appCom.showToast(ALL_MESSAGE.SUCCESS_MESSAGE.HPB_ADD_SUCCESS,"middle");
+                                                                            this.check == false
+                                                                            this.appCom.showAlert(ALL_MESSAGE.SUCCESS_MESSAGE.HPB_ADD_SUCCESS,"Ok","");
+                                                                            let currView = this.navCtrl.getActive();
+                                                                            let index = this.navCtrl.indexOf(currView);
+                                                                                  if( this.HpbData['HpbType'] == 'mason' ){
+                                                                                        this.navCtrl.push(HpbListPage,{
+                                                                                          "type":"mason"
+                                                                                        });
+                                                                                  }else if( this.HpbData['HpbType'] == 'contractor' ){
+                                                                                        this.navCtrl.push(HpbListPage,{
+                                                                                          "type":"contractor"
+                                                                                        }); 
+                                                                                  }
+                                                                            this.events.publish('globalSync');
+                                                                            this.navCtrl.remove(index, 1,null);
+                                                                        }, (error) => {
+                                                                            console.log('Error', error);
+                                                                            //this.appCom.showToast(ALL_MESSAGE.ERROR_MESSAGE.HPB_ADD_ERR,"middle");
+                                                                            this.check == false
+                                                                            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.HPB_ADD_ERR,"Ok","");
+                                                                        });
+                                                                  
+                                                                },(error)=>{
+                                                                      console.log(error);
+                                                                      this.check = false
+                                                                      this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok","");
+                                                                    
+                                                                    });
+                                                              }else{
+                                                                //show pop up for set high accuracy..
+                                                                this.check = false
+                                                                this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");
+                                                                
+                                                              }
+                                                        },(err)=>{
+                                                            this.check = false
+                                                            console.log(err);
+                                                        });
+                                                }else{
+                                                  //show alert enable gps
+                                                  this.check = false
+                                                  this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");  
+                                                  
+                                                }	
+
+                                            },(err)=>{
+                                              console.log(err);
+                                              this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok",""); 
+                                            });
+                            }
+                                           
+                    }); //END OF DUPLICATE PHONE NO CHECK
+              }
+        }else{
+          //invalid
+           this.check == false
+          this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.INVALID_FIELDS_FORM_ERR,"Ok","");
+        }
+    }else{
+        this.check == false
+    }
+  } 
+
+
+  
+  copyAddress(){
+      console.log("this.HpbData.DomicileSameAsIdCard",this.HpbData.DomicileSameAsIdCard);
+      if( this.HpbData.DomicileSameAsIdCard ){
+          if(this.IdCardAddress.valid && this.IdCardProvince.valid && this.IdCardCity.valid && this.IdCardSubDistrict.valid && this.IdCardPincode.valid){
+            this.postalCodeArrS=this.postalCodeArrG;
+            this.provinceArrS=this.provinceArrG;
+            this.municipalityArrS=this.municipalityArrG;
+            this.subDistrictArrS=this.subDistrictArrG;
+            this.HpbData.DomicileAddress = this.HpbData.IdCardAddress;
+            this.HpbData.DomicileProvince = this.HpbData.IdCardProvince;
+            this.HpbData.DomicileCity = this.HpbData.IdCardCity;
+            this.HpbData.DomicileSubDistrict = this.HpbData.IdCardSubDistrict;
+            this.HpbData.DomicilePincode = this.HpbData.IdCardPincode;
+            this.disableDomicileAddrFlag=1;
+          }else{
+            this.disableDomicileAddrFlag=0;
+            //show error pop up 
+          }
+
+          console.log(" this.HpbData", this.HpbData);
+      }else{
+       
+        this.disableDomicileAddrFlag=0;
+        this.HpbData.DomicileAddress=null;
+        this.HpbData.DomicileProvince=null;
+        this.HpbData.DomicileCity=null;
+        this.HpbData.DomicileSubDistrict=null;
+        this.HpbData.DomicilePincode=null;
+
+        this.postalCodeArrS=this.postalCodeArrG;
+        this.provinceArrS=this.provinceArrG;
+        this.municipalityArrS=this.municipalityArrG;
+        this.subDistrictArrS=this.subDistrictArrG;
+      }
+  }
+  
+  //CAMERA OR GALLERY SELECTION POP
+  openSelectCameraPop(myEvent,photo_source){
+    var popover;
+    popover = this.popoverCtrl.create(ImageSelectPopPage,{photo_source});
+    popover.present({
+      ev: myEvent
+    });
+   
+  }
+  
+  //SIGNATURE PAD POP
+  getSignature(){
+   let Modal = this.modalCtrl.create(DigitalSignCanvasPage);
+   Modal.present();
+
+  }
+
+   getAddress(){
+      this.hideLocate=true;
+     	cordova.plugins.diagnostic.isGpsLocationEnabled((successCallback)=>{			
+          if(successCallback)	{
+                  cordova.plugins.diagnostic.getLocationMode((res) => {
+                    console.log("res",res);
+                        if(res == 'high_accuracy'){
+                          
+                    this.busy=  this.appCom.getAddressOfCurrLocation().then((address)=>{
+                                  this.HpbData['IdCardAddress'] = address;
+                                  this.hideLocate=false;
+                                },(error)=>{
+                                  console.log(error);
+                                  this.hideLocate=false;
+                                });
+
+
+                        }else{
+                                //show pop up for set high accuracy..
+                                this.hideLocate=false;
+                                this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");
+                                
+                        }
+                  },(err)=>{
+                      this.hideLocate=false;
+                      console.log(err);
+                  });
+          }else{
+            //show alert enable gps
+              this.hideLocate=false;
+             this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");  
+             
+          }	
+
+      },(err)=>{
+        console.log(err);
+          this.hideLocate=false;
+        this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok",""); 
+        
+      });
+                                
+    }
+
+  removeIdCardImage(i){
+      this.idCardPhotoObj.splice(i, 1);
+      this.HpbData.IdPhoto.splice(i,1);
+  }
+
+  onSelectHpbTypeChange(Hpbtype){
+      if(Hpbtype == 'mason'){
+        this.HpbData['CompanyName']="";
+        this.HpbData['CompanyRepresentativeName']="";
+        this.HpbData['CompanyDesignation']="";
+      }else if(Hpbtype == 'contractor'){
+         //do nothing       
+      }
+  } 
+
+
+
+
+
+
+  //INSERT INTO DATABASE
+ 
+ getAddressData(){
+
+  return new Promise((resolve,reject)=>{
+
+     let selectField = " * ";  
+      let tableName = " address_master ";
+      let where = "";
+      let orderBy = "";
+      let limit = " 200 ";
+      let itemDatas=[];
+      let allAddressData=[];
+      let postalCodeArr=[];
+      let provinceArr=[];
+      let municipalityArr=[];
+      let subDistrictArr=[];
+      this.sqlS.selectTableData(selectField,tableName,where,orderBy,limit).then((ressqlData:any)=>{
+         console.log('getOpenTendersData sql ressqlData',ressqlData);
+        for(let i=0;i<ressqlData.rows.length;i++){
+          let tempObj=ressqlData.rows.item(i);
+          allAddressData.push(tempObj);
+          postalCodeArr.push(tempObj['postalcode']);
+          provinceArr.push(tempObj['province']);
+          municipalityArr.push(tempObj['citykabname']);
+          subDistrictArr.push(tempObj['subdistrict']);
+          itemDatas.push(tempObj);
+        }
+        this.allAddressDataG =  new Set(allAddressData);
+        postalCodeArr = Array.from(new Set(postalCodeArr));
+        provinceArr =  Array.from(new Set(provinceArr));
+        municipalityArr =  Array.from(new Set(municipalityArr));
+        subDistrictArr =  Array.from(new Set(subDistrictArr));
+        this.postalCodeArrG=postalCodeArr;
+        this.provinceArrG=provinceArr;
+        this.municipalityArrG=municipalityArr;
+        this.subDistrictArrG=subDistrictArr;
+
+        /* this.postalCodeArrG=[];
+         for(let i=0;i<postalCodeArr.length;i++){
+           this.postalCodeArrG.push({
+             text:postalCodeArr[i],
+             value:postalCodeArr[i]
+           });
+         }*/
+        // this.provinceArrG=[];
+        // for(let j=0;j<provinceArr.length;j++){
+        //   this.provinceArrG.push({
+        //     text:provinceArr[j],
+        //     value:provinceArr[j]
+        //   });
+        // }
+        // this.municipalityArrG=[];
+        // for(let k=0;k<municipalityArr.length;k++){
+        //   this.municipalityArrG.push({
+        //     text:municipalityArr[k],
+        //     value:municipalityArr[k]
+        //   });
+        // }  
+        // this.subDistrictArrG=[];
+        // for(let l=0;l<subDistrictArr.length;l++){
+        //   this.subDistrictArrG.push({
+        //     text:subDistrictArr[l],
+        //     value:subDistrictArr[l]
+        //   });
+        // }
+                           
+
+
+      resolve(true);  
+      },(error)=>{
+        console.log('getOpenTendersData sql error',error); 
+        reject(false);
+      });
+
+   });
+ }
+
+ addressDataFiltersF(eventD,type){
+
+      console.log('eventD',eventD);
+      console.log('type',type);
+      let tempPr=null;
+      let tempMu=null;
+      let tempsD=null;
+      if(type=="postalcode"){
+        // bind - province , citykabname, subdistrict
+        this.provinceArrF=[];
+        this.municipalityArrF=[];
+        this.subDistrictArrF=[];
+ 
+        this.allAddressDataG.forEach((value1Data, value2Data, set)=>{
+             this.provinceArrF.push(value2Data['province']);
+             this.municipalityArrF.push(value2Data['citykabname']);
+             this.subDistrictArrF.push(value2Data['subdistrict']);
+              if(value2Data['postalcode']==eventD && eventD!="" && eventD!=null){
+                tempPr=value2Data['province'];
+                tempMu=value2Data['citykabname'];
+                tempsD=value2Data['subdistrict'];
+              }
+        }); 
+
+      }else if(type=="province"){
+        // bind -  citykabname, subdistrict
+        this.postalCodeArrF=[];
+        this.municipalityArrF=[];
+        this.subDistrictArrF=[];
+        this.allAddressDataG.forEach((value1Data, value2Data, set)=>{
+            if(value2Data['province']==eventD && eventD!="" && eventD!=null){
+              this.municipalityArrF.push(value2Data['citykabname']);
+              this.subDistrictArrF.push(value2Data['subdistrict']);
+              this.postalCodeArrF.push(value2Data['postalcode']);
+            }
+        });
+
+      }else if(type=="citykabname"){
+          // bind -   subdistrict and Up province
+           this.postalCodeArrF=[];
+          this.subDistrictArrF=[];
+          this.allAddressDataG.forEach((value1Data, value2Data, set)=>{
+              if(value2Data['citykabname']==eventD && eventD!="" && eventD!=null){
+                this.subDistrictArrF.push(value2Data['subdistrict']);
+                this.postalCodeArrF.push(value2Data['postalcode']);
+              }
+          });
+
+      }else if(type=="subdistrict"){
+        // bind -   postalcode and Up citykabname, province
+
+          this.postalCodeArrF=[];
+          this.allAddressDataG.forEach((value1Data, value2Data, set)=>{
+              if(value2Data['subdistrict']==eventD && eventD!="" && eventD!=null){
+                this.postalCodeArrF.push(value2Data['postalcode']);
+              }
+          });
+
+      }
+
+      this.postalCodeArrF=Array.from(new Set(this.postalCodeArrF));
+      this.provinceArrF=Array.from(new Set(this.provinceArrF));
+      this.municipalityArrF=Array.from(new Set(this.municipalityArrF));
+      this.subDistrictArrF=Array.from(new Set(this.subDistrictArrF));
+
+      if(type=="postalcode" && eventD!="" && eventD!=null){
+          this.HpbData.IdCardProvince=tempPr;
+          this.HpbData.IdCardCity=tempMu;
+          this.HpbData.IdCardSubDistrict=tempsD;
+      }
+
+ }
+
+
+ addressDataFiltersS(eventD,type){
+
+      console.log('eventD',eventD);
+      console.log('type',type);
+      let tempPr=null;
+      let tempMu=null;
+      let tempsD=null;
+      if(type=="postalcode"){
+        // bind - province , citykabname, subdistrict
+        this.provinceArrS=[];
+        this.municipalityArrS=[];
+        this.subDistrictArrS=[];
+ 
+        this.allAddressDataG.forEach((value1Data, value2Data, set)=>{
+             this.provinceArrS.push(value2Data['province']);
+             this.municipalityArrS.push(value2Data['citykabname']);
+             this.subDistrictArrS.push(value2Data['subdistrict']);
+              if(value2Data['postalcode']==eventD && eventD!="" && eventD!=null){
+                tempPr=value2Data['province'];
+                tempMu=value2Data['citykabname'];
+                tempsD=value2Data['subdistrict'];
+              }
+        }); 
+
+      }else if(type=="province"){
+        // bind -  citykabname, subdistrict
+        this.postalCodeArrS=[];
+        this.municipalityArrS=[];
+        this.subDistrictArrS=[];
+        this.allAddressDataG.forEach((value1Data, value2Data, set)=>{
+            if(value2Data['province']==eventD && eventD!="" && eventD!=null){
+              this.municipalityArrS.push(value2Data['citykabname']);
+              this.subDistrictArrS.push(value2Data['subdistrict']);
+              this.postalCodeArrS.push(value2Data['postalcode']);
+            }
+        });
+
+      }else if(type=="citykabname"){
+          // bind -   subdistrict and Up province
+           this.postalCodeArrS=[];
+          this.subDistrictArrS=[];
+          this.allAddressDataG.forEach((value1Data, value2Data, set)=>{
+              if(value2Data['citykabname']==eventD && eventD!="" && eventD!=null){
+                this.subDistrictArrS.push(value2Data['subdistrict']);
+                this.postalCodeArrS.push(value2Data['postalcode']);
+              }
+          });
+
+      }else if(type=="subdistrict"){
+        // bind -   postalcode and Up citykabname, province
+
+          this.postalCodeArrS=[];
+          this.allAddressDataG.forEach((value1Data, value2Data, set)=>{
+              if(value2Data['subdistrict']==eventD && eventD!="" && eventD!=null){
+                this.postalCodeArrS.push(value2Data['postalcode']);
+              }
+          });
+
+      }
+
+      this.postalCodeArrS=Array.from(new Set(this.postalCodeArrS));
+      this.provinceArrS=Array.from(new Set(this.provinceArrS));
+      this.municipalityArrS=Array.from(new Set(this.municipalityArrS));
+      this.subDistrictArrS=Array.from(new Set(this.subDistrictArrS));
+
+      if(type=="postalcode" && eventD!="" && eventD!=null){
+          this.HpbData.DomicileProvince=tempPr;
+          this.HpbData.DomicileCity=tempMu;
+          this.HpbData.DomicileSubDistrict=tempsD;
+      }
+
+ }
+
+
+
+
+
+}

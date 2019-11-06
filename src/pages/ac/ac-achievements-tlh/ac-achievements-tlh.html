@@ -1,0 +1,140 @@
+<!--
+  Generated template for the AcAchievementsTlhPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+
+<ion-content>
+    <ion-list class="seleRole">
+        <ion-item class="inputLable">
+            <ion-select [(ngModel)]="tlhSelect" (ionChange)="tlhSelectData()" placeholder="Select TLH">
+                <ion-option value="all">All</ion-option>
+                <ion-option *ngFor="let tlh of tlhData" value="{{tlh.id}}">{{tlh.name}}</ion-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
+    <!-- <h5 class="region"><span class="regTitle">{{ "REGION" | translate }}:</span> <span class="regZone">West Java</span></h5> -->
+    <ion-grid class="personData" *ngIf="display">
+        <h4 class="personTitle">{{ "SRKU" | translate }}</h4>
+        <ion-row class="crdAll cardBlack">
+            <ion-col class="crdOne"><span class="preVal">{{srkuData.todaysPercentage}}%</span></ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "TODAY'S TARGET" | translate }}</p>
+                <h3>{{srkuData.todays_target ? srkuData.todays_target:0}} <sub>{{ "TON" | translate }}</sub></h3>
+            </ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "TODAY'S ACHIEVEMENT" | translate }}</p>
+                <h3>{{srkuData.todays_achievement ? srkuData.todays_achievement:0}} <sub>{{ "TON" | translate }}</sub></h3>
+            </ion-col>
+        </ion-row>
+        <ion-row class="crdAll" [ngClass]="{ 'cardDiff':todayActualPerc>srkuData.monthlyPercentage }">
+            <ion-col class="crdOne"><span class="preVal">{{srkuData.monthlyPercentage}}%</span></ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "MONTHLY TARGET" | translate }}</p>
+                <h3>{{srkuData.monthly_target ? srkuData.monthly_target:0}} <sub>{{ "TON" | translate }}</sub></h3>
+            </ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "CURRENT ACHIEVEMENT" | translate }}</p>
+                <h3>{{srkuData.achieved_target ? srkuData.achieved_target:0}} <sub>{{ "TON" | translate }}</sub></h3>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid class="personData" *ngIf="display">
+        <h4 class="personTitle">{{ 'SWITCHING ' | translate }}</h4>
+        <ion-row class="crdAll cardBlack">
+            <ion-col class="crdOne"><span class="preVal">{{switchingData.todaysPercentage}}%</span></ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "TODAY'S TARGET" | translate }}</p>
+                <h3>{{switchingData.todays_target ? switchingData.todays_target:0}} <sub>{{ "TON" | translate }}</sub></h3>
+            </ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "TODAY'S ACHIEVEMENT" | translate }}</p>
+                <h3>{{switchingData.todays_achievement ? switchingData.todays_achievement:0}} <sub>{{ "TON" | translate }}</sub></h3>
+            </ion-col>
+        </ion-row>
+        <ion-row class="crdAll" [ngClass]="{ 'cardDiff':todayActualPerc>switchingData.monthlyPercentage }">
+            <ion-col class="crdOne"><span class="preVal">{{switchingData.monthlyPercentage}}%</span></ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "MONTHLY TARGET" | translate }}</p>
+                <h3>{{switchingData.monthly_target ? switchingData.monthly_target:0}} <sub>{{ "TON" | translate }}</sub></h3>
+            </ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "CURRENT ACHIEVEMENT" | translate }}</p>
+                <h3>{{switchingData.achieved_target ? switchingData.achieved_target:0}} <sub>ton</sub></h3>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid class="personData" *ngIf="display">
+        <h4 class="personTitle">{{ 'MAINTAIN ' | translate }}</h4>
+        <ion-row class="crdAll cardBlack">
+            <ion-col class="crdOne"><span class="preVal">{{maintainData.todaysPercentage}}%</span></ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "TODAY'S TARGET" | translate }}</p>
+                <h3>{{maintainData.todays_target ? maintainData.todays_target:0}} <sub>ton</sub></h3>
+            </ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "TODAY'S ACHIEVEMENT" | translate }}</p>
+                <h3>{{maintainData.todays_achievement ? maintainData.todays_achievement:0}} <sub>{{ "TON" | translate }}</sub></h3>
+            </ion-col>
+        </ion-row>
+        <!--        <ion-row class="crdAll cardDiff"> -->
+        <ion-row class="crdAll" [ngClass]="{ 'cardDiff':todayActualPerc>maintainData.monthlyPercentage }">
+            <ion-col class="crdOne"><span class="preVal">{{maintainData.monthlyPercentage}}%</span></ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "MONTHLY TARGET" | translate }}</p>
+                <h3>{{maintainData.monthly_target ? maintainData.monthly_target:0}} <sub>{{ "TON" | translate }}</sub></h3>
+            </ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "CURRENT ACHIEVEMENT" | translate }}</p>
+                <h3>{{maintainData.achieved_target ? maintainData.achieved_target:0}} <sub>{{ "TON" | translate }}</sub></h3>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid class="personData" *ngIf="display">
+        <h4 class="personTitle">{{ 'NEW MEMBER ' | translate }}</h4>
+        <ion-row class="crdAll" [ngClass]="{ 'cardDiff':todayActualPerc>newMemberData.monthlyPercentage }">
+            <ion-col class="crdOne"><span class="preVal">{{newMemberData.monthlyPercentage}}%</span></ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "MONTHLY TARGET" | translate }}</p>
+                <h3>{{newMemberData.monthly_target ? newMemberData.monthly_target:0}}</h3>
+            </ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "CURRENT ACHIEVEMENT" | translate }}</p>
+                <h3>{{newMemberData.achieved_target ? newMemberData.achieved_target:0}}</h3>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <!-- <ion-grid class="personData" *ngFor="let prodArr of prodArrObj">
+        <h4 class="personTitle">{{prodArr['target_for']}}</h4>
+        <ion-row class="crdAll cardBlack">
+            <ion-col class="crdOne"><span class="preVal">{{prodArr['productsTodayTargetAchievPerc']?prodArr['productsTodayTargetAchievPerc']:"0"}}%</span></ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "TODAY'S TARGET" | translate }}</p>
+                <h3>{{prodArr['productsTodayTarget']?prodArr['productsTodayTarget']:"0"}}</h3>
+            </ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "TODAY'S ACHIEVEMENT" | translate }}</p>
+                <h3>{{prodArr['productsTodayAchievementTarget']?prodArr['productsTodayAchievementTarget']:"0"}}</h3>
+            </ion-col>
+        </ion-row>
+        
+        <ion-row class="crdAll" [ngClass]="{ 'cardDiff':prodArr['todayActualPerc']>prodArr['productsMonthlyTargetAchievPerc'] }">
+            <ion-col class="crdOne"><span class="preVal">{{prodArr['productsMonthlyTargetAchievPerc']?prodArr['productsMonthlyTargetAchievPerc']:"0"}}%</span></ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "MONTHLY TARGET" | translate }}</p>
+                <h3>{{prodArr['productsMonthlyTarget']?prodArr['productsMonthlyTarget']:"0"}}</h3>
+            </ion-col>
+            <ion-col class="crdTwo">
+                <p>{{ "CURRENT ACHIEVEMENT" | translate }}</p>
+                <h3>{{prodArr['achieved_target']?prodArr['achieved_target']:"0"}}</h3>
+            </ion-col>
+        </ion-row>
+    </ion-grid> -->
+</ion-content>

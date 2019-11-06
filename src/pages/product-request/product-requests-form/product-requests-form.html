@@ -1,0 +1,271 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button menuToggle>
+        <i class="icon-menu"></i>
+      </button>
+        </ion-buttons>
+        <ion-title>{{ "PRODUCT REQUEST FORM" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy,message:busyMessage, minDuration: 600}">
+    <form class="distributor">
+        <div class="userSpace">
+            <ion-list class="inputBox">
+                <!-- <div class="rdIn">
+                    <div class="date_picker">
+                        <div class="date_list">
+                            <ion-item class="inputLable">
+                                <ion-label floating>{{ "DATE" | translate }}</ion-label>
+                                  <ion-input   [(ngModel)]="produtRequestObj.request_date"  mbsc-calendar [mbsc-options]="mobiScollRequestDateSettings"  required [ngModelOptions]="{standalone: true}"></ion-input>
+                            </ion-item>
+                             <i   role="button" class="icon-arrow"></i> 
+                        </div>
+                    </div>
+                </div> -->
+                <div class="rdIn productStaus" *ngIf="updateFlag">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "PRODUCT STATUS" | translate }}:</ion-label>
+                        <ion-select [(ngModel)]="produtRequestObj.product_request_status" #productRequestStatus="ngModel" [ngModelOptions]="{standalone: true}">
+                            <ion-option value="0">{{ "IN PROGRESS" | translate }}</ion-option>
+                            <ion-option value="1">{{ "DEAL" | translate }}</ion-option>
+                            <ion-option value="-1">{{ "FAILED" | translate }}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                </div>
+                <div class="rdIn productStaus" *ngIf="updateFlag && (produtRequestObj.product_request_status==-1 || produtRequestObj.product_request_status=='-1')">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "REASON" | translate }}*</ion-label>
+                        <ion-select [(ngModel)]="produtRequestObj.product_request_status_remark" #productRequestStatusRemark="ngModel" [ngModelOptions]="{standalone: true}" required>
+                            <ion-option value="top">Top</ion-option>
+                            <ion-option value="Price">Price</ion-option>
+                            <ion-option value="availaibility">Availaibility</ion-option>
+                            <ion-option value="quality">Quality</ion-option>
+                            <ion-option value="others">Others</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <div *ngIf="productRequestStatusRemark.errors && (productRequestStatusRemark.dirty || productRequestStatusRemark.touched || submitted)" class="alert alert-danger error">
+                        <p [hidden]="!productRequestStatusRemark.errors.required">
+                            {{ "REASON IS REQUIRED" | translate }}
+                        </p>
+                    </div>
+
+                    <div class="commentReason">
+                        <div class="inputLable" [hidden]="produtRequestObj.product_request_status_remark!='others'">
+                            <ion-label>{{ "REASON COMMENT" | translate }}*</ion-label>
+                            <ion-textarea placeholder="REASON COMMENT" [(ngModel)]="produtRequestObj.product_request_status_remark_comment" #productRequestStatusRemarkComment="ngModel" [ngModelOptions]="{standalone: true}" required class="textAarea"></ion-textarea>
+                        </div>
+                    </div>
+                    <div *ngIf="productRequestStatusRemarkComment.errors && (productRequestStatusRemarkComment.dirty || productRequestStatusRemarkComment.touched || submitted)" [hidden]="produtRequestObj.product_request_status_remark!='others'" class="alert alert-danger error">
+                        <p [hidden]="!productRequestStatusRemarkComment.errors.required">
+                            {{ "REASON COMMENT IS REQUIRED" | translate }}
+                        </p>
+                    </div>
+
+                </div>
+                <div class="form_list reaonStatus">
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{ "DATE" | translate }} :</ion-card-header>
+                        <ion-card-content>{{produtRequestObj.request_date}}</ion-card-content>
+                    </ion-card>
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{ "PROJECT" | translate }} :</ion-card-header>
+                        <ion-card-content>{{produtRequestObj.project_name?produtRequestObj.project_name:"-"}}</ion-card-content>
+                    </ion-card>
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{ "DPB NAME" | translate }} :</ion-card-header>
+                        <ion-card-content>{{produtRequestObj.hpb_name?produtRequestObj.hpb_name:"-"}}</ion-card-content>
+                    </ion-card>
+                </div>
+
+                <div class="rdIn" [class.disabledDiv]="updateFlag">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "QUANTITY" | translate }}*</ion-label>
+                        <ion-input type="tel" placeholder="{{ 'E.G.' | translate }} 1000" #quantityR="ngModel" required [(ngModel)]="produtRequestObj.quantity_required" [ngModelOptions]="{standalone: true}" class="input_item" pattern="^[1-9][0-9]*$" maxlength="7"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="quantityR.errors && (quantityR.dirty || quantityR.touched || submitted)" class="alert alert-danger error">
+                    <p [hidden]="!quantityR.errors.required">
+                        {{ "QUANTITY IS REQUIRED" | translate }}
+                    </p>
+                    <p [hidden]="!quantityR.errors.pattern">
+                        {{ "PLEASE ENTER VALID QUANTITY" | translate }}
+                    </p>
+                </div>
+                <!-- <div class="rdIn" [hidden]="true" [class.disabledDiv]="updateFlag">
+                    <ion-item class="inputLable"  [hidden]="updateFlag">
+                        <ion-label stacked>{{ "RETAILER / DISTRIBUTOR" | translate }}</ion-label>
+                     
+                        <ion-input  [(ngModel)]="produtRequestObj.rds_id"  #rdsI="ngModel"  mbsc-select [mbsc-options]="mobiScollRDSSettings" [mbsc-data]="allRDSDataArrs"  [ngModelOptions]="{standalone: true}"></ion-input>
+                    </ion-item>
+                    <ion-card class="cardRow"  [hidden]="!updateFlag">
+                        <ion-card-header>{{ "RETAILER / DISTRIBUTOR" | translate }}</ion-card-header>
+                        <ion-card-content><br />{{produtRequestObj['rds_name']?produtRequestObj['rds_name']:"-"}}</ion-card-content>
+                     </ion-card>
+                </div>   -->
+                <div class="same_add" [class.disabledDiv]="updateFlag">
+                    <div class="rdIn" [hidden]="!produtRequestObj.hpb_name">
+                        <div class="same_item">
+                            <ion-item>
+                                <ion-label>{{ "SAME AS ABOVE" | translate }}</ion-label>
+                                <ion-checkbox color="dark" [(ngModel)]="produtRequestObj.pic_same_as_hpb" #sameAsHpb [ngModelOptions]="{standalone: true}" (ionChange)="sameAsAboveF()"></ion-checkbox>
+                            </ion-item>
+                        </div>
+                    </div>
+                    <div class="rdIn">
+                        <div class="same_above">
+                            <h2 class="labelHeading">{{ "PERSON IN CHARGE" | translate }}</h2>
+                        </div>
+                    </div>
+                    <div [hidden]="produtRequestObj.pic_same_as_hpb" [class.disabledDiv]="updateFlag">
+                        <div class="rdIn">
+                            <ion-item class="inputLable">
+                                <ion-label floating>{{ "NAME" | translate }}*</ion-label>
+                                <ion-input type="text" required placeholder="{{ 'FULL NAME' | translate }}" #picName="ngModel" [(ngModel)]="produtRequestObj.pic_name" [ngModelOptions]="{standalone: true}" class="input_item" minlength="4" maxlength="100" pattern="^[^-\s][a-zA-Z '\s-]+$"></ion-input>
+                            </ion-item>
+                        </div>
+                        <div *ngIf="picName.errors && (picName.dirty || picName.touched || submitted)" class="alert alert-danger error">
+                            <p [hidden]="!picName.errors.required">
+                                {{ "NAME IS REQUIRED" | translate }}
+                            </p>
+                            <p [hidden]="!picName.errors.pattern">
+                                {{ "PLEASE ENTER A VALID NAME" | translate }}
+                            </p>
+                            <p [hidden]="!picName.errors.minlength">
+                                {{ "NAME MUST BE AT LEAST 4 CHARACTERS LONG." | translate }}
+                            </p>
+                            <p [hidden]="!picName.errors.maxlength">
+                                {{ "NAME CANNOT BE MORE THAN 100 CHARACTERS LONG." | translate }}
+                            </p>
+                        </div>
+
+
+                        <div class="rdIn">
+                            <ion-item class="inputLable">
+                                <ion-label floating>{{ "DESIGNATION" | translate }}*</ion-label>
+                                <ion-input type="text" required placeholder="{{ 'E.G.' | translate }} Manager" #picDesignation="ngModel" [(ngModel)]="produtRequestObj.pic_designation" [ngModelOptions]="{standalone: true}" class="input_item" pattern="[a-zA-Z ]+"></ion-input>
+                            </ion-item>
+                        </div>
+                        <div *ngIf="picDesignation.errors && (picDesignation.dirty || picDesignation.touched || submitted)" class="alert alert-danger error">
+                            <p [hidden]="!picDesignation.errors.required">
+                                {{ "DESIGNATION IS REQUIRED" | translate }}
+                            </p>
+                            <p [hidden]="!picDesignation.errors.pattern">
+                                {{ "PLEASE ENTER A VALID DESIGNATION" | translate }}
+                            </p>
+                        </div>
+
+
+                        <div class="rdIn">
+                            <ion-item class="inputLable">
+                                <ion-label floating>{{ "MOBILE NO." | translate }}*</ion-label>
+                                <ion-input type="tel" required placeholder="{{ 'E.G.' | translate }} 8292834234" #picMobile="ngModel" [(ngModel)]="produtRequestObj.pic_mobile" [ngModelOptions]="{standalone: true}" class="input_item" pattern="[0][0-9]+" minlength="10" maxlength="15"></ion-input>
+                            </ion-item>
+                        </div>
+                        <div *ngIf="picMobile.errors && (picMobile.dirty || picMobile.touched || submitted)" class="alert alert-danger error">
+                            <p [hidden]="!picMobile.errors.required">
+                                {{ "MOBILE NO IS REQUIRED" | translate }}
+                            </p>
+                            <p [hidden]="!picMobile.errors.pattern">
+                                {{ "MOBILE NO MUST START WITH 0" | translate }}
+                            </p>
+                            <p [hidden]="!picMobile.errors.minlength">
+                                {{ "MOBILE NO MUST BE ATLEAST 10 NUMBERS LONG" | translate }}
+                            </p>
+                            <p [hidden]="!picMobile.errors.maxlength">
+                                {{ "MOBILE NO CANNOT BE MORE THAN 15 NUMBERS LONG" | translate }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </ion-list>
+        </div>
+        <div class="userSpaceRepet" [class.disabledDiv]="updateFlag">
+            <h2 class="labelHeading">{{ "BRAND IN USE" | translate }}</h2>
+            <ion-list class="inputBox" [class.disabledDiv]="updateFlag" *ngFor="let brandInUseArr of brandInUseArrs; let i = index;trackBy:trackByIndex;">
+                <div class="deleBox"><span>Brand {{i+1}} </span><span *ngIf="brandInUseArrs.length>1" (click)="removeBrandInUseItem(i)"><i class="icon-Delete"></i></span></div>
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "RETAILER / DISTRIBUTOR" | translate }}*</ion-label>
+                        <ion-input type="text" placeholder="{{ 'E.G.' | translate }} abc xyz" [(ngModel)]="brandInUseArrs[i].req_rds_name" [ngModelOptions]="{standalone: true}" class="input_item"></ion-input>
+                    </ion-item>
+                </div>
+                <div class="rdIn">
+                    <ion-item class="inputLable" [hidden]="updateFlag">
+                        <ion-label stacked>{{ "BRAND NAME" | translate }}*</ion-label>
+                        <!-- <ion-select   (ionChange)="onSelectBrandProduct($event,i)" [(ngModel)]="brandInUseArrs[i].brandId"   [ngModelOptions]="{standalone: true}" >
+                             <ion-option  value="ABC">ABC</ion-option>
+                        </ion-select> -->
+                        <ion-input [(ngModel)]="brandInUseArrs[i].brandId" mbsc-select [mbsc-options]="mobiScollProductSettings" #productMob="mobiscroll" [mbsc-data]="brandProductArrs" [ngModelOptions]="{standalone: true}"></ion-input>
+                    </ion-item>
+                    <ion-card class="cardRow" [hidden]="!updateFlag">
+                        <ion-card-header>{{ "BRAND NAME" | translate }}</ion-card-header>
+                        <ion-card-content>
+                            <br />{{brandInUseArr['product_name']?brandInUseArr['product_name']:"-"}}</ion-card-content>
+                    </ion-card>
+                </div>
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "PRICE" | translate }}*</ion-label>
+                        <ion-input type="tel" placeholder="{{ 'E.G.' | translate }} 60000" [(ngModel)]="brandInUseArrs[i].price" [ngModelOptions]="{standalone: true}" class="input_item" maxlength="7"></ion-input>
+                    </ion-item>
+                </div>
+            </ion-list>
+            <button ion-button color="light" class="addMore" (click)="addMoreBrand()">+ {{ "ADD MORE" | translate }}</button>
+        </div>
+        <div class="userSpace">
+            <ion-list class="inputBox" [class.disabledDiv]="updateFlag">
+
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "SUGGESTED PRICE" | translate }}*</ion-label>
+                        <ion-input type="tel" placeholder="{{ 'E.G.' | translate }} 53000" #newPriceRequest="ngModel" [(ngModel)]="produtRequestObj.new_price_request" required [ngModelOptions]="{standalone: true}" pattern="^[1-9][0-9]*$" class="input_item" maxlength="7"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="newPriceRequest.errors && (newPriceRequest.dirty || newPriceRequest.touched || submitted)" class="alert alert-danger error">
+                    <p [hidden]="!newPriceRequest.errors.required">
+                        {{ "PRICE SUGGESTION IS REQUIRED" | translate }}
+                    </p>
+                    <p [hidden]="!newPriceRequest.errors.pattern">
+                        {{ "PLEASE ENTER A VALID PRICE" | translate }}
+                    </p>
+                </div>
+
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "TERM OF PAYMENT" | translate }}*</ion-label>
+                        <ion-input type="text" placeholder="{{ 'E.G.' | translate }} 3 {{ 'MONTHS' | translate }}" #termOfPayment="ngModel" [(ngModel)]="produtRequestObj.term_of_payment" required [ngModelOptions]="{standalone: true}" class="input_item"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="termOfPayment.errors && (termOfPayment.dirty || termOfPayment.touched || submitted)" class="alert alert-danger error">
+                    <p [hidden]="!termOfPayment.errors.required">
+                        {{ "TERM OF PAYMENT IS REQUIRED" | translate }}
+                    </p>
+                </div>
+
+                <div class="comment_note">
+                    <ion-list class="inputBox">
+                        <div class="rdIn">
+                            <h2 class="labelHeading">{{ "NOTE" | translate }}</h2>
+                            <ion-item class="inputLable">
+                                <ion-textarea placeholder="Comment" [(ngModel)]="produtRequestObj.additional_comments" #additionalComments="ngModel" [ngModelOptions]="{standalone: true}" class="textAarea"></ion-textarea>
+                            </ion-item>
+                        </div>
+                    </ion-list>
+                </div>
+            </ion-list>
+            <div class="digital_sign_img" *ngIf="hpbDigitalSignPath && hpbDigitalSignPath !=''">
+                <img [src]="appCom.urlSanitizer(hpbDigitalSignPath)" *ngIf="hpbDigitalSignPath">
+            </div>
+            <div class="btn digital_sign" [class.disabledDiv]="updateFlag">
+                <button ion-button type="button" (click)="openSignPopup()">{{ "DPB SIGNATURE" | translate }}*</button>
+            </div>
+            <div *ngIf=" (hpbDigitalSignPath ==undefined || hpbDigitalSignPath =='') && (submitted) " class="alert alert-danger error">
+                <p>{{ "SIGNATURE IS REQUIRED" | translate }} </p>
+            </div>
+            <div class="btn">
+                <button ion-button type="button" (click)="submitUpdateInsertRequestF()">{{ "SUBMIT" | translate }}</button>
+            </div>
+        </div>
+    </form>
+</ion-content>

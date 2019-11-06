@@ -1,0 +1,11 @@
+page-redeem-history {
+    .totalR {
+        padding-left: $size - .4;
+        font-size: $size - .6;
+        color: $dark-color;
+        font-family: $fontBold;
+        @include media-query(560px) {
+            font-size: $size;
+        }
+    }
+}

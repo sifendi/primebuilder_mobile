@@ -1,0 +1,1042 @@
+/** Search Bar ***/
+
+.searchbar {
+    background: #262626;
+    border-bottom: 1px $solid #e9e9e9;
+    .searchbar-search-icon {
+        background-image: $none;
+        left: $auto;
+        right: $size - 1.2;
+        top: 55%;
+        transform: translateY(-50%);
+        font-family: 'icomoon' !important;
+        font-size: $size - .5;
+        color: $white-color;
+        pointer-events: $none;
+    }
+    .searchbar-search-icon::before {
+        content: "\e91f";
+    }
+    .searchbar-clear-icon {
+        background-image: $none;
+        color: #ccc;
+        font-size: 1.8rem;
+        right: $size - 1.2;
+        vertical-align: middle;
+        .button-inner {
+            font-family: 'icomoon' !important;
+        }
+        .button-inner::before {
+            content: "\e905";
+            background: $white-color;
+            @include border-radius(100%);
+        }
+    }
+    .searchbar-input {
+        @include border-radius(100px);
+        border: 1px $solid #464646;
+        // padding: $size - 1.7 $size + 1 $size - 1.7 $size;
+        padding: 1rem 1rem .8rem 2rem;
+        text-decoration: $none;
+        background-color: #464646;
+        color: $white-color;
+        line-height: inherit;
+        @include media-query(560px) {
+            padding-top: $size - 1.5;
+            padding-bottom: $size - 1.5;
+            font-size: $size;
+        }
+    }
+    .searchbar-input::-webkit-input-placeholder {
+        text-align: $left;
+    }
+    &.searchbar-has-value {
+        .searchbar-search-icon {
+            display: $none;
+        }
+    }
+}
+
+.fullTop {
+    top: 55px;
+}
+
+.filterTag {
+    // background: $grey-dark;
+    border-bottom: 1px $solid #e9e9e9;
+    position: fixed;
+    padding: $size - 1.4;
+    width: $width90 + 10;
+    z-index: 99;
+    font-family: $fontRg;
+    p {
+        color: $base-color;
+        padding-right: 2rem;
+        @include media-query(400px) {
+            font-size: $size - .3;
+        }
+        @include media-query(560px) {
+            font-size: $size + .1;
+            padding-right: 3.5rem;
+        }
+    }
+    .closeStyle {
+        position: $absolute;
+        @include transformY;
+        right: $size - 1.5;
+        @include iconButton;
+        @include media-query(560px) {
+            height: 5rem;
+        }
+        height: $auto;
+        margin: $zero;
+        overflow: $auto;
+        i {
+            // font-size: $size - 1;
+            @include media-query(560px) {
+                font-size: $size + 1;
+            }
+            color: #db322a;
+            background: $white-color;
+            @include border-radius(100px);
+            // @include circleIcon;
+        }
+    }
+}
+
+
+/** Search Bar End ***/
+
+.blueLeft {
+    border-left: 3px $solid #1f416f;
+    padding-left: $size - 1.5;
+    @include media-query(560px) {
+        border-width: 5px;
+    }
+}
+
+.redLeft {
+    border-left: 3px $solid #9d1635;
+    padding-left: $size - 1.5;
+    @include media-query(560px) {
+        border-width: 5px;
+    }
+}
+
+.greenLeft {
+    border-left: 3px $solid #35702c;
+    padding-left: $size - 1.5;
+    @include media-query(560px) {
+        border-width: 5px;
+    }
+}
+
+.pointV {
+    color: #0c3764 !important;
+}
+
+.dark {
+    color: $dark-color !important;
+    @include media-query(400px) {
+        font-size: $size - .1 !important;
+    }
+    @include media-query(560px) {
+        font-size: $size + .5 !important;
+    }
+}
+
+.pColor {
+    color: #ea892d;
+    i {
+        color: #ea892d;
+    }
+}
+
+.fColor {
+    color: #da3129;
+    i {
+        color: #da3129;
+    }
+}
+
+.dColor {
+    color: #346f2c;
+    i {
+        color: #346f2c;
+    }
+}
+
+.itemWrap {
+    margin-bottom: $size - .5;
+    &:last-child {
+        @include media-query(400px) {
+            margin-bottom: $size + 2.5;
+        }
+        @include media-query(560px) {
+            .listItem {
+                margin-bottom: $zero;
+            }
+        }
+    }
+}
+
+.listWrap {
+    .listItem {
+        border-bottom: 1px $solid #efefef;
+        padding-left: $zero;
+        position: $relative;
+        background: #f6f6f6;
+        @include align-items(flex-start);
+        padding: $zero $size - .4;
+        ion-avatar {
+            margin: $size - .5 $size - 1 $size - .5 $zero;
+        }
+        h2 {
+            color: $dark-color;
+            margin-bottom: $size - 1;
+            font-size: $size - .2;
+            text-transform: $capitalize;
+            @include media-query(400px) {
+                font-size: $size;
+            }
+            @include media-query(560px) {
+                font-size: $size + .8;
+            }
+        }
+        .item-inner {
+            border-bottom: $none;
+            margin-right: $zero;
+            padding-right: $zero;
+            .label {
+                margin-top: $size - .5;
+                margin-bottom: $size - .5;
+                white-space: normal;
+                margin-right: $zero;
+                .projectWrap {
+                    &.reedem-left {
+                        margin-bottom: $zero !important;
+                        width: $width90 - 25;
+                    }
+                    &.reedem-right {
+                        margin-left: $auto;
+                        text-align: $right;
+                        margin-bottom: $zero !important;
+                    }
+                }
+                .mobileWrap {
+                    position: $relative;
+                    color: $base-color;
+                    margin-bottom: 5px;
+                    .projectWrap {
+                        margin-bottom: $size - 0.5;
+                        @include media-query(560px) {
+                            margin-bottom: $size;
+                        }
+                    }
+                    .title {
+                        font-size: $size - .5;
+                        line-height: 1.4;
+                        font-family: $fontMd;
+                        color: $btn-color;
+                        @include media-query(400px) {
+                            font-size: $size - .4;
+                        }
+                        @include media-query(560px) {
+                            font-size: $size + .1;
+                            line-height: 1.2;
+                            // margin-top: $size - 1;
+                        }
+                    }
+                    .value {
+                        font-size: $size - .3;
+                        color: $dark-color;
+                        padding-bottom: $size - 1.5;
+                        font-family: $fontBold;
+                        text-transform: capitalize;
+                        @include media-query(400px) {
+                            font-size: $size - .1;
+                        }
+                        @include media-query(560px) {
+                            font-size: $size + .5;
+                        }
+                        &.diffDate {
+                            font-size: $size - .7;
+                            @include media-query(400px) {
+                                font-size: $size - .7;
+                            }
+                            @include media-query(560px) {
+                                font-size: $size + .1;
+                                margin-top: 5px;
+                            }
+                            &.points {
+                                color: #da3129;
+                            }
+                        }
+                    }
+                    .button {
+                        @include iconButton;
+                        vertical-align: top;
+                        height: $auto;
+                        margin-top: -3px;
+                        margin-left: 5px;
+                        @include media-query(560px) {
+                            margin-bottom: 0;
+                            margin-top: -5px;
+                        }
+                        i.icon-call {
+                            vertical-align: middle;
+                            //   @include circleIcon;
+                            //   font-size: $size - .7;
+                            @include border-radius(100px);
+                            color: $green-color;
+                            // margin-top: -4px;
+                            @include media-query(400px) {
+                                font-size: $size + .5;
+                            }
+                            @include media-query(560px) {
+                                font-size: $size + 1;
+                            }
+                            line-height: 1.2;
+                        }
+                    }
+                }
+                .tag {
+                    position: $absolute;
+                    right: $size - .4;
+                    top: $size - .2;
+                    color: $dark-color;
+                    font-size: $size - .5;
+                    font-family: $fontMd;
+                    white-space: nowrap;
+                    text-transform: $capitalize;
+                    max-width: 22%;
+                    @include media-query(400px) {
+                        font-size: $size - .4;
+                    }
+                    @include media-query(560px) {
+                        font-size: $size;
+                    }
+                }
+                .nextTo {
+                    //  position: $absolute;
+                    right: $size - .4;
+                    bottom: $size + .4;
+                    top: $auto;
+                    //  @include iconButton;
+                    //   font-size: $size - .5;
+                    //  color: $place-holder;
+                }
+            }
+        }
+        &.request {
+            margin-bottom: $size - 1;
+            .nextTo {
+                right: $size - .4;
+                top: $size + 3;
+            }
+            &.request:first-child {
+                margin-bottom: $zero;
+            }
+            .tag {
+                color: #083666 !important;
+            }
+            .projectWrap {
+                font-family: $fontMd;
+                .title {
+                    color: #083666 !important;
+                }
+            }
+            .title {
+                color: $dark-color;
+                line-height: $auto;
+                color: #666 !important;
+                @include media-query(400px) {
+                    font-size: $size - .4;
+                }
+                @include media-query(560px) {
+                    font-size: $size + .1;
+                }
+            }
+        }
+        &.receipt {
+            padding: $zero $size - .4;
+            .projectWrap {
+                font-family: $fontMd;
+                .title {
+                    color: #0c3764 !important;
+                    font-size: $size - .5;
+                    text-transform: capitalize;
+                    @include media-query(400px) {
+                        font-size: $size - .4;
+                    }
+                    @include media-query(560px) {
+                        font-size: $size + .1;
+                    }
+                }
+            }
+            .title {
+                color: $dark-color;
+                line-height: 1.2 !important;
+                @include media-query(400px) {
+                    font-size: $size - .4;
+                }
+                @include media-query(560px) {
+                    font-size: $size + .1;
+                }
+                &.bColor {
+                    color: #333 !important;
+                }
+            }
+            span,
+            p {
+                @include media-query(400px) {
+                    font-size: $size - .4;
+                }
+                @include media-query(560px) {
+                    font-size: $size + .1;
+                }
+            }
+            .unit {
+                font-family: $fontMd;
+                p {
+                    font-size: $size - .5;
+                    color: #666;
+                    @include media-query(400px) {
+                        font-size: $size - .1;
+                    }
+                    @include media-query(560px) {
+                        font-size: $size + .4;
+                    }
+                }
+                margin-right: $size - 1;
+            }
+            .tag {
+                color: #0c3764 !important;
+            }
+            .projectWrap {
+                margin-bottom: $size - 1;
+            }
+        }
+        .hpbStatus {
+            position: $absolute;
+            right: $size - .4;
+            bottom: $size - .4;
+            white-space: nowrap;
+            font-family: $fontMd;
+            @include media-query(400px) {
+                font-size: $size - .4;
+            }
+            @include media-query(560px) {
+                font-size: $size;
+            }
+            i {
+                //  @include circleIcon;
+                font-size: $size - .8;
+                margin-right: 5px;
+                padding: $size - 1.8;
+                @include media-query(400px) {
+                    font-size: $size - .4;
+                }
+                @include media-query(560px) {
+                    font-size: $size;
+                }
+            }
+        }
+    }
+    .noData {
+        @include media-query(560px) {}
+    }
+    &:last-child {
+        margin-bottom: 5.5rem;
+    }
+}
+
+.leftContent {
+    // margin-right: $size * 3 + 1;
+    margin-right: 27%;
+    @include media-query(400px) {
+        margin-right: $size * 4;
+    }
+    @include media-query(560px) {
+        margin-right: $size * 5;
+    }
+}
+
+.checkIn {
+    color: #d83431;
+    right: $size - .5;
+    margin: $zero;
+    @include transformY;
+    right: $size - .4;
+    height: $auto;
+    padding-top: $size - 1.5;
+    padding-bottom: $size - 1.5;
+    &.button:hover {
+        background-color: #aeaeae;
+    }
+    @include media-query(320px) {
+        right: $size - 1;
+        font-size: $size !important;
+    }
+    @include media-query(560px) {
+        font-size: $size + .5 !important;
+    }
+    @include media-query(560px) {
+        font-size: $size + 1 !important;
+        margin-right: 2rem;
+    }
+    .icon-next {
+        font-size: $size - .8;
+        margin-left: $size - 1.5;
+        color: $white-color;
+    }
+}
+
+.filterTag {
+    &.resultbg {
+        background-color: #e8c4bb;
+        font-family: $fontMd;
+        position: $relative;
+        @include display-flex;
+        p {
+            color: $dark-color;
+            margin-left: $size - 1.5;
+            width: 100%;
+            margin-bottom: 0;
+            @include media-query(400px) {
+                font-size: $size - .3;
+            }
+            @include media-query(560px) {
+                font-size: $size;
+            }
+        }
+        .resultRes {
+            font-weight: bold;
+            color: $dark-color;
+            white-space: nowrap;
+            width: auto;
+            margin-bottom: 0;
+            @include flex-shrink(0);
+            @include media-query(400px) {
+                font-size: $size - .3;
+            }
+            @include media-query(560px) {
+                font-size: $size;
+            }
+        }
+    }
+}
+
+.rightAlign {
+    text-align: $right;
+}
+
+.flexWrap {
+    @include display-flex;
+}
+
+.userForm {
+    p.title {
+        margin-bottom: $size - 1.5;
+    }
+}
+
+.gridWrap {
+    &.grid {
+        padding: $zero;
+        .col {
+            padding: $zero;
+        }
+    }
+    .title {
+        color: $dark-color;
+        font-family: $fontMd;
+    }
+    .gridValue {
+        font-size: $size - .6;
+        font-family: $fontMd;
+        @include media-query(400px) {
+            font-size: $size - .4;
+        }
+        @include media-query(560px) {
+            font-size: $size + .1;
+        }
+        i {
+            vertical-align: middle;
+            font-size: 1.5rem;
+            margin-right: 5px;
+            @include media-query(560px) {
+                font-size: $size;
+            }
+        }
+    }
+}
+
+.item {
+    ion-avatar {
+        img {
+            @include media-query(400px) {
+                width: $size * 3 + 1;
+                height: $size * 3 + 1;
+            }
+            @include media-query(560px) {
+                width: $size * 4 + 1;
+                height: $size * 4 + 1;
+            }
+            border: 2px $solid $place-holder;
+        }
+    }
+}
+
+.diffBg {
+    background: #f7f7f7;
+}
+
+.listItem.receipt {
+    &.reject {
+        margin-bottom: $zero;
+    }
+    @include media-query(560px) {
+        margin-bottom: $zero !important;
+    }
+}
+
+.gray {
+    color: $place-holder !important;
+}
+
+.projectList {
+    .value {
+        font-family: $fontMd !important;
+    }
+}
+
+.noScroll {
+    .scroll-content {
+        overflow-y: hidden;
+    }
+}
+
+.difMarg {
+    margin-top: $size - 1.5 !important;
+}
+
+.inline {
+    line-height: 1.2 !important;
+    font-family: $fontMd !important;
+}
+
+
+/*** tag style ***/
+
+.arrow_box {
+    position: $absolute;
+    display: inline-block;
+    right: $zero;
+    bottom: $width90 - 75;
+    text-transform: $uppercase;
+    font-size: $size - .9;
+    font-family: $fontMd;
+    padding: 3px 0;
+    white-space: nowrap;
+    @include media-query(400px) {
+        font-size: $size - .5;
+    }
+    @include media-query(560px) {
+        font-size: $size - .1;
+    }
+}
+
+.notVisit {
+    background: #f2bca3;
+    border: 4px solid #f2bca3;
+    color: #7f5222;
+}
+
+.visit {
+    background: #cbd9c0;
+    border: 4px solid #cbd9c0;
+    color: #51693d;
+}
+
+.arrow_box:before {
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.notVisit:before {
+    border-color: rgba(242, 188, 163, 0);
+    border-right-color: #f2bca3;
+    border-width: 14px;
+    margin-top: -14px;
+    right: 104%;
+    @include media-query(400px) {
+        border-width: 16px;
+        margin-top: -16px;
+        right: 104%;
+    }
+    @include media-query(560px) {
+        border-width: 18px;
+        margin-top: -18px;
+        right: 104%;
+    }
+}
+
+.visit:before {
+    border-color: rgba(242, 188, 163, 0);
+    border-right-color: #cbd9c0;
+    border-width: 14px;
+    margin-top: -14px;
+    right: 111%;
+    @include media-query(400px) {
+        border-width: 16px;
+        margin-top: -16px;
+        right: 108%;
+    }
+    @include media-query(560px) {
+        border-width: 18px;
+        margin-top: -18px;
+        right: 107%;
+    }
+}
+
+.lineInOne {
+    @include align-items(stretch);
+    position: $relative;
+    margin-bottom: $size - 1;
+    background-color: #f6f6f6;
+    .visitDate {
+        margin: $zero $size - 1;
+        @include media-query(560px) {
+            margin: $zero $size + 1;
+            h2 {
+                font-size: $size - .2;
+                @include media-query(560px) {
+                    font-size: $size + 0.8;
+                }
+            }
+        }
+        @include align-self(center);
+        h2 {
+            margin: $zero;
+            color: $dark-primary;
+            white-space: nowrap;
+        }
+    }
+    .item-block {
+        background-color: #f6f6f6;
+        .item-inner {
+            padding: $zero;
+            border-bottom: $zero;
+            .visitDate {
+                color: $dark-color;
+                font-size: $size;
+                margin-bottom: $zero;
+                margin-top: $zero;
+                font-family: $fontMd;
+                white-space: normal;
+                @include media-query(560px) {
+                    font-size: $size + 1;
+                }
+            }
+        }
+    }
+    @include media-query-max(320px) {
+        &:last-child {
+            margin-bottom: 65px;
+        }
+    }
+    &:last-child {
+        margin-bottom: 65px;
+    }
+}
+
+.indexVisit {
+    padding: $size $size - .5;
+    border: 1px $solid #dcc7af;
+    background: #dcc7af;
+    font-size: $size;
+    color: $base-color;
+    font-family: $fontBold;
+    white-space: nowrap;
+    @include media-query(560px) {
+        font-size: $size + 1;
+        white-space: nowrap;
+    }
+}
+
+.visitNum {
+    text-align: center;
+    h2:first-child {
+        font-size: $size + 1;
+    }
+    h2 {
+        font-size: $size * 3;
+        color: $white-color;
+        line-height: 0.9;
+    }
+}
+
+.flexButtonWrap {
+    width: $width90 + 4;
+    @include justify-content(space-around);
+    margin: $size - 1 $auto $size;
+    .button {
+        @include display-flex;
+        @include flex-basis(0);
+        @include flex-grow(1);
+        @include border-radius(100px);
+        min-width: $width90 - 62;
+        background: $white-color;
+        color: $base-color;
+        border: 1px $solid $profile-redeem;
+        &.active {
+            background: $btn-color;
+            color: $white-color;
+        }
+    }
+}
+
+.noAvtar {
+    padding-left: $size - .4 !important;
+}
+
+
+/** visit data end **/
+
+.rowData {
+    font-family: $fontMd;
+    margin-right: 4rem;
+    .flexWrap {
+        border-top: 1px $solid $base-color;
+        p {
+            color: #083666;
+            padding: 3px 0;
+            width: 38%;
+        }
+        .flexWrap:last-child {
+            border-bottom: 1px $solid $base-color;
+        }
+        span {
+            color: $base-color;
+            display: inline-block;
+            padding: 3px $zero;
+            // white-space: nowrap;
+            width: $width90 - 38;
+        }
+    }
+    .flexWrap:last-child {
+        border-bottom: 1px $solid $base-color;
+    }
+    margin-bottom: $size - .5;
+}
+
+
+/**** Message Box ***/
+
+.msgBox {
+    padding-left: $zero;
+    font-family: $fontMd;
+    .item-inner {
+        padding: $size - .4;
+        .label {
+            margin: $zero;
+            white-space: normal;
+            .date {
+                font-size: $size - .7;
+                color: #666;
+                @include media-query(400px) {
+                    font-size: $size - .5;
+                }
+                @include media-query(560px) {
+                    font-size: $size;
+                }
+            }
+            .name {
+                font-size: $size - .6;
+                color: #0c3764;
+                font-weight: 800;
+                @include media-query(400px) {
+                    font-size: $size - .4;
+                }
+                @include media-query(560px) {
+                    font-size: $size;
+                }
+            }
+            .message {
+                p {
+                    font-size: $size - .5;
+                    margin-top: $size - 1;
+                    line-height: 24px;
+                    color: #333;
+                    @include media-query(400px) {
+                        font-size: $size - .2;
+                    }
+                    @include media-query(560px) {
+                        font-size: $size + .2;
+                    }
+                }
+            }
+            .msgBut {
+                @include display-flex;
+                @include justify-content(flex-end);
+                .button {
+                    font-size: $size - .4;
+                    color: #d83431;
+                }
+            }
+        }
+    }
+}
+
+.notification {
+    .listWrap {
+        margin: $zero $size - .4;
+        margin-top: $size;
+    }
+}
+
+.chatBox {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+
+/*
+.chatBox:nth-child(odd) {
+    .date {
+        order: 1;
+    }
+    .name {
+        order: 2;
+        margin-left: $auto;
+    }
+    .message {
+        text-align: $right;
+    }
+}
+
+.chatBox:nth-child(even) {
+    .date {
+        order: 2;
+        margin-left: $auto;
+    }
+    .name {
+        order: 1;
+    }
+    .message {
+        text-align: $left;
+    }
+}
+*/
+
+.chatBox.left {
+    background: #fff6f6;
+    .date {
+        order: 1;
+    }
+    .name {
+        order: 2;
+        margin-left: $auto;
+    }
+    .message {
+        @include display-flex;
+        justify-content: flex-end;
+        padding-left: 10%;
+    }
+}
+
+.chatBox.rigth {
+    .date {
+        order: 2;
+        margin-left: $auto;
+    }
+    .name {
+        order: 1;
+    }
+    .message {
+        @include display-flex;
+        justify-content: flex-start;
+        padding-right: 10%;
+    }
+}
+
+
+/*** Message Box End ***/
+
+.notification {
+    .listWrap {
+        position: relative;
+    }
+    .inputLable {
+        height: $auto !important;
+        border: 1px solid #ccc !important;
+        border-radius: 5px;
+        textarea::-webkit-input-placeholder {
+            text-align: $left;
+            margin-top: $size - 1;
+        }
+    }
+    .userForm {
+        .item.item-block {
+            .item-inner {
+                textarea.text-input {
+                    line-height: 18px;
+                    padding: 10px;
+                    font-size: 14px;
+                    letter-spacing: 0;
+                    min-height: 100px;
+                }
+            }
+        }
+    }
+}
+
+.rightAlign {
+    text-align: $right;
+}
+
+.pointPlace {
+    position: $absolute;
+    right: $size - .4;
+    bottom: $size - .5;
+    font-family: $fontMd;
+    p {
+        color: #0c3764;
+    }
+    span {
+        color: #da3129;
+    }
+}
+
+.bottom0 {
+    margin-bottom: $zero !important;
+}
+
+.custT {
+    padding: 1rem 2rem;
+    margin: 0;
+}
+
+.searchExtraMar {
+    .listWrap {
+        margin-top: 50px;
+        @include media-query(560px) {
+            margin-top: 80px;
+        }
+    }
+}
+
+.marg5 {
+    margin-top: 5px !important;
+}
+
+.noMarBottom {
+    margin-bottom: $zero !important;
+}

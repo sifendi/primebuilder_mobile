@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>My Plan</ion-title>
+        <ion-buttons end>
+            <button ion-button menuToggle>
+        <i class="icon-menu"></i>
+        </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen="false">
+
+    <super-tabs [selectedTabIndex]="selectedIndex" (tabSelect)="onTabSelect($event)">
+        <super-tab [root]="page1" [rootParams]="paramsData" title="{{ 'MASON' | translate }}"></super-tab>
+        <super-tab [root]="page2" [rootParams]="paramsData" title="{{ 'CONTRACTOR' | translate }}"></super-tab>
+        <super-tab [root]="page3" [rootParams]="rdsParamsData" title="{{ 'DISTRIBUTOR' | translate }}"></super-tab>
+        <super-tab [root]="page4" [rootParams]="rdsParamsData" title="{{ 'RETAILER' | translate }}"></super-tab>
+    </super-tabs>
+
+
+</ion-content>
+<ion-footer class="ntpr">
+    <div class="btn">
+        <button ion-button type="button" (click)="onAddVisitClick()">
+            {{"ADD VISIT" | translate }}
+        </button>
+        <!--<button ion-button type="button">
+            ADD PRIME BUILDER
+        </button>-->
+    </div>
+    <!--<div class="homeFt">
+        <div class="btn">
+            <button ion-button type="button">
+                Add project
+            </button>
+        </div>
+    </div>-->
+</ion-footer>

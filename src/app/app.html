@@ -1,0 +1,376 @@
+<ion-menu [content]="content" side="right" persistent="true" id="acMainMenu">
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons end menuClose class="close">
+                <button ion-button>
+               <i class="icon-close" ></i>               
+           </button>
+            </ion-buttons>
+
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <ion-list class="shadowLeft">
+            <div class="version">{{verTextShow}} {{appVersionNumber}}</div>
+            <h3 class="menuHdTitle nameT">{{ "WELCOME" | translate }} {{userName}}</h3>
+            <div class="actDeT">
+                <div class="btn">
+                    <button ion-button type="button" menuClose (click)="activateSphByAc()">{{ 'ACTIVATE AS SPH' | translate }}</button>
+                </div>
+            </div>
+            <button menuClose ion-item (click)="goHome('ac')" class="homeNav"> 
+                {{ "HOME" | translate }}
+                <i class="icon-next-thin"></i>
+            </button>
+            <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
+
+            <div *ngFor="let p of pagesAC">
+                <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
+             {{ p.translation | translate }}
+        <i class="icon-next-thin"></i>
+      </button>
+            </div>
+
+
+            <div class="languageSelect">
+                <h2>{{ "SELECT LANGUAGE" | translate }}</h2>
+                <ion-list radio-group name="appLanguage" [(ngModel)]="appLanguage" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeAppLanguage($event)">
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>English</ion-label>
+                        <ion-radio value="en" checked></ion-radio>
+                    </ion-item>
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>Bahasa Indonesia</ion-label>
+                        <ion-radio value="in"></ion-radio>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+
+
+<ion-menu [content]="content" side="right" persistent="true" id="amMainMenu" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons end menuClose class="close">
+                <button ion-button>
+               <i class="icon-close" ></i>               
+           </button>
+            </ion-buttons>
+
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <ion-list class="shadowLeft">
+            <div class="version">{{verTextShow}} {{appVersionNumber}}</div>
+            <h3 class="menuHdTitle">{{ "WELCOME" | translate }} {{userName}}</h3>
+            <button menuClose ion-item (click)="goHome('am')" class="homeNav"> 
+                {{ "HOME" | translate }}
+                <i class="icon-next-thin"></i>
+            </button>
+            <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
+
+            <div *ngFor="let p of pagesAM">
+                <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
+                    {{ p.translation | translate }}
+                    <i class="icon-next-thin"></i>
+                </button>
+            </div>
+
+
+            <div class="languageSelect">
+                <h2>{{ "SELECT LANGUAGE" | translate }}</h2>
+                <ion-list radio-group name="appLanguage" [(ngModel)]="appLanguage" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeAppLanguage($event)">
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>English</ion-label>
+                        <ion-radio value="en" checked></ion-radio>
+                    </ion-item>
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>Bahasa Indonesia</ion-label>
+                        <ion-radio value="in"></ion-radio>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+
+
+<ion-menu [content]="content" side="right" persistent="true" id="acSphMainMenu" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons end menuClose class="close">
+                <button ion-button>
+               <i class="icon-close" ></i>               
+           </button>
+            </ion-buttons>
+
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <ion-list class="shadowLeft">
+            <div class="version">{{verTextShow}} {{appVersionNumber}}</div>
+            <h3 class="menuHdTitle">
+                {{ "WELCOME" | translate }} {{userName}}
+
+            </h3>
+            <div class="actDeT">
+                <div class="btn">
+                    <button ion-button type="button" class="menuAct" menuClose (click)="deactivateSphByAc()">
+                        {{ 'DEACTIVATE AS SPH' | translate }}
+                        <small>{{this.appCom.getCurrentActiveUserName()?"("+this.appCom.getCurrentActiveUserName()+")":""}}</small>
+                    </button>
+                   
+                </div>
+            </div>
+            <button menuClose ion-item (click)="goHome('sph')" class="homeNav"> 
+        {{ "HOME" | translate }}
+        <i class="icon-next-thin"></i>
+      </button>
+            <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
+
+            <div *ngFor="let p of pagesACACTMAINSPH">
+                <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
+             {{ p.translation | translate }}
+        <i class="icon-next-thin"></i>
+      </button>
+            </div>
+
+
+            <div class="languageSelect">
+                <h2>{{ "SELECT LANGUAGE" | translate }}</h2>
+                <ion-list radio-group name="appLanguage" [(ngModel)]="appLanguage" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeAppLanguage($event)">
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>English</ion-label>
+                        <ion-radio value="en" checked></ion-radio>
+                    </ion-item>
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>Bahasa Indonesia</ion-label>
+                        <ion-radio value="in"></ion-radio>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+
+<ion-menu [content]="content" side="right" persistent="true" id="tlhMainMenu">
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons end menuClose class="close">
+                <button ion-button>
+               <i class="icon-close" ></i>               
+           </button>
+            </ion-buttons>
+
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <ion-list class="shadowLeft">
+            <div class="version">{{verTextShow}} {{appVersionNumber}}</div>
+            <h3 class="menuHdTitle">{{ "WELCOME" | translate }} {{userName}}</h3>
+            <div class="actDeT">
+                <div class="btn">
+                    <button ion-button type="button" menuClose (click)="activateSphByTlh()">{{ 'ACTIVATE AS SPH' | translate }}</button>
+                </div>
+            </div>
+            <button menuClose ion-item (click)="goHome('tlh')" class="homeNav"> 
+        {{ "HOME" | translate }}
+        <i class="icon-next-thin"></i>
+      </button>
+            <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
+
+            <div *ngFor="let p of pagesTLH">
+                <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
+             {{ p.translation | translate }}
+        <i class="icon-next-thin"></i>
+      </button>
+            </div>
+            <div class="languageSelect">
+                <h2>{{ "SELECT LANGUAGE" | translate }}</h2>
+                <ion-list radio-group name="appLanguage" [(ngModel)]="appLanguage" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeAppLanguage($event)">
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>English</ion-label>
+                        <ion-radio value="en" checked></ion-radio>
+                    </ion-item>
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>Bahasa Indonesia</ion-label>
+                        <ion-radio value="in"></ion-radio>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+<ion-menu [content]="content" side="right" persistent="true" id="tlhSphMainMenu" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons end menuClose class="close">
+                <button ion-button>
+               <i class="icon-close" ></i>               
+           </button>
+            </ion-buttons>
+
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <ion-list class="shadowLeft">
+            <div class="version">{{verTextShow}} {{appVersionNumber}}</div>
+            <h3 class="menuHdTitle">{{ "WELCOME" | translate }} {{userName}}</h3>
+            <div class="actDeT">
+                <div class="btn">
+                    <button ion-button type="button" menuClose class="menuAct" (click)="deactivateSphByTlh()">
+                        {{ 'DEACTIVATE AS SPH' | translate }}
+                        <small>{{this.appCom.getCurrentActiveUserName()?"("+this.appCom.getCurrentActiveUserName()+")":""}}</small>
+                    </button>
+                   
+                </div>
+            </div>
+            <button menuClose ion-item (click)="goHome('sph')" class="homeNav"> 
+        {{ "HOME" | translate }}
+        <i class="icon-next-thin"></i>
+      </button>
+            <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
+
+            <div *ngFor="let p of pagesTLHACTMAINSPH">
+                <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
+             {{ p.translation | translate }}
+        <i class="icon-next-thin"></i>
+      </button>
+            </div>
+
+
+
+
+            <div class="languageSelect">
+                <h2>{{ "SELECT LANGUAGE" | translate }}</h2>
+                <ion-list radio-group name="appLanguage" [(ngModel)]="appLanguage" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeAppLanguage($event)">
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>English</ion-label>
+                        <ion-radio value="en" checked></ion-radio>
+                    </ion-item>
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>Bahasa Indonesia</ion-label>
+                        <ion-radio value="in"></ion-radio>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+<ion-menu [content]="content" side="right" persistent="true" id="sphMainMenu">
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons end menuClose class="close">
+                <button ion-button>
+               <i class="icon-close" ></i>               
+           </button>
+            </ion-buttons>
+
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <ion-list class="shadowLeft">
+            <div class="version">{{verTextShow}} {{appVersionNumber}}</div>
+            <h3 class="menuHdTitle">{{ "WELCOME" | translate }} {{userName}}</h3>
+            <button menuClose ion-item (click)="goHome('sph')" class="homeNav"> 
+                {{ "HOME" | translate }}
+                <i class="icon-next-thin"></i>
+            </button>
+            <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
+
+            <div *ngFor="let p of pagesSPH">
+                <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
+                    {{ p.translation | translate }}
+                    <i class="icon-next-thin"></i>
+                </button>
+            </div>
+
+            <div class="languageSelect">
+                <h2>{{ "SELECT LANGUAGE" | translate }}</h2>
+                <ion-list radio-group name="appLanguage" [(ngModel)]="appLanguage" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeAppLanguage($event)">
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>English</ion-label>
+                        <ion-radio value="en" checked></ion-radio>
+                    </ion-item>
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>Bahasa Indonesia</ion-label>
+                        <ion-radio value="in"></ion-radio>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+
+<ion-menu [content]="content" side="right" persistent="true" id="hpbMainMenu">
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons end menuClose class="close">
+                <button ion-button>
+               <i class="icon-close" ></i>               
+           </button>
+            </ion-buttons>
+
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <ion-list class="shadowLeft">
+            <div class="version">{{verTextShow}} {{appVersionNumber}}</div>
+            <h3 class="menuHdTitle">{{ "WELCOME" | translate }} {{userName}}</h3>
+            <button menuClose ion-item (click)="goHome('hpb')" class="homeNav"> 
+            {{ "HOME" | translate }}
+            <i class="icon-next-thin"></i>
+      </button>
+            <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
+
+            <div *ngFor="let p of pagesHPB">
+                <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
+             {{ p.translation | translate }}
+        <i class="icon-next-thin"></i>
+      </button>
+            </div>
+
+
+
+
+            <div class="languageSelect">
+                <h2>{{ "SELECT LANGUAGE" | translate }}</h2>
+                <ion-list radio-group name="appLanguage" [(ngModel)]="appLanguage" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeAppLanguage($event)">
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>English</ion-label>
+                        <ion-radio value="en" checked></ion-radio>
+                    </ion-item>
+                    <ion-item role="button" menuClose tappable>
+                        <ion-label>Bahasa Indonesia</ion-label>
+                        <ion-radio value="in"></ion-radio>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false" [ngBusy]="{busy: busyDB, message:busyDBMessage, minDuration: 1000}"></ion-nav>

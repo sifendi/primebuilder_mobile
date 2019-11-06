@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+             <i class="icon-close"></i>
+           </button>
+        </ion-buttons>
+        <ion-title>{{"SEARCH BY" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <form class="userForm_filter">
+        <ion-list class="inputBox">
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{"SUB DISTRICT" | translate }}</ion-label>
+                    <!-- <ion-select [(ngModel)]="projFilterArr.subDistrict" [ngModelOptions]="{standalone: true}">
+                      <ion-option value="{{ districtItem['subdistrict'] }}" *ngFor="let districtItem of allDistrictData" >{{ districtItem['subdistrict'] }}</ion-option>
+                    </ion-select> -->
+                    <ion-input [(ngModel)]="projFilterArr.subDistrict" mbsc-select [mbsc-options]="mobiScollSubDistrictSettings" [mbsc-data]="subdistrictArrG" #subdistrict="ngModel" #subdistrictMob="mobiscroll" [ngModelOptions]="{standalone: true}"></ion-input>
+                </ion-item>
+            </div>
+        </ion-list>
+
+
+        <div class="checkButton project_stage">
+            <h2 class="labelHeading">{{"PROJECT STAGE" | translate }}</h2>
+
+
+            <div class="rdIn" [(ngModel)]="projFilterArr.projectStage" #ProjectStage="ngModel" required [ngModelOptions]="{standalone: true}" radio-group>
+                <ion-item class="halfWidth" *ngFor="let projectStage of projectStages">
+                    <ion-label>{{projectStage.project_stage}}</ion-label>
+                    <ion-radio value="{{projectStage.server_id}}"></ion-radio>
+                </ion-item>
+            </div>
+            <h2 class="labelHeading">{{"PROJECT TYPE" | translate }}</h2>
+
+            <div class="rdIn" [(ngModel)]="projFilterArr.projectType" #ProjectType="ngModel" required [ngModelOptions]="{standalone: true}" radio-group>
+                <ion-item class="halfWidth" *ngFor="let projectType of projectTypes">
+                    <ion-label>{{projectType.project_type}}</ion-label>
+                    <ion-radio value="{{projectType.server_id}}"></ion-radio>
+                </ion-item>
+            </div>
+
+            <h2 class="labelHeading">{{"IS SRKU" | translate }}</h2>
+            <div class="rdIn" [(ngModel)]="projFilterArr.isSrku" [ngModelOptions]="{standalone: true}" [class.disabledDiv]="disableSrku" radio-group>
+                <ion-item class="halfWidth">
+                    <ion-label>{{"YES" | translate }}</ion-label>
+                    <ion-radio value="1"></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{"NO" | translate }}</ion-label>
+                    <ion-radio value="0"></ion-radio>
+                </ion-item>
+            </div>
+        </div>
+
+        <!--<div class="btn">
+            <button ion-button type="button" (click)="search()">{{"SEARCH" | translate }}</button>
+        </div>-->
+    </form>
+</ion-content>
+
+<ion-footer class="ntpr">
+        <div class="btn">
+             <button ion-button type="button" (click)="search()">{{ "SEARCH" | translate }}</button>
+             <button ion-button type="button" (click)="resetFilter()">{{ "RESET" | translate }}</button>
+        </div>
+</ion-footer>

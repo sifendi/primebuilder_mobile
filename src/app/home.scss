@@ -1,0 +1,641 @@
+.blackShade {
+    position: $absolute;
+    content: "";
+    height: $width90 - 70;
+    width: $width90 + 10;
+    background: $dark-primary;
+    top: $zero;
+    left: $zero;
+}
+
+.cardBgOne {
+    background: url("../assets/images/slider-one.jpg") no-repeat $center top;
+    background-size: $cover;
+    @include border-radius (5px);
+    padding: $size - 1;
+    position: $relative;
+    width: $width90 + 6;
+    box-shadow: 0 15px 15px -6px rgba($shadow-colorOne, .5);
+    margin-bottom: $size * 2;
+    margin-top: $size - .5;
+    min-height: 31vh;
+    @include justify-content(center);
+
+    &.switching {
+        background: url("../assets/images/slider-two.jpg") no-repeat $center top;
+        box-shadow: 0 15px 15px -6px rgba($shadow-colorTwo, .5);
+        background-size: $cover;
+    }
+
+    &.maintain {
+        background: url("../assets/images/slider-three.jpg") no-repeat $center top;
+        box-shadow: 0 15px 15px -6px rgba($shadow-colorThree, .5);
+        background-size: $cover;
+    }
+
+    &.newMember {
+        background: url("../assets/images/slider-four.jpg") no-repeat $center top;
+        box-shadow: 0 15px 15px -6px rgba($shadow-colorFour, .5);
+        background-size: $cover;
+    }
+
+    @include media-query(320px) {
+        min-height: 24vh;
+    }
+
+    @include media-query(360px) {
+        min-height: 32vh;
+    }
+
+    @include media-query(400px) {
+        min-height: 34vh;
+    }
+
+}
+
+// card Design Start Here
+.crdAll {
+    margin-bottom: $size - .8;
+    @include align-items(center);
+    width: $width90 + 10;
+
+    .col {
+        padding: $size - 1.5 $zero $size - 1.5 $size - 1.5;
+    }
+
+    .preVal {
+        background: $lightgreen-color;
+        @include border-radius (100px);
+        color: $white-color;
+        padding: $size - 1.7 $size - 1;
+        font-size: $size - .9;
+
+        @include media-query(560px) {
+            font-size: $size;
+        }
+
+    }
+
+    p {
+        font-family: $fontRg;
+        font-size: $size - .8;
+        color: $white-color;
+    }
+
+    h3 {
+        font-family: $fontMd;
+        font-size: $size - .2;
+        color: $white-color;
+        margin: $zero;
+
+        @include media-query(560px) {
+            font-size: $size + .5;
+        }
+
+    }
+
+    .crdOne {
+        width: $auto;
+        max-width: $width90 - 70;
+    }
+
+    .crdTwo {
+        border-left: 2px $solid $lightgreen-color;
+        width: $auto;
+        max-width: $width90 - 50;
+    }
+
+    &:last-child {
+        margin: $zero;
+    }
+
+    &.cardDiff {
+        .preVal {
+            background: $lightred-color;
+        }
+
+        .crdTwo {
+            border-left: 2px $solid $lightred-color;
+        }
+
+    }
+
+    &.cardBlack {
+        .preVal {
+            background: $black-color;
+        }
+
+        .crdTwo {
+            border-left: 2px $solid $black-color;
+        }
+
+    }
+
+    &.cardNoBorder {
+        .crdTwo {
+            border-left: $none;
+        }
+
+    }
+
+    @include media-query(320px) {
+        p {
+            font-size: $size - 1;
+        }
+
+    }
+
+    @include media-query(360px) {
+        .crdOne {
+            width: $auto;
+            max-width: $width90 - 72;
+        }
+
+        .crdTwo {
+            border-left: 2px $solid $lightgreen-color;
+            width: $auto;
+            max-width: $width90 - 48;
+        }
+
+        p {
+            font-size: $size - .7;
+        }
+
+    }
+
+    @include media-query(400px) {
+        p {
+            font-size: $size - .5;
+        }
+
+    }
+
+    @include media-query(560px) {
+        .crdOne {
+            max-width: $width90 - 74;
+        }
+
+        .crdTwo {
+            max-width: $width90 - 46;
+        }
+
+        p {
+            font-size: $size;
+        }
+
+    }
+
+}
+
+.todaysVisits {
+    //  margin: $zero $size - 1;
+    margin: $size - 1;
+    box-shadow: $inherit;
+    background: $transparent;
+
+    .card-content {
+        padding: $zero;
+    }
+
+    .textBtn {
+        @include display-flex;
+        @include align-items(center);
+        @include justify-content(space-between);
+        margin-bottom: $size - .8;
+
+        h4 {
+            font-family: $fontMd;
+            color: $blue-color;
+            font-size: $size - .2;
+            width: $width90 - 12;
+        }
+
+        @include media-query(320px) {
+            h4 {
+                font-size: $size;
+            }
+
+        }
+
+        @include media-query(560px) {
+            h4 {
+                width: $width90 - 10;
+                font-size: $size + 1;
+            }
+
+        }
+
+    }
+
+    .btnPerson {
+        @include display-flex;
+        @include flex-wrap(wrap);
+        @include flex-direction(row);
+
+        .button {
+            @include border-radius(5px);
+            border: 1px $solid $border-color;
+            @include grid(2, 3%);
+            background: $white-color;
+            height: auto;
+            padding: $size - 1 $size;
+            margin-left: $zero;
+            margin-top: $zero;
+            text-align: $left;
+            box-shadow: 0 0 4px 4px #eaeef2;
+            overflow: visible;
+
+            .button-inner {
+                display: $block;
+            }
+
+            p {
+                font-family: $fontMd;
+                font-size: $size - .5;
+                color: $btn-color;
+                text-transform: $capitalize;
+            }
+
+            h3 {
+                color: $grey-dark;
+                font-size: $size + 1;
+                margin: $zero;
+            }
+
+            .icon-next {
+                right: $size - .5;
+                @include transformY;
+                font-size: $size - 1;
+            }
+
+            @include media-query(320px) {
+                p {
+                    font-size: $size - .4;
+                }
+
+                h3 {
+                    font-size: $size + .2;
+                }
+
+            }
+
+            @include media-query(400px) {
+                h3 {
+                    font-size: $size + 1;
+                }
+
+                .icon-next {
+                    font-size: $size - .5;
+                }
+
+            }
+
+            @include media-query(560px) {
+                p {
+                    font-size: $size + .5;
+                }
+
+                h3 {
+                    font-size: $size + 1;
+                }
+
+                .icon-next {
+                    font-size: $size;
+                }
+
+            }
+
+        }
+
+        &.achievement {
+            .button {
+                text-align: $center;
+                text-transform: none;
+
+                h3 {
+                    font-size: $size - .5;
+
+                    @include media-query(400px) {
+                        font-size: $size - .2;
+                    }
+
+                    @include media-query(560px) {
+                        font-size: $size + .2;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+.viewAll {
+    background: $btn-color;
+    color: $white-color;
+    font-size: $size - .8;
+    padding: $size - 1.2 $size - 1;
+    height: $auto;
+    @include border-radius(5px);
+    box-shadow: $inherit;
+
+    @include media-query(320px) {
+        font-size: $size - .7;
+    }
+
+    @include media-query(560px) {
+        font-size: $size - .2;
+        padding: $size - 1 $size - .5;
+    }
+
+}
+
+sub {
+    bottom: 0em !important;
+}
+
+.bg {
+    background: $light-color;
+}
+
+.personData {
+    border: 1px $solid $profile-redeem;
+    @include border-radius (8px);
+    padding: $size + 2.5 $size - 1.6 $size + 1;
+    position: $relative;
+    width: $width90 + 4;
+    box-shadow: 0 0 12px 2px rgba($blue-color, .3);
+    -webkit-box-shadow: 0 0 12px 2px rgba($blue-color, .3);
+    margin: $size $auto $size + 1.5 $auto;
+    @include justify-content(center);
+    background: $white-color;
+
+    @include media-query(560px) {
+        &:last-child {
+            margin-bottom: 7rem;
+        }
+
+    }
+
+    .crdAll {
+        p {
+            color: $base-color;
+        }
+
+        h3 {
+            color: $dark-color;
+        }
+
+    }
+
+}
+
+.personTitle {
+    font-family: $fontBold;
+    color: $white-color;
+    background-color: $blue-color;
+    font-size: $size - .4;
+    text-transform: $uppercase;
+    position: $absolute;
+    padding: $size - 1.5 $size + .5;
+    margin: $zero $auto;
+    @include border-radius(100px);
+    top: -1.5rem;
+    @include align-self(center);
+    box-shadow: 0 15px 15px -6px rgba($blue-color, .3);
+    -webkit-box-shadow: 0 15px 15px -6px rgba($blue-color, .3);
+    left: 50%;
+    -ms-transform: translateX(-50%);    /* IE 9 */
+    -webkit-transform: translateX(-50%);    /* Safari */
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.region {
+    @include display-flex;
+    padding-left: $width90 - 87;
+    color: $base-color;
+    margin-top: $zero;
+    margin: $zero $zero $size * 2;
+
+    .regTitle {
+        @include flex-grow(0);
+    }
+
+    .regZone {
+        @include flex-grow(1);
+    }
+
+}
+
+.seleRole {
+    @extend .userForm;
+    background: $transparent;
+    padding: $size - 1;
+    max-width: $width90 + 10;
+    width: $width90 + 10;
+    margin-bottom: $zero;
+
+    .inputBox {
+        .rdIn {
+            margin-top: $zero;
+
+            .item {
+                &.item-block {
+                    .item-inner {
+                        border-bottom: $zero;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    .label {
+        padding-left: $size - 1.2;
+    }
+
+    .inputLable {
+        @include border-radius(5px);
+        height: $auto !important;
+    }
+
+    .select {
+        @include border-radius(5px);
+        padding-left: $size - 1.2;
+        background: $grey-light;
+        width: $width90 + 10;
+        max-width: $width90 + 10;
+
+        .select-text {
+            color: $base-color;
+            font-family: $fontMd;
+
+            @include media-query(560px) {
+                font-size: $size + .5;
+            }
+
+        }
+
+        .select-icon {
+            width: 20px;
+            height: 20px;
+            position: $relative;
+            top: -5px;
+        }
+
+    }
+
+}
+
+.productPerformance {
+    /* padding: 0px 10px 20px; */
+    padding: 20px 10px;
+    .button {
+        font-family: $fontMd;
+        box-shadow: none;
+        padding: 0;
+        border: 1px solid $border-color;
+        border-radius: 5px;
+        background: $white-color;
+        font-size: 16px;
+        color: $btn-color;
+        text-transform: none;
+        height: 50px;
+        padding: 0 10px;
+        width: 100%;
+        margin: 0;
+        box-shadow: 0px 2px 16px -1px rgba(204, 204, 204, 1);
+
+        @include media-query(560px) {
+            font-size: 24px;
+            height: 70px;
+        }
+
+        i {
+            color: $profile-redeem;
+            font-size: 1.5rem;
+            margin-left: 15px;
+
+            @include media-query(560px) {
+                font-size: 2.0rem;
+            }
+
+        }
+
+    }
+
+}
+
+.productList {
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid $border-color;
+    font-family: $fontMd;
+    box-shadow: 0px 6px 12px -4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+
+    h4 {
+        color: $btn-color;
+        font-size: 16px;
+        text-align: center;
+
+        @include media-query(560px) {
+            font-size: 2.8rem;
+        }
+
+    }
+
+    .list-item {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dashed $border-color;
+        padding: 15px 15px 5px;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+
+        p {
+            color: $base-color;
+            font-size: 14px;
+
+            @include media-query(560px) {
+                font-size: 2.2rem;
+            }
+
+        }
+
+        small {
+            display: inline-block;
+            font-size: 16px;
+
+            @include media-query(560px) {
+                font-size: 2.2rem;
+            }
+
+        }
+
+    }
+
+}
+
+.perfWrap {
+    padding: 0 15px;
+
+    &:last-child {
+        margin-bottom: 20px;
+    }
+
+    .perItem {
+        h2 {
+            padding: 15px 0 10px;
+            color: $black-color;
+            margin: 0;
+            font-size: 16px;
+
+            @include media-query(560px) {
+                font-size: 24px;
+            }
+
+        }
+
+        .productBg {
+            background: #f5f5f5;
+            border-radius: 5px;
+            padding: 10px 5px;
+
+            .crdAll {
+                p {
+                    color: $base-color;
+                }
+
+                h3 {
+                    color: $dark-color;
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+.noresult {
+    transform: translate(-50%);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+
+    p {
+        font-size: 20px;
+    }
+
+}

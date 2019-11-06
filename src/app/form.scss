@@ -1,0 +1,994 @@
+.popover-viewport .editPicWrap {
+    .list-header {
+        font-size: 1.5rem;
+    }
+    .list-ios {
+        margin-bottom: 0;
+    }
+}
+
+.borderZero {
+    .customerPhoto {
+        margin-bottom: 0;
+        height: 130px;
+    }
+    .card-header {
+        margin-bottom: 2rem !important;
+    }
+}
+
+.userForm {
+    padding: $size - 1 $size;
+    background: $white-color;
+    .item {
+        &.item-block {
+            background: $none;
+            padding-left: $zero;
+            min-height: 34px;
+            height: 34px;
+            margin-top: $zero;
+            border-bottom: 2px $solid $white-color;
+            position: $relative;
+            .item-inner {
+                padding-right: $zero;
+                box-shadow: $inherit;
+                border-bottom: $zero;
+                ion-label {
+                    font-family: $fontMd;
+                    margin: $zero;
+                    font-size: $size + .5;
+                    color: $base-color;
+                    text-overflow: $inherit;
+                    white-space: $inherit;
+                }
+                .text-input {
+                    font-family: $fontMd;
+                    color: $base-color;
+                    font-size: $size - .3;
+                    width: calc(100%);
+                    border-bottom: $zero;
+                    padding: $zero $size - 1.5 $size - 1;
+                    background: $transparent;
+                    margin: $zero $auto;
+                    box-shadow: $inherit;
+                    letter-spacing: 1px;
+                    line-height: $size + 1;
+                    @include media-query(560px) {
+                        padding: $size - .7 $size + 2.5;
+                        font-size: $size + 1.5;
+                    }
+                }
+            }
+        }
+    }
+    @include media-query(400px) {
+        ion-item {
+            &.item-block {
+                min-height: $size + 2.5;
+                .item-inner {
+                    ion-label {
+                        margin-bottom: $size - 1.6;
+                        margin-right: $zero;
+                        font-size: $size - .5;
+                        background: $none;
+                    }
+                    .text-input {
+                        font-size: $size - .4;
+                    }
+                }
+            }
+        }
+    }
+    @include media-query(560px) {
+        ion-item {
+            &.item-block {
+                min-height: $size + 3;
+                .item-inner {
+                    ion-label {
+                        font-size: $size - .2;
+                        text-overflow: $inherit;
+                        overflow: initial;
+                        white-space: nowrap;
+                    }
+                    .text-input {
+                        font-size: $size - .2;
+                    }
+                }
+            }
+        }
+    }
+    &.detailForm {
+        .item {
+            &.item-block {
+                border-bottom: 2px $solid $base-color;
+                margin-top: $zero;
+                height: $auto;
+                .item-inner {
+                    .text-input {
+                        // font-family: $fontMd;
+                        color: $base-color;
+                        font-size: $size - .3;
+                        padding: $zero;
+                    }
+                }
+            }
+        }
+    }
+    .inputBox {
+        .rdIn {
+            @include display-flex;
+            @include flex-wrap(wrap);
+            @include flex-direction(row);
+            margin-top: $size - .8;
+            ion-col {
+                @include flex(auto);
+            }
+            .item {
+                .item-label-floating {
+                    padding-bottom: 0;
+                    font-family: $fontMd;
+                }
+                &.item-block {
+                    border: 0px $solid $base-color;
+                    margin-top: $zero;
+                    height: $auto;
+                    min-height: $inherit;
+                    .item-inner {
+                        border: 0;
+                        border-bottom: 2px solid $light-color;
+                        .text-input {
+                            font-family: $fontMd;
+                            color: $base-color;
+                            font-size: $size - .3;
+                            padding: $zero;
+                            @include media-query(560px) {
+                                font-size: $size + .5;
+                            }
+                        }
+                        .label {
+                            font-size: $size - .5;
+                            color: $base-color;
+                            line-height: 3rem;
+                            @include media-query(560px) {
+                                font-size: $size + .2;
+                            }
+                        }
+                        .textAarea {
+                            .text-input {
+                                line-height: $size + .5;
+                                padding-bottom: $zero;
+                                padding-top: $size - 1.2;
+                            }
+                             ::-webkit-input-placeholder {
+                                padding-top: $size - 1;
+                            }
+                             ::-moz-placeholder {
+                                padding-top: $size - 1;
+                            }
+                             :-moz-placeholder {
+                                padding-top: $size - 1;
+                            }
+                        }
+                    }
+                    &:after {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        bottom: 0;
+                        width: 0%;
+                        left: 0;
+                        border-bottom: 2px solid $profile-redeem;
+                        transition: 0.5s all ease-in-out;
+                    }
+                }
+                &.input-has-focus {
+                    &:after {
+                        transition: 0.5s all ease-in-out;
+                        width: 100%;
+                        border-bottom: 2px solid $btn-color;
+                    }
+                }
+            }
+        }
+    }
+    .same_add {
+        position: relative;
+        padding-top: $size;
+        .rdIn {
+            &:first-child {
+                margin-top: $zero;
+            }
+        }
+        .same_item {
+            position: $absolute;
+            right: $zero;
+            z-index: 9;
+            top: 1.5rem;
+            .item.item-block {
+                .item-inner {
+                    border: 0;
+                    .label {
+                        margin-right: $size + .5;
+                        color: $base-color;
+                        white-space: nowrap;
+                        opacity: .6;
+                    }
+                }
+                .checkbox {
+                    margin-right: $zero;
+                    margin-top: $size + .5;
+                }
+                .checkbox-icon {
+                    position: absolute;
+                    right: 0;
+                    top: $size - 1.2;
+                }
+            }
+        }
+        .same_above {
+            width: 100%;
+            @include display-flex;
+            @include justify-content(space-between);
+            border-bottom: 2px solid $light-color;
+            .item.item-block {
+                .item-inner {
+                    border: 0 !important;
+                    .label {
+                        margin-right: $size + .5;
+                        color: $base-color;
+                        @include media-query(560px) {
+                            white-space: nowrap;
+                        }
+                    }
+                }
+            }
+            .textAarea {}
+            .inputLable {
+                padding-right: 1rem;
+            }
+        }
+    }
+    .form_list {
+        .labelHeading {
+            margin: $size - 1 $zero $size;
+            @include media-query(560px) {
+                font-size: $size + .5;
+                height: $size + 1;
+            }
+        }
+        .gridWrap {
+            margin-bottom: $size;
+        }
+    }
+    .card {
+        margin: $zero;
+        width: 100%;
+        box-shadow: $none;
+        background: $none;
+        border-bottom: 1px $solid $profile-redeem;
+        margin-bottom: $size;
+        padding-bottom: $size - 1.5;
+        border-radius: 0;
+        .card-header {
+            padding: $zero;
+            font-size: $size - .5;
+            color: $blue-color;
+            font-family: $fontMd;
+            margin-bottom: $zero;
+            @include media-query(560px) {
+                font-size: $size;
+            }
+        }
+        .card-content {
+            padding: $zero;
+            color: $dark-color;
+            font-size: $size - .3;
+            margin-top: $zero;
+            font-family: $fontMd;
+            position: relative;
+            @include media-query(560px) {
+                font-size: $size + .5;
+            }
+        }
+    }
+    .quantityBags {
+        width: 100%;
+        margin-top: $size;
+        .card {
+            margin-bottom: $zero;
+            border-bottom: 2px $solid $profile-redeem;
+            .card-header {
+                color: $base-color;
+            }
+            .card-content {
+                color: $profile-redeem;
+            }
+        }
+    }
+    .two_coloum {
+        width: 100%;
+        @include display-flex;
+        .card {
+            width: 100%;
+            margin-right: $size - 1;
+            position: relative;
+            &:last-child {
+                margin-right: $zero;
+            }
+        }
+    }
+    .photo_uploaded {
+        width: 100%;
+        margin-bottom: $size + 1;
+        .labelHeading {
+            color: $blue-color;
+            font-size: $size - .5;
+            @include media-query(560px) {
+                font-size: $size;
+            }
+        }
+    }
+    .photoAdd {
+        width: 100%;
+        .labelHeading {
+            color: $base-color;
+            font-size: $size - .5;
+            @include media-query(560px) {
+                font-size: $size + .2;
+            }
+        }
+    }
+    .upload_proof {
+        width: 100%;
+        margin-top: $size + 1;
+        margin-bottom: $size + 1;
+        .labelHeading {
+            color: $base-color;
+            font-size: $size - .5;
+        }
+    }
+}
+
+.checkButton {
+    margin-bottom: $size + .5;
+    .labelHeading {
+        font-size: $size - .5;
+        color: $base-color;
+        @include media-query(560px) {
+            font-size: $size + .5;
+        }
+    }
+    .rdIn {
+        @include display-flex;
+        @include flex-wrap(wrap);
+        @include flex-direction(row);
+        // margin-bottom: $size + .5;
+        margin-top: $size + .5;
+        .item {
+            &.halfWidth {
+                margin-top: $zero;
+                width: auto;
+                @include flex-grow(1);
+                border-bottom: $zero;
+                margin-right: $width90 - 88;
+                background: $off-white;
+                @include border-radius(5px);
+                text-align: $center;
+                border: 1px $solid $white-color;
+                margin-bottom: $size - 1.7;
+                height: $size + 3;
+                margin-bottom: $size - 1;
+                .item-inner {
+                    border-bottom: $zero;
+                    padding-right: $zero;
+                    .radio {
+                        margin: $zero;
+                    }
+                    ion-textarea {
+                        margin-top: $size - 1;
+                    }
+                    ion-label {
+                        font-family: $fontMd;
+                        margin: $zero;
+                        font-size: $size - .5;
+                        @include media-query(560px) {
+                            font-size: $size + .2;
+                        }
+                    }
+                }
+                .radio-icon {
+                    border-color: $transparent;
+                    width: $zero;
+                    height: $zero;
+                    .radio-inner {
+                        background-color: $transparent;
+                    }
+                    &.radio-checked {
+                        border-color: $transparent;
+                        .radio-inner {
+                            background-color: $transparent;
+                            width: $zero;
+                            height: $zero;
+                        }
+                    }
+                }
+                &.item-radio-checked {
+                    background: $blue-color;
+                    ion-label {
+                        color: $white-color;
+                    }
+                }
+                &.item-radio {
+                    padding: $zero $size - 1.5;
+                }
+                .item-checkbox {
+                    padding: 5px;
+                }
+                .checkbox {
+                    margin: $zero;
+                    .checkbox-icon {
+                        border-color: $transparent;
+                        background: $transparent;
+                        width: $zero;
+                        height: $zero;
+                        border: $zero;
+                        .checkbox-inner {
+                            border-color: $transparent;
+                            background: $transparent;
+                            width: $zero;
+                            height: $zero;
+                            border: $zero;
+                        }
+                    }
+                }
+                &:last-child {
+                    margin-right: $zero;
+                }
+                @include media-query(560px) {
+                    height: $size * 3;
+                }
+            }
+            &.item-checkbox-checked {
+                background: $dark-primary;
+                ion-label {
+                    color: $white-color;
+                }
+            }
+            &.item-checkbox {
+                padding: $zero $size - 1;
+            }
+        }
+    }
+    p {
+        color: $grey-dark;
+        margin: $zero;
+    }
+    &:last-child {
+        border-bottom: $zero;
+        margin-bottom: $zero;
+    }
+}
+
+.comment_note {
+    .inputBox {
+        .rdIn {
+            .labelHeading {
+                color: $base-color;
+                font-size: $size - .5;
+                @include media-query(560px) {
+                    font-size: $size;
+                }
+            }
+            .item {
+                &.item-block {
+                    background: $white-color;
+                    @include border-radius(5px);
+                    border: 1px solid $profile-redeem !important;
+                    box-shadow: $none;
+                    .item-inner {
+                        box-shadow: $none;
+                        border: 0;
+                        .text-input {
+                            padding: $size - 1.5 $size - 1;
+                            min-height: 100px;
+                        }
+                         ::-webkit-input-placeholder {
+                            text-align: $left;
+                        }
+                         ::-moz-placeholder {
+                            text-align: $left;
+                        }
+                         :-moz-placeholder {
+                            text-align: $left;
+                        }
+                    }
+                    &:after {
+                        transition: 0.5s all ease-in-out;
+                        width: 100%;
+                        border: 0px solid $btn-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Error
+.error {
+    width: $width90 + 10;
+    p {
+        margin: $size - 1.5 $zero $zero $zero;
+        color: $solid-danger;
+        font-size: $size - .7;
+        font-family: $fontMd;
+        @include media-query(560px) {
+            font-size: $size - .3;
+        }
+    }
+}
+
+//label Heading
+.labelHeading {
+    font-size: $size - .2;
+    color: $btn-color;
+    @include media-query(560px) {
+        font-size: $size + .5;
+        width: 100%;
+    }
+}
+
+.id_photos {
+    width: 100%;
+    @include display-flex;
+    @include flex-wrap(wrap);
+    @include justify-content(center);
+    .id_items {
+        @include grid(3, 2%);
+        height: 100px;
+        background-color: $photo-box;
+        padding: 0;
+        margin-bottom: $size - 1.6;
+        position: $relative;
+        overflow: hidden;
+        @include media-query(560px) {
+            height: 170px;
+        }
+        img {
+            display: $block;
+            border: 2px solid $photo-border;
+            width: 100%;
+            height: 100%;
+        }
+        .close_btn {
+            padding: 0;
+            @include border-radius(100%);
+            position: $absolute;
+            top: 1px;
+            right: 2px;
+            height: $auto;
+            .icon-close-thin {
+                color: $btn-color;
+                background: $white-color;
+            }
+            @include media-query(560px) {
+                font-size: $size + 1;
+            }
+        }
+        .upload_btn {
+            background: $none;
+            box-shadow: $none;
+            padding: $zero;
+            width: $auto;
+            height: $auto;
+            text-align: $center;
+            @include transformXY;
+            margin: $zero;
+            .icon-Camera {
+                font-size: $size * 2;
+                @include media-query(560px) {
+                    font-size: $size * 3;
+                }
+            }
+        }
+        &.upload {
+            background: $none;
+            border: 2px solid $photo-border;
+        }
+    }
+}
+
+.digital_sign {
+    .button {
+        background: $background-color;
+        color: $base-color;
+        border: 1px $solid $border-color;
+        text-transform: $capitalize;
+    }
+}
+
+.digital_sign_img {
+    border: 1px $solid $light-color;
+    @include border-radius(5px);
+    margin-bottom: $size + 2.5;
+    @include media-query(560px) {
+        margin-bottom: $size * 3;
+    }
+    img {
+        height: 100px;
+        @include cover(cover);
+        display: $block;
+        margin: $zero $auto;
+        @include media-query(560px) {
+            height: 250px;
+        }
+    }
+}
+
+.locate_btn {
+    position: relative;
+    //padding-top: $size + 1;
+    .textAarea {
+        .text-input {
+            width: 75% $important;
+            float: left;
+            @include media-query-max(320px) {
+                width: 70% $important;
+            }
+        }
+    }
+    .button {
+        position: $absolute;
+        background: $btn-color;
+        box-shadow: $none;
+        color: $white-color;
+        top: 20px;
+        right: 0;
+        @include border-radius(20px);
+        font-size: $size - .8;
+        height: $size + .4;
+        padding: $zero $size - 1.2;
+        margin: $zero;
+        z-index: 2;
+        @include media-query(560px) {
+            font-size: $size - .2;
+            height: $size + 1.5;
+            padding: $zero $size - .5;
+        }
+        .icon-location {
+            font-size: $size - .7;
+            padding-left: $size - 1.5;
+            color: $white-color;
+            @include media-query(560px) {
+                font-size: $size;
+            }
+        }
+    }
+    .address_label {
+        margin-top: 0;
+        color: $base-color;
+        font-family: $fontMd;
+        font-size: $size - .5;
+        @include media-query(560px) {
+            font-size: $size + .2;
+        }
+    }
+    .loaderSpinner {
+        position: absolute;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+        text-align: center;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.project_stage {
+    margin-top: $size + 2;
+    .labelHeading {
+        margin-top: $size + .5;
+    }
+    .rdIn {
+        margin-top: $size;
+    }
+}
+
+.companyInfo {
+    margin-top: $size + 2;
+    .rdIn {
+        &:first-child {
+            margin-top: $zero;
+        }
+    }
+}
+
+.srku_details {
+    @extend .userForm;
+    padding-top: $size + 1.5;
+    .photo_uploaded {
+        margin-top: $size + 1;
+        .labelHeading {
+            color: $blue-color;
+        }
+    }
+}
+
+.userForm_filter {
+    @extend .userForm;
+    padding-top: $size - 1;
+    .inputBox {
+        .rdIn {
+            .item.item-block {
+                .item-inner {
+                    border: 0;
+                }
+            }
+            .inputLable {
+                border-bottom: 2px $solid $profile-redeem !important;
+                padding-bottom: $size - 1.5;
+                @include media-query(560px) {
+                    padding: $size - 1 $size - .5;
+                }
+            }
+        }
+    }
+}
+
+.date_picker {
+    width: 100%;
+    @include display-flex;
+    .date_list {
+        width: 100%;
+        margin-right: $size;
+        position: relative;
+        .inputLable {
+            z-index: 2;
+        }
+        &:last-child {
+            margin-right: $zero;
+        }
+        .icon-arrow {
+            position: $absolute;
+            bottom: $size - .8;
+            right: $size - 1.5;
+            font-size: $size - .5;
+            user-select: $none;
+            z-index: 1;
+            cursor: default;
+            color: $place-holder;
+        }
+        .datetime {
+            padding-bottom: $zero;
+            padding-top: $zero;
+        }
+        .datetime-text {
+            color: $base-color;
+            min-height: 3rem;
+            line-height: 3rem;
+        }
+        @include media-query(560px) {
+            .datetime-text {
+                font-size: $size + .5;
+            }
+            .icon-arrow {
+                font-size: $size + .2;
+            }
+        }
+    }
+}
+
+.static_radio_btn {
+    .list {
+        @include display-flex;
+        .radio {
+            margin: 11px 10px 10px 4px;
+        }
+        .item.item-block {
+            .item-inner {
+                ion-label {
+                    font-size: $size - .5;
+                    @include media-query(400px) {
+                        font-size: $size;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.searchHpb {
+    margin-top: $size * 2;
+    .rdIn {
+        margin-top: $size - 1 !important;
+    }
+}
+
+.singTitle {
+    .labelHeading {
+        color: $blue-color;
+        margin-bottom: $size - 1 !important;
+        font-size: $size - .5;
+    }
+    .btn {
+        margin-top: 0;
+    }
+}
+
+// selecet Dropdown
+.rdIn {
+    .item-select {
+        &.item-block {
+            .label {
+                line-height: $size + 2.5;
+            }
+            .select {
+                padding-bottom: $zero;
+                @include media-query(560px) {
+                    padding-top: $zero;
+                    padding-bottom: 8px;
+                }
+                .select-text {
+                    color: $base-color;
+                    font-family: $fontMd;
+                }
+                .select-icon {
+                    .select-icon-inner {
+                        margin-top: -12px;
+                    }
+                }
+                @include media-query(560px) {
+                    .select-text {
+                        font-size: $size + .5;
+                    }
+                    .select-icon {
+                        width: 22px;
+                        height: 22px;
+                        font-size: $size + .2;
+                        .select-icon-inner {
+                            margin-top: -10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.input-has-focus .label-md[floating],
+.input-has-value .label-md[floating] {
+    line-height: 1.5rem !important;
+    transform: translate3d(0, 0, 0) scale(0.9) !important;
+}
+
+@include media-query(560px) {
+    .input-has-focus .label-md[floating],
+    .input-has-value .label-md[floating] {
+        line-height: 3.5rem !important;
+        transform: translate3d(0, 0, 0) scale(0.9) !important;
+        padding-bottom: 8px;
+    }
+    .input-has-value {
+        .input_item {
+            padding-bottom: 8px;
+        }
+    }
+}
+
+.locateWrap {
+    width: 100%;
+}
+
+.productStaus {
+    .item-block {
+        &:after {
+            width: 100% !important;
+        }
+    }
+}
+
+.reaonStatus {
+    margin-top: 35px;
+}
+
+.commentReason {
+    width: 100%;
+    .textAarea {
+        textarea {
+            width: 100%;
+            border: 1px solid $profile-redeem;
+            margin: 0;
+            padding: 10px;
+            @include border-radius(5px)
+        }
+    }
+    .label {
+        color: $base-color;
+        font-family: $fontMd;
+    }
+}
+
+.reasonBg {
+    margin-bottom: 15px;
+}
+
+.outerSelect {
+    .seleRole {
+        .inputLable {
+            background: $off-white;
+        }
+        .item.item-block {
+            min-height: 44px;
+            .item-inner {
+                position: relative;
+                .input {
+                    &:before {
+                        content: "\e90e";
+                        position: absolute;
+                        right: 10px;
+                        font-family: 'icomoon' !important;
+                        color: #aaa;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                }
+                .text-input {
+                    padding-left: 1rem;
+                    text-transform: capitalize;
+                    font-size: 1.5rem;
+                    @include media-query(560px) {
+                        font-size: $size + .5;
+                    }
+                    @include media-query(320px) {
+                        padding-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+    &.headerSelect {
+        .inputLable {
+            background: #464646;
+        }
+        .item.item-block {
+            .item-inner {
+                .text-input {
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+.two_coloum {
+    width: 100%;
+    @include display-flex;
+    .card {
+        width: 100%;
+        margin-right: $size - 1;
+        position: relative;
+        &:last-child {
+            margin-right: $zero;
+        }
+    }
+}
+
+.notificationIndicator {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+    span {
+        align-items: center;
+        display: flex;
+        font-size: $size - 0.4;
+        i {
+            margin-right: 5px;
+            font-size: $size - 0.6;
+        }
+    }
+}
+.posR{
+    position: relative;
+    .notificationIndicator{
+        bottom: 32px;
+    }
+}

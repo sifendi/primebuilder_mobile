@@ -1,0 +1,200 @@
+<ion-content padding [ngBusy]="{busy: busy, minDuration: 600}">
+    <ion-card class="todaysVisits">
+        <ion-card-content>
+            <div class="textBtn">
+                <h4 *ngIf="today == true">{{"TODAY'S PROGRESS" | translate }}</h4>
+                <h4 *ngIf="today != true">{{achiveDate}} {{ "PROGRESS" | translate}}</h4>
+                <button ion-button class="icon-button" [(ngModel)]="currentDataSel" (change)="dateChange();" mbsc-calendar clear><i class="icon-calendar" tappable></i></button>
+            </div>
+        </ion-card-content>
+        <ion-grid class="cardBgOne">
+            <ion-row>
+                <ion-col class="visitNum">
+                    <h2>{{"VISIT" | translate }}</h2>
+                    <h2>{{visitTodayTotal?visitTodayTotal:0}}/{{visitTotal?visitTotal:0}}</h2>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-card>
+    <!--<div class="flexWrap flexButtonWrap">
+        <button ion-button color="light" class="viewAll active">Not Visited</button>
+        <button ion-button color="light" class="viewAll">Visited</button>
+        <button ion-button color="light" class="viewAll">All</button>
+    </div>-->
+    <ion-segment class="flexWrap flexButtonWrap" [(ngModel)]="visiListTab">
+        <ion-segment-button class="viewAll active" value="notvisited">
+            {{"NOT VISITED" | translate }}
+        </ion-segment-button>
+        <ion-segment-button class="viewAll" value="visited">
+            {{"VISITED" | translate }}
+        </ion-segment-button>
+        <ion-segment-button class="viewAll" value="all">
+            {{"ALL" | translate }}
+        </ion-segment-button>
+    </ion-segment>
+    <div [ngSwitch]="visiListTab">
+        <ion-list class="listWrap" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 1000}" *ngSwitchCase="'notvisited'">
+            <div *ngIf="nonVisitedData.length==0">
+                <h2 class="noData">{{"NO DISTRIBUTOR FOUND" | translate }}</h2>
+            </div>
+            <div class="itemWrap" *ngFor="let userObj of nonVisitedData">
+                <ion-item class="listItem noAvtar">
+                    <ion-avatar item-left>
+                        <img *ngIf="userObj.proPic != ''" src="{{userObj.proPic}}">
+                        <img *ngIf="userObj.proPic == ''" src="assets/img/user_create.png">
+                    </ion-avatar>
+                    <div class="leftContent">
+                        <h2>{{userObj.rds_name}}</h2>
+                        <div class="mobileWrap">
+                            <p class="title">{{"MOBILE NO." | translate }}</p>
+                            <span class="value inline">{{ userObj.rds_mobile ? userObj.rds_mobile:(userObj.rds_phone ? userObj.rds_phone : '-') }}</span>
+                            <button ion-button color="light">
+                                <i class="icon-call" *ngIf="(userObj.rds_mobile) || (userObj.rds_phone)" (click)="call(userObj)"></i>
+                            </button>
+                            <p class="title dark marg5">{{"CITY / MUNICIPLITY" | translate }}: <span> {{ appCom.jsonParseCityName(userObj.rds_city) ? appCom.jsonParseCityName(userObj.rds_city):(appCom.jsonParseCityName(userObj.rds_province) ? appCom.jsonParseCityName(userObj.rds_province) : '-') }}</span></p>
+                        </div>
+                    </div>
+                    <!-- <span class="tag">{{userObj.hpb_status | uppercase | translate }}</span> -->
+                    <!--<div *ngIf="userObj.visitStatus == false" class="arrow_box notVisit">
+                        {{"NOT VISITED" | translate }}
+                    </div>-->
+
+                </ion-item>
+                <div class="ntpr">
+                    <div class="btn">
+                        <!--<button class="vDetail" ion-button type="button" (click)="goToHpbDetail(userObj)">
+                            {{"VIEW DETAILS" | translate }}
+                        </button>
+                        <button class="vProject" ion-button type="button" (click)="goToProjectList(userObj)">
+                            {{"VIEW PROJECTS" | translate }}
+                        </button>-->
+                        <button class="vDetail" ion-button type="button" (click)="goToRdsDetail(userObj)">
+                            {{ "VIEW DETAILS" | translate }}
+                        </button>
+
+                        <button class="CheckOut" ion-button type="button" (click)="checkOut(userObj)" *ngIf="globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == userObj['server_rds_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == userObj['rds_type']">
+                            {{ "CHECK OUT" | translate }}
+                        </button>
+                        <button class="vProject" ion-button type="button" (click)="checkIn(userObj)" [disabled]="globalCheckInData['checkinFlag'] == true" *ngIf="globalCheckInData['checkinFlag'] == false">
+                            {{ " CHECK IN" | translate }}
+                        </button>
+                        <button class="vProject" ion-button type="button" *ngIf="globalCheckInData['checkinFlag'] == true && (globalCheckInData['checkinDetails']['check_in_out_type_id'] != userObj['server_rds_id'] ||  globalCheckInData['checkinDetails']['check_in_out_type'] != userObj['rds_type']  ) "
+                            (click)="alreadyCheckInAlert()">
+                            {{ "CHECK IN" | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </ion-list>
+        <ion-list class="listWrap" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 1000}" *ngSwitchCase="'visited'">
+            <div *ngIf="allDataVisitedList.length==0">
+                <h2 class="noData">{{"NO DISTRIBUTOR FOUND" | translate }}</h2>
+            </div>
+            <div class="itemWrap" *ngFor="let userObj of allDataVisitedList">
+                <ion-item class="listItem noAvtar">
+                    <ion-avatar item-left>
+                        <img *ngIf="userObj.proPic != ''" src="{{userObj.proPic}}">
+                        <img *ngIf="userObj.proPic == ''" src="assets/img/user_create.png">
+                    </ion-avatar>
+                    <div class="leftContent">
+                        <h2>{{userObj.rds_name}}</h2>
+                        <div class="mobileWrap">
+                            <p class="title">{{"MOBILE NO." | translate }}</p>
+                            <span class="value inline">{{ userObj.rds_mobile ? userObj.rds_mobile:(userObj.rds_phone ? userObj.rds_phone : '-') }}</span>
+                            <button ion-button color="light">
+                                <i class="icon-call" *ngIf="(userObj.rds_mobile) || (userObj.rds_phone)" (click)="call(userObj)"></i>
+                            </button>
+                            <p class="title dark marg5">{{"CITY / MUNICIPLITY" | translate }}: <span> {{ appCom.jsonParseCityName(userObj.rds_city) ? appCom.jsonParseCityName(userObj.rds_city):(appCom.jsonParseCityName(userObj.rds_province) ? appCom.jsonParseCityName(userObj.rds_province) : '-') }}</span></p>
+                        </div>
+                    </div>
+                    <!-- <span class="tag">{{userObj.hpb_status | uppercase | translate }}</span> -->
+                    <!--<div *ngIf="userObj.visitStatus == false" class="arrow_box notVisit">
+                        {{"NOT VISITED" | translate }}
+                    </div>-->
+
+                </ion-item>
+                <div class="ntpr">
+                    <div class="btn">
+                        <!--<button class="vDetail" ion-button type="button" (click)="goToHpbDetail(userObj)">
+                            {{"VIEW DETAILS" | translate }}
+                        </button>
+                        <button class="vProject" ion-button type="button" (click)="goToProjectList(userObj)">
+                            {{"VIEW PROJECTS" | translate }}
+                        </button>-->
+                        <button class="vDetail" ion-button type="button" (click)="goToRdsDetail(userObj)">
+                            {{ "VIEW DETAILS" | translate }}
+                        </button>
+
+                        <button class="CheckOut" ion-button type="button" (click)="checkOut(userObj)" *ngIf="globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == userObj['server_rds_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == userObj['rds_type']">
+                            {{ "CHECK OUT" | translate }}
+                        </button>
+                        <button class="vProject" ion-button type="button" (click)="checkIn(userObj)" [disabled]="globalCheckInData['checkinFlag'] == true" *ngIf="globalCheckInData['checkinFlag'] == false">
+                            {{ " CHECK IN" | translate }}
+                        </button>
+                        <button class="vProject" ion-button type="button" *ngIf="globalCheckInData['checkinFlag'] == true && (globalCheckInData['checkinDetails']['check_in_out_type_id'] != userObj['server_rds_id'] ||  globalCheckInData['checkinDetails']['check_in_out_type'] != userObj['rds_type']  ) "
+                            (click)="alreadyCheckInAlert()">
+                            {{ "CHECK IN" | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </ion-list>
+        <ion-list class="listWrap" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 1000}" *ngSwitchCase="'all'">
+            <div *ngIf="allData.length==0">
+                <h2 class="noData">{{"NO DISTRIBUTOR FOUND" | translate }}</h2>
+            </div>
+            <div class="itemWrap" *ngFor="let userObj of allData">
+                <ion-item class="listItem noAvtar">
+                    <ion-avatar item-left>
+                        <img *ngIf="userObj.proPic != ''" src="{{userObj.proPic}}">
+                        <img *ngIf="userObj.proPic == ''" src="assets/img/user_create.png">
+                    </ion-avatar>
+                    <div class="leftContent">
+                        <h2>{{userObj.rds_name}}</h2>
+                        <div class="mobileWrap">
+                            <p class="title">{{"MOBILE NO." | translate }}</p>
+                            <span class="value inline">{{ userObj.rds_mobile ? userObj.rds_mobile:(userObj.rds_phone ? userObj.rds_phone : '-') }}</span>
+                            <button ion-button color="light">
+                                <i class="icon-call" *ngIf="(userObj.rds_mobile) || (userObj.rds_phone)" (click)="call(userObj)"></i>
+                            </button>
+                            <p class="title dark marg5">{{"CITY / MUNICIPLITY" | translate }}: <span> {{ appCom.jsonParseCityName(userObj.rds_city) ? appCom.jsonParseCityName(userObj.rds_city):(appCom.jsonParseCityName(userObj.rds_province) ? appCom.jsonParseCityName(userObj.rds_province) : '-') }}</span></p>
+                        </div>
+                    </div>
+                    <!-- <span class="tag">{{userObj.hpb_status | uppercase | translate }}</span> -->
+                    <div *ngIf="userObj.visitStatus == false" class="arrow_box notVisit">
+                        {{"NOT VISITED" | translate }}
+                    </div>
+
+                </ion-item>
+                <div class="ntpr">
+                    <div class="btn">
+                        <!--<button class="vDetail" ion-button type="button" (click)="goToHpbDetail(userObj)">
+                            {{"VIEW DETAILS" | translate }}
+                        </button>
+                        <button class="vProject" ion-button type="button" (click)="goToProjectList(userObj)">
+                            {{"VIEW PROJECTS" | translate }}
+                        </button>-->
+                        <button class="vDetail" ion-button type="button" (click)="goToRdsDetail(userObj)">
+                            {{ "VIEW DETAILS" | translate }}
+                        </button>
+
+                        <button class="CheckOut" ion-button type="button" (click)="checkOut(userObj)" *ngIf="globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == userObj['server_rds_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == userObj['rds_type']">
+                            {{ "CHECK OUT" | translate }}
+                        </button>
+                        <button class="vProject" ion-button type="button" (click)="checkIn(userObj)" [disabled]="globalCheckInData['checkinFlag'] == true" *ngIf="globalCheckInData['checkinFlag'] == false">
+                            {{ " CHECK IN" | translate }}
+                        </button>
+                        <button class="vProject" ion-button type="button" *ngIf="globalCheckInData['checkinFlag'] == true && (globalCheckInData['checkinDetails']['check_in_out_type_id'] != userObj['server_rds_id'] ||  globalCheckInData['checkinDetails']['check_in_out_type'] != userObj['rds_type']  ) "
+                            (click)="alreadyCheckInAlert()">
+                            {{ "CHECK IN" | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </ion-list>
+
+    </div>
+</ion-content>

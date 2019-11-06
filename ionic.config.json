@@ -1,0 +1,7 @@
+{
+  "name": "DPB",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

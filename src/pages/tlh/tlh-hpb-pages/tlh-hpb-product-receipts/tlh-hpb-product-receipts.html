@@ -1,0 +1,70 @@
+<ion-content [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <div *ngIf="productReceiptAllData.length == 0">
+        <h2 class="noData contMid">{{ "NO RECEIPTS FOUND" | translate }}</h2>
+    </div>
+    <ion-list class="listWrap">
+        <div class="itemWrap" *ngFor="let receipt of productReceiptAllData;let tlhStatus=''" (click)="goToTlhReceiptDetail(receipt)">
+            <ion-item class="listItem receipt reject">
+                <div class="leftContent">
+                    <div class="mobileWrap">
+                        <div class="projectWrap">
+                            <p class="title">{{ "PROJECT NAME" | translate }}</p>
+                            <span class="value">{{ receipt['project']?receipt['project']:"-" }}</span>
+                        </div>
+                        <div class="projectWrap">
+                            <p class="title">{{ "PRODUCT" | translate }}</p>
+                            <span class="value">{{ receipt['product']?receipt['product']:"-" }}</span>
+                        </div>
+                        <!--<div class="projectWrap">
+                            <div class="flexWrap">
+                                <div class="unit">
+                                    <p>Quantity: <span>100</span> bags</p>
+                                </div>
+                                <div class="unit">
+                                    <p>Unit: <span>40</span> kg</p>
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="rowData">
+                            <div class="flexWrap">
+                                <p>{{ "QUANTITY" | translate }}:</p><span>{{ receipt['quantity']?receipt['quantity']:"-" }}</span>
+                            </div>
+                            <div class="flexWrap">
+                                <p>{{ "UNIT" | translate }}:</p><span>{{ receipt['unit']?receipt['unit']:"-" }}</span>
+                            </div>
+                            <div class="flexWrap">
+                                <p>{{ "SPH" | translate }}:</p><span>{{ receipt['sph_name']?receipt['sph_name']:"-" }}</span>
+                            </div>
+                            <div class="flexWrap">
+                                <p>{{ "MASON" | translate }}::</p><span>{{ receipt['hpb_name']?receipt['hpb_name']:"-" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ion-grid class="gridWrap">
+                    <div class="row" [innerHTML]="appCom.renderTHAppStatusARP(receipt?.app)">
+                    </div>
+                </ion-grid>
+
+                <span class="tag">{{ receipt['created_date']? timeStampToDate(receipt['created_date']):"-" }}</span>
+                <i class="icon-next-thin checkIn"></i>
+            </ion-item>
+            <div class="filterTag resultbg" *ngIf="receipt['app']['rejection_reason']?receipt['app']['rejection_reason']:false">
+                <p class="resultRes">{{ "REASON" | translate }}:</p>
+                <p>{{ receipt['app']['rejection_reason'] }} </p>
+            </div>
+
+        </div>
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="!dataLoadCompleted">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ion-list>
+
+</ion-content>

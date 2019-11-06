@@ -1,0 +1,10 @@
+<div class="editPicWrap">
+    <ion-list>
+        <ion-list-header class="marg-bottom">{{ "SELECT AN OPTION" | translate }}</ion-list-header>
+        <button ion-item (click)="SelectGallery()" tappable *ngIf="allowGalleryPhotoSource"><i class="icon-gallery"></i>{{ "FROM GALLERY" | translate }}</button>
+        <button ion-item (click)="SelectCamera()" tappable *ngIf="allowCamPhotoSource"><i class="icon-Camera"></i>{{ "TAKE PICTURE" | translate }}</button>
+        <button ion-item (click)="selectFromDocuments()" tappable *ngIf="allowFileSource"><i class="icon-folder"></i>{{ "UPLOAD FILES" | translate }}</button>
+        <!--<button ion-item (click)="SelectGallery()" tappable><span class="icon-Gallery iconNoPad"></span>From Gallery</button>
+        <button ion-item (click)="SelectCamera()" tappable><span class="icon-Camera iconNoPad"></span>Take Picture</button>-->
+    </ion-list>
+</div>

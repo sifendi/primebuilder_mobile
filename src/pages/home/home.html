@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-title></ion-title>
+    <ion-navbar>
+        <ion-buttons class="iconLeft">
+            <button ion-button class="logo"></button>
+        </ion-buttons>
+        <ion-buttons end>
+            <button ion-button class="icon-notification" tapable (click)="goToNotifyPage()">
+                <ion-badge *ngIf="notificationCtn > 0" class="badge-value">{{notificationCtn}}</ion-badge>
+            </button>
+            <button ion-button icon-only class="spinnerI" (click)="globalSync()">
+                <img src="assets/images/white-sync-icon.png" [ngClass]="{ 'spinRt': globalSyncLoaderBtn }" title="sync" alt="sync Icon" />
+            </button>
+            <button ion-button iconHome menuToggle>
+                <i class="icon-menu" name="menu"></i>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy,message:busyMessage, minDuration: 600}">
+    <super-tabs class="homeTab">
+        <super-tab [root]="page1" title="SRKU"></super-tab>
+        <super-tab [root]="page2" title="Switching"></super-tab>
+        <super-tab [root]="page3" title="Maintain"></super-tab>
+        <super-tab [root]="page4" title="New Member"></super-tab>
+        <!-- <super-tab [root]="page5" title="Products"></super-tab> -->
+    </super-tabs>
+    <!-- <div class="productPerformance">
+        <button ion-button (click)="productPerformance()">
+            Check product performance
+            <i class="icon-next"></i>
+        </button>
+    </div> -->
+    <ion-card class="todaysVisits">
+        <ion-card-content>
+            <div class="textBtn">
+                <h4>{{ "TODAY'S TARGET" | translate }}</h4>
+                <button ion-button color="light" class="viewAll" (click)="goToVisitsList()">{{ "VIEW ALL" | translate }}</button>
+            </div>
+            <div class="btnPerson">
+                <button ion-button color="light" (click)="goToTabPage(0)">
+                    <p>{{ "MASON" | translate }}</p>
+                    <h3>{{massonCurrTodayVisitTotal}}/{{massonTodayVisitTotal}}</h3>
+                    <i class="icon-next"></i>
+                </button>
+                <button ion-button color="light" (click)="goToTabPage(1)">
+                    <p>{{ "CONTRACTOR" | translate }}</p>
+                    <h3>{{contractorCurrTodayVisitTotal}}/{{contractorTodayVisitTotal}}</h3>
+                    <i class="icon-next"></i>
+                 </button>
+                <button ion-button color="light" (click)="goToTabPage(2)">
+                    <p>{{ "DISTRIBUTOR" | translate }}</p>
+                    <h3>{{distTodayCurrVisitTotal}}/{{distTodayVisitTotal}}</h3>
+                    <i class="icon-next"></i>
+                </button>
+                <button ion-button color="light" (click)="goToTabPage(3)">
+                    <p>{{ "RETAILER" | translate }}</p>
+                    <h3>{{retailerCurrTodayVisitTotal}}/{{retailerTodayVisitTotal}}</h3>
+                    <i class="icon-next"></i>
+                </button>
+            </div>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
+<ion-footer class="ntpr">
+    <div class="btn">
+        <button ion-button type="button" (click)="addProject()">
+            {{ "ADD PROJECT" | translate }}
+        </button>
+        <button ion-button type="button" (click)="addHPB()">
+            {{ "ADD PRIME BUILDER" | translate }}
+        </button>
+    </div>
+</ion-footer>

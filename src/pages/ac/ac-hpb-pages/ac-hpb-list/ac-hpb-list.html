@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-navbar>
+        <!--<ion-buttons class="backBtn">
+            <button ion-button>
+                <i class="icon-back"></i>
+            </button>
+        </ion-buttons>-->
+        <ion-buttons end>
+            <button ion-button (click)="goToHpbFilter()"> 
+                <i class="icon-filter"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ "DPB LIST" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content fullscreen="false" [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }">
+
+    <super-tabs [selectedTabIndex]="selectedIndex" (tabSelect)="onTabSelect($event)">
+        <super-tab [root]="page1" [rootParams]="paramsDataM" title="{{ 'MASON' | translate }}"></super-tab>
+        <super-tab [root]="page2" [rootParams]="paramsDataC" title="{{ 'CONTRACTOR' | translate }}"></super-tab>
+    </super-tabs>
+
+</ion-content>

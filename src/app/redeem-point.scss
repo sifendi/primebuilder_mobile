@@ -1,0 +1,105 @@
+.redeemBg {
+    background: $light-color;
+}
+
+.redeemPoint {
+    @include border-radius(0);
+    box-shadow: $inherit;
+    ul {
+        @include display-flex;
+        @include justify-content(space-between);
+    }
+    .rdPoint {
+        color: $dark-color;
+        font-size: $size - .2;
+        font-family: $fontMd;
+        @include media-query(560px) {
+            font-size: $size + .2;
+        }
+    }
+    .card-content {
+        .redeRpt {
+            &:last-child {
+                margin-bottom: $zero;
+            }
+        }
+    }
+    .redeRpt {
+        border-bottom: 2px $solid $checkout-btn;
+        padding-bottom: $size - .7;
+        margin-bottom: $size - .7;
+        ul {
+            .redeLeft {
+                width: $width90 - 14;
+                h3 {
+                    font-size: $size - .2;
+                    color: $login-color;
+                }
+                p {
+                    font-size: $size - .5;
+                    color: $dark-color;
+                }
+            }
+            .pointNum {
+                h4 {
+                    font-size: $size + .2;
+                    color: $dark-primary;
+                }
+            }
+            @include media-query(560px) {
+                .redeLeft {
+                    h3 {
+                        font-size: $size + .2;
+                    }
+                    p {
+                        font-size: $size - .2;
+                    }
+                }
+                .pointNum {
+                    h4 {
+                        font-size: $size + .6;
+                    }
+                }
+            }
+        }
+    }
+    .redeFixd {
+        padding: $zero $size - .6;
+        ul {
+            .pointNum {
+                h4 {
+                    color: $login-color;
+                }
+            }
+        }
+    }
+    .balPoint {
+        padding: $size - .7 $zero;
+        ul {
+            .redeLeft {
+                h3 {
+                    font-size: $size + .2;
+                    color: $dark-color;
+                }
+            }
+            .pointNum {
+                h4 {
+                    font-size: $size + .2;
+                    color: $dark-color;
+                }
+            }
+            @include media-query(560px) {
+                .redeLeft {
+                    h3 {
+                        font-size: $size + .6;
+                    }
+                }
+                .pointNum {
+                    h4 {
+                        font-size: $size + .6;
+                    }
+                }
+            }
+        }
+    }
+}

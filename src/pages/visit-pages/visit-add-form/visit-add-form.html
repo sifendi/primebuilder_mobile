@@ -1,0 +1,108 @@
+<ion-header>
+    <ion-navbar>
+
+        <ion-buttons end>
+            <button ion-button menuToggle>
+                 <i class="icon-menu"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{"VISIT FORM" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <form class="distributor">
+        <div class="userSpace">
+            <ion-list class="inputBox">
+                <div class="form_list">
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{ rdsData['rds_type']?rdsData['rds_type']:"-" }}:</ion-card-header>
+                        <ion-card-content>{{ rdsData['rds_name']?rdsData['rds_name']:"-" }}</ion-card-content>
+                    </ion-card>
+                    <ion-card class="cardRow">
+                        <ion-card-header>{{"VISIT DATE" | translate }}:</ion-card-header>
+                        <ion-card-content>{{ visitDate?visitDate:"-" }}</ion-card-content>
+                    </ion-card>
+                </div>
+            </ion-list>
+        </div>
+        <div class="userSpaceRepet">
+            <h2 class="labelHeading">{{"CURRENT STOCK DETAILS" | translate }}</h2>
+            <ion-list class="inputBox" *ngFor="let stockItem of currStockDetailArr; let i = index;trackBy:trackByIndex;">
+                <div class="deleBox"><span>Brand {{i+1}} </span><span *ngIf="this.currStockDetailArr.length>1" (click)="removeStockItem(i)"><i class="icon-Delete"></i></span></div>
+
+
+
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label stacked>{{ "BRAND" | translate }}*</ion-label> {{ currStockDetailArr[i].BrandName }}
+                        <!--<ion-select (ionChange)="onSelectProduct($event,i)" [(ngModel)]="currStockDetailArr[i].BrandName" #Product="ngModel" required [ngModelOptions]="{standalone: true}">-->
+                            <!--<ion-option value="{{ product['server_product_id'] }}" *ngFor="let product of productsArrDist">{{ product['product_name'] }}</ion-option>-->
+                            <ion-input  [(ngModel)]="currStockDetailArr[i].BrandName"  #Product="ngModel"  mbsc-select [mbsc-options]="mobiScollPRODSettings" [mbsc-data]="productsArrDist"  [ngModelOptions]="{standalone: true}" (ngModelChange)="onSelectProduct($event,i)" required></ion-input>
+                        <!--</ion-select>-->
+                    </ion-item>
+                </div>
+
+
+
+
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{"SELLING PRICE" | translate }}*</ion-label>
+                        <ion-input type="tel" placeholder="Ex: 60,000" class="input_item" [(ngModel)]="stockItem.StockSellingPrice" [ngModelOptions]="{standalone: true}" minlength="1" maxlength="10"></ion-input>
+                    </ion-item>
+                </div>
+
+
+
+              
+                <div class="rdIn" [class.disabledDiv]="currStockDetailArr[i]['unitArr'] == null || currStockDetailArr[i]['unitArr'] == undefined" >
+                    <ion-item class="inputLable">
+                        <ion-label stacked>{{ "TYPE OF PACKAGING" | translate }}*</ion-label>
+                        <!--<ion-select [(ngModel)]="currStockDetailArr[i].StockUnit" #Unit="ngModel" required [ngModelOptions]="{standalone: true}" [disabled]="!currStockDetailArr[i].disableUnitFlag">-->
+                            <!--<ion-option value="{{ unit['product_unit'] }}" *ngFor="let unit of currStockDetailArr[i]['unitArr']">{{ unit['product_unit'] }}</ion-option>--> 
+                            <ion-input  [(ngModel)]="currStockDetailArr[i].StockUnit" #Unit="ngModel"  mbsc-select [mbsc-options]="mobiScollUnitSettings" [mbsc-data]="currStockDetailArr[i]['unitArr']"  [ngModelOptions]="{standalone: true}" required></ion-input>
+                        <!--</ion-select>-->
+                    </ion-item>
+                </div>
+
+
+
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{"PROMOTION PROGRAM" | translate }}*</ion-label>
+                        <ion-input type="text" placeholder="Offer" class="input_item" [(ngModel)]="stockItem.StockPromo" [ngModelOptions]="{standalone: true}"></ion-input>
+                    </ion-item>
+                </div>
+
+
+
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{"QUANTITY STOCK" | translate }}*</ion-label>
+                        <ion-input type="tel" placeholder="Ex:1000" class="input_item" [(ngModel)]="stockItem.StockQuantity" [ngModelOptions]="{standalone: true}" minlength="1" maxlength="7"></ion-input>
+                    </ion-item>
+                </div>
+
+
+
+            </ion-list>
+
+            <button ion-button color="light" class="addMore" (click)="addMoreStockItem()">+ {{"ADD MORE" | translate }}</button>
+        </div>
+        <div class="userSpace">
+            <div class="comment_note">
+                <ion-list class="inputBox">
+                    <div class="rdIn">
+                        <h2 class="labelHeading">{{"NOTE" | translate }}</h2>
+                        <ion-item class="inputLable">
+                            <ion-textarea placeholder="Comment" class="textAarea" [(ngModel)]="additionalComments" [ngModelOptions]="{standalone: true}"></ion-textarea>
+                        </ion-item>
+                    </div>
+                </ion-list>
+            </div>
+            <div class="btn">
+                <button ion-button type="button" (click)="submit()">{{"SUBMIT" | translate }}</button>
+            </div>
+        </div>
+    </form>
+</ion-content>

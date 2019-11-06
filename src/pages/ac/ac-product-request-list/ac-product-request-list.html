@@ -1,0 +1,65 @@
+<ion-header>
+    <ion-navbar>
+           <ion-buttons end>
+            <button ion-button (click)="openProductRequestFilter()">
+                <i class="icon-filter"></i>
+            </button>
+        </ion-buttons>
+
+        <ion-title>{{ "PRODUCT REQUESTS LIST" | translate }}</ion-title>
+    </ion-navbar>
+    <ion-searchbar [(ngModel)]="myInput" placeholder="{{ 'SEARCH' | translate }}" (ionInput)="searchProductRequests($event)" name="searchbar"></ion-searchbar>
+    <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
+        <p>"{{ 'SEARCH BY' | translate }}" : {{ filterby }} </p>
+        <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
+            <i class="icon-close-thin"></i>
+        </button>
+    </div> 
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy,message:busyMessage, minDuration: 600}" [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-list class="listWrap">
+        <div *ngIf="productRequestAllData.length==0">
+            <h2 class="noData contMid">{{"NO REQUEST FOUND" | translate }}</h2>
+        </div>
+        <div class="itemWrap" *ngFor="let produtRequestListobj of productRequestAllData">
+            <ion-item class="listItem request" tappable (click)="goToRequestDetails(produtRequestListobj['id'])">
+                <div class="leftContent">
+                    <div class="mobileWrap">
+                        <div class="projectWrap">
+                            <p class="title">{{ "PROJECT NAME" | translate }}</p>
+                            <span class="value">{{produtRequestListobj['project']?produtRequestListobj['project']:"-"}}</span>
+                        </div>
+                        <div class="projectWrap">
+                            <p class="title">{{ "SPH NAME" | translate }}</p>
+                            <span class="value">{{produtRequestListobj['realm']?produtRequestListobj['realm']:"-"}}</span>
+                        </div>
+                        <div class="projectWrap">
+                            <p class="title">{{ "PERSON IN CHARGE" | translate }}</p>
+                            <span class="value">{{produtRequestListobj['pic_same_as_hpb']?produtRequestListobj['hpb_name']:produtRequestListobj['pic_name']}}</span>
+                        </div>
+                        <p class="title">{{ "QUANTITY" | translate }}: {{produtRequestListobj['quantity_required']?produtRequestListobj['quantity_required']:"-"}}</p>
+                        <p class="title">{{ "SUGGESTED PRICE" | translate }}: {{produtRequestListobj['new_price_request']?produtRequestListobj['new_price_request']:"-"}}</p>
+                    </div>
+                </div>
+                <span class="tag">{{produtRequestListobj['request_date']?appCom.timeStampToDate(produtRequestListobj['request_date']):"-"}}</span>
+                <i class="icon-next-thin checkIn"></i>
+
+                <span class="hpbStatus pColor" *ngIf="produtRequestListobj['product_request_status']==0 || produtRequestListobj['product_request_status']=='0'"><i class="icon-pending"></i>{{ "IN PROGRESS" | translate }}</span>
+                <span class="hpbStatus fColor" *ngIf="produtRequestListobj['product_request_status']==-1 || produtRequestListobj['product_request_status']=='-1'"><i class="icon-failed"></i>{{ "FAILED" | translate }}</span>
+                <span class="hpbStatus dColor" *ngIf="produtRequestListobj['product_request_status']==1 || produtRequestListobj['product_request_status']=='1'"><i class="icon-deal"></i>{{ "DEAL" | translate }}</span>
+
+            </ion-item>
+            <div class="filterTag resultbg" *ngIf="produtRequestListobj['product_request_status']==-1 || produtRequestListobj['product_request_status']=='-1'">
+                <p class="resultRes">{{ "REASON" | translate }}:</p>
+                <p>{{produtRequestListobj['product_request_status_remark']?produtRequestListobj['product_request_status_remark']:"-"}}</p>
+            </div>
+        </div>
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="!dataLoadCompleted">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,510 @@
+<!--
+Generated template for the addHpbFormPage page.
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<!-- <ion-header>
+<ion-navbar>
+<button ion-button menuToggle end>
+<ion-icon class="icon-menu" Name="menu"></ion-icon>
+</button>
+<ion-title>DPB Registration Form</ion-title>
+</ion-navbar>
+</ion-header> -->
+<ion-header>
+    <ion-navbar>
+        <!--<ion-buttons class="backBtn">
+            <button ion-button>
+                <i class="icon-back"></i>
+            </button>
+        </ion-buttons>-->
+        <ion-buttons end>
+            <button ion-button menuToggle>
+                <i class="icon-menu"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ pageTitle }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <div class="create_profile">
+        <div class="profile_container">
+            <div class="profile_img">
+                <div class="btn" (click)="openSelectCameraPop($event,'profile_pic')">
+                    <button ion-button type="button">
+                        <img [src]="profimagePath" alt="">
+                    </button>
+                    <i class="icon-Camera"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="profimagePath == 'assets/img/user_create.png' && (submitted)" class="centre alert alert-danger error">
+        <p>
+            {{ "PROFILE PIC IS REQUIRED" | translate }}
+        </p>
+    </div>
+    <form class="userForm">
+        <div class="checkButton">
+            <h2 class="labelHeading">{{ "PB TYPE" | translate }}*</h2>
+            <div class="rdIn" [(ngModel)]="HpbData.HpbType" #HpbType="ngModel" required [ngModelOptions]="{standalone: true}" radio-group>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "MASON" | translate }}</ion-label>
+                    <ion-radio value="mason" (click)="onSelectHpbTypeChange('mason')"></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "CONTRACTOR" | translate }}</ion-label>
+                    <ion-radio value="contractor" (click)="onSelectHpbTypeChange('contractor')"></ion-radio>
+                </ion-item>
+            </div>
+            <div *ngIf="HpbType.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!HpbType.errors.required">
+                    {{ "DPB TYPE IS REQUIRED" | translate }}
+                </p>
+            </div>
+        </div>
+        <ion-list class="inputBox">
+            <h2 class="labelHeading">{{ "PERSONAL DETAILS" | translate }}</h2>
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "NAME" | translate }}*</ion-label>
+                    <ion-input type="text" placeholder="Full Name" class="input_item" [(ngModel)]="HpbData.HpbName" #HpbName="ngModel" required [ngModelOptions]="{standalone: true}" minlength="4" maxlength="100" pattern="^[^-\s][a-zA-Z '\s-]+$"></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="HpbName.errors && (HpbName.dirty || HpbName.touched || submitted)" class="alert alert-danger error">
+                <p [hidden]="!HpbName.errors.required">
+                    {{ "NAME IS REQUIRED" | translate }}
+                </p>
+                <p [hidden]="!HpbName.errors.minlength">
+                    {{ "NAME MUST BE AT LEAST 4 CHARACTERS LONG." | translate }}
+                </p>
+                <p [hidden]="!HpbName.errors.maxlength">
+                    {{ "NAME CANNOT BE MORE THAN 100 CHARACTERS LONG." | translate }}
+                </p>
+            </div>
+            <div *ngIf=" HpbData.HpbName != '' && HpbData.HpbName != undefined ">
+                <div *ngIf="( HpbData.HpbName.trim() == '' || HpbData.HpbName.trim() == undefined) && (HpbName.dirty || HpbName.touched || submitted) " class="alert alert-danger error">
+                    <p [hidden]="( HpbData.HpbName.trim() != '' )">
+                        {{ " PLEASE ENTER A VALID NAME." | translate }}
+                    </p>
+                </div>
+            </div>
+
+
+
+
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating> {{ "ID CARD NO." | translate }}*</ion-label>
+                    <ion-input type="tel" placeholder="Check your ID card" class="input_item" [(ngModel)]="HpbData.IdCardNumber" #IdCardNumber="ngModel" required [ngModelOptions]="{standalone: true}" pattern="[0-9]+" maxlength="50"></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="IdCardNumber.errors && (IdCardNumber.dirty || IdCardNumber.touched || submitted)" class="alert alert-danger error">
+                <p [hidden]="!IdCardNumber.errors.required">
+                    {{ "ID CARD NO. IS REQUIRED" | translate }}
+                </p>
+                <p [hidden]="!IdCardNumber.errors.pattern">
+                    {{ "ID CARD NO. IS INVALID" | translate }}
+                </p>
+            </div>
+            <!--<div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>ID Card Address*</ion-label>
+                    <!--<ion-input type="" placeholder="" class="input_item" [(ngModel)]="HpbData.IdCardAddress" #IdCardAddress="ngModel" required [ngModelOptions]="{standalone: true}"></ion-input>-->
+            <!--<ion-textarea fz-elastic class="textAarea" [(ngModel)]="HpbData.IdCardAddress" #IdCardAddress="ngModel" required [ngModelOptions]="{standalone: true}"></ion-textarea>
+            </ion-item>
+            </div>
+            <div *ngIf="IdCardAddress.errors && (IdCardAddress.dirty || IdCardAddress.touched || submitted)" class="alert alert-danger error">
+                <p [hidden]="!IdCardAddress.errors.required">
+                    ID Card Address is required
+                </p>
+            </div>-->
+
+            <div class="rdIn locate_btn">
+                <!--<div class="loaderSpinner" [hidden]="!hideLocate">
+                    <ion-spinner name="bubbles"></ion-spinner>
+                </div>-->
+                <!--<div [hidden]="hideLocate" class="locateWrap">-->
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "ID CARD ADDRESS" | translate }}*</ion-label>
+                    <ion-textarea fz-elastic row="1" class="textAarea" [(ngModel)]="HpbData.IdCardAddress" #IdCardAddress="ngModel" required [ngModelOptions]="{standalone: true}"></ion-textarea>
+                </ion-item>
+                <button ion-button (click)="getAddress()">{{ "LOCATE" | translate }} <i class="icon-location"></i></button>
+                <!--</div>-->
+            </div>
+            <div *ngIf="IdCardAddress.errors && (IdCardAddress.dirty || IdCardAddress.touched || submitted)" class="alert alert-danger error">
+                <p [hidden]="!IdCardAddress.errors.required">
+                    {{ "ID CARD ADDRESS IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "POSTAL CODE" | translate }}*</ion-label>
+                    <ion-select (ionChange)="addressDataFiltersF($event,'postalcode')" [(ngModel)]="HpbData.IdCardPincode" #IdCardPincode="ngModel" required [ngModelOptions]="{standalone: true}">
+                        <ion-option *ngFor="let pcode of postalCodeArrF" value="{{pcode}}">{{pcode}}</ion-option>
+                    </ion-select>
+                    <!--<ion-input  [(ngModel)]="HpbData.IdCardPincode" mbsc-select  #IdCardPincode="mobiscroll"  required [ngModelOptions]="{standalone: true}"   ></ion-input>
+               -->
+                </ion-item>
+            </div>
+            <div *ngIf="IdCardPincode.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!IdCardPincode.errors.required">
+                    {{ "POSTAL CODE IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating> {{ "PROVINCE" | translate }}*</ion-label>
+                    <ion-select (ionChange)="addressDataFiltersF($event,'province')" [(ngModel)]="HpbData.IdCardProvince" #IdCardProvince="ngModel" required [ngModelOptions]="{standalone: true}">
+                        <ion-option *ngFor="let provName of provinceArrF" value="{{provName}}">{{provName}}</ion-option>
+                    </ion-select>
+                    <!--<ion-input  [(ngModel)]="HpbData.IdCardProvince" mbsc-select  #IdCardProvince="mobiscroll"  required [ngModelOptions]="{standalone: true}"   ></ion-input>
+              -->
+                </ion-item>
+            </div>
+            <div *ngIf="IdCardProvince.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!IdCardProvince.errors.required">
+                    {{ "PROVINCE IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating> {{ "CITY / MUNICIPALITY" | translate }}*</ion-label>
+                    <ion-select (ionChange)="addressDataFiltersF($event,'citykabname')" [(ngModel)]="HpbData.IdCardCity" #IdCardCity="ngModel" required [ngModelOptions]="{standalone: true}">
+                        <ion-option *ngFor="let muni of municipalityArrF" value="{{muni}}">{{muni}}</ion-option>
+                    </ion-select>
+                    <!--<ion-input  [(ngModel)]="HpbData.IdCardCity" mbsc-select  #IdCardCity="mobiscroll"  required [ngModelOptions]="{standalone: true}"   ></ion-input>
+               -->
+                </ion-item>
+            </div>
+            <div *ngIf="IdCardCity.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!IdCardCity.errors.required">
+                    {{ "CITY / MUNICIPALITY IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "SUB DISTRICT" | translate }}*</ion-label>
+                    <ion-select (ionChange)="addressDataFiltersF($event,'subdistrict')" [(ngModel)]="HpbData.IdCardSubDistrict" #IdCardSubDistrict="ngModel" required [ngModelOptions]="{standalone: true}">
+                        <ion-option *ngFor="let subd of subDistrictArrF" value="{{subd}}">{{subd}}</ion-option>
+                    </ion-select>
+                    <!--<ion-input  [(ngModel)]="HpbData.IdCardSubDistrict" mbsc-select  #IdCardSubDistrict="mobiscroll"  required [ngModelOptions]="{standalone: true}"   ></ion-input>
+               -->
+                </ion-item>
+            </div>
+            <div *ngIf="IdCardSubDistrict.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!IdCardSubDistrict.errors.required">
+                    {{ "SUB DISTRICT IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <div class="rdIn">
+                <div class="photoAdd">
+                    <h2 class="labelHeading">{{ "ID CARD PHOTO" | translate }}*</h2>
+                    <!--<ng-template *ngIf="idCardPhotoObj.length > 1">-->
+                    <div class="id_photos">
+                        <div class="id_items" text-right *ngFor="let image of idCardPhotoObj; let i = index;">
+                            <img [src]="image" alt="">
+                            <button ion-button color="light" class="close_btn" (click)="removeIdCardImage(i)">
+                                <i class="icon-close-thin"></i>
+                            </button>
+                        </div>
+                        <div class="id_items upload" text-center (click)="openSelectCameraPop($event,'id_card_photo')">
+                            <button ion-button color="light" class="upload_btn">
+                                <i class="icon-Camera"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!--</ng-template>-->
+                </div>
+                <div *ngIf=" (idCardPhotoObj ==undefined || idCardPhotoObj =='') && (submitted) " class="alert alert-danger error">
+                    <p>{{ "ID CARD PHOTO IS REQUIRED" | translate }}</p>
+                </div>
+            </div>
+            <div class="same_add">
+                <div class="rdIn">
+                    <div class="same_item">
+                        <ion-item>
+                            <ion-label>{{ "SAME AS ABOVE" | translate }}</ion-label>
+                            <ion-checkbox color="dark" checked="0" [(ngModel)]="HpbData.DomicileSameAsIdCard" #DomicileSameAsIdCard="ngModel" [ngModelOptions]="{standalone: true}" (ionChange)="copyAddress()" [disabled]=" !(IdCardAddress.valid && IdCardProvince.valid && IdCardCity.valid && IdCardSubDistrict.valid && IdCardPincode.valid) "></ion-checkbox>
+                        </ion-item>
+                    </div>
+                </div>
+                <div class="rdIn">
+                    <div class="same_above">
+                        <ion-item class="inputLable">
+                            <ion-label floating>{{ "DOMICILE ADDRESS" | translate }}*</ion-label>
+                            <!--<ion-input type="text" placeholder="" class="input_item" [(ngModel)]="HpbData.DomicileAddress" #DomicileAddress="ngModel" required [ngModelOptions]="{standalone: true}" [disabled]="disableDomicileAddrFlag"></ion-input>-->
+                            <ion-textarea fz-elastic class="textAarea" [(ngModel)]="HpbData.DomicileAddress" #DomicileAddress="ngModel" required [ngModelOptions]="{standalone: true}" [disabled]="disableDomicileAddrFlag"></ion-textarea>
+                        </ion-item>
+                    </div>
+                </div>
+                <div *ngIf="DomicileAddress.errors && (DomicileAddress.dirty || DomicileAddress.touched || submitted)" class="alert alert-danger error">
+                    <p [hidden]="!DomicileAddress.errors.required">
+                        {{ "DOMICILE ADDRESS IS REQUIRED" | translate }}
+                    </p>
+                </div>
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "POSTAL CODE" | translate }}*</ion-label>
+                        <ion-select (ionChange)="addressDataFiltersS($event,'postalcode')" [(ngModel)]="HpbData.DomicilePincode" #DomicilePincode="ngModel" required [ngModelOptions]="{standalone: true}" [disabled]="disableDomicileAddrFlag">
+                            <ion-option *ngFor="let pcodeS of postalCodeArrS" value="{{pcodeS}}">{{pcodeS}}</ion-option>
+                        </ion-select>
+                        <!--<ion-input  [(ngModel)]="HpbData.DomicilePincode" mbsc-select  #DomicilePincode="mobiscroll"  required [ngModelOptions]="{standalone: true}"   ></ion-input>
+                    -->
+                    </ion-item>
+                </div>
+                <div *ngIf="DomicilePincode.errors && (submitted)" class="alert alert-danger error">
+                    <p [hidden]="!DomicilePincode.errors.required">
+                        {{ "POSTAL CODE IS REQUIRED" | translate }}
+                    </p>
+                </div>
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "PROVINCE" | translate }}*</ion-label>
+                        <ion-select (ionChange)="addressDataFiltersS($event,'province')" [(ngModel)]="HpbData.DomicileProvince" #DomicileProvince="ngModel" required [ngModelOptions]="{standalone: true}" [disabled]="disableDomicileAddrFlag">
+                            <ion-option *ngFor="let provNameS of provinceArrS" value="{{provNameS}}">{{provNameS}}</ion-option>
+                        </ion-select>
+                        <!--<ion-input  [(ngModel)]="HpbData.DomicileProvince" mbsc-select  #DomicileProvince="mobiscroll"  required [ngModelOptions]="{standalone: true}"   ></ion-input>
+                   -->
+                    </ion-item>
+                </div>
+                <div *ngIf="DomicileProvince.errors && (submitted)" class="alert alert-danger error">
+                    <p [hidden]="!DomicileProvince.errors.required">
+                        {{ "PROVINCE IS REQUIRED" | translate }}
+                    </p>
+                </div>
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "CITY / MUNICIPALITY" | translate }}*</ion-label>
+                        <ion-select [(ngModel)]="HpbData.DomicileCity" (ionChange)="addressDataFiltersS($event,'citykabname')" #DomicileCity="ngModel" required [ngModelOptions]="{standalone: true}" [disabled]="disableDomicileAddrFlag">
+                            <ion-option *ngFor="let muniS of municipalityArrS" value="{{muniS}}">{{muniS}}</ion-option>
+                        </ion-select>
+                        <!--<ion-input  [(ngModel)]="HpbData.DomicileCity" mbsc-select  #DomicileCity="mobiscroll"  required [ngModelOptions]="{standalone: true}"   ></ion-input>
+                   -->
+                    </ion-item>
+                </div>
+                <div *ngIf="DomicileCity.errors && (submitted)" class="alert alert-danger error">
+                    <p [hidden]="!DomicileCity.errors.required">
+                        {{ "CITY / MUNICIPALITY IS REQUIRED" | translate }}
+                    </p>
+                </div>
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "SUB DISTRICT" | translate }}*</ion-label>
+                        <ion-select (ionChange)="addressDataFiltersS($event,'subdistrict')" [(ngModel)]="HpbData.DomicileSubDistrict" #DomicileSubDistrict="ngModel" required [ngModelOptions]="{standalone: true}" [disabled]="disableDomicileAddrFlag">
+                            <ion-option *ngFor="let subdS of subDistrictArrS" value="{{subdS}}">{{subdS}}</ion-option>
+                        </ion-select>
+                        <!--<ion-input  [(ngModel)]="HpbData.DomicileSubDistrict" mbsc-select  #DomicileSubDistrict="mobiscroll"  required [ngModelOptions]="{standalone: true}"   ></ion-input>
+                   -->
+                    </ion-item>
+                </div>
+                <div *ngIf="DomicileSubDistrict.errors && (submitted)" class="alert alert-danger error">
+                    <p [hidden]="!DomicileSubDistrict.errors.required">
+                        {{ "SUB DISTRICT IS REQUIRED" | translate }}
+                    </p>
+                </div>
+            </div>
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "PRIMARY MOBILE NO." | translate }}*</ion-label>
+                    <ion-input type="tel" placeholder="E.g. 08292834234" class="input_item" [(ngModel)]="HpbData.MobileNo_1" #MobileNo_1="ngModel" required [ngModelOptions]="{standalone: true}" pattern="[0][0-9]+" minlength="10" maxlength="15"></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="MobileNo_1.errors && (MobileNo_1.dirty || MobileNo_1.touched || submitted)" class="alert alert-danger error">
+                <p [hidden]="!MobileNo_1.errors.required">
+                    {{ "PRIMARY MOBILE NO. IS REQUIRED" | translate }}
+                </p>
+                <p [hidden]="!MobileNo_1.errors.pattern">
+                    {{ "PRIMARY MOBILE NO. MUST START WITH 0." | translate }}
+                </p>
+                <p [hidden]="!MobileNo_1.errors.minlength">
+                    {{ "PRIMARY MOBILE NO. MUST BE AT LEAST 10 NUMBERS LONG." | translate }}
+                </p>
+                <p [hidden]="!MobileNo_1.errors.maxlength">
+                    {{ "PRIMARY MOBILE NO. CANNOT BE MORE THAN 15 NUMBERS LONG." | translate }}
+                </p>
+            </div>
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "SECONDARY MOBILE NO." | translate }}</ion-label>
+                    <ion-input type="tel" placeholder="E.g. 08292834235" class="input_item" [(ngModel)]="HpbData.MobileNo_2" #MobileNo_2="ngModel" [ngModelOptions]="{standalone: true}" pattern="[0][0-9]+" minlength="10" maxlength="15"></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="MobileNo_2.errors && (MobileNo_2.dirty || MobileNo_2.touched || submitted )" class="alert alert-danger error">
+                <p [hidden]="!MobileNo_2.errors.pattern">
+                    {{ "SECONDARY MOBILE NO. MUST START WITH 0." | translate }}
+                </p>
+                <p [hidden]="!MobileNo_2.errors.minlength">
+                    {{ "SECONDARY MOBILE NO. MUST BE AT LEAST 10 NUMBERS LONG." | translate }}
+                </p>
+                <p [hidden]="!MobileNo_2.errors.maxlength">
+                    {{ "SECONDARY MOBILE NO. CANNOT BE MORE THAN 15 NUMBERS LONG." | translate }}
+                </p>
+            </div>
+            <div *ngIf="MobileNo_2.value == MobileNo_1.value && (MobileNo_2.dirty || MobileNo_2.touched || submitted )" class="alert alert-danger error">
+                <p [hidden]="!( MobileNo_2.value == MobileNo_1.value )">
+                    {{ "PRIMARY AND SECONDARY MOBILE NO. SHOULD NOT BE SAME." | translate }}
+                </p>
+            </div>
+
+
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "EMAIL" | translate }}</ion-label>
+                    <ion-input type="email" placeholder="myid@mail.com" class="input_item" [(ngModel)]="HpbData.HpbEmail" #HpbEmail="ngModel" [ngModelOptions]="{standalone: true}" email></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="HpbEmail.errors && (HpbEmail.dirty || HpbEmail.touched || submitted)" class="alert alert-danger error">
+                <p *ngIf="HpbData.HpbEmail !=undefined && HpbData.HpbEmail !=''" [hidden]="!HpbEmail.errors.pattern && (HpbData.HpbEmail.trim() == null)">
+                    {{ "PLEASE ENTER A VALID EMAIL ID." | translate }}
+                </p>
+            </div>
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{ "PLACE OF BIRTH" | translate }}</ion-label>
+                    <ion-input type="text" placeholder="E.g. Jakarta" class="input_item" [(ngModel)]="HpbData.PlaceOfBirth" #PlaceOfBirth="ngModel" pattern="^[a-zA-Z ]*$" [ngModelOptions]="{standalone: true}"></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="PlaceOfBirth.errors && (PlaceOfBirth.dirty || PlaceOfBirth.touched || submitted)" class="alert alert-danger error">
+                <!--<p [hidden]="!PlaceOfBirth.errors.required">
+                    Place of Birth is required
+                </p>-->
+                <p *ngIf="HpbData.PlaceOfBirth !=undefined && HpbData.PlaceOfBirth !=''" [hidden]="!PlaceOfBirth.errors.pattern && (HpbData.PlaceOfBirth.trim() == null)">
+                    {{ "PLEASE ENTER A VALID PLACE." | translate }}
+                </p>
+            </div>
+            <div class="rdIn">
+                <div class="date_picker">
+                    <div class="date_list">
+                        <ion-item class="inputLable">
+                            <ion-label floating>{{ "DATE OF BIRTH" | translate }}</ion-label>
+                            <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="HpbData.DateOfBirth" #DateOfBirth="ngModel" [ngModelOptions]="{standalone: true}" max="{{MaxDate}}" min="{{MinDate}}"></ion-datetime>
+                            <!--<ion-input mbsc-date #DateOfBirth="mobiscroll" [(ngModel)]="HpbData.DateOfBirth" [ngModelOptions]="{standalone: true}"></ion-input>       
+                       -->
+                        </ion-item>
+                        <i tappable role="button" class="icon-arrow"></i>
+                    </div>
+                </div>
+            </div>
+            <!--<div *ngIf="DateOfBirth.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!DateOfBirth.errors.required">
+                    Date of Birth is required
+                </p>
+            </div>-->
+            <div class="companyInfo" *ngIf="HpbData.HpbType == 'contractor'">
+                <div class="rdIn ">
+                    <h2 class="labelHeading">{{ "COMPANY DETAIL" | translate }}</h2>
+                </div>
+                <div class="rdIn ">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "COMPANY NAME" | translate }}*</ion-label>
+                        <ion-input type="text" placeholder="E.g. Company Ltd." class="input_item" [(ngModel)]="HpbData.CompanyName" #CompanyName="ngModel" required [ngModelOptions]="{standalone: true}" minlength="2" maxlength="100"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="CompanyName.errors && (CompanyName.dirty || CompanyName.touched || submitted) " class="alert alert-danger error ">
+                    <p [hidden]="!CompanyName.errors.required">
+                        {{ "COMPANY NAME IS REQUIRED" | translate }}
+                    </p>
+                    <p [hidden]="!CompanyName.errors.minlength">
+                        {{ "COMPANY NAME MUST BE AT LEAST 2 CHARACTERS LONG." | translate }}
+                    </p>
+                    <p [hidden]="!CompanyName.errors.maxlength">
+                        {{ "COMPANY NAME CANNOT BE MORE THAN 100 CHARACTERS LONG." | translate }}
+                    </p>
+                    <!-- <p *ngIf="HpbData.CompanyName != undefined && HpbData.CompanyName != ''" [hidden]="(HpbData.CompanyName.trim()==null)">
+                        Please enter a valid Company Name.
+                    </p> -->
+                </div>
+                <div *ngIf=" HpbData.CompanyName != '' && HpbData.CompanyName != undefined ">
+                    <div *ngIf="( HpbData.CompanyName.trim() == '' || HpbData.CompanyName.trim() == undefined) && (CompanyName.dirty || CompanyName.touched || submitted) " class="alert alert-danger error">
+                        <p [hidden]="( HpbData.CompanyName.trim() != '' )">
+                            {{ "PLEASE ENTER A VALID COMPANY NAME." | translate }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rdIn ">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "COMPANY REPRESENTATIVE" | translate }}*</ion-label>
+                        <ion-input type="text " placeholder="Point of contact" class="input_item" [(ngModel)]="HpbData.CompanyRepresentativeName" #CompanyRepresentativeName="ngModel" required [ngModelOptions]="{standalone: true}" minlength="3" maxlength="100"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="CompanyRepresentativeName.errors && (CompanyRepresentativeName.dirty || CompanyRepresentativeName.touched || submitted) " class="alert alert-danger error ">
+                    <p [hidden]="!CompanyRepresentativeName.errors.required">
+                        {{ "REPRESENTATIVE NAME IS REQUIRED" | translate }}
+                    </p>
+                    <p [hidden]="!CompanyRepresentativeName.errors.minlength">
+                        {{ "REPRESENTATIVE NAME MUST BE AT LEAST 3 CHARACTERS LONG." | translate }}
+                    </p>
+                    <p [hidden]="!CompanyRepresentativeName.errors.maxlength">
+                        {{ "REPRESENTATIVE NAME CANNOT BE MORE THAN 100 CHARACTERS LONG." | translate }}
+                    </p>
+                    <p *ngIf="HpbData.CompanyRepresentativeName !=undefined && HpbData.CompanyRepresentativeName !=''" [hidden]="(HpbData.CompanyRepresentativeName.trim()==null)">
+                        {{ "PLEASE ENTER A VALID REPRESENTATIVE NAME." | translate }}
+                    </p>
+                </div>
+                <div *ngIf=" HpbData.CompanyRepresentativeName != '' && HpbData.CompanyRepresentativeName != undefined ">
+                    <div *ngIf="( HpbData.CompanyRepresentativeName.trim() == '' || HpbData.CompanyRepresentativeName.trim() == undefined) && (CompanyRepresentativeName.dirty || CompanyRepresentativeName.touched || submitted) " class="alert alert-danger error">
+                        <p [hidden]="( HpbData.CompanyRepresentativeName.trim() != '' )">
+                            {{ "PLEASE ENTER A VALID REPRESENTATIVE NAME." | translate }}
+                        </p>
+                    </div>
+                </div>
+
+
+
+
+                <div class="rdIn ">
+                    <ion-item class="inputLable">
+                        <ion-label floating>{{ "DESIGNATION" | translate }}</ion-label>
+                        <ion-input type="text" placeholder="E.g. Manager" class="input_item" [(ngModel)]="HpbData.CompanyDesignation" #CompanyDesignation="ngModel" [ngModelOptions]="{standalone: true}"></ion-input>
+                    </ion-item>
+                </div>
+            </div>
+        </ion-list>
+        <div class="checkButton project_stage">
+            <h2 class="labelHeading ">{{ "DPB STATUS" | translate }}*</h2>
+            <div class="rdIn" [(ngModel)]="HpbData.HpbStatus" #HpbStatus="ngModel" required [ngModelOptions]="{standalone: true}" radio-group>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "PROSPECT" | translate }}</ion-label>
+                    <ion-radio value="prospect"></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "SWITCHING" | translate }}</ion-label>
+                    <ion-radio value="switching"></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{ "MAINTAIN" | translate }}</ion-label>
+                    <ion-radio value="maintain"></ion-radio>
+                </ion-item>
+            </div>
+            <div *ngIf="HpbStatus.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!HpbStatus.errors.required">
+                    {{ "DPB STATUS IS REQUIRED" | translate }}
+                </p>
+            </div>
+        </div>
+        <div class="comment_note">
+            <ion-list class="inputBox">
+                <div class="rdIn ">
+                    <h2 class="labelHeading">{{ "NOTE" | translate }}</h2>
+                    <ion-item class="inputLable">
+                        <ion-textarea fz-elastic placeholder="Comment" class="textAarea" [(ngModel)]="HpbData.AdditionalComments" #AdditionalComments="ngModel" [ngModelOptions]="{standalone: true}"></ion-textarea>
+                    </ion-item>
+                </div>
+            </ion-list>
+        </div>
+        <div class="digital_sign_img" *ngIf="digitalSignPath !=undefined && digitalSignPath !=''">
+            <img [src]="digitalSignPath" alt="">
+        </div>
+        <div class="btn digital_sign">
+            <button ion-button type="button" (click)="getSignature()">{{ "HPB SIGNATURE" | translate }}*</button>
+        </div>
+        <div *ngIf=" (digitalSignPath ==undefined || digitalSignPath =='') && (submitted) " class="alert alert-danger error">
+            <p>{{ "SIGNATURE IS REQUIRED" | translate }}</p>
+        </div>
+        <div class="btn">
+            <button ion-button type="button" (click)="submitHpbForm()">{{ "SUBMIT" | translate }}</button>
+        </div>
+    </form>
+</ion-content>

@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ "DPB NAME" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}" class="hpbTabs">
+
+    <super-tabs [selectedTabIndex]="selectedIndex">
+        <super-tab [root]="page1" [rootParams]="paramsData" title=" {{ 'DETAILS' | translate }} "></super-tab>
+        <super-tab [root]="page2" [rootParams]="paramsData" title=" {{ 'PROJECTS' | translate }}"></super-tab>
+        <super-tab [root]="page3" [rootParams]="paramsData" title=" {{ 'RECEIPTS' | translate }}"></super-tab>
+        <super-tab [root]="page4" [rootParams]="paramsData" title=" {{ 'REQUESTS' | translate }}"></super-tab>
+    </super-tabs>
+
+
+</ion-content>

@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ "DUTA HOLCIM LEADS" | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <i class="icon-menu"></i>
+      </button>
+      <!-- <button ion-button (click)="openSearch()">
+                <i class="icon-search"></i>
+            </button> -->
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, minDuration: 600}">
+  <ion-list class="listWrap">
+    <div *ngIf="projCustListObjArrs.length==0">
+      <h2 class="noData contMid">{{"NO DATA FOUND" | translate }}</h2>
+    </div>
+    <div class="itemWrap" *ngFor="let projCustListObj of projCustListObjArrs">
+      <ion-item class="listItem receipt" (click)="goToDetails(projCustListObj['lead_id'])">
+        <ion-avatar item-left *ngIf="!projCustListObj?.lead_photos?.length>0">
+          <img src="assets/images/user_create.png">
+        </ion-avatar>
+        <ion-avatar item-left *ngIf="projCustListObj?.lead_photos?.length>0">
+          <img [src]="projCustListObj?.lead_photos[0]?.path" *ngIf="projCustListObj?.lead_photos[0]?.path">
+        </ion-avatar>
+        <div class="leftContent">
+          <div class="projectWrap">
+            <p class="title">{{ "EMPLOYEE NAME" | translate }}</p>
+            <span class="value">{{projCustListObj['created_by_name']?projCustListObj.created_by_name:"-"}}</span>
+          </div>
+          <div class="projectWrap">
+            <p class="title">{{ "CUSTOMER NAME" | translate }}</p>
+            <span class="value">{{projCustListObj['lead_name']?projCustListObj.lead_name:"-"}}</span>
+          </div>
+          <div class="projectWrap">
+            <p class="title">{{ "CUSTOMER MOBILE NO." | translate }}*</p>
+            <span class="value inline">{{projCustListObj['lead_mobile']?projCustListObj.lead_mobile:"-"}}</span>
+            <!-- <button ion-button color="light">
+                            <i class="icon-call"></i>
+                        </button> -->
+          </div>
+          <div class="projectWrap">
+            <p class="title">{{ "CUSTOMER SEGMENT" | translate }}</p>
+            <span class="value">{{projCustListObj['segmentDetail']?projCustListObj.segmentDetail[0].segment_name:"-"}}</span>
+          </div>
+          <div class="projectWrap">
+            <p class="title">{{ "CITY / MUNICIPALITY" | translate }}</p>
+            <span class="value">{{projCustListObj['lead_city']?projCustListObj.lead_city:"-"}}</span>
+          </div>
+          <div class="projectWrap">
+            <p class="title">{{ "STATUS" | translate }}</p>
+            <span class="value">{{projCustListObj['lead_status']?projCustListObj.lead_status:"-"}}</span>
+          </div>
+        </div>
+        <i class="icon-Next checkIn"></i>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

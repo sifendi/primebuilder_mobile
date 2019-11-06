@@ -1,0 +1,286 @@
+ion-header {
+    background: $white-color;
+}
+
+.header {
+    .toolbar {
+        .toolbar-background {
+            border-width: $zero !important;
+        }
+    }
+    .title {
+        @include transformY;
+        font-family: $fontMd;
+        text-align: $center;
+        z-index: 1;
+        left: $zero;
+        width: $width90 - 10;
+        padding: $zero $size - 1;
+        margin: 0 auto;
+        right: $zero;
+        .toolbar-title {
+            padding: $zero;
+            color: $white-color;
+            font-size: $size - .4;
+        }
+    }
+    .bar-buttons {
+        .bar-button {
+            float: $left;
+            margin: $zero $size - 1.7;
+            color: $white-color;
+            @include media-query(400px) {
+                height: $auto;
+                margin: $zero $size - 1.7;
+            }
+            .button-inner {
+                i {
+                    color: $white-color;
+                    @include media-query(480px) {
+                        line-height: 1.5;
+                    }
+                    @include media-query(560px) {
+                        line-height: 1.2;
+                    }
+                }
+            }
+        }
+    }
+    .iconLeft {
+        .logo {
+            background: url("../assets/images/logo.png") no-repeat $center top;
+            display: $block;
+            background-size: 98% 98%;
+            @include border-radius(0);
+            padding: $zero;
+            margin: $zero;
+            @include media-query(320px) {
+                width: 74px;
+                height: 34px;
+            }
+            @include media-query(400px) {
+                width: 98px;
+                height: 42px;
+            }
+            @include media-query(560px) {
+                width: 147px;
+                height: 63px;
+            }
+        }
+    }
+    .back-button {
+        min-width: $inherit !important;
+        margin: $zero;
+        padding: $zero;
+        z-index: 999;
+        padding-left: $size - 1;
+        ion-icon {
+            font-size: $size + .4;
+            color: $white-color;
+            @include media-query(560px) {
+                font-size: $size + 2;
+            }
+        }
+        @include media-query(560px) {
+            height: 44px;
+        }
+    }
+    .mech-back.searchBut {
+        box-shadow: $none;
+        transition: $none;
+        @include media-query(560px) {
+            margin-top: $size - .5;
+        }
+        ion-icon {
+            font-size: $size + .5;
+            @include media-query(560px) {
+                font-size: $size + 2;
+            }
+        }
+    }
+    .ion-ios-arrow-back {
+        @include media-query(560px) {
+            font-size: $size + 2.4;
+        }
+    }
+    &.proAvatar {
+        .toolbar {
+            @include media-query(560px) {
+                height: 9.2rem;
+            }
+            min-height: $size * 4;
+            .toolbar-background {
+                background: $dark-primary;
+            }
+            .navProfile {
+                .item {
+                    padding: $zero $zero $zero $size - 1.4;
+                    background: $transparent;
+                    ion-avatar {
+                        margin: $zero $size - 1 $zero $zero;
+                        @include media-query(560px) {
+                            img {
+                                width: 60px;
+                                height: 60px;
+                            }
+                        }
+                    }
+                    .item-inner {
+                        padding: $zero;
+                        border-bottom: $zero;
+                        .label {
+                            text-overflow: $inherit;
+                            white-space: $inherit;
+                            margin: $zero;
+                            h3 {
+                                color: $white-color;
+                                font-size: $size - .4;
+                                text-transform: $inherit;
+                                @include media-query(560px) {
+                                    font-size: $size + .5;
+                                }
+                            }
+                            p {
+                                color: $white-color;
+                                text-decoration: underline;
+                                @include media-query(560px) {
+                                    font-size: $size;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @include media-query(560px) {
+        .toolbar {
+            min-height: 9.2rem;
+        }
+        .title {
+            .toolbar-title {
+                font-size: $size + .8;
+                top: $size;
+            }
+        }
+        .icon-Close {
+            font-size: $size + 1;
+        }
+        .ion-md-sync {
+            font-size: $size * 2 $important;
+        }
+    }
+}
+
+.has-refresher>.scroll-content {
+    border: $inherit;
+}
+
+.toolbar-content {
+    ion-title {
+        font-family: $fontMd;
+        text-align: $left;
+        width: $width90 - 6;
+    }
+}
+
+
+/** Search Bar ***/
+
+.searchbar {
+    background: #f7f7f7;
+    border-bottom: 1px $solid #e9e9e9;
+    .searchbar-search-icon {
+        left: $auto;
+        right: $size - .4;
+    }
+    .searchbar-input {
+        @include border-radius(100px);
+        border: 1px $solid #dedede;
+        padding-top: $size - 1.7;
+        padding-bottom: $size - 1.7;
+    }
+}
+
+.filterTag {
+    background: #f7f7f7;
+    border-bottom: 1px $solid #e9e9e9;
+    position: $relative;
+    padding: $size - 1;
+    p {
+        color: #666;
+    }
+    .closeStyle {
+        position: $absolute;
+        top: $size - 1.5;
+        right: $size - 1.5;
+    }
+}
+
+
+/** Search Bar End ***/
+
+.listWrap {
+    .listItem {
+        border-bottom: 1px $solid #efefef;
+        padding-left: $zero;
+        ion-avatar {
+            margin: $size - 1 $size - 1 $size - .5 $size - .5;
+        }
+        h2 {
+            color: #333;
+        }
+        .item-inner {
+            border-bottom: $none;
+            .label {
+                margin-top: $size - .5;
+                margin-bottom: $size - .5;
+                .mobileWrap {
+                    position: $relative;
+                    .title {
+                        font-size: $size - .8;
+                    }
+                    .value {
+                        font-size: $size - .4;
+                    }
+                    i {
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.header {
+    .seleRole {
+        // padding: $zero $size;
+        background: #262626;
+        margin: $zero;
+        .list {
+            margin-bottom: $zero;
+        }
+        .inputLable {
+            .select {
+                width: $width90 + 10;
+                max-width: $width90 + 10;
+                .select-text {
+                    color: $white-color;
+                }
+            }
+        }
+        .item.item-block {
+            border-bottom: $zero;
+            height: $auto;
+            .label {
+                color: $white-color;
+            }
+            .select {
+                background: #464646;
+            }
+        }
+    }
+}
+
+
+/* language selector End */

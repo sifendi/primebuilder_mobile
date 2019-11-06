@@ -1,0 +1,271 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button menuToggle>
+                <i class="icon-menu"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ pageTitle.toString().toUpperCase() | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+    <form class="userForm">
+        <ion-list class="inputBox">
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{"PROJECT NAME" | translate }}*</ion-label>
+                    <ion-input type="text" placeholder="{{ 'E.G. TOLL ROAD' | translate }}" class="input_item" [(ngModel)]="projData.ProjectName" #ProjectName="ngModel" required [ngModelOptions]="{standalone: true}" minlength="4" maxlength="100"></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="ProjectName.errors && (ProjectName.dirty || ProjectName.touched || submitted)" class="alert alert-danger error">
+                <p [hidden]="!ProjectName.errors.required">
+                    {{"NAME IS REQUIRED" | translate }}
+                </p>
+                <p [hidden]="!ProjectName.errors.minlength">
+                    {{"NAME MUST BE AT LEAST 4 CHARACTERS LONG" | translate }}
+                </p>
+                <p [hidden]="!ProjectName.errors.maxlength">
+                    {{"NAME CANNOT BE MORE THAN 100 CHARACTERS LONG" | translate }}
+                </p>
+            </div>
+            <div *ngIf=" projData.ProjectName != '' && projData.ProjectName != undefined ">
+                <div *ngIf="( projData.ProjectName.trim() == '' || projData.ProjectName.trim() == undefined) && (ProjectName.dirty || ProjectName.touched || submitted) " class="alert alert-danger error">
+                    <p [hidden]="( projData.ProjectName.trim() != '' )">
+                        {{"INVALID NAME" | translate }}
+                    </p>
+                </div>
+            </div>
+            <div class="rdIn">
+                <div class="date_picker">
+                    <div class="date_list">
+                        <ion-item class="inputLable">
+                            <ion-label stacked>{{"COMPLETION DATE" | translate }}*</ion-label>
+                            <!-- <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="projData.ProjectCompletionDate" #completionDateObj #ProjectCompletionDate="ngModel" [ngModelOptions]="{standalone: true}" min="{{MinDate}}" max="{{ MaxDate }}" required></ion-datetime> -->
+                            <ion-input [(ngModel)]="projData.ProjectCompletionDate" #ProjectCompletionDateMob="mobiscroll" #ProjectCompletionDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsG" required></ion-input>
+
+                        </ion-item>
+                        <i tappable role="button" class="icon-arrow"></i>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="(submitted)" class="alert alert-danger error">
+                <p [hidden]="projData.ProjectCompletionDate">
+                    {{"PROJECT COMPLETION DATE IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <div class="rdIn" [class.disabledDiv]="updateFlag">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{"CEMENT ESTIMATION" | translate }}*</ion-label>
+                    <ion-input type="tel" placeholder="{{ 'E.G. 1000 ton' | translate }}" class="input_item" pattern="^[1-9][0-9]*$" [(ngModel)]="projData.ProjectQuantityEstimation" #ProjectQuantityEstimation="ngModel" [ngModelOptions]="{standalone: true}" maxlength="10" required></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="ProjectQuantityEstimation.errors && (ProjectQuantityEstimation.dirty || ProjectQuantityEstimation.touched || submitted)" class="alert alert-danger error">
+                <p [hidden]="!ProjectQuantityEstimation.errors.required">
+                    {{"CEMENT ESTIMATION IS REQUIRED" | translate }}
+                </p>
+                <p *ngIf="projData.ProjectQuantityEstimation != undefined && projData.ProjectQuantityEstimation != ''" [hidden]="!ProjectQuantityEstimation.errors.pattern && (projData.ProjectQuantityEstimation.trim() == null || parseInt(projData.ProjectQuantityEstimation) < 1 ) ">
+
+                    {{"PLEASE ENTER A VALID ESTIMATION" | translate }}
+                </p>
+            </div>
+            <div class="rdIn locate_btn">
+                <ion-item class="inputLable">
+                    <ion-label floating>{{"ADDRESS" | translate }}*</ion-label>
+                    <ion-textarea fz-elastic class="textAarea" [(ngModel)]="projData.ProjectAddress" #ProjectAddress="ngModel" required [ngModelOptions]="{standalone: true}"></ion-textarea>
+                </ion-item>
+                <button ion-button *ngIf="showLocateBtn" (click)="getAddress()">{{"LOCATE" | translate }} <i class="icon-location"></i></button>
+            </div>
+            <div *ngIf="ProjectAddress.errors && (ProjectAddress.dirty || ProjectAddress.touched || submitted)" class="alert alert-danger error">
+                <p [hidden]="!ProjectAddress.errors.required">
+                    {{"ADDRESS IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <div *ngIf=" projData.ProjectAddress != '' && projData.ProjectAddress != undefined ">
+                <div *ngIf="( projData.ProjectAddress.trim() == '' || projData.ProjectAddress.trim() == undefined) && (ProjectAddress.dirty || ProjectAddress.touched || submitted) " class="alert alert-danger error">
+                    <p [hidden]="( projData.ProjectAddress.trim() != '' )">
+                        {{"INVALID ADDRESS" | translate }}
+                    </p>
+                </div>
+            </div>
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{"POSTAL CODE" | translate }}*</ion-label>
+                    <!--<ion-select (ionChange)="addressDataFiltersF($event,'postalcode')" [(ngModel)]="projData.ProjectPincode" #ProjectPincode="ngModel" [ngModelOptions]="{standalone: true}" required>
+                        <ion-option *ngFor="let pcode of postalCodeArrF" value="{{pcode}}">{{pcode}}</ion-option>
+                    </ion-select>-->
+
+                    <ion-input [(ngModel)]="projData.ProjectPincode" mbsc-select [mbsc-options]="mobiScollProjectPincodeSettings" [mbsc-data]="postalCodeArrF" #ProjectPincode="ngModel" #pincodeMob="mobiscroll" required [ngModelOptions]="{standalone: true}"></ion-input>
+
+                </ion-item>
+            </div>
+            <div *ngIf="ProjectPincode.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!ProjectPincode.errors.required">
+                    {{"POSTAL CODE IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <div class="rdIn" [class.disabledDiv]="projData.ProjectPincode && projData.ProjectPincode!='' ">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{"PROVINCE" | translate }}*</ion-label>
+                    <!--<ion-select [(ngModel)]="projData.ProjectProvince" (ionChange)="addressDataFiltersF($event,'province')" #ProjectProvince="ngModel" [ngModelOptions]="{standalone: true}" required>
+                        <ion-option *ngFor="let provName of provinceArrF" value="{{provName}}">{{provName}}</ion-option>
+                    </ion-select>-->
+                    <ion-input [(ngModel)]="projData.ProjectProvince" mbsc-select [mbsc-options]="mobiScollProjectProvinceSettings" [mbsc-data]="provinceArrF" #ProjectProvince="ngModel" #ProvinceMob="mobiscroll" required [ngModelOptions]="{standalone: true}"></ion-input>
+
+                </ion-item>
+            </div>
+            <div *ngIf="ProjectProvince.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!ProjectProvince.errors.required">
+                    {{"PROVINCE IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <div class="rdIn" [class.disabledDiv]="(projData.ProjectPincode && projData.ProjectPincode!='') || (projData.ProjectProvince==null || projData.ProjectProvince=='' || !projData.ProjectProvince)">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{"CITY / MUNICIPALITY" | translate }}*</ion-label>
+                    <!--<ion-select (ionChange)="addressDataFiltersF($event,'citykabname')" [(ngModel)]="projData.ProjectCity" #ProjectCity="ngModel" [ngModelOptions]="{standalone: true}" required>
+                        <ion-option *ngFor="let muni of municipalityArrF" value="{{muni}}">{{muni}}</ion-option>
+                    </ion-select>-->
+                    <ion-input [(ngModel)]="projData.ProjectCity" mbsc-select [mbsc-options]="mobiScollProjectCitySettings" [mbsc-data]="municipalityArrF" #ProjectCity="ngModel" #CityMob="mobiscroll" required [ngModelOptions]="{standalone: true}"></ion-input>
+
+                </ion-item>
+            </div>
+            <div *ngIf="ProjectCity.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!ProjectCity.errors.required">
+                    {{"CITY / MUNICIPALITY IS REQUIRED" | translate }}.
+                </p>
+            </div>
+            <div class="rdIn" [class.disabledDiv]="(projData.ProjectPincode && projData.ProjectPincode!='') ||  (projData.ProjectCity==null || projData.ProjectCity=='' || !projData.ProjectCity) ">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{"SUB DISTRICT" | translate }}*</ion-label>
+                    <!--<ion-select (ionChange)="addressDataFiltersF($event,'subdistrict')" [(ngModel)]="projData.ProjectSubDistrict" #ProjectSubDistrict="ngModel" [ngModelOptions]="{standalone: true}" required>
+                        <ion-option *ngFor="let subd of subDistrictArrF" value="{{subd}}">{{subd}}</ion-option>
+                    </ion-select>-->
+                    <ion-input [(ngModel)]="projData.ProjectSubDistrict" mbsc-select [mbsc-options]="mobiScollProjectSubDistrictSettings" [mbsc-data]="subDistrictArrF" #ProjectSubDistrict="ngModel" #SubDistrictMob="mobiscroll" required [ngModelOptions]="{standalone: true}"></ion-input>
+
+                </ion-item>
+            </div>
+            <div *ngIf="ProjectSubDistrict.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!ProjectSubDistrict.errors.required">
+                    {{"SUB DISTRICT IS REQUIRED" | translate }}.
+                </p>
+            </div>
+        </ion-list>
+        <div class="checkButton project_stage">
+            <h2 class="labelHeading">{{"PROJECT STAGE" | translate }}*</h2>
+            <div class="rdIn" [(ngModel)]="projData.ProjectStageId" #ProjectStage="ngModel" required [ngModelOptions]="{standalone: true}" radio-group>
+                <ion-item class="halfWidth" *ngFor="let projectStage of projectStages">
+                    <ion-label>{{projectStage.project_stage}}</ion-label>
+                    <ion-radio value="{{projectStage.server_id}}" (click)="selectProjectStage(projectStage)"></ion-radio>
+                </ion-item>
+            </div>
+            <div *ngIf="ProjectStage.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!ProjectStage.errors.required">
+                    {{"PROJECT STAGE IS REQUIRED" | translate }}
+                </p>
+            </div>
+            <h2 class="labelHeading">{{"PROJECT TYPE" | translate }}*</h2>
+            <div class="rdIn" [(ngModel)]="projData.ProjectTypeId" #ProjectType="ngModel" required [ngModelOptions]="{standalone: true}" radio-group>
+                <ion-item class="halfWidth" *ngFor="let projectType of projectTypes">
+                    <ion-label>{{projectType.project_type}}</ion-label>
+                    <ion-radio value="{{projectType.server_id}}" (click)="selectProjectType(projectType)"></ion-radio>
+                </ion-item>
+            </div>
+            <div *ngIf="ProjectType.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!ProjectType.errors.required">
+                    {{"PROJECT TYPE IS REQUIRED" | translate }}
+                </p>
+            </div>
+        </div>
+        <ion-list class="inputBox">
+            <div class="rdIn">
+                <div class="photoAdd">
+                    <h2 class="labelHeading">{{"PROJECT PHOTO" | translate }}*</h2>
+                    <!--<ng-template *ngIf="projectPhotoObj.length > 1">-->
+                    <div class="id_photos">
+                        <div class="id_items" text-right *ngFor="let image of projectPhotoObj; let i = index;">
+                            <img [src]="image" alt="">
+                            <button ion-button color="light" class="close_btn" (click)="removeProjectImage(i)">
+                                <i class="icon-close-thin"></i>
+                            </button>
+                        </div>
+                        <div class="id_items upload" text-center (click)="openSelectCameraPop($event,'project_photo')">
+                            <button ion-button color="light" class="upload_btn">
+                                <i class="icon-Camera"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!--</ng-template>-->
+                </div>
+                <div *ngIf=" (projectPhotoObj ==undefined || projectPhotoObj =='') && (submitted) " class="alert alert-danger error">
+                    <p>{{"PROJECT PHOTO IS REQUIRED" | translate }}
+                    </p>
+                </div>
+            </div>
+            <div class="rdIn">
+                <ion-item class="inputLable">
+                    <ion-label stacked>{{"ASSIGN DPB" | translate }}</ion-label>
+                    <!--<ion-select [(ngModel)]="projData.HpbId" #HpbId="ngModel" [ngModelOptions]="{standalone: true}" [disabled]="(hpbList == undefined || hpbList == '')">
+                        <ion-option value="{{ hpb['server_hpb_id'] }}" *ngFor="let hpb of hpbList">{{ hpb['hpb_name'] }}</ion-option>
+                    </ion-select>-->
+                    <ion-input  [(ngModel)]="projData.HpbId"  #HpbId="ngModel" #HpbMob="mobiscroll"  mbsc-select [mbsc-options]="mobiScollHpbListSettings" [mbsc-data]="hpbList"  [ngModelOptions]="{standalone: true}" required></ion-input>
+                </ion-item>
+            </div>
+            <!--<div *ngIf="HpbId.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!HpbId.errors.required">
+                    HPB is required
+                </p>
+            </div>-->
+        </ion-list>
+        <!--<ion-list class="inputBox">
+            <div class="searchHpb">
+                <h2 class="labelHeading">Search HPB Name Via</h2>
+                <div class="static_radio_btn">
+                    <div class="rdIn" radio-group [(ngModel)]="searchBy" [ngModelOptions]="{standalone: true}">
+                        <ul>
+                            <li>
+                                <ion-radio value="mobileno"></ion-radio>
+                                <ion-label>HPB Mobile No.</ion-label>
+                            </li>
+                            <li>
+                                <ion-radio value="idCardno"></ion-radio>
+                                <ion-label>HPB ID Card No.</ion-label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>Enter here</ion-label>
+                        <ion-input type="tel" class="input_item" (input)="searchHpbByType($event)"></ion-input>
+                    </ion-item>
+                </div>
+                <div class="rdIn">
+                    <ion-item class="inputLable">
+                        <ion-label floating>HPB Name</ion-label>
+                        <ion-input type="text" class="input_item" [disabled]="true"></ion-input>
+                    </ion-item>
+                </div>
+            </div>
+        </ion-list>-->
+        <div class="checkButton project_stage">
+            <h2 class="labelHeading">{{"IS SRKU" | translate }}*</h2>
+            <div class="rdIn project_stage_btn" [(ngModel)]="projData.IsSrku" #IsSrku="ngModel" required [ngModelOptions]="{standalone: true}" radio-group>
+                <ion-item class="halfWidth">
+                    <ion-label>{{"YES" | translate }}</ion-label>
+                    <ion-radio value="yes" [disabled]="disableSrkuBtn"></ion-radio>
+                </ion-item>
+                <ion-item class="halfWidth">
+                    <ion-label>{{"NO" | translate }}</ion-label>
+                    <ion-radio value="no" [disabled]="disableSrkuBtn"></ion-radio>
+                </ion-item>
+            </div>
+            <div *ngIf="IsSrku.errors && (submitted)" class="alert alert-danger error">
+                <p [hidden]="!IsSrku.errors.required">
+                    {{"PLEASE CHOOSE AN OPTION" | translate }}
+                </p>
+            </div>
+        </div>
+        <div class="btn">
+            <button ion-button type="button" (click)="goToNextPage()">{{"NEXT" | translate }}</button>
+        </div>
+    </form>
+</ion-content>

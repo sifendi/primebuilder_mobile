@@ -1,0 +1,192 @@
+<!--
+Generated template for the HpbDetailsPage page.
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <!-- <ion-buttons end>
+            <button ion-button menuToggle>
+                <i class="icon-home"></i>
+            </button>   
+        </ion-buttons> -->
+        <!--<ion-buttons end>
+            <button ion-button (click)="editCurrentReceipt()">
+                <i class="icon-edit"></i>
+            </button>
+        </ion-buttons>-->
+        <ion-title>{{ "RECEIPT DETAILS" | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="false">
+    <div class="userForm">
+        <div class="form_list">
+            <!--<ion-grid class="gridWrap">
+                <ion-row>
+                    <ion-col>
+                        <div class="projectWrap" *ngIf="receipt['tlhStatus'] == 0">
+                            <p class="title">{{ "PENDING" | translate }}</p>
+                            <span class="gridValue pColor"><i class="icon-pending"></i>TLH</span>
+                        </div>
+                        <div class="projectWrap" *ngIf="receipt['tlhStatus'] == 1">
+                            <p class="title">{{ "APPROVED" | translate }}</p>
+                            <span class="gridValue dColor"><i class="icon-approved"></i>TLH</span>
+                        </div>
+                        <div class="projectWrap" *ngIf="receipt['tlhStatus'] == -1">
+                            <p class="title">{{ "REJECTED" | translate }}</p>
+                            <span class="gridValue fColor"><i class="icon-failed"></i>TLH</span>
+                        </div>
+                    </ion-col>
+                    <ion-col>
+                        <div class="projectWrap" *ngIf="receipt.acStatus == 0">
+                            <p class="title">{{ "PENDING" | translate }}</p>
+                            <span class="gridValue pColor"><i class="icon-pending"></i>AC</span>
+                        </div>
+                        <div class="projectWrap" *ngIf="receipt.acStatus == 1">
+                            <p class="title">{{ "APPROVED" | translate }}</p>
+                            <span class="gridValue dColor"><i class="icon-approved"></i>AC</span>
+                        </div>
+                        <div class="projectWrap" *ngIf="receipt.acStatus == -1">
+                            <p class="title">{{ "REJECTED" | translate }}</p>
+                            <span class="gridValue fColor"><i class="icon-failed"></i>AC</span>
+                        </div>
+                    </ion-col>
+                    <ion-col>
+                        <div class="projectWrap" *ngIf="receipt.adminStatus == 0">
+                            <p class="title">{{ "PENDING" | translate }}</p>
+                            <span class="gridValue pColor"><i class="icon-pending"></i>Admin</span>
+                        </div>
+                        <div class="projectWrap" *ngIf="receipt.adminStatus == 1">
+                            <p class="title">{{ "APPROVED" | translate }}</p>
+                            <span class="gridValue dColor"><i class="icon-approved"></i>Admin</span>
+                        </div>
+                        <div class="projectWrap" *ngIf="receipt.adminStatus == -1">
+                            <p class="title">{{ "REJECTED" | translate }}</p>
+                            <span class="gridValue fColor"><i class="icon-failed"></i>Admin</span>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>-->
+            <ion-card>
+                <ion-card-header>
+                    {{ "PROJECT" | translate }}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ receipt.project?receipt.project:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    {{"SPH NAME" | translate}}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ receipt.sph_name?receipt.sph_name:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{"SRKU" | translate}}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ (receipt.is_srku == 1)?'Yes':'No' }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "DPB STATUS" | translate}}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ hpbData.hpb_status?hpbData.hpb_status:"-" }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <ion-card>
+                <ion-card-header>
+                    {{ "PRODUCT" | translate}}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ receipt.product }}
+                </ion-card-content>
+            </ion-card>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "QUANTITY" | translate}}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ receipt.quantity }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "UNIT" | translate}}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ receipt.unit }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <ion-card>
+                <ion-card-header>
+                    {{ "RETAILER/DISTRIBUTOR" | translate}}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ receipt.retailer }}
+                </ion-card-content>
+            </ion-card>
+            <div class="two_coloum">
+                <ion-card>
+                    <ion-card-header>
+                        {{ "PURCHASE DATE" | translate}}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ receipt.created_date }}
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        {{ "INVOICE QUANTITY" | translate}}
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ receipt.invoice_quantity }}
+                    </ion-card-content>
+                </ion-card>
+            </div>
+            <div class="rdIn" *ngIf="invoices != null && invoices != ''">
+                <div class="photo_uploaded">
+                    <h2 class="labelHeading">{{ "INVOICE" | translate}}</h2>
+                    <div class="id_photos">
+                        <div class="id_items" *ngFor="let photo of invoices">
+                            <img [src]="photo.display" (click)="openFile(photo.path)" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ion-card>
+                <ion-card-header>
+                    {{ "NOTE" | translate}}
+                </ion-card-header>
+                <ion-card-content>
+                    {{ (receipt.additional_comments)?receipt.additional_comments:"-" }}
+                </ion-card-content>
+            </ion-card>
+            <div class="singTitle">
+                <h2 class="labelHeading">{{ "DPB SIGNATURE" | translate}}</h2>
+                <div class="digital_sign_img">
+                    <img *ngIf="digital_sign != null && digital_sign != ''" [src]="digital_sign" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>
+<ion-footer class="ntpr">
+    <!--<div class="btn">
+        <button ion-button type="button">
+            Add project
+        </button>
+        <button ion-button type="button">
+            Check out
+        </button>
+    </div>-->
+</ion-footer>

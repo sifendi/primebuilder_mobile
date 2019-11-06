@@ -1,0 +1,218 @@
+//Pin Start Here
+.version {
+    color: $base-color;
+    white-space: nowrap;
+    margin-right: $size;
+    text-align: $right;
+    @include media-query(400px) {
+        font-size: $size - .4;
+    }
+}
+
+.loginLogo {
+    display: $block;
+    margin: $zero $auto;
+    @include media-query(320px) {
+        //width: 150px;
+    }
+}
+
+.setPinOuter {
+    background: $login-color;
+    .setPinWrapper {
+        padding-top: $size;
+        font-family: $fontRg;
+        .pinBoxMian {
+            dd:nth-child(2) {
+                padding-bottom: 1px;
+            }
+            h2 {
+                font-family: $fontBold;
+                text-transform: $capitalize;
+                color: $white-color;
+                text-align: $center;
+                margin-bottom: 2rem;
+                @include media-query(320px) {
+                    font-size: $size;
+                }
+                @include media-query(560px) {
+                    font-size: $size + 1;
+                }
+            }
+            width: $width90;
+            margin: $zero $auto;
+            .noRow {
+                position: $relative;
+                padding-top: $size - 1;
+                .pinMsg {
+                    padding-top: $size - 1;
+                    padding-right: $size - 1;
+                    padding-bottom: $zero;
+                    padding-left: $zero;
+                    text-align: $center;
+                    width: $width90 + 10;
+                    .warning {
+                        color: $white-color;
+                    }
+                    .inText {
+                        @extend .warning;
+                    }
+                }
+                .backSpace {
+                    position: $absolute;
+                    right: -1.5rem;
+                    top: $size;
+                    padding-top: $zero;
+                    padding-right: $size - 1;
+                    padding-bottom: $zero;
+                    padding-left: $size - 1;
+                    z-index: 1;
+                    background: $none;
+                    box-shadow: $inherit;
+                    @include media-query(320px) {
+                        right: -1rem;
+                        top: $zero;
+                        padding: .5rem;
+                    }
+                    .icon {
+                        font-family: "Ionicons" $important;
+                        color: $black-color;
+                    }
+                    @include media-query(320px) {
+                        .icon {
+                            font-size: $size + 1.5;
+                        }
+                    }
+                    @include media-query(560px) {
+                        top: $size - 1.5;
+                        .icon {
+                            font-size: $size + 3;
+                        }
+                    }
+                }
+                .pinCodeLine {
+                    &.actiLine {
+                        .bottomVal {
+                            width: $width90 - 65%;
+                        }
+                    }
+                    @include display-flex;
+                    width: $width90;
+                    .bottomVal {
+                        height: 3rem;
+                        font-size: $size * 2;
+                        border-bottom: 2px $solid $black-color;
+                        margin: 0 0.1em;
+                        text-align: $center;
+                        width: $width90 - 75;
+                        -webkit-text-security: disc;
+                        color: $black-color;
+                        line-height: 2rem;
+                        @include media-query(400px) {
+                            font-size: $size * 3;
+                        }
+                        @include media-query(560px) {
+                            font-size: $size * 4;
+                        }
+                    }
+                }
+                .button-ios {
+                    .pinCodeLine {
+                        .bottomVal {
+                            font-size: 3rem;
+                        }
+                    }
+                }
+            }
+            .inputButton {
+                width: $width90 + 10;
+                .forgotPin {
+                    font-family: $fontRg;
+                    text-align: $center;
+                    font-size: $size - .5;
+                    text-transform: $capitalize;
+                    margin-top: $size - .5;
+                    a {
+                        color: $white-color;
+                    }
+                    span {
+                        color: $white-color;
+                    }
+                    @include media-query(560px) {
+                        .button {
+                            font-size: $size;
+                        }
+                    }
+                }
+                .pinBtnMain {
+                    .pinBtnPress {
+                        margin: $zero $size - 1.8 $size - 1.8 $zero;
+                        width: $width90 - 57.5;
+                        float: $left;
+                        .pinBtn {
+                            @include border-radius(100px);
+                            background-color: $transparent;
+                            width: ($size * 4);
+                            height: ($size * 4);
+                            line-height: ($size * 4);
+                            font-size: $size + $size;
+                            color: $white-color;
+                            display: $block;
+                            padding: $zero;
+                            box-shadow: $inherit;
+                            margin: $size - 1.8 $auto;
+                            @include media-query(320px) {
+                                font-size: $size + 2.5;
+                                width: ($size + 4 + .5);
+                                height: ($size + 4 + .5);
+                                line-height: ($size + 4 + .5);
+                            }
+                            @include media-query(400px) {
+                                font-size: $size + 3;
+                                width: ($size * 4 + 1);
+                                height: ($size * 4 + 1);
+                                line-height: ($size * 4 + 1);
+                                margin: $size - 1.5 $auto;
+                            }
+                            @include media-query(560px) {
+                                width: ($size * 8);
+                                height: ($size * 8);
+                                line-height: ($size * 8);
+                                margin: $size - 1.5 $auto;
+                                font-size: $size + 4;
+                            }
+                        }
+                        .pinBtn.activated {
+                            @include border-radius(100px);
+                            background: $black-color;
+                            color: $white-color;
+                        }
+                        &.fullWidth {
+                            width: $width90 + 10;
+                        }
+                    }
+                }
+            }
+        }
+        @include media-query(320px) {
+            padding-top: $size * 2;
+        }
+        @include media-query(360px) {
+            padding-top: $size * 4;
+        }
+    }
+}
+
+.resend {
+    font-weight: bold !important;
+    text-transform: $none !important;
+}
+
+//Pin Ends Here
+.request-access {
+    width: $width90;
+    margin: $zero $auto;
+    .button-block {
+        width: $auto;
+    }
+}
