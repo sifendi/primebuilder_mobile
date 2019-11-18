@@ -29,7 +29,7 @@ export class MobileVerifyPage {
   }
 
   ionViewDidLoad() {
-      // console.log('ionViewDidLoad MobileVerifyPage');  
+      console.log('ionViewDidLoad MobileVerifyPage');  
 
         this.termsCondHide = this.shareS.getshareData('forgetPassFlag');
 
