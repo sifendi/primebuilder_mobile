@@ -1,0 +1,27 @@
+----------------------------------------------
+---------- New Application Update ------------
+--------- Installation Instruction -----------
+----------------------------------------------
+
+# Requirement
+1. cordova cli version 9.0.0(cordova-lib@9.0.1)
+    ( npm install -g cordova@latest )
+2. ionic cli version 5.4.6
+    ( npm install -g ionic@latest )
+3. Gradle version 6.0
+    ( https://gradle.org/install/ )
+
+
+# Setup backend endpoint to local server
+1. find src/providers/constant.ts. At line 114 and 115, change the local IP with your local IP.
+2. find config.xml. At line 11, change the local IP to your IP.
+
+# Installation steps
+1. run npm install // It will generate node_modules directory
+2. run ionic cordova platform add android@8.1.0  // it will generate platforms/android, plugins, and www directory
+3. run ionic cordova run android/ionic cordova build android
+
+# Notes
+Important : 
+Because we run the backend in our local server and we will access locally from the android, you need to connect
+your PC/backend server and android devices to the same network (on network connection).

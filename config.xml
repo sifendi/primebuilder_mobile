@@ -5,6 +5,7 @@
     <author email="team@experiencecommerce.com" href="http://experiencecommerce.com/">EC Team</author>
     <content src="index.html" />
     <access origin="*" />
+    <allow-navigation href="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-navigation href="http://localhost:9000/*" />
     <allow-navigation href="http://192.168.43.142:9000/*" />
