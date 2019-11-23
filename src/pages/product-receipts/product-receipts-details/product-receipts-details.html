@@ -67,7 +67,11 @@ Ionic pages and navigation.
                     {{ "PRODUCT" | translate }}
                 </ion-card-header>
                 <ion-card-content>
-                    {{ productReceiptData['product_name']?productReceiptData['product_name']:"-" }}
+                    <div *ngFor="let product of product_name">
+                        <!-- <p class="value" *ngIf="productReceiptData['receipt_id'] == product['receipt_id']">- {{ product['product_name'] }}</p> -->
+                        <p class="value">- {{ product['product_name'] }}</p>
+                    </div>
+                    <!-- {{ productReceiptData['product_name']?productReceiptData['product_name']:"-" }} -->
                 </ion-card-content>
             </ion-card>
             <div class="two_coloum">

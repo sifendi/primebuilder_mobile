@@ -111,8 +111,8 @@ export let ALL_KEYS={
 // var url = "https://pb.solusibangunindonesia.com"
 // var SITE_URL = "https://pb.solusibangunindonesia.com"
 
-var url = "http://192.168.43.142:9000"
-var SITE_URL = "http://192.168.43.142:9000"
+var url = "http://139.255.88.90:4109"
+var SITE_URL = "http://139.255.88.90:4109"
 
 let END_POINT = '/api/';
 

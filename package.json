@@ -22,7 +22,7 @@
     "@angular/platform-browser": "4.1.2",
     "@angular/platform-browser-dynamic": "4.1.2",
     "@ionic-native/android-permissions": "^3.12.1",
-    "@ionic-native/app-preferences": "^3.9.0",
+    "@ionic-native/app-preferences": "^4.20.0",
     "@ionic-native/app-version": "^3.12.1",
     "@ionic-native/call-number": "^3.12.1",
     "@ionic-native/camera": "^3.14.0",

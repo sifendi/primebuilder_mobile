@@ -214,7 +214,93 @@ export class MyApp {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
+  
+  }
 
+  initializeApp() {
+  
+    this.platform.ready().then(() => {
+        this.splashS.hide();
+       // this.defualtTranslateTxt();
+      // }
+
+      if(appTypeMainTran=="training"){
+        this.verTextShow="Training Ver";
+      }
+  
+      if( this.platform.is('ios') ) {
+          
+          this.appReady();
+  
+      } else {
+  
+        // if (typeof(rootdetection) !== 'undefined' && rootdetection) {
+          rootdetection.isDeviceRooted((res)=>{
+           
+          if(res == 1 && !appDebugModeD ){
+             this.rootPage= DisallowRootPage;
+             let alert = this.alertCtrl.create({
+               enableBackdropDismiss: false,
+                title: "Rooted device detected",
+                subTitle: "Cannot use this app on rooted device",
+                buttons: [{
+                text: "Ok",
+                handler: () => {          
+                  this.platform.exitApp();
+                  return false;
+                }}]
+            });
+            alert.present();
+            return false;
+          }else{
+              this.appReady();
+          }
+           
+          //  this.push.hasPermission()
+          //  .then((res: any) => {           
+          //    if (res.isEnabled) {
+          //      console.log('We have permission to send push notifications');
+          //    } else {
+          //      console.log('We do not have permission to send push notifications');
+          //    }
+  
+          //  });
+  
+          //   const options: PushOptions = {
+          //     android: {
+          //         senderID: '324389439041'
+          //     },
+          //     ios: {
+          //         alert: 'true',
+          //         badge: true,
+          //         sound: 'false'
+          //     },
+          //     windows: {}
+          //  };
+  
+          //  const pushObject: PushObject = this.push.init(options);
+  
+          //  pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
+  
+          //  pushObject.on('registration').subscribe((registration: any) => {
+          //   console.log('Device registered', registration)
+  
+          //  });
+  
+          //  pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+  
+  
+        }, (error)=>{
+            console.log(" error ",error);
+        });
+      }
+    });
+
+    this.menuInitilize();
+
+  }
+
+  menuInitilize() {
     this.pagesSPH = [
       { title: 'Home', component: HomePage, isCurrent :true,section:"home",translation:"HOME" },
       { title: 'Projects', component: ProjectListPage,isCurrent :false,section:"viewall",translation:"PROJECTS" },
@@ -288,87 +374,6 @@ export class MyApp {
       { title: 'Redeem List', component: MasonRedeemTabPage,isCurrent :false,section:"viewall",translation:"Redeem List" },
       { title: 'Receipt List', component: MasonReceiptListPage,isCurrent :false,section:"viewall",translation:"Receipt List" }
     ]; 
-  
-  }
-
-  initializeApp() {
-  
-    this.platform.ready().then(() => {
-        this.splashS.hide();
-       // this.defualtTranslateTxt();
-        if(appTypeMainTran=="training"){
-          this.verTextShow="Training Ver";
-        }
-
-        if( this.platform.is('ios') ) {
-            
-            this.appReady();
-
-        } else {
-
-          // if (typeof(rootdetection) !== 'undefined' && rootdetection) {
-            rootdetection.isDeviceRooted((res)=>{
-             
-            if(res == 1 && !appDebugModeD ){
-               this.rootPage= DisallowRootPage;
-               let alert = this.alertCtrl.create({
-                 enableBackdropDismiss: false,
-                  title: "Rooted device detected",
-                  subTitle: "Cannot use this app on rooted device",
-                  buttons: [{
-                  text: "Ok",
-                  handler: () => {          
-                    this.platform.exitApp();
-                    return false;
-                  }}]
-              });
-              alert.present();
-              return false;
-            }else{
-                this.appReady();
-            }
-             
-            //  this.push.hasPermission()
-            //  .then((res: any) => {           
-            //    if (res.isEnabled) {
-            //      console.log('We have permission to send push notifications');
-            //    } else {
-            //      console.log('We do not have permission to send push notifications');
-            //    }
-
-            //  });
-
-            //   const options: PushOptions = {
-            //     android: {
-            //         senderID: '324389439041'
-            //     },
-            //     ios: {
-            //         alert: 'true',
-            //         badge: true,
-            //         sound: 'false'
-            //     },
-            //     windows: {}
-            //  };
-
-            //  const pushObject: PushObject = this.push.init(options);
-
-            //  pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
-
-            //  pushObject.on('registration').subscribe((registration: any) => {
-            //   console.log('Device registered', registration)
-
-            //  });
-
-            //  pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
-
-
-          }, (error)=>{
-              console.log(" error ",error);
-          });
-        }
-      // }
-    });
-
   }
 
   async appReady() {

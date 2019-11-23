@@ -24,6 +24,9 @@ export class ProductReceiptsDetailsPage {
   busyMessage:any="Please Wait...";  
   busy:any;
 
+  public productId: any;
+  public product_name: any = [];
+
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public sqlS:SqlServices, public appCom:appCommonMethods,public events:Events) {
@@ -36,6 +39,7 @@ export class ProductReceiptsDetailsPage {
     this.productInvoicePhotoObj = [];
     console.log('ionViewDidLoad ProductReceiptsDetailsPage');
     this.productReceiptId =this.navParams.get("productReceiptId");
+    this.productId =this.navParams.get("productId");
 
   
 
@@ -45,7 +49,20 @@ export class ProductReceiptsDetailsPage {
     this.busy=this.sqlS.queryExecuteSql(query,[]).then((data) => {
 
         this.productReceiptData= data['rows'].item(0);
-         this.checkEditRecpt(this.productReceiptId);
+
+        // Get product name
+        let q= "SELECT pm.product_name, pm.server_product_id FROM product_master as pm WHERE pm.server_product_id IN (" + data['rows'].item(0).product_id + ")";
+        this.busy = this.sqlS.queryExecuteSql(q,[]).then((product) => {
+          for(let produ=0; produ<product['rows'].length; produ++) {
+            this.product_name.push({ 
+              product_id: product['rows'].item(produ).server_product_id, 
+              product_name: product['rows'].item(produ).product_name ,
+              receipt_id: data['rows'].item(0).receipt_id
+            });
+          }
+        });
+
+        this.checkEditRecpt(this.productReceiptId);
         var invoiceImage = ( this.productReceiptData['invoice_image'] && this.productReceiptData['invoice_image'] != '' )?JSON.parse(this.productReceiptData['invoice_image']):[];
         console.log("productReceiptData",this.productReceiptData);
         
@@ -87,6 +104,7 @@ export class ProductReceiptsDetailsPage {
         } else {
             this.productReceiptData['formattedPurchaseDate'] = '-';
         }
+
 
    
     }, (error) => {

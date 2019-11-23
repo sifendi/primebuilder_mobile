@@ -15,7 +15,9 @@
 
                             <div class="projectWrap">
                                 <p class="title">{{"PRODUCT" | translate }}</p>
-                                <span class="value">{{ (productReceiptItem['product_name'])?productReceiptItem['product_name']:"-" }}</span>
+                                <div *ngFor="let product of product_name">
+                                    <p class="value" *ngIf="productReceiptItem['receipt_id'] == product['receipt_id']">- {{ product['product_name'] }}</p>
+                                </div>
                             </div>
                             <div class="projectWrap">
                                 <div class="flexWrap">

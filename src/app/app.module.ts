@@ -8,6 +8,7 @@ import { appCommonMethods } from '../providers/appCommonMethods';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Camera } from "@ionic-native/camera";
 import { CallNumber } from '@ionic-native/call-number';
 import { Network } from '@ionic-native/network';
@@ -458,6 +459,7 @@ export function createTranslateLoader(http: Http) {
     BrowserModule,
 //    ElasticModule,
     HttpModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MbscModule,
     SignaturePadModule,

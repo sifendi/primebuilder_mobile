@@ -12,6 +12,9 @@ import async from 'async';
 import * as moment from 'moment';
 import { ProjectParentTabsPage } from "../../project/project-parent-tab-page/project-parent-tab-page";
 import { ProductReceiptsDetailsPage } from "../product-receipts-details/product-receipts-details";
+
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+
 declare var cordova;
 declare var sessionUserGlobalData;
 
@@ -21,6 +24,10 @@ declare var sessionUserGlobalData;
 })
 
 export class ProductReceiptsFormPage {
+
+    // Form group initilizer
+    public receiptForm: FormGroup; 
+
 
     errRecieptFlag:boolean=false;
 
@@ -67,8 +74,17 @@ export class ProductReceiptsFormPage {
     };
 
 
+    // Product addition to receipt. Excluding the first product
+    public product_addition: any = [];
+    public product_addition_count: number = 0;
+    public product_clicked: any;
+    public unit_clicked: any;
+    public product_name = [];
+    public product_unit = [];
+    public product_quantity = [];
 
     submitted:boolean= false;
+
     @ViewChild('Product') Product: any; 
     @ViewChild('UnitM') UnitM: any; 
     @ViewChild('Quantity') Quantity: any; 
@@ -107,104 +123,108 @@ export class ProductReceiptsFormPage {
     editMode:any=false;
 
     mobiScollRDSSettings:any = {
-      inputClass: 'text-input',
-      theme: 'material',
-      showOnFocus: true,
-      group: false,
-      filter: true,
-      placeholder: 'Please select',
-      rows:8,
-      data:[],
-      readonly:false,
-      buttons:['set','clear','cancel'],
-      onClear: (event, inst)=>{
-         this.getRdsMobiFilter();
-      },
-      onSet: (event, inst)=> {
-           console.log("event rds",event);
-           console.log("ReceiptData.RetDist",this.ReceiptData.RetDist);
-      },
-    //   onFilter: (event, inst)=> {
-    //      this.getRdsMobiFilter(event.filterText);
-    //   }
-  };
+        inputClass: 'text-input',
+        theme: 'material',
+        showOnFocus: true,
+        group: false,
+        filter: true,
+        placeholder: 'Please select',
+        rows:8,
+        data:[],
+        readonly:false,
+        buttons:['set','clear','cancel'],
+        onClear: (event, inst)=>{
+            this.getRdsMobiFilter();
+        },
+        onSet: (event, inst)=> {
+            console.log("event rds",event);
+            console.log("ReceiptData.RetDist",this.ReceiptData.RetDist);
+        },
+        //   onFilter: (event, inst)=> {
+        //      this.getRdsMobiFilter(event.filterText);
+        //   }
+    };
+
     fcounter:number=0;
     mobiScollPRODSettings:any = {
-      inputClass: 'text-input',
-      theme: 'material',
-      showOnFocus: true,
-      group: false,
-      filter: true,
-      placeholder: 'Please select',
-      rows:8,
-      data:[],
-      readonly:false,
-      buttons:['set','clear','cancel'],
-      onClear: (event, inst)=>{
-          console.log("clear --");
-          this.ReceiptData.Unit=null;
-          this.getProductsDataOnFilter();
-      },
-      onSet: (event, inst)=> {
-            console.log(" this.fcounter ",this.fcounter);
-        if(event.valueText){
-            if(this.fcounter==0){
-                this.ReceiptData.unit=null;
-                this.UnitM.instance.setVal(null,true);
-                this.setUnitData(this.ReceiptData.Product);
-              }else{
-                this.ReceiptData.unit=null;
-                this.UnitM.instance.setVal(null,true);
-                this.setUnitData(this.ReceiptData.Product);
-              }
-              this.fcounter++;
-        }else{
-
-        }
-                     
-      },
-    //   onFilter: (event, inst)=> {   
-    //       this.getProductsDataOnFilter(event.filterText);
-    //   }
-  };
+        inputClass: 'text-input',
+        theme: 'material',
+        showOnFocus: true,
+        group: false,
+        filter: true,
+        placeholder: 'Please select',
+        rows:8,
+        data:[],
+        readonly:false,
+        buttons:['set','clear','cancel'],
+        onClear: (event, inst)=>{
+            console.log("clear --");
+            // this.ReceiptData.Unit=null;
+            this.receiptForm.get('product_name').setValue(null);
+            this.getProductsDataOnFilter();
+        },
+        onSet: (event, inst)=> {
+            if(event.valueText){
+                if(this.fcounter == 0) {
+                    // this.ReceiptData.unit=null;
+                    // this.UnitM.instance.setVal(null,true);
+                    
+                    // this.setUnitData(this.ReceiptData.Product);
+                    this.setUnitData(this.receiptForm.get('product_name').value);
+                } else {
+                    // this.ReceiptData.unit=null;
+                    // this.UnitM.instance.setVal(null,true);
+                    
+                    this.setUnitData(this.receiptForm.get(this.product_clicked).value);
+                }
+                this.fcounter++;
+            }           
+        },
+        //   onFilter: (event, inst)=> {   
+        //       this.getProductsDataOnFilter(event.filterText);
+        //   }
+    };
 
     mobiScollUnitSettings:any = {
-      inputClass: 'text-input',
-      theme: 'material',
-      showOnFocus: true,
-      group: false,
-      filter: true,
-      placeholder: 'Please select',
-      rows:3,
-      data:[],
-      readonly:false,
-      buttons:['set','clear','cancel'],
-      onClear: (event, inst)=>{
-           this.getUnitMobiFilter();
-      },
-      onSet: (event, inst)=> {},
-    //   onFilter: (event, inst)=> {
-    //       this.getUnitMobiFilter(event.filterText)
-    //   }
-  };
+        inputClass: 'text-input',
+        theme: 'material',
+        showOnFocus: true,
+        group: false,
+        filter: true,
+        placeholder: 'Please select',
+        rows:3,
+        data:[],
+        readonly:false,
+        buttons:['set','clear','cancel'],
+        onClear: (event, inst)=>{
+            this.getUnitMobiFilter();
+        },
+        onSet: (event, inst)=> {},
+        //   onFilter: (event, inst)=> {
+        //       this.getUnitMobiFilter(event.filterText)
+        //   }
+    };
 
 
-    constructor(public navCtrl: NavController,public appRef:ApplicationRef, public navParams: NavParams, public popoverCtrl: PopoverController,public appCom:appCommonMethods,public events:Events,public modalCtrl: ModalController,public shareS:ShareService,public sqlS: SqlServices) {
+    constructor(public navCtrl: NavController,public appRef:ApplicationRef, public navParams: NavParams, public popoverCtrl: PopoverController,public appCom:appCommonMethods,public events:Events,public modalCtrl: ModalController,public shareS:ShareService,public sqlS: SqlServices, private formBuilder: FormBuilder) {
     
-    this.appCom.getLocalStorageItem("globalCheckinData").then((checkinObj)=>{
-        this.globalCheckInData = checkinObj;
-           
+        this.appCom.getLocalStorageItem("globalCheckinData").then((checkinObj)=>{
+            this.globalCheckInData = checkinObj;
         });
+
+        // Form builder initilizer for form group
+        this.formBuilderInitilizer();
 
     }
 
     
     ionViewWillLeave(){
-            this.appRef.tick();
+        this.appRef.tick();
     }
 
 
     async ionViewDidLoad() {
+
         console.log('ionViewDidLoad ProductReceiptsFormPage');
 
         this.busyMessage = await this.appCom.getTranslatedTxt("Please wait...");   
@@ -226,6 +246,7 @@ export class ProductReceiptsFormPage {
         this.RetDistMobi.instance.option(MobiProps2);
         
         this.busy=this.initFormData().then((res:any)=>{
+        
         },()=>{
                 console.log('error');
         });
@@ -233,29 +254,26 @@ export class ProductReceiptsFormPage {
         this.disableUnitFlag=false;
 
         this.ReceiptData={
-        ReceiptId:null,
-        Product:null,
-        Quantity:null,
-        Unit:null,
-        RetDist:[],
-        PurchaseDate:null,
-        InvoiceQuantity:null,
-        InvoiceImage:[],
-        AdditionalComments:null,
-        HpbDigitalSign:null,
-        latitude:null,
-        longitude:null,
-        local_created_date:null,
-        local_updated_date:null,
-        createdby:null,
-        updatedby:null
-    };
-
-   
+            ReceiptId:null,
+            Product:null,
+            Quantity:null,
+            Unit:null,
+            RetDist:[],
+            PurchaseDate:null,
+            InvoiceQuantity:null,
+            InvoiceImage:[],
+            AdditionalComments:null,
+            HpbDigitalSign:null,
+            latitude:null,
+            longitude:null,
+            local_created_date:null,
+            local_updated_date:null,
+            createdby:null,
+            updatedby:null
+        };
 
         //GET CURRENT USER DATA
         this.userId=sessionUserGlobalData['userId'];
-
      
         //PREFILL PROJECT RELATED DATA
         let projId = this.navParams.get("projId");  
@@ -313,6 +331,7 @@ export class ProductReceiptsFormPage {
                 this.sqlS.selectTableData(selectField,tablename,where,"","").then((unitData) => {
                 this.unitArr=[];    
                 for(let i = 0; i < unitData['rows'].length; i++) {
+                    console.log(unitData['rows']);
                     this.unitArr.push( unitData['rows'].item(i) );   
                     }  
                     this.unitMobi.instance.option({
@@ -372,7 +391,8 @@ export class ProductReceiptsFormPage {
                 this.ReceiptData['latitude'] = insertData['latitude'];
                 this.ReceiptData['longitude'] = insertData['longitude'];
              
-                   this.setUnitData(this.ReceiptData.Product);
+                //    this.setUnitData(this.ReceiptData.Product);
+                this.setUnitData(this.receiptForm.get(this.product_clicked).value);
            
                 
                 
@@ -452,396 +472,416 @@ export class ProductReceiptsFormPage {
                 console.log(error);
             });
         });
-
     }
-
-     ionViewDidEnter(){
-
-
-        
-    }
-
-
-
-         onSelectProduct(event){ 
-            this.unitArr=[]; 
-                var selectField = " `product_unit` ";
-                var tablename = "product_master";
-                var where =" `server_product_id` ='"+event+"'";
-                this.sqlS.selectTableData(selectField,tablename,where,"","").then((unitData) => {
-                    this.unitArr=[];    
-                    for (let i = 0; i < unitData['rows'].length; i++) {
-                            this.unitArr.push( unitData['rows'].item(i) );   
-                        } 
-                        this.unitMobi.instance.option({
-                            data: this.unitArr
-                        });
-                },error=>{
-                    console.log("error",error);
-                });
-                    if( this.unitArr !=undefined &&  this.unitArr !='' ){
-                        this.disableUnitFlag=false;
-                    }else{
-                        this.disableUnitFlag=true;
-                    }
-        }
-
-    setUnitData(prod_id){
-      
-                this.unitArr=[]; 
-                var selectField = " `product_unit` ";
-                var tablename = "product_master";
-                var where =" `server_product_id` ='"+prod_id+"'";
-                this.sqlS.selectTableData(selectField,tablename,where,"","").then((unitData) => {
-                    this.unitArr=[];    
-                    for (let i = 0; i < unitData['rows'].length; i++) {
-                            //this.unitArr.push( unitData['rows'].item(i) );   
-                            let currTempObj=unitData.rows.item(i);
-                            this.unitArr.push({
-                                    text:currTempObj['product_unit'],
-                                    value:currTempObj['product_unit']
-                            });
-                        }
-                        this.unitMobi.instance.option({
-                            data: this.unitArr
-                        });
-                        
-                        setTimeout(()=>{
-                             
-                             this.UnitM.instance.setVal(this.ReceiptData.Unit,true);
-                        },100);
-                       
-                },error=>{
-                    console.log("error",error);
-                    this.unitArr=[]; 
-                });
-                    if( this.unitArr !=undefined &&  this.unitArr !='' ){
-                        this.disableUnitFlag=false;
-                    }else{
-                        this.disableUnitFlag=true;
-                    }
-    }    
-
-
-    initFormData(){
-
-         return new Promise((resolve,reject)=>{
-             
-                let allSyncTask=[];
-                    let allTaskComplete = ()=>{
-                    resolve(true);
-                }
-            
-                    allSyncTask.push((callback)=>{
-                    this.rdsArr=[];
-                    let queryRDS="SELECT * FROM retailer_distributor_master WHERE rds_status=1";
-                    this.sqlS.queryExecuteSql(queryRDS,[]).then((resData:any)=>{
-
-                        if(resData.rows.length>0){
-
-                            for(let i=0;i<resData.rows.length;i++){
-                                let currTempObj=resData.rows.item(i);
-                                
-                                let rds_city = this.appCom.jsonParseCityName(currTempObj['rds_city']);
-                                let rds_sub_district = this.appCom.jsonParseCityName(currTempObj['rds_sub_district']);
-                                let displayText = currTempObj['rds_name'] + "("+rds_city+", "+rds_sub_district+")";
-                                this.rdsArr.push({
-                                    text:displayText,
-                                    value:currTempObj['server_rds_id']
-                                });
-                            }
-                            this.RetDistMobi.instance.option({
-                                data: this.rdsArr
-                            });
-
-                        }
-                        callback();
-                    },(error)=>{
-                        console.log('error queryRDS initFormData',error);
-                        callback();
-                    });
-
-                });
-
-                allSyncTask.push((callback)=>{
-
-                    this.productsArr=[];
-                    let query="SELECT * FROM product_master WHERE product_type = 'holcim_product'";
-                    this.sqlS.queryExecuteSql(query,[]).then((resData:any)=>{
-
-                        if(resData.rows.length>0){
-
-                            for(let i=0;i<resData.rows.length;i++){
-                                let currTempObj=resData.rows.item(i);
-                                this.productsArr.push({
-                                    text:currTempObj['product_name'],
-                                    value:currTempObj['server_product_id']
-                                });
-                            }
-                            this.productMobi.instance.option({
-                                data: this.productsArr
-                            });
-
-                        }
-                        callback();
-                    },(error)=>{
-                        console.log('error queryRDS initFormData',error);
-                        callback();
-                    });
-
-
-                });
-
-                    async.parallel(allSyncTask, function(){
-                        allTaskComplete();
-                    });
-
-         });
-        
-    }
-
-
+    
     getProductsDataOnFilter(serchKey?:any){
-	    console.log("clear filter called");
-		let query="SELECT * FROM product_master WHERE product_type = 'holcim_product'";
-		if(serchKey){
-			query="SELECT * FROM product_master WHERE product_type = 'holcim_product' and product_name LIKE '%"+serchKey+"%'" ;
-		} 
-		
-		this.sqlS.queryExecuteSql(query,[]).then((resData:any)=>{
-			this.productsArr=[];
-			if(resData.rows.length>0){
-				for(let i=0;i<resData.rows.length;i++){
-					let currTempObj=resData.rows.item(i);
-					this.productsArr.push({
-						text:currTempObj['product_name'],
-						value:currTempObj['server_product_id']
-					});
+        console.log("clear filter called");
+        let query="SELECT * FROM product_master WHERE product_type = 'holcim_product'";
+        if(serchKey){
+            query="SELECT * FROM product_master WHERE product_type = 'holcim_product' and product_name LIKE '%"+serchKey+"%'" ;
+        } 
+        
+        this.sqlS.queryExecuteSql(query,[]).then((resData:any)=>{
+            this.productsArr=[];
+            if(resData.rows.length>0){
+                for(let i=0;i<resData.rows.length;i++){
+                    let currTempObj=resData.rows.item(i);
+                    this.productsArr.push({
+                        text:currTempObj['product_name'],
+                        value:currTempObj['server_product_id']
+                    });
                 }
                 this.productMobi.instance.option({
                     data: this.productsArr
                 });
-			}		
-			console.log("productsArr67676----------->",this.productsArr); 
-		},(error)=>{
-			 console.log('sql error',error); 
-		});
+            }		
+            console.log("productsArr67676----------->",this.productsArr); 
+        },(error)=>{
+            console.log('sql error',error); 
+        });
     }
 
     getRdsMobiFilter(serchKey?:any){
-	 
-		let query="SELECT * FROM retailer_distributor_master WHERE rds_status=1";
-		if(serchKey){
-			query="SELECT * FROM retailer_distributor_master WHERE rds_status=1 and rds_name LIKE '%"+serchKey+"%'" ;
-		} 
-		
-		this.sqlS.queryExecuteSql(query,[]).then((resData:any)=>{
-			this.rdsArr=[];
-			if(resData.rows.length>0){
-				for(let i=0;i<resData.rows.length;i++){
+    
+        let query="SELECT * FROM retailer_distributor_master WHERE rds_status=1";
+        if(serchKey){
+            query="SELECT * FROM retailer_distributor_master WHERE rds_status=1 and rds_name LIKE '%"+serchKey+"%'" ;
+        } 
+        
+        this.sqlS.queryExecuteSql(query,[]).then((resData:any)=>{
+            this.rdsArr=[];
+            if(resData.rows.length>0){
+                for(let i=0;i<resData.rows.length;i++){
                     let currTempObj=resData.rows.item(i);
                     let rds_city = this.appCom.jsonParseCityName(currTempObj['rds_city']);
                     let rds_sub_district = this.appCom.jsonParseCityName(currTempObj['rds_sub_district']);
                     let displayText = currTempObj['rds_name'] + "("+rds_city+", "+rds_sub_district+")";
-					this.rdsArr.push({
-						text:displayText,
-						value:currTempObj['server_rds_id']
-					});
+                    this.rdsArr.push({
+                        text:displayText,
+                        value:currTempObj['server_rds_id']
+                    });
                 }
                 this.RetDistMobi.instance.option({
                     data: this.rdsArr
                 });
-			}		
-			
-		},(error)=>{
-			 console.log('sql error',error); 
-		});
+            }		
+            
+        },(error)=>{
+            console.log('sql error',error); 
+        });
     }
 
     getUnitMobiFilter(serchKey?:any){
-	 
-		let query="SELECT * FROM product_master WHERE server_product_id="+this.ReceiptData.Product;
-		if(serchKey){
-			query="SELECT * FROM product_master WHERE server_product_id="+this.ReceiptData.Product+" and product_unit LIKE '%"+serchKey+"%'" ;
-		} 
-		
-		this.sqlS.queryExecuteSql(query,[]).then((resData:any)=>{
-			this.unitArr=[];
-			if(resData.rows.length>0){
-				for (let i = 0; i < resData['rows'].length; i++) {
+    
+        let query="SELECT * FROM product_master WHERE server_product_id="+this.ReceiptData.Product;
+        if(serchKey){
+            query="SELECT * FROM product_master WHERE server_product_id="+this.ReceiptData.Product+" and product_unit LIKE '%"+serchKey+"%'" ;
+        } 
+        
+        this.sqlS.queryExecuteSql(query,[]).then((resData:any)=>{
+            this.unitArr=[];
+            if(resData.rows.length>0){
+                for (let i = 0; i < resData['rows'].length; i++) {
                     //this.unitArr.push( unitData['rows'].item(i) );   
                     let currTempObj=resData.rows.item(i);
                     this.unitArr.push({
                         text:currTempObj['product_unit'],
                         value:currTempObj['product_unit']
-			        });
+                    });
                 }
                 this.unitMobi.instance.option({
                     data: this.unitArr
                 });
-			}		
-			
-		},(error)=>{
-			 console.log('sql error',error); 
-		});
-    }      
-
-
-
-  ionViewDidLeave(){
-
-  }
-
-  changeProductRecpt(event){
-      this.busy=this.checkReciptBalQuiL().then((resData:any)=>{
-            console.log('resData',resData);
-            this.totalQ=resData['totalQ'];
-            this.totalIQ=resData['totalIQ'];
-      },()=>{
-            console.log('changeProductRecpt error');
-      });
-  }
-
-  
-  checkReciptBalQuiL(){
-     return new Promise((resolve,reject)=>{
-                
-        let projectId=this.projServerId;
-        let productId=this.ReceiptData.Product;
-        let productType="holcim_product";
-        let currRecpId=this.ReceiptData['ReceiptId']?this.ReceiptData['ReceiptId']:0;
-        let queryBal = "SELECT DISTINCT prm.receipt_id,prm.server_receipt_id,prm.quantity,prm.unit,prm.invoice_quantity FROM  product_receipt_master prm  JOIN products_receipt_approval_tbl prat on prm.server_receipt_id=prat.server_receipt_id JOIN product_master pdm ON prm.product_id = pdm.server_product_id WHERE prm.server_receipt_id>0 AND prat.is_closed=0 AND prat.approval_status=1 AND prat.approval_role='SA'  AND prm.server_project_id>0 AND pdm.is_cement=1 AND pdm.server_product_id="+productId+" AND pdm.product_type='"+productType+"' AND prm.server_project_id="+projectId+" AND  prm.receipt_id <> "+currRecpId;
-        console.log('queryBal',queryBal);
-        this.sqlS.queryExecuteSql(queryBal,[]).then((reslData:any)=>{
-            let allBalDatas=[];
-            let totalQ=0;
-            let totalIQ=0;
-            for(let i=0;i<reslData.rows.length;i++){
-                let temObb = reslData.rows.item(i);
-                totalQ = totalQ + temObb['quantity'];
-                totalIQ = totalIQ + temObb['invoice_quantity'];
-               // allBalDatas.push(temObb);
-            }
-            let respObj={
-               totalQ:totalQ,
-               totalIQ:totalIQ
-            };
-            console.log('respObj',respObj);
-            resolve(respObj);
+            }		
+            
         },(error)=>{
-            console.log(error);
-            resolve(false);
+            console.log('sql error',error); 
+        });
+    }     
+
+    formBuilderInitilizer() {
+        this.receiptForm = this.formBuilder.group({
+            product_name: ['', Validators.required],
+            product_unit: ['', Validators.required],
+            product_quantity: ['', [ Validators.required, Validators.pattern('^[1-3]+$') ] ],
+            product_distributor: ['', Validators.required],
+            product_purchase_date: ['', Validators.required],
+            product_invoice_quantity: ['', Validators.required],
+        });
+    }
+
+
+    onSelectProduct(event){ 
+        this.unitArr=[]; 
+            var selectField = " `product_unit` ";
+            var tablename = "product_master";
+            var where =" `server_product_id` ='"+event+"'";
+            this.sqlS.selectTableData(selectField,tablename,where,"","").then((unitData) => {
+                this.unitArr=[];    
+                for (let i = 0; i < unitData['rows'].length; i++) {
+                        this.unitArr.push( unitData['rows'].item(i) );   
+                    } 
+                    this.unitMobi.instance.option({
+                        data: this.unitArr
+                    });
+            },error=>{
+                console.log("error",error);
+            });
+            if( this.unitArr !=undefined &&  this.unitArr !='' ){
+                this.disableUnitFlag=false;
+            }else{
+                this.disableUnitFlag=true;
+            }
+    }
+
+    setUnitData(prod_id) {
+        this.unitArr=[]; 
+        var selectField = " `product_unit` ";
+        var tablename = "product_master";
+        var where =" `server_product_id` ='"+prod_id+"'";
+        this.sqlS.selectTableData(selectField,tablename,where,"","").then((unitData) => {
+            this.unitArr=[];    
+            for (let i = 0; i < unitData['rows'].length; i++) {
+                    //this.unitArr.push( unitData['rows'].item(i) );   
+                    let currTempObj=unitData.rows.item(i);
+                    this.unitArr.push({
+                            text:currTempObj['product_unit'],
+                            value:currTempObj['product_unit']
+                    });
+                }
+                this.unitMobi.instance.option({
+                    data: this.unitArr
+                });
+                
+                setTimeout(()=>{
+                        
+                    // this.UnitM.instance.setVal(this.ReceiptData.Unit,true);
+                    // this.UnitM.instance.setVal(this.receiptForm.get('product_unit').value,true);
+                },100);
+                
+        },error=>{
+            console.log("error",error);
+            this.unitArr=[]; 
         });
 
+        if( this.unitArr !=undefined &&  this.unitArr !='' ){
+            this.disableUnitFlag=false;
+        }else{
+            this.disableUnitFlag=true;
+        }
+    }    
 
-    });
- }  
+
+    initFormData(){
+
+        return new Promise((resolve,reject)=>{
+             
+            let allSyncTask=[];
+                let allTaskComplete = ()=>{
+                resolve(true);
+            }
+                
+            allSyncTask.push((callback)=>{
+                this.rdsArr=[];
+                let queryRDS="SELECT * FROM retailer_distributor_master WHERE rds_status=1";
+                this.sqlS.queryExecuteSql(queryRDS,[]).then((resData:any)=>{
+
+                    if(resData.rows.length>0){
+
+                        for(let i=0;i<resData.rows.length;i++){
+                            let currTempObj=resData.rows.item(i);
+                            
+                            let rds_city = this.appCom.jsonParseCityName(currTempObj['rds_city']);
+                            let rds_sub_district = this.appCom.jsonParseCityName(currTempObj['rds_sub_district']);
+                            let displayText = currTempObj['rds_name'] + "("+rds_city+", "+rds_sub_district+")";
+                            this.rdsArr.push({
+                                text:displayText,
+                                value:currTempObj['server_rds_id']
+                            });
+                        }
+                        this.RetDistMobi.instance.option({
+                            data: this.rdsArr
+                        });
+
+                    }
+                    callback();
+                },(error)=>{
+                    console.log('error queryRDS initFormData',error);
+                    callback();
+                });
+            });
+
+            allSyncTask.push((callback)=>{
+
+                this.productsArr=[];
+                let query="SELECT * FROM product_master WHERE product_type = 'holcim_product'";
+                this.sqlS.queryExecuteSql(query,[]).then((resData:any)=>{
+
+                    if(resData.rows.length>0){
+
+                        for(let i=0;i<resData.rows.length;i++){
+                            let currTempObj=resData.rows.item(i);
+                            this.productsArr.push({
+                                text:currTempObj['product_name'],
+                                value:currTempObj['server_product_id']
+                            });
+                        }
+                        this.productMobi.instance.option({
+                            data: this.productsArr
+                        });
+
+                    }
+                    callback();
+                },(error)=>{
+                    console.log('error queryRDS initFormData',error);
+                    callback();
+                });
 
 
+            });
+
+            async.parallel(allSyncTask, function(){
+                allTaskComplete();
+            });
+
+        });
+        
+    }
+
+    changeProductRecpt(event){
+        this.busy = this.checkReciptBalQuiL().then((resData:any)=>{
+                this.totalQ=resData['totalQ'];
+                this.totalIQ=resData['totalIQ'];
+        },()=>{
+                console.log('changeProductRecpt error');
+        });
+    }
+
+  
+    checkReciptBalQuiL(){
+        return new Promise((resolve,reject)=>{
+                    
+            let projectId=this.projServerId;
+            // let productId=this.ReceiptData.Product;
+
+            let productId=this.receiptForm.get('product_name').value;
+
+            let productType="holcim_product";
+            let currRecpId = this.ReceiptData['ReceiptId']?this.ReceiptData['ReceiptId']:0;
+            let queryBal = "SELECT DISTINCT prm.receipt_id,prm.server_receipt_id,prm.quantity,prm.unit,prm.invoice_quantity FROM  product_receipt_master prm  JOIN products_receipt_approval_tbl prat on prm.server_receipt_id=prat.server_receipt_id JOIN product_master pdm ON prm.product_id = pdm.server_product_id WHERE prm.server_receipt_id>0 AND prat.is_closed=0 AND prat.approval_status=1 AND prat.approval_role='SA'  AND prm.server_project_id>0 AND pdm.is_cement=1 AND pdm.server_product_id="+productId+" AND pdm.product_type='"+productType+"' AND prm.server_project_id="+projectId+" AND  prm.receipt_id <> "+currRecpId;
+            console.log('queryBal',queryBal);
+            this.sqlS.queryExecuteSql(queryBal,[]).then((reslData:any)=>{
+                let allBalDatas=[];
+                let totalQ=0;
+                let totalIQ=0;
+                for(let i=0;i<reslData.rows.length;i++) {
+                    let temObb = reslData.rows.item(i);
+                    totalQ = totalQ + temObb['quantity'];
+                    totalIQ = totalIQ + temObb['invoice_quantity'];
+                // allBalDatas.push(temObb);
+                }
+                let respObj= {
+                    totalQ:totalQ,
+                    totalIQ:totalIQ
+                };
+                console.log('respObj',respObj);
+                resolve(respObj);
+            },(error)=>{
+                console.log(error);
+                resolve(false);
+            });
+        });
+    }  
 
 
-      //SUBMIT Product Receipt DATA FORM
-submitProductReceiptForm(){
+    //SUBMIT Product Receipt DATA FORM
+    submitProductReceiptForm(){
         this.submitted=true;
         let isvalid = false;
-        isvalid = ( this.Product.valid && this.Quantity.valid &&  this.RetDist.valid && this.ReceiptData.PurchaseDate != undefined && this.ReceiptData.PurchaseDate != '' && 
-                this.ReceiptData.InvoiceQuantity>=0 && this.digitalSignPath !='' && this.digitalSignPath !=undefined &&
-                this.invoicePhotoObj.length != 0 && this.invoicePhotoObj != '' && this.invoicePhotoObj !=undefined
-                && this.Unit.value != undefined && this.Unit.value != '' && this.ReceiptData.RetDist>0
-                )
+        // isvalid = ( this.Product.valid && this.Quantity.valid &&  this.RetDist.valid && this.ReceiptData.PurchaseDate != undefined && this.ReceiptData.PurchaseDate != '' && 
+        //         this.ReceiptData.InvoiceQuantity>=0 && this.digitalSignPath !='' && this.digitalSignPath !=undefined &&
+        //         this.invoicePhotoObj.length != 0 && this.invoicePhotoObj != '' && this.invoicePhotoObj !=undefined
+        //         && this.Unit.value != undefined && this.Unit.value != '' && this.ReceiptData.RetDist>0
+        //         )
+        isvalid = ( this.receiptForm.valid && this.ReceiptData.InvoiceQuantity>=0 && this.digitalSignPath !='' && this.digitalSignPath !=undefined &&
+                    this.invoicePhotoObj.length != 0 && this.invoicePhotoObj != '' && this.invoicePhotoObj !=undefined
+                );
 
-               
+        if(isvalid){
+            this.busy = this.checkReciptBalQuiL().then((resData:any)=>{
 
+                this.totalQ=resData['totalQ'];
+                this.totalIQ=resData['totalIQ'];
 
-          if(isvalid){
-            
-           
-                this.busy=this.checkReciptBalQuiL().then((resData:any)=>{
+                //QUANTITY AND INVOICE LOGIC
+                let diffTotal = this.totalIQ-this.totalQ;
+                // let currQ=parseInt(this.Quantity.value);
+                // let currIQ=parseInt(this.InvoiceQuantity.value);
 
-                    this.totalQ=resData['totalQ'];
-                    this.totalIQ=resData['totalIQ'];
-                    //QUANTITY AND INVOICE LOGIC
+                let currQ=parseInt(this.receiptForm.get('product_quantity').value);
+                let currIQ=parseInt(this.receiptForm.get('product_invoice_quantity').value);
+                let subFlag=true;
 
-                    let diffTotal = this.totalIQ-this.totalQ;
-                    let currQ=parseInt(this.Quantity.value);
-                    let currIQ=parseInt(this.InvoiceQuantity.value);
-                    let subFlag=true;
-                    if(diffTotal<=0){
-                         console.log('if 1 diffTotal',diffTotal);
-                         console.log('if 1 currQ',currQ);
-                         console.log('if 1 currIQ',currIQ);
-                        if(  currQ > currIQ ){
-                            //not allowed
-                          //  this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.QTY_INVOICE_CONDITION_ERR,"Ok",""); 
-                            subFlag=false;
-                        }
-                    }else{
-                         let totalBal=diffTotal+currIQ;
-                         console.log('else 1 totalBal',totalBal);
-                         console.log('else 1 diffTotal',diffTotal);
-                         console.log('else 1 currQ',currQ);
-                         console.log('else 1 currIQ',currIQ);
-                        if(  currQ > totalBal ){
-                            //not allowed
-                          //  this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.QTY_INVOICE_CONDITION_ERR,"Ok",""); 
-                            subFlag=false;
-                        }   
-                    }
-                   
-                    if(subFlag){
-                        this.submitProductReceiptFormF();
-                    }else{
+                if(diffTotal<=0){ // First check
+
+                    console.log('if 1 diffTotal',diffTotal);
+                    console.log('if 1 currQ',currQ);
+                    console.log('if 1 currIQ',currIQ);
+
+                    if(  currQ > currIQ ){ // first inner check
+                        //not allowed
                         this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.QTY_INVOICE_CONDITION_ERR,"Ok",""); 
+                        subFlag=false;
                     }
-                    
+                } else { // Second check
+                    let totalBal=diffTotal+currIQ;
+                    console.log('else 1 totalBal',totalBal);
+                    console.log('else 1 diffTotal',diffTotal);
+                    console.log('else 1 currQ',currQ);
+                    console.log('else 1 currIQ',currIQ);
+                    if(  currQ > totalBal ){ // Second inner check
+                        //not allowed
+                        this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.QTY_INVOICE_CONDITION_ERR,"Ok",""); 
+                        subFlag=false;
+                    }   
+                }
+                
+                if(subFlag){
+                    this.submitProductReceiptFormF();
+                } else {
+                    this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.QTY_INVOICE_CONDITION_ERR,"Ok",""); 
+                }
+                
 
-                });
-         
-
-         }else{
+            });
+         }
+        else{
             //invalid
             this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.INVALID_FIELDS_FORM_ERR,"Ok","");
         }
-
-    
-}
+    }
       
-submitProductReceiptFormF(){
+    submitProductReceiptFormF(){
     
         let currentTimeStamp = this.appCom.getCurrentTimeStamp();
         this.errRecieptFlag = false;
 
         //SAVE Product Receipt TO DATABASE
         let insertData = {};
-        insertData['hpb_id']=this.projData['user']?this.projData['user']['hpb_id']:""; 
+        insertData['hpb_id'] = this.projData['user']?this.projData['user']['hpb_id']:""; 
         insertData['server_hpb_id']= this.hpbServerId;
         insertData['hpb_status']= this.hpbStatus;
         insertData['server_project_id']=this.projServerId;
         insertData['project_id']=this.projData['project_id'];
-        insertData['product_id']=this.ReceiptData['Product']; //server_product_id
-        insertData['quantity']=this.ReceiptData['Quantity'];
-        insertData['unit']=this.ReceiptData['Unit'];
-        insertData['rds_id']=this.ReceiptData['RetDist']; //server rds id
+
+        // insertData['product_id']=this.ReceiptData['Product']; //server_product_id
+        // insertData['quantity']=this.ReceiptData['Quantity'];
+        // insertData['unit']=this.ReceiptData['Unit'];
+        // insertData['rds_id']=this.ReceiptData['RetDist']; //server rds id
+        // insertData['purchase_date']= this.appCom.dateToTimeStamp(this.ReceiptData['PurchaseDate']);
+        // insertData['invoice_quantity']=this.ReceiptData['InvoiceQuantity'];
+
+        for(let key in this.receiptForm.value)
+        {
+            if(key.includes('product_name'))
+            {
+                this.product_name.push(this.receiptForm.get(key).value);
+            }
+            if(key.includes('product_quantity'))
+            {
+                this.product_quantity.push(this.receiptForm.get(key).value);
+            }
+            if(key.includes('product_unit'))
+            {
+                this.product_unit.push(this.receiptForm.get(key).value);
+            }
+        }
+
+        insertData['product_id']=this.product_name; //server_product_id
+        insertData['quantity']=this.product_quantity;
+        insertData['unit']=this.product_unit;
+        insertData['rds_id']=this.receiptForm.get('product_distributor').value; //server rds id
+        insertData['purchase_date']= this.appCom.dateToTimeStamp(this.receiptForm.get('product_purchase_date').value);
+        insertData['invoice_quantity']=this.receiptForm.get('product_invoice_quantity').value;
+
         insertData['sync_status']=0;
-        
-        insertData['purchase_date']= this.appCom.dateToTimeStamp(this.ReceiptData['PurchaseDate']);
-        insertData['invoice_quantity']=this.ReceiptData['InvoiceQuantity'];
+
         if( this.ReceiptData.InvoiceImage != undefined && this.ReceiptData.InvoiceImage != '' && this.ReceiptData.InvoiceImage.length > 0 ){
             insertData['invoice_image'] = JSON.stringify( this.ReceiptData.InvoiceImage ); 
         } else {
             insertData['invoice_image'] = '';
         }
+        
         insertData['digital_sign'] = JSON.stringify(this.ReceiptData['HpbDigitalSign']);
         
         if( this.ReceiptData['AdditionalComments'] != undefined && this.ReceiptData['AdditionalComments'] != '' ){
-        insertData['additional_comments'] = this.ReceiptData['AdditionalComments'].trim();
+            insertData['additional_comments'] = this.ReceiptData['AdditionalComments'].trim();
         }
-        
+    
         insertData['local_updated_date'] = currentTimeStamp;
         //insertData['updatedby'] = this.ReceiptData['updatedby'];
         insertData['assigned_to'] = this.userId;
         insertData['updated_by']=sessionUserGlobalData['userIdG']?sessionUserGlobalData['userIdG']:this.userId;  
-        
 
         if( parseInt(this.ReceiptData['ReceiptId']) > 0 ){
             console.log("this.ReceiptData['ReceiptId']=>",this.ReceiptData['ReceiptId']);
@@ -876,21 +916,21 @@ submitProductReceiptFormF(){
                 if(successCallback)	{
                     this.appCom.getLocationModeC((res) => {
                 
-                        //if(res == 'high_accuracy'){                    
+                        if(res == 'high_accuracy'){                    
                                 this.busy=  this.appCom.getGeoLocationCordinates("submitProductReceipt").then((geoCordinates)=>{
                                     this.addReceiptGeoLoc(geoCordinates,insertData);
                                 
                                 },(error)=>{
                                     console.log(error);
-                                    //this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok","");
+                                    this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok","");
                                     this.addReceiptGeoLoc('',insertData);
                                 });
                         
-                        // }else{
-                        //     //show pop up for set high accuracy..
-                        //     //this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");
-                        //     this.addReceiptGeoLoc('',insertData);
-                        // }
+                        }else{
+                            //show pop up for set high accuracy..
+                            //this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");
+                            this.addReceiptGeoLoc('',insertData);
+                        }
                     },(err)=>{
                         console.log(err);
                     });
@@ -999,266 +1039,266 @@ submitProductReceiptFormF(){
    
     }
 
-receiptsAprovalInsertUpdate(receipt_id,type){
-    return new Promise((resolve,reject)=>{
-        this.errRecieptFlag = false;
-        if(type=="insert"){
-            
-                this.checkAcApproval().then((resFlag:any)=>{
-                         
-                     let roleArrs=['TLH','SA'];
-                     let insert_cnt = 0;
-                     if(resFlag){
-                                roleArrs=['TLH','AC','SA'];
-                     }
-                     async.each(roleArrs,(roleArr,callback)=>{
-                        
-                             let approvalInsert={};
-                             approvalInsert['receipt_id']=receipt_id;
-                             approvalInsert['server_receipt_id']=0;
-                             approvalInsert['approval_status']=0;
-                             approvalInsert['approval_role']=roleArr; 
-                             //approvalInsert['approved_by']=this.userId;                                                          
-                             approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();
-                             approvalInsert['local_updated_date']=this.appCom.getCurrentTimeStamp();
-                             approvalInsert['created_by']=this.userId;
-                             approvalInsert['updated_by']=this.userId;
-                             approvalInsert['sync_status']=0;
-                             this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
-                                insert_cnt++;
-                                console.log("callback"+insert_cnt);
-                                callback();                             
-                             },(error)=>{
+    receiptsAprovalInsertUpdate(receipt_id,type){
+        return new Promise((resolve,reject)=>{
+            this.errRecieptFlag = false;
+            if(type=="insert"){
+                
+                    this.checkAcApproval().then((resFlag:any)=>{
+                            
+                        let roleArrs=['TLH','SA'];
+                        let insert_cnt = 0;
+                        if(resFlag){
+                                    roleArrs=['TLH','AC','SA'];
+                        }
+                        async.each(roleArrs,(roleArr,callback)=>{
+                            
+                                let approvalInsert={};
+                                approvalInsert['receipt_id']=receipt_id;
+                                approvalInsert['server_receipt_id']=0;
+                                approvalInsert['approval_status']=0;
+                                approvalInsert['approval_role']=roleArr; 
+                                //approvalInsert['approved_by']=this.userId;                                                          
+                                approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();
+                                approvalInsert['local_updated_date']=this.appCom.getCurrentTimeStamp();
+                                approvalInsert['created_by']=this.userId;
+                                approvalInsert['updated_by']=this.userId;
+                                approvalInsert['sync_status']=0;
                                 this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
                                     insert_cnt++;
                                     console.log("callback"+insert_cnt);
                                     callback();                             
-                                 },(error)=>{
-                                    this.errRecieptFlag = true;
-                                    console.log("errRecieptFlag=>",this.errRecieptFlag);
-                                    callback();
-                                 });
-                             });
-                            
-                     },()=>{
-                        console.log("entered into completion of async");
-                        console.log("insert_cnt=>",insert_cnt);
-                        console.log("roleArrs.length=>",roleArrs.length);
-                        if(insert_cnt==roleArrs.length){
-                            console.log("insert count match with roleArrs length,all 4 insertion completed");
-                            resolve(true);
-                        }else{
-                            console.log("All data deleted from product_receipt_master and products_receipt_approval_tbl");
-                            this.sqlS.queryExecuteSql("Delete FROM product_receipt_master WHERE receipt_id = "+receipt_id+"",[]).then((dataRes:any)=>{
-                                this.sqlS.queryExecuteSql("Delete FROM products_receipt_approval_tbl WHERE receipt_id = "+receipt_id+"",[]).then((dataRes:any)=>{
-                                    resolve(false);
+                                },(error)=>{
+                                    this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
+                                        insert_cnt++;
+                                        console.log("callback"+insert_cnt);
+                                        callback();                             
+                                    },(error)=>{
+                                        this.errRecieptFlag = true;
+                                        console.log("errRecieptFlag=>",this.errRecieptFlag);
+                                        callback();
+                                    });
+                                });
+                                
+                        },()=>{
+                            console.log("entered into completion of async");
+                            console.log("insert_cnt=>",insert_cnt);
+                            console.log("roleArrs.length=>",roleArrs.length);
+                            if(insert_cnt==roleArrs.length){
+                                console.log("insert count match with roleArrs length,all 4 insertion completed");
+                                resolve(true);
+                            }else{
+                                console.log("All data deleted from product_receipt_master and products_receipt_approval_tbl");
+                                this.sqlS.queryExecuteSql("Delete FROM product_receipt_master WHERE receipt_id = "+receipt_id+"",[]).then((dataRes:any)=>{
+                                    this.sqlS.queryExecuteSql("Delete FROM products_receipt_approval_tbl WHERE receipt_id = "+receipt_id+"",[]).then((dataRes:any)=>{
+                                        resolve(false);
+                                    },(error)=>{
+                                        resolve(false);
+                                    });
                                 },(error)=>{
                                     resolve(false);
                                 });
-                            },(error)=>{
+                            }
+                        });
+                    },(error)=>{
+                        resolve(false);
+                    });
+    
+    
+            }else if(type=="update"){
+    
+                
+                let queryCheck="SELECT * FROM products_receipt_approval_tbl WHERE receipt_id="+receipt_id+" AND approval_status <> 0 AND is_closed=0";
+                console.log("queryCheck--->",queryCheck);
+                this.sqlS.queryExecuteSql(queryCheck,[]).then((dataRes:any)=>{
+                        console.log("dataRes--->",dataRes);  
+                        if(dataRes.rows.length>0){
+                            let approvalInsertUpdate={};
+                            approvalInsertUpdate['is_closed']=1;
+                            approvalInsertUpdate['sync_status']=0;
+                            let whereCond =" receipt_id="+receipt_id;
+                            this.sqlS.updateData(approvalInsertUpdate,"products_receipt_approval_tbl",whereCond).then((data) => {
+                                    console.log("data--->",data);  
+                                    this.checkAcApproval().then((resFlag:any)=>{
+                                        console.log("resFlag--->",resFlag); 
+                                        let insert_cnt = 0;      
+                                        let roleArrs=['TLH','SA'];
+                                        if(resFlag){
+                                                roleArrs=['TLH','AC','SA'];
+                                        }
+                                        async.each(roleArrs,(roleArr,callback)=>{
+                                                let approvalInsert={};
+                                                approvalInsert['receipt_id']=receipt_id;
+                                                approvalInsert['server_receipt_id']=0;
+                                                approvalInsert['approval_status']=0;
+                                                approvalInsert['approval_role']=roleArr; 
+                                                //approvalInsert['approved_by']=this.userId;                                                          
+                                                approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();;
+                                                approvalInsert['local_updated_date']=this.appCom.getCurrentTimeStamp();;
+                                                approvalInsert['created_by']=this.userId;
+                                                approvalInsert['updated_by']=this.userId;
+                                                approvalInsert['sync_status']=0;
+                                                this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
+                                                    insert_cnt++;
+                                                    console.log("callback"+insert_cnt);
+                                                    callback();                             
+                                                },(error)=>{
+                                                    this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
+                                                        insert_cnt++;
+                                                        console.log("callback"+insert_cnt);
+                                                        callback();                             
+                                                    },(error)=>{
+                                                        this.errRecieptFlag = true;
+                                                        console.log("errRecieptFlag=>",this.errRecieptFlag);
+                                                        callback();
+                                                    });
+                                                });
+    
+                                        },(complete)=>{
+                                            resolve(true);
+                                        });
+    
+                                    },(error)=>{
+                                        resolve(true);
+                                    });
+    
+                            },error=>{
+                                this.errRecieptFlag = true;
                                 resolve(false);
+                                console.log("error",error);
                             });
-                        }
-                     });
-                },(error)=>{
-                    resolve(false);
-                });
- 
- 
-         }else if(type=="update"){
- 
-             
-             let queryCheck="SELECT * FROM products_receipt_approval_tbl WHERE receipt_id="+receipt_id+" AND approval_status <> 0 AND is_closed=0";
-             console.log("queryCheck--->",queryCheck);
-             this.sqlS.queryExecuteSql(queryCheck,[]).then((dataRes:any)=>{
-                     console.log("dataRes--->",dataRes);  
-                     if(dataRes.rows.length>0){
-                         let approvalInsertUpdate={};
-                         approvalInsertUpdate['is_closed']=1;
-                         approvalInsertUpdate['sync_status']=0;
-                         let whereCond =" receipt_id="+receipt_id;
-                         this.sqlS.updateData(approvalInsertUpdate,"products_receipt_approval_tbl",whereCond).then((data) => {
-                                  console.log("data--->",data);  
-                                  this.checkAcApproval().then((resFlag:any)=>{
-                                      console.log("resFlag--->",resFlag); 
-                                      let insert_cnt = 0;      
-                                     let roleArrs=['TLH','SA'];
-                                     if(resFlag){
-                                              roleArrs=['TLH','AC','SA'];
-                                     }
-                                     async.each(roleArrs,(roleArr,callback)=>{
-                                             let approvalInsert={};
-                                             approvalInsert['receipt_id']=receipt_id;
-                                             approvalInsert['server_receipt_id']=0;
-                                             approvalInsert['approval_status']=0;
-                                             approvalInsert['approval_role']=roleArr; 
-                                             //approvalInsert['approved_by']=this.userId;                                                          
-                                             approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();;
-                                             approvalInsert['local_updated_date']=this.appCom.getCurrentTimeStamp();;
-                                             approvalInsert['created_by']=this.userId;
-                                             approvalInsert['updated_by']=this.userId;
-                                             approvalInsert['sync_status']=0;
-                                             this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
-                                                insert_cnt++;
-                                                console.log("callback"+insert_cnt);
-                                                callback();                             
-                                             },(error)=>{
+    
+                        }else{
+    
+                                let queryCheck="SELECT * FROM products_receipt_approval_tbl WHERE receipt_id="+receipt_id+" AND approval_status =0 AND is_closed=0";
+                                this.sqlS.queryExecuteSql(queryCheck,[]).then((dataRes:any)=>{
+        
+                            
+                                    if(dataRes.rows.length==0){
+    
+                                    this.checkAcApproval().then((resFlag:any)=>{
+                                            
+                                        let roleArrs=['TLH','SA'];
+                                        let insert_cnt = 0;
+                                        if(resFlag){
+                                                roleArrs=['TLH','AC','SA'];
+                                        }
+                                        async.each(roleArrs,(roleArr,callback)=>{
+                                                let approvalInsert={};
+                                                approvalInsert['receipt_id']=receipt_id;
+                                                approvalInsert['server_receipt_id']=0;
+                                                approvalInsert['approval_status']=0;
+                                                approvalInsert['approval_role']=roleArr; 
+                                                //approvalInsert['approved_by']=this.userId;                                                          
+                                                approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();;
+                                                approvalInsert['local_updated_date']=this.appCom.getCurrentTimeStamp();;
+                                                approvalInsert['created_by']=this.userId;
+                                                approvalInsert['updated_by']=this.userId;
+                                                approvalInsert['sync_status']=0;
                                                 this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
                                                     insert_cnt++;
                                                     console.log("callback"+insert_cnt);
                                                     callback();                             
-                                                 },(error)=>{
-                                                    this.errRecieptFlag = true;
-                                                    console.log("errRecieptFlag=>",this.errRecieptFlag);
-                                                    callback();
-                                                 });
-                                             });
- 
-                                     },(complete)=>{
-                                        resolve(true);
-                                     });
- 
-                                 },(error)=>{
-                                     resolve(true);
-                                 });
- 
-                         },error=>{
-                             this.errRecieptFlag = true;
-                             resolve(false);
-                             console.log("error",error);
-                         });
- 
-                     }else{
- 
-                            let queryCheck="SELECT * FROM products_receipt_approval_tbl WHERE receipt_id="+receipt_id+" AND approval_status =0 AND is_closed=0";
-                             this.sqlS.queryExecuteSql(queryCheck,[]).then((dataRes:any)=>{
-     
-                         
-                                 if(dataRes.rows.length==0){
- 
-                                  this.checkAcApproval().then((resFlag:any)=>{
-                                         
-                                     let roleArrs=['TLH','SA'];
-                                     let insert_cnt = 0;
-                                     if(resFlag){
-                                              roleArrs=['TLH','AC','SA'];
-                                     }
-                                     async.each(roleArrs,(roleArr,callback)=>{
-                                             let approvalInsert={};
-                                             approvalInsert['receipt_id']=receipt_id;
-                                             approvalInsert['server_receipt_id']=0;
-                                             approvalInsert['approval_status']=0;
-                                             approvalInsert['approval_role']=roleArr; 
-                                             //approvalInsert['approved_by']=this.userId;                                                          
-                                             approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();;
-                                             approvalInsert['local_updated_date']=this.appCom.getCurrentTimeStamp();;
-                                             approvalInsert['created_by']=this.userId;
-                                             approvalInsert['updated_by']=this.userId;
-                                             approvalInsert['sync_status']=0;
-                                             this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
-                                                insert_cnt++;
-                                                console.log("callback"+insert_cnt);
-                                                callback();                             
-                                             },(error)=>{
-                                                this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
-                                                    insert_cnt++;
-                                                    console.log("callback"+insert_cnt);
-                                                    callback();                             
-                                                 },(error)=>{
-                                                    this.errRecieptFlag = true;
-                                                    console.log("errRecieptFlag=>",this.errRecieptFlag);
-                                                    callback();
-                                                 });
-                                             });
- 
-                                     },(complete)=>{
-                                        resolve(true);
-                                     });
- 
-                                 },(error)=>{
-                                    resolve(false); 
-                                 });
-                             }else{
-                                         let approvalInsertUpdate={};
-                                         approvalInsertUpdate['is_closed']=1;
-                                         approvalInsertUpdate['sync_status']=0;
-                                         let whereCond =" receipt_id="+receipt_id;
-                                         this.sqlS.updateData(approvalInsertUpdate,"products_receipt_approval_tbl",whereCond).then((data) => {
-                                                 console.log("data--->",data);  
-                                                 this.checkAcApproval().then((resFlag:any)=>{
-                                                     console.log("resFlag--->",resFlag);       
-                                                     let roleArrs=['TLH','SA'];
-                                                     let insert_cnt = 0;
-                                                     if(resFlag){
-                                                             roleArrs=['TLH','AC','SA'];
-                                                     }
-                                                     async.each(roleArrs,(roleArr,callback)=>{
-                                                             let approvalInsert={};
-                                                             approvalInsert['receipt_id']=receipt_id;
-                                                             approvalInsert['server_receipt_id']=0;
-                                                             approvalInsert['approval_status']=0;
-                                                             approvalInsert['approval_role']=roleArr; 
-                                                             //approvalInsert['approved_by']=this.userId;                                                          
-                                                             approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();;
-                                                             approvalInsert['local_updated_date']=this.appCom.getCurrentTimeStamp();;
-                                                             approvalInsert['created_by']=this.userId;
-                                                             approvalInsert['updated_by']=this.userId;
-                                                             approvalInsert['sync_status']=0;
-                                                             this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
-                                                                insert_cnt++;
-                                                                console.log("callback"+insert_cnt);
-                                                                callback();                             
-                                                             },(error)=>{
+                                                },(error)=>{
+                                                    this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
+                                                        insert_cnt++;
+                                                        console.log("callback"+insert_cnt);
+                                                        callback();                             
+                                                    },(error)=>{
+                                                        this.errRecieptFlag = true;
+                                                        console.log("errRecieptFlag=>",this.errRecieptFlag);
+                                                        callback();
+                                                    });
+                                                });
+    
+                                        },(complete)=>{
+                                            resolve(true);
+                                        });
+    
+                                    },(error)=>{
+                                        resolve(false); 
+                                    });
+                                }else{
+                                            let approvalInsertUpdate={};
+                                            approvalInsertUpdate['is_closed']=1;
+                                            approvalInsertUpdate['sync_status']=0;
+                                            let whereCond =" receipt_id="+receipt_id;
+                                            this.sqlS.updateData(approvalInsertUpdate,"products_receipt_approval_tbl",whereCond).then((data) => {
+                                                    console.log("data--->",data);  
+                                                    this.checkAcApproval().then((resFlag:any)=>{
+                                                        console.log("resFlag--->",resFlag);       
+                                                        let roleArrs=['TLH','SA'];
+                                                        let insert_cnt = 0;
+                                                        if(resFlag){
+                                                                roleArrs=['TLH','AC','SA'];
+                                                        }
+                                                        async.each(roleArrs,(roleArr,callback)=>{
+                                                                let approvalInsert={};
+                                                                approvalInsert['receipt_id']=receipt_id;
+                                                                approvalInsert['server_receipt_id']=0;
+                                                                approvalInsert['approval_status']=0;
+                                                                approvalInsert['approval_role']=roleArr; 
+                                                                //approvalInsert['approved_by']=this.userId;                                                          
+                                                                approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();;
+                                                                approvalInsert['local_updated_date']=this.appCom.getCurrentTimeStamp();;
+                                                                approvalInsert['created_by']=this.userId;
+                                                                approvalInsert['updated_by']=this.userId;
+                                                                approvalInsert['sync_status']=0;
                                                                 this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
                                                                     insert_cnt++;
                                                                     console.log("callback"+insert_cnt);
                                                                     callback();                             
-                                                                 },(error)=>{
-                                                                    this.errRecieptFlag = true;
-                                                                    console.log("errRecieptFlag=>",this.errRecieptFlag);
-                                                                    callback();
-                                                                 });
-                                                             });
- 
-                                                     },(complete)=>{
-                                                        resolve(true);
-                                                     });
- 
-                                                 },(error)=>{
-                                                     resolve(false);
-                                                 });
- 
-                                         },error=>{
-                                             this.errRecieptFlag = true;
-                                             console.log("error",error);
-                                             resolve(false);
-                                         });
- 
-                             }
- 
-                     });    
- 
- 
-                     }
- 
-             },(error)=>{
-                 console.log("error",error);
-                 resolve(false);
-             });
- 
-         
- 
- 
-         }
-         
-    });
-        
-        
-    //    setTimeout(()=> {
-    //         this.events.publish('globalSync'); 
-    //    }, 3000);
+                                                                },(error)=>{
+                                                                    this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
+                                                                        insert_cnt++;
+                                                                        console.log("callback"+insert_cnt);
+                                                                        callback();                             
+                                                                    },(error)=>{
+                                                                        this.errRecieptFlag = true;
+                                                                        console.log("errRecieptFlag=>",this.errRecieptFlag);
+                                                                        callback();
+                                                                    });
+                                                                });
+    
+                                                        },(complete)=>{
+                                                            resolve(true);
+                                                        });
+    
+                                                    },(error)=>{
+                                                        resolve(false);
+                                                    });
+    
+                                            },error=>{
+                                                this.errRecieptFlag = true;
+                                                console.log("error",error);
+                                                resolve(false);
+                                            });
+    
+                                }
+    
+                        });    
+    
+    
+                        }
+    
+                },(error)=>{
+                    console.log("error",error);
+                    resolve(false);
+                });
+    
+            
+    
+    
+            }
+            
+        });
+            
+            
+        //    setTimeout(()=> {
+        //         this.events.publish('globalSync'); 
+        //    }, 3000);
 
-}
+    }
 
     checkAcApproval(){
 
@@ -1266,10 +1306,10 @@ receiptsAprovalInsertUpdate(receipt_id,type){
 
             let selectField = " * ";
             let tablename = "product_master";
-            let where=" `server_product_id` = "+this.ReceiptData['Product'];
+            let where=" `server_product_id` IN ("+this.product_name + ")";
             this.sqlS.selectTableData(selectField,tablename,where,"","").then((productData) => {
                 let result = productData['rows'].item(0);
-                let d = parseInt(this.ReceiptData['Quantity']) > parseInt(result['req_ac_approv_qty']);
+                let d = parseInt(this.receiptForm.get('product_quantity').value) > parseInt(result['req_ac_approv_qty']);
                 if(d){
                         resolve(true);  
                 }else{
@@ -1282,6 +1322,28 @@ receiptsAprovalInsertUpdate(receipt_id,type){
             }); 
             
         });    
+    }
+
+    addProductToReceipt() {
+        this.product_addition_count++;
+        
+        this.receiptForm.addControl('product_name' + this.product_addition_count, new FormControl('', Validators.required));
+        this.receiptForm.addControl('product_unit' + this.product_addition_count, new FormControl('', Validators.required));
+        this.receiptForm.addControl('product_quantity' + this.product_addition_count, new FormControl('', [ Validators.required, Validators.pattern('^[1-3]+$') ]));
+
+        this.product_addition.push({
+            'product_name' : 'product_name' + this.product_addition_count,
+            'product_unit' : 'product_unit' + this.product_addition_count,
+            'product_quantity' : 'product_quantity' + this.product_addition_count,
+        });
+    }
+
+    setClickedProduct(product_control_name) {
+        this.product_clicked = product_control_name;
+    }
+
+    setClickedUnit(unit_control_name) {
+        this.unit_clicked = unit_control_name;
     }
 
 
