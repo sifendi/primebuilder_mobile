@@ -87,7 +87,7 @@ export class HomePage {
 
       let masterSync =  this.shareS.getshareData('masterSync'); 
       if(masterSync){
-          //this.busyMessage="Syncing...";
+          this.busyMessage="Syncing...";
           this.globalSyncLoaderBtn=true;
           this.busy=this.firstGlobaSync().then(()=>{
             
@@ -112,13 +112,13 @@ export class HomePage {
           });
           this.shareS.setshareData('masterSync',false);
       }else{
-        /*this.appCom.updateMasonContractorStats('mason');
+        this.appCom.updateMasonContractorStats('mason');
         this.appCom.updateMasonContractorStats('contractor');
         this.appCom.updateRetailerDistStats('retailer');
         this.appCom.updateRetailerDistStats('distributor');
         this.appCom.updateMyPlanStats('mason');
         this.appCom.updateMyPlanStats('contractor');
-        this.appCom.updateHomeSliderStats();*/
+        this.appCom.updateHomeSliderStats();
         this.homeDashbaordDataInit();
       }
 
@@ -128,6 +128,8 @@ export class HomePage {
       });
       this.notificationCountSet();
 }
+
+// Count notification dataa
 notificationCountSet(){
    let query="SELECT * FROM notification_center WHERE ntc_user_read_flag=0 AND status=1";
    this.sqlS.queryExecuteSql(query,[]).then((respData:any)=>{
@@ -136,12 +138,15 @@ notificationCountSet(){
 
    });
 }
+
   firstGlobaSync(){
         return new Promise((resolve,reject)=>{
-                   let allSyncTask=[];
+                    let allSyncTask=[];
                     let allTaskComplete = ()=>{
-                       resolve(true);
+                        resolve(true);
                     }
+                    
+                    // Trashed
                     allSyncTask.push((callback)=>{
                         this.syncS.syncAllMaster().then(()=>{
                             callback();
@@ -149,6 +154,8 @@ notificationCountSet(){
                             callback();
                         });
                     });
+
+
                     allSyncTask.push((callback)=>{
                         this.syncS.syncAllOtherData().then(()=>{
                             callback();
@@ -156,6 +163,7 @@ notificationCountSet(){
                             callback();
                         });
                     });
+                    
                     allSyncTask.push((callback)=>{
                       this.syncS.syncTargetsMaster().then(()=>{
                           callback();
@@ -214,10 +222,10 @@ notificationCountSet(){
 
   async ionViewDidEnter(){
     this.busyMessage = await this.appCom.getTranslatedTxt("Please wait...");  
-    // if(this.globalSyncLoaderBtn==false){
-    //     this.busyMessage="Please wait...";
-    //     this.homeDashbaordDataInit();
-    // }
+    if(this.globalSyncLoaderBtn==false){
+        this.busyMessage="Please wait...";
+        this.homeDashbaordDataInit();
+    }
   }
 
   openFile(file){

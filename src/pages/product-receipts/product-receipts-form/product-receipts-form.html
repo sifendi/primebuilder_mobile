@@ -103,9 +103,9 @@
                 <p [hidden]="!receiptForm.get('product_quantity').errors.required">
                     {{ "QUANTITY IS REQUIRED" | translate }}
                 </p>
-                <p [hidden]="!receiptForm.get('product_quantity').errors.pattern">
+                <!-- <p [hidden]="!receiptForm.get('product_quantity').errors.pattern">
                     {{ "QUANTITY IS INVALID" | translate }}
-                </p>
+                </p> -->
             </div>
 
 
@@ -153,9 +153,9 @@
                     <p [hidden]="!receiptForm.get(product.product_quantity).errors.required">
                         {{ "QUANTITY IS REQUIRED" | translate }}
                     </p>
-                    <p [hidden]="!receiptForm.get(product.product_quantity).errors.pattern">
+                    <!-- <p [hidden]="!receiptForm.get(product.product_quantity).errors.pattern">
                         {{ "QUANTITY IS INVALID" | translate }}
-                    </p>
+                    </p> -->
                 </div>	
             </div>
     

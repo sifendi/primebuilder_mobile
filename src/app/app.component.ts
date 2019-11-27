@@ -1,101 +1,88 @@
-import { Observable } from 'rxjs/Rx';
 import { appCommonMethods } from '../providers/appCommonMethods';
-import { timeout } from 'rxjs/operator/timeout';
 import { ALL_MESSAGE, SQL_QUERY } from '../providers/constant';
 import { SqlServices } from '../providers/sqlService';
 import { SyncServices } from '../providers/syncServices';
 import { OtpPage } from '../pages/login/otp/otp';
 import { MobileVerifyPage } from '../pages/login/mobile-verify/mobile-verify';
 import { ActivationRegisterPage } from '../pages/login/activation-register/activation-register';
-
-import { SelectLanguagePage } from "../pages/select-language/select-language";
 import { LoginPage } from '../pages/login/login/login';
 import { Component, ViewChild } from '@angular/core';
 import { AlertController, MenuController, Nav, Platform,Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Network } from '@ionic-native/network';
-
 import { HomePage } from '../pages/home/home';
-
-import { AddProjectPage } from '../pages/project/add-project/add-project';
-import { ProjectFilterPage } from '../pages/project/project-filter/project-filter';
-import { ProjectListPage } from '../pages/project/project-list/project-list';
-
-import { CementBagRemovalFormPage } from '../pages/cement-bag-removal/cement-bag-removal-form/cement-bag-removal-form';
-import { CementBagRemovalDetailsPage } from '../pages/cement-bag-removal/cement-bag-removal-details/cement-bag-removal-details';
-import { CementBagRemovalListPage } from '../pages/cement-bag-removal/cement-bag-removal-list/cement-bag-removal-list';
-import { CementBagRemovalSearchPage } from '../pages/cement-bag-removal/cement-bag-removal-search/cement-bag-removal-search';
-
-import { DistributorRetailerVisitFormPage } from '../pages/distributor-retailer-visit/distributor-retailer-visit-form/distributor-retailer-visit-form';
-import { DistributorRetailerVisitDetailsPage } from '../pages/distributor-retailer-visit/distributor-retailer-visit-details/distributor-retailer-visit-details';
-import { DistributorRetailerVisitListPage } from '../pages/distributor-retailer-visit/distributor-retailer-visit-list/distributor-retailer-visit-list';
-import { DistributorRetailerVisitSearchPage } from '../pages/distributor-retailer-visit/distributor-retailer-visit-search/distributor-retailer-visit-search';
-
-import { ProductReceiptsFormPage } from '../pages/product-receipts/product-receipts-form/product-receipts-form';
-import { ProductReceiptsDetailsPage } from '../pages/product-receipts/product-receipts-details/product-receipts-details';
 import { ProductReceiptsListPage } from '../pages/product-receipts/product-receipts-list/product-receipts-list';
-import { ProductReceiptsSearchPage } from '../pages/product-receipts/product-receipts-search/product-receipts-search';
-
 import { NoInternet } from '../pages/no-internet/no-internet';
-
-import { ProductRequestsFormPage } from '../pages/product-request/product-requests-form/product-requests-form';
-import { ProductRequestsDetailsPage } from '../pages/product-request/product-requests-details/product-requests-details';
+import { ProjectListPage } from '../pages/project/project-list/project-list';
 import { ProductRequestsListPage } from '../pages/product-request/product-requests-list/product-requests-list';
-import { ProductRequestsSearchPage } from '../pages/product-request/product-requests-search/product-requests-search';
-import { HomeSlidePage } from '../pages/home-slide/home-slide';
+
+// import { Observable } from 'rxjs/Rx';
+// import { timeout } from 'rxjs/operator/timeout';
+// import { SelectLanguagePage } from "../pages/select-language/select-language";
+// import { AddProjectPage } from '../pages/project/add-project/add-project';
+// import { ProjectFilterPage } from '../pages/project/project-filter/project-filter';
+// import { CementBagRemovalFormPage } from '../pages/cement-bag-removal/cement-bag-removal-form/cement-bag-removal-form';
+// import { CementBagRemovalDetailsPage } from '../pages/cement-bag-removal/cement-bag-removal-details/cement-bag-removal-details';
+// import { CementBagRemovalListPage } from '../pages/cement-bag-removal/cement-bag-removal-list/cement-bag-removal-list';
+// import { CementBagRemovalSearchPage } from '../pages/cement-bag-removal/cement-bag-removal-search/cement-bag-removal-search';
+// import { DistributorRetailerVisitFormPage } from '../pages/distributor-retailer-visit/distributor-retailer-visit-form/distributor-retailer-visit-form';
+// import { DistributorRetailerVisitDetailsPage } from '../pages/distributor-retailer-visit/distributor-retailer-visit-details/distributor-retailer-visit-details';
+// import { DistributorRetailerVisitListPage } from '../pages/distributor-retailer-visit/distributor-retailer-visit-list/distributor-retailer-visit-list';
+// import { DistributorRetailerVisitSearchPage } from '../pages/distributor-retailer-visit/distributor-retailer-visit-search/distributor-retailer-visit-search';
+// import { ProductReceiptsFormPage } from '../pages/product-receipts/product-receipts-form/product-receipts-form';
+// import { ProductReceiptsDetailsPage } from '../pages/product-receipts/product-receipts-details/product-receipts-details';
+// import { ProductReceiptsSearchPage } from '../pages/product-receipts/product-receipts-search/product-receipts-search';
+// import { ProductRequestsFormPage } from '../pages/product-request/product-requests-form/product-requests-form';
+// import { ProductRequestsDetailsPage } from '../pages/product-request/product-requests-details/product-requests-details';
+// import { ProductRequestsSearchPage } from '../pages/product-request/product-requests-search/product-requests-search';
+// import { HomeSlidePage } from '../pages/home-slide/home-slide';
+// import { AcCementBagRemovalDetailPage } from '../pages/ac/ac-cement-bag-removal-detail/ac-cement-bag-removal-detail';
+// import { AcCementBagRemovalFormPage } from '../pages/ac/ac-cement-bag-removal-form/ac-cement-bag-removal-form';
+//import { AcProductReceiptsTabPage } from '../pages/ac/ac-product-receipts-tab/ac-product-receipts-tab';
+// import { AcReceiptDetailsPage } from '../pages/ac/receipt-details/receipt-details';
+// import { AcSphTlsListPage } from '../pages/ac/sph-tls-list/sph-tls-list';
+// import { TlhDetailPage } from '../pages/tlh/tlh-detail/tlh-detail';
+// import { TlhProductReceiptPage } from '../pages/tlh/tlh-product-receipt/tlh-product-receipt';
+//import { TlhProductReceiptsTabPage } from '../pages/tlh/tlh-product-receipts-tab/tlh-product-receipts-tab';
+// import { TlhSphListPage } from '../pages/tlh/tlh-sph-list/tlh-sph-list';
+
 import { ShareService } from "../providers/ShareService";
 import { TranslateService } from '@ngx-translate/core';
 import { Geolocation } from '@ionic-native/geolocation';
-
-
 import { AmDashboardPage } from '../pages/am/dashboard/dashboard';
-
 import { AcDashboardPage } from '../pages/ac/dashboard/dashboard';
-import { AcCementBagRemovalDetailPage } from '../pages/ac/ac-cement-bag-removal-detail/ac-cement-bag-removal-detail';
-import { AcCementBagRemovalFormPage } from '../pages/ac/ac-cement-bag-removal-form/ac-cement-bag-removal-form';
 import { AcCementBagRemovalListPage } from '../pages/ac/ac-cement-bag-removal-list/ac-cement-bag-removal-list';
 import { AcProductReceiptPageTab } from '../pages/ac/ac-product-receipt-tab/ac-product-receipt-tab';
-//import { AcProductReceiptsTabPage } from '../pages/ac/ac-product-receipts-tab/ac-product-receipts-tab';
 import { AcAchievementsTabPage } from '../pages/ac/ac-achievements-tab/ac-achievements-tab';
 import { AcActivateSphListPage } from '../pages/ac/ac-activate-sph-list/ac-activate-sph-list';
-import { AcReceiptDetailsPage } from '../pages/ac/receipt-details/receipt-details';
-import { AcSphTlsListPage } from '../pages/ac/sph-tls-list/sph-tls-list';
-
 import { TlhAchievementsPage } from '../pages/tlh/achievements/achievements';
 import { TlhDashboardPage } from '../pages/tlh/dashboard/dashboard';
 import { ActivateSphListPage } from '../pages/tlh/activate-sph-list/activate-sph-list';
-import { TlhDetailPage } from '../pages/tlh/tlh-detail/tlh-detail';
-import { TlhProductReceiptPage } from '../pages/tlh/tlh-product-receipt/tlh-product-receipt';
-//import { TlhProductReceiptsTabPage } from '../pages/tlh/tlh-product-receipts-tab/tlh-product-receipts-tab';
 import { TlhReceiptDetailPage } from '../pages/tlh/tlh-receipt-detail/tlh-receipt-detail';
-import { TlhSphListPage } from '../pages/tlh/tlh-sph-list/tlh-sph-list';
-
 import { MasonDashboardPage } from '../pages/mason/dashboard/dashboard';
 import { MasonReceiptListPage } from '../pages/mason/mason-receipt-list/mason-receipt-list';
 import { MasonRedeemTabPage } from '../pages/mason/mason-redeem-tab/mason-redeem-tab';
 import { MasonRedeemListPage } from '../pages/mason/redeem-list/redeem-list';
 import { MasonRedeemHistoryPage } from '../pages/mason/redeem-history/redeem-history';
 import { MasonRedeemInvoicePage } from '../pages/mason/redeem-invoice/redeem-invoice';
-import { ReceiptDetailPage } from '../pages/mason/receipt-detail/receipt-detail';
+// import { ReceiptDetailPage } from '../pages/mason/receipt-detail/receipt-detail';
 
-import { PopupDemoPage } from '../pages/popup-demo/popup-demo';
-import { SrkuPage } from '../pages/srku/srku';
-import { SwitchingPage } from '../pages/switching/switching';
-import { MaintainPage } from '../pages/maintain/maintain';
-import { NewMemberPage } from '../pages/new-member/new-member';
-
+// import { PopupDemoPage } from '../pages/popup-demo/popup-demo';
+// import { SrkuPage } from '../pages/srku/srku';
+// import { SwitchingPage } from '../pages/switching/switching';
+// import { MaintainPage } from '../pages/maintain/maintain';
+// import { NewMemberPage } from '../pages/new-member/new-member';
 // import { Push, PushObject, PushOptions } from '@ionic-native/push';
+// import { ProjectParentTabsPage } from "../pages/project/project-parent-tab-page/project-parent-tab-page";
+// import { AddVisitFormPage } from "../pages/visit-pages/visit-add-form/visit-add-form";
+
 import { LoopBackConfig , LoopBackAuth, PushApi   } from '../shared/loopback_sdk/index';
 import { TermsAndConditon } from "../pages/login/terms-and-conditions-page/terms-and-conditions-page";
 import { Storage } from '@ionic/storage';
 import { HpbListPage } from "../pages/hpb-pages/hpb-list/hpb-list";
-import { ProjectParentTabsPage } from "../pages/project/project-parent-tab-page/project-parent-tab-page";
-import { AddVisitFormPage } from "../pages/visit-pages/visit-add-form/visit-add-form";
 import { DistributorRetailerListPage } from "../pages/distributor-retailer-page/distributor-retailer-list/distributor-retailer-list";
-
 import { SyncPage } from "../pages/sync/sync";
-
 import { SITE_API } from "../providers/constant";
 import { TlhProductReceiptsTabPage } from "../pages/tlh/tlh-product-receipts-tab/tlh-product-receipts-tab";
 import { TlhProjectsTabPage } from "../pages/tlh/tlh-projects-tab/tlh-projects-tab";
@@ -107,17 +94,20 @@ import { TlhProjectsAllPage } from "../pages/tlh/tlh-projects-all/tlh-projects-a
 import { TlhProjectsPendingPage } from "../pages/tlh/tlh-projects-pending/tlh-projects-pending";
 import { AcProductReceiptPendingPage } from "../pages/ac/ac-product-receipt-pending/ac-product-receipt-pending";
 import { AcProductReceiptAllPage } from "../pages/ac/ac-product-receipt-all/ac-product-receipt-all";
-import { tlhSrkuPage } from "../pages/tlh/tlh-srku/tlh-srku";
-import { tlhSwitchingPage } from "../pages/tlh/tlh-switching/tlh-switching";
-import { tlhMaintainPage } from "../pages/tlh/tlh-maintain/tlh-maintain";
-import { tlhNewMemberPage } from "../pages/tlh/tlh-new-member/tlh-new-member";
-import { acSwitchingPage } from "../pages/ac/ac-switching/ac-switching";
-import { acSrkuPage } from "../pages/ac/ac-srku/ac-srku";
-import { acNewMemberPage } from "../pages/ac/ac-new-member/ac-new-member";
-import { acMaintainPage } from "../pages/ac/ac-maintain/ac-maintain";
-import { TlhHpbParentTabsPage } from "../pages/tlh/tlh-hpb-pages/tlh-hpb-parent-tab-page/tlh-hpb-parent-tab-page";
+
+// import { tlhSrkuPage } from "../pages/tlh/tlh-srku/tlh-srku";
+// import { tlhSwitchingPage } from "../pages/tlh/tlh-switching/tlh-switching";
+// import { tlhMaintainPage } from "../pages/tlh/tlh-maintain/tlh-maintain";
+// import { tlhNewMemberPage } from "../pages/tlh/tlh-new-member/tlh-new-member";
+// import { acSwitchingPage } from "../pages/ac/ac-switching/ac-switching";
+// import { acSrkuPage } from "../pages/ac/ac-srku/ac-srku";
+// import { acNewMemberPage } from "../pages/ac/ac-new-member/ac-new-member";
+// import { acMaintainPage } from "../pages/ac/ac-maintain/ac-maintain";
+// import { TlhHpbParentTabsPage } from "../pages/tlh/tlh-hpb-pages/tlh-hpb-parent-tab-page/tlh-hpb-parent-tab-page";
+// import { tlhDistributorDetail, tlhDistributorVisitListPage } from "../pages/tlh/tlh-distributor-retailer-pages/tlh-distributor-retailer-detail-page/tlh-distributor-retailer-detail-page";
+import * as moment from 'moment';
+
 import { tlhDistributorRetailerListPage } from "../pages/tlh/tlh-distributor-retailer-pages/tlh-distributor-retailer-list/tlh-distributor-retailer-list";
-import { tlhDistributorDetail, tlhDistributorVisitListPage } from "../pages/tlh/tlh-distributor-retailer-pages/tlh-distributor-retailer-detail-page/tlh-distributor-retailer-detail-page";
 import { AcHpbListPage, AcHpbListContractorPage, AcHpbListMasonPage } from "../pages/ac/ac-hpb-pages/ac-hpb-list/ac-hpb-list";
 import { AcHpbParentTabsPage } from "../pages/ac/ac-hpb-pages/ac-hpb-parent-tab-page/ac-hpb-parent-tab-page";
 import { AcHpbProductReceiptsPage } from "../pages/ac/ac-hpb-pages/ac-hpb-product-receipts/ac-hpb-product-receipts";
@@ -128,7 +118,6 @@ import { AcHpbProjectListPage } from "../pages/ac/ac-hpb-pages/ac-hpb-project-li
 import { AcHpbDetailsPage } from "../pages/ac/ac-hpb-pages/ac-hpb-detail/ac-hpb-detail";
 import { AcDistributorRetailerListPage } from "../pages/ac/ac-distributor-retailer-pages/ac-distributor-retailer-list/ac-distributor-retailer-list";
 import { Device } from '@ionic-native/device';
-import * as moment from 'moment';
 import async from 'async'; 
 import { TlhProductRequestsListPage } from "../pages/tlh/tlh-product-request-list/tlh-product-request-list";
 import { AmAchievementsTabPage } from "../pages/am/am-achievements-tab/am-achievements-tab";
@@ -152,7 +141,7 @@ declare var await;
 // declare var hotCodePushPath;
 // declare var chcp: any;
 
-declare var pleaseWaitTxtTransl,mobisPlaceHolderWaitTxtTransl,mobisSetBtnTxtTransl,mobisClearBtnTxtTransl,mobisCancelBtnTxtTransl,filterEmptyText,filterPlaceholderText,filterPlaceholderText,mobisBtnArr,allAppPendRejObj;
+declare var pleaseWaitTxtTransl,mobisCancelBtnTxtTransl,filterEmptyText,filterPlaceholderText,filterPlaceholderText,mobisBtnArr,allAppPendRejObj,mobisPlaceHolderWaitTxtTransl,mobisSetBtnTxtTransl,mobisClearBtnTxtTransl;
 
 @Component({
   templateUrl: 'app.html'
@@ -160,14 +149,14 @@ declare var pleaseWaitTxtTransl,mobisPlaceHolderWaitTxtTransl,mobisSetBtnTxtTran
 export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
-   busyDB: Promise<any>;
-   busyDBMessage:any;
-   rootPage: any ;
-   appLanguage:String=null;
-   netConnection:any;
-   userName:any;
-   appVersionNumber:any="1.1.3";
-   verTextShow:any="Ver";
+  busyDB: Promise<any>;
+  busyDBMessage:any;
+  rootPage: any ;
+  appLanguage:String=null;
+  netConnection:any;
+  userName:any;
+  appVersionNumber:any="1.1.3";
+  verTextShow:any="Ver";
   pagesSPH: Array<{title: string, component: any,isCurrent:any,section:any,translation :any }>;  
   pagesAC: Array<{title: string, component: any,isCurrent:any,section:any,translation :any }>;
   pagesAM: Array<{title: string, component: any,isCurrent:any,section:any,translation :any }>;
@@ -202,9 +191,7 @@ export class MyApp {
      checkinDetails: this.details
   };
   
- 
-
-  constructor(private device:Device,private pushApi:PushApi,private syncS:SyncServices,private loopBackAuth:LoopBackAuth,public platform: Platform, public statusBar: StatusBar,public storage: Storage, public splashScreen: SplashScreen,public translate: TranslateService,public geolocation: Geolocation,public shareS:ShareService,public sqlS:SqlServices,public alertCtrl: AlertController,private menu: MenuController,public appCom:appCommonMethods,private network: Network,public events:Events,private splashS:SplashScreen) {
+  constructor(private device:Device, private pushApi:PushApi, private syncS:SyncServices,private loopBackAuth:LoopBackAuth,public platform: Platform, public statusBar: StatusBar,public storage: Storage, public splashScreen: SplashScreen,public translate: TranslateService,public geolocation: Geolocation,public shareS:ShareService,public sqlS:SqlServices,public alertCtrl: AlertController,private menu: MenuController,public appCom:appCommonMethods,private network: Network,public events:Events,private splashS:SplashScreen) {
     LoopBackConfig.setBaseURL(SITE_API.SITE_URL);
     LoopBackConfig.setApiVersion('api');
     
@@ -437,6 +424,7 @@ export class MyApp {
 
     //this.translate.setDefaultLang('en');
 
+    // Progress to run event
     this.events.subscribe("userDataRefresh",()=>{
             this.appCom.getAppPreference("userCreds").then((resDataU:any)=>{
                 this.userName = resDataU.user.realm;
@@ -608,6 +596,8 @@ export class MyApp {
 
     });
     console.log("start=>");
+
+    // Open DB Connection
     this.sqlS.openDb().then(()=>{
         this.appCom.getLocalStorageItem("appDbInit").then((flag)=>{
           console.log("flag=>",flag);
@@ -739,6 +729,8 @@ export class MyApp {
 
   //   return true;
   // }
+
+  // Show update alert
   async showUpdateAlert(url){
     let titleR = await this.appCom.getTranslatedTxt("Critical update available.");
     let subTitle = await this.appCom.getTranslatedTxt("Download immediately to continue using app.");

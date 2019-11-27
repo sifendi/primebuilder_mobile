@@ -835,11 +835,6 @@ export class addSrkuPage {
                 insertData['project_pincode'] = this.projData['ProjectPincode'];
                 insertData['is_srku'] = (this.projData['IsSrku'] == 'no') ? 0 : 1;
 
-
-
-
-
-
                 if (this.projData['SrkuOwnerName'] != undefined && this.projData['SrkuOwnerName'] != '') {
                     insertData['srku_owner_name'] = this.projData['SrkuOwnerName'].trim();
                 }
@@ -1462,7 +1457,11 @@ export class addSrkuPage {
                     this.sqlS.queryExecuteSql(updateQuery, []).then((updatDataRes: any) => {
                         console.log('updateQuery', updateQuery, updatDataRes);
                         let approvInsert = {};
-                        approvInsert['srku_approval_status'] = 0;
+                        // approvInsert['srku_approval_status'] = 0;
+                        
+                        // This is for change appoval
+                        approvInsert['srku_approval_status'] = 1;
+
                         approvInsert['project_id'] = srkuProjectId;
                         approvInsert['local_created_date'] = this.appCom.getCurrentTimeStamp();
                         approvInsert['local_updated_date'] = this.appCom.getCurrentTimeStamp();
