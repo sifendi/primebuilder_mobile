@@ -205,6 +205,7 @@ export class ProductReceiptsFormPage {
         //   }
     };
 
+    public progress_status: string;
 
     constructor(public navCtrl: NavController,public appRef:ApplicationRef, public navParams: NavParams, public popoverCtrl: PopoverController,public appCom:appCommonMethods,public events:Events,public modalCtrl: ModalController,public shareS:ShareService,public sqlS: SqlServices, private formBuilder: FormBuilder) {
     
@@ -563,7 +564,7 @@ export class ProductReceiptsFormPage {
         this.receiptForm = this.formBuilder.group({
             product_name: ['', Validators.required],
             product_unit: ['', Validators.required],
-            product_quantity: ['', [ Validators.required, Validators.pattern('^[1-3]+$') ] ],
+            product_quantity: ['', Validators.required],
             product_distributor: ['', Validators.required],
             product_purchase_date: ['', Validators.required],
             product_invoice_quantity: ['', Validators.required],
@@ -826,21 +827,6 @@ export class ProductReceiptsFormPage {
         let currentTimeStamp = this.appCom.getCurrentTimeStamp();
         this.errRecieptFlag = false;
 
-        //SAVE Product Receipt TO DATABASE
-        let insertData = {};
-        insertData['hpb_id'] = this.projData['user']?this.projData['user']['hpb_id']:""; 
-        insertData['server_hpb_id']= this.hpbServerId;
-        insertData['hpb_status']= this.hpbStatus;
-        insertData['server_project_id']=this.projServerId;
-        insertData['project_id']=this.projData['project_id'];
-
-        // insertData['product_id']=this.ReceiptData['Product']; //server_product_id
-        // insertData['quantity']=this.ReceiptData['Quantity'];
-        // insertData['unit']=this.ReceiptData['Unit'];
-        // insertData['rds_id']=this.ReceiptData['RetDist']; //server rds id
-        // insertData['purchase_date']= this.appCom.dateToTimeStamp(this.ReceiptData['PurchaseDate']);
-        // insertData['invoice_quantity']=this.ReceiptData['InvoiceQuantity'];
-
         for(let key in this.receiptForm.value)
         {
             if(key.includes('product_name'))
@@ -857,94 +843,131 @@ export class ProductReceiptsFormPage {
             }
         }
 
-        insertData['product_id']=this.product_name; //server_product_id
-        insertData['quantity']=this.product_quantity;
-        insertData['unit']=this.product_unit;
-        insertData['rds_id']=this.receiptForm.get('product_distributor').value; //server rds id
-        insertData['purchase_date']= this.appCom.dateToTimeStamp(this.receiptForm.get('product_purchase_date').value);
-        insertData['invoice_quantity']=this.receiptForm.get('product_invoice_quantity').value;
+        //SAVE Product Receipt TO DATABASE
 
-        insertData['sync_status']=0;
+        // insertData['product_id']=this.ReceiptData['Product']; //server_product_id
+        // insertData['quantity']=this.ReceiptData['Quantity'];
+        // insertData['unit']=this.ReceiptData['Unit'];
+        // insertData['rds_id']=this.ReceiptData['RetDist']; //server rds id
+        // insertData['purchase_date']= this.appCom.dateToTimeStamp(this.ReceiptData['PurchaseDate']);
+        // insertData['invoice_quantity']=this.ReceiptData['InvoiceQuantity'];
 
-        if( this.ReceiptData.InvoiceImage != undefined && this.ReceiptData.InvoiceImage != '' && this.ReceiptData.InvoiceImage.length > 0 ){
-            insertData['invoice_image'] = JSON.stringify( this.ReceiptData.InvoiceImage ); 
-        } else {
-            insertData['invoice_image'] = '';
-        }
+        for(let index=0; index<this.product_name.length; index++) {
+
+            let insertData = {};
+            insertData['hpb_id'] = this.projData['user']?this.projData['user']['hpb_id']:""; 
+            insertData['server_hpb_id']= this.hpbServerId;
+            insertData['hpb_status']= this.hpbStatus;
+            insertData['server_project_id']=this.projServerId;
+            insertData['project_id']=this.projData['project_id'];
+            insertData['product_id']=this.product_name[index]; //server_product_id
+            insertData['quantity']=this.product_quantity[index];
+            insertData['unit']=this.product_unit[index];
+            insertData['rds_id']=this.receiptForm.get('product_distributor').value; //server rds id
+            insertData['purchase_date']= this.appCom.dateToTimeStamp(this.receiptForm.get('product_purchase_date').value);
+            insertData['invoice_quantity']=this.receiptForm.get('product_invoice_quantity').value;
+            insertData['sync_status']=0;
+
+            if( this.ReceiptData.InvoiceImage != undefined && this.ReceiptData.InvoiceImage != '' && this.ReceiptData.InvoiceImage.length > 0 ){
+                insertData['invoice_image'] = JSON.stringify( this.ReceiptData.InvoiceImage ); 
+            } else {
+                insertData['invoice_image'] = '';
+            }
+            insertData['digital_sign'] = JSON.stringify(this.ReceiptData['HpbDigitalSign']);
+            
+            if( this.ReceiptData['AdditionalComments'] != undefined && this.ReceiptData['AdditionalComments'] != '' ){
+                insertData['additional_comments'] = this.ReceiptData['AdditionalComments'].trim();
+            }
+            insertData['local_updated_date'] = currentTimeStamp;
+            // insertData['updatedby'] = this.ReceiptData['updatedby'];
+            insertData['assigned_to'] = this.userId;
+            insertData['updated_by']=sessionUserGlobalData['userIdG']?sessionUserGlobalData['userIdG']:this.userId; 
         
-        insertData['digital_sign'] = JSON.stringify(this.ReceiptData['HpbDigitalSign']);
-        
-        if( this.ReceiptData['AdditionalComments'] != undefined && this.ReceiptData['AdditionalComments'] != '' ){
-            insertData['additional_comments'] = this.ReceiptData['AdditionalComments'].trim();
-        }
-    
-        insertData['local_updated_date'] = currentTimeStamp;
-        //insertData['updatedby'] = this.ReceiptData['updatedby'];
-        insertData['assigned_to'] = this.userId;
-        insertData['updated_by']=sessionUserGlobalData['userIdG']?sessionUserGlobalData['userIdG']:this.userId;  
+            if( parseInt(this.ReceiptData['ReceiptId']) > 0 ){
+                console.log("this.ReceiptData['ReceiptId']=>",this.ReceiptData['ReceiptId']);
+                insertData['updated_date'] = currentTimeStamp;
+                insertData['updated_by']=sessionUserGlobalData['userIdG']?sessionUserGlobalData['userIdG']:this.userId;  
+                //UPDATE EXISTING RECEIPT DATA
+                let whereCond =" `receipt_id` = "+this.ReceiptData['ReceiptId'];  //server_receipt_id 
+            
+                this.sqlS.updateData(insertData,"product_receipt_master",whereCond).then((data) => {
+                            
+                    this.receiptsAprovalInsertUpdate(this.ReceiptData['ReceiptId'],'update').then((success)=>{
 
-        if( parseInt(this.ReceiptData['ReceiptId']) > 0 ){
-            console.log("this.ReceiptData['ReceiptId']=>",this.ReceiptData['ReceiptId']);
-            insertData['updated_date'] = currentTimeStamp;
-            insertData['updated_by']=sessionUserGlobalData['userIdG']?sessionUserGlobalData['userIdG']:this.userId;  
-            //UPDATE EXISTING RECEIPT DATA
-            let whereCond =" `receipt_id` = "+this.ReceiptData['ReceiptId'];  //server_receipt_id 
-        
-            this.sqlS.updateData(insertData,"product_receipt_master",whereCond).then((data) => {
-                           
-                this.receiptsAprovalInsertUpdate(this.ReceiptData['ReceiptId'],'update').then((success)=>{
+                        this.globalCheckInData['visitCheckFlag'] = true;
+                        this.appCom.setLocalStorageItem("globalCheckinData",this.globalCheckInData).then(()=>{});
 
-                    this.globalCheckInData['visitCheckFlag'] = true;
-                    this.appCom.setLocalStorageItem("globalCheckinData",this.globalCheckInData).then(()=>{});
-                    this.navCtrl.pop().then(()=>{
-                            this.appCom.showAlert(ALL_MESSAGE.SUCCESS_MESSAGE.PRODUCT_RECEIPT_UPDATE_SUCCESS,"Ok",""); 
-                            setTimeout(()=>{
-                                    this.events.publish('globalSync'); 
-                            },1000)
+                        // Foor alert message
+                        this.progress_status = "receipt_success_updated";
+
+                        console.log("p1");
                     });
-                });
-                
-            }, (error) => {
-                console.log('Error', error);
-                
-                this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.PRODUCT_RECEIPT_UPDATE_ERR,"Ok","");  
-            });    
-
-        }else{
-            console.log("new entry=>");
-            this.appCom.isGpsLocationEnabledC((successCallback)=>{			
-                if(successCallback)	{
-                    this.appCom.getLocationModeC((res) => {
-                
-                        if(res == 'high_accuracy'){                    
-                                this.busy=  this.appCom.getGeoLocationCordinates("submitProductReceipt").then((geoCordinates)=>{
-                                    this.addReceiptGeoLoc(geoCordinates,insertData);
-                                
-                                },(error)=>{
-                                    console.log(error);
-                                    this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok","");
-                                    this.addReceiptGeoLoc('',insertData);
-                                });
-                        
-                        }else{
-                            //show pop up for set high accuracy..
-                            //this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");
-                            this.addReceiptGeoLoc('',insertData);
-                        }
-                    },(err)=>{
-                        console.log(err);
-                    });
-                }else{
-                    //show alert enable gps
-                    this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");  
                     
-                }	
+                }, (error) => {
+                    console.log('Error', error);
+                    
+                    console.log("p2");
+                    // For alert message
+                    this.progress_status = "receipt_error_update";
+                });    
 
-            },(err)=>{
-                console.log(err);
-                this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok",""); 
-                
-            }); 
+            }
+            else {
+                console.log("new entry=>");
+                this.appCom.isGpsLocationEnabledC((successCallback)=>{			
+                    if(successCallback)	{
+                        this.appCom.getLocationModeC((res) => {
+                    
+                            if(res == 'high_accuracy'){                    
+                                    this.busy=  this.appCom.getGeoLocationCordinates("submitProductReceipt").then((geoCordinates)=>{
+                                        this.addReceiptGeoLoc(geoCordinates,insertData);
+                                    
+                                    },(error)=>{
+                                        console.log(error);
+
+                                        // For alert message
+                                        this.progress_status = "receipt_error_location";
+                                        
+                                        this.addReceiptGeoLoc('',insertData);
+                                    });
+                            
+                            }else{
+                                //show pop up for set high accuracy..
+                                //this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");
+                                this.addReceiptGeoLoc('',insertData);
+                            }
+                        },(err)=>{
+                            console.log(err);
+                        });
+                    }else{
+                        //show alert enable gps
+                        this.progress_status = "receipt_err_get_location_coord";
+                    }	
+
+                },(err)=>{
+                    console.log(err);
+                    this.progress_status = "receipt_err_generic_location_err";
+                }); 
+
+            }
+        }
+
+        // Show alert
+        if(this.progress_status == "receipt_success_updated") {
+            this.navCtrl.pop().then(()=>{
+                this.appCom.showAlert(ALL_MESSAGE.SUCCESS_MESSAGE.PRODUCT_RECEIPT_UPDATE_SUCCESS,"Ok",""); 
+                setTimeout(()=>{
+                        this.events.publish('globalSync'); 
+                },1000)
+            });
+        } else if(this.progress_status == 'receipt_error_update') {
+            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.PRODUCT_RECEIPT_UPDATE_ERR,"Ok","");  
+        } else if(this.progress_status == "receipt_error_location") {
+            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok","");
+        } else if(this.progress_status == "receipt_err_get_location_coord") {
+            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");  
+        } else if(this.progress_status == "receipt_err_generic_location_err") {
+            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok",""); 
         }
 
     } 
@@ -1004,6 +1027,8 @@ export class ProductReceiptsFormPage {
             
             }, (error) => {
                 console.log('Error', error);
+
+                alert(JSON.stringify(error));
                 //alert(JSON.stringify(error));
                 //this.globalCheckInData['visitCheckFlag'] = true;
                 //this.appCom.showToast(ALL_MESSAGE.ERROR_MESSAGE.PRODUCT_RECEIPT_ADD_ERR,"middle");

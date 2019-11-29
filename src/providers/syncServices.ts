@@ -5409,15 +5409,18 @@ syncAllMasterTLHACAM(){
  });
 }
 
+// Sync all master data from API to local DB
 syncAllMaster(){
      return new Promise((resolve,reject)=>{
-     
+        
+        // If no internet access
         if(globalInternetCheckConnection==false){
                 this.showSyncToast(ALL_MESSAGE.COMMON_MESSAGE.SYNC_NO_FAILED_INTERNET);
                 reject(true);
                 return false;
         }      
         
+
         if(this.syncAllMasterRunningFlag){
             this.syncAllMasterRunningFlag=true;
             //this.showSyncToast(ALL_MESSAGE.COMMON_MESSAGE.SYNC_RUN_GLOABL_INTERNET);
@@ -5457,8 +5460,6 @@ syncAllMaster(){
                   callback();
                 });
         });  
-
-  
 
         asyncTasks.push((callback)=>{
                 this.syncProjectStageM().then(()=>{
@@ -6393,7 +6394,7 @@ syncProductM(){
       //  filterS['offset']=0;
       //  filterS['limit']=1000;
         this.app_productsApi.find(filterS).subscribe((resDatas)=>{
-                  console.log('resData',resDatas);
+                  console.log('resData product api',resDatas);
                   async.each(resDatas,(resData,callback:any)=>{
                     let insertObj={};
                     insertObj['server_product_id']=resData['id'];
@@ -6465,7 +6466,7 @@ syncProjectStageM(){
             },(error)=>{
                     console.log('app_rdsApi error',error);
                     reject(false);
-            });
+            }); 
     });   
 }
 syncProjectTypeM(){
