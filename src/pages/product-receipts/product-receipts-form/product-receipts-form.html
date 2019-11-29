@@ -14,6 +14,7 @@
     </ion-navbar>
 </ion-header>
 <ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
+
     <form class="srku_details" [formGroup]="receiptForm">
         <ion-list class="inputBox">
             <div class="form_list">
@@ -96,7 +97,7 @@
                 <ion-item class="inputLable">
                     <ion-label stacked>{{ "QUANTITY" | translate }}*</ion-label>
                     <!-- <ion-input type="tel" placeholder="{{ 'E.G.' | translate }} 1000" class="input_item" [(ngModel)]="ReceiptData.Quantity" #Quantity="ngModel" required [ngModelOptions]="{standalone: true}" pattern="^[1-9][0-9]*$" minlength="1" maxlength="5" formControlName="product_quantity"></ion-input> -->
-                    <ion-input type="tel" placeholder="{{ 'E.G.' | translate }} 1000" class="input_item" required pattern="^[1-9][0-9]*$" minlength="1" maxlength="1" formControlName="product_quantity"></ion-input>
+                    <ion-input type="tel" placeholder="{{ 'E.G.' | translate }} 1000" class="input_item" required pattern="^[1-9][0-9]*$" minlength="1" maxlength="5" formControlName="product_quantity"></ion-input>
                 </ion-item>
             </div>
             <div *ngIf="!receiptForm.get('product_quantity').valid && (receiptForm.get('product_quantity').dirty || receiptForm.get('product_quantity').touched || submitted)" class="alert alert-danger error">
@@ -110,6 +111,12 @@
 
 
             <div *ngFor="let product of product_addition">
+                <div class="rdIn">
+                    <div class="btn btn-remove">
+                        <button ion-button (click)="removeProductFromReceipt(product)">x</button>
+                    </div>
+                </div>
+
                 <div class="rdIn">
                     <ion-item class="inputLable">
                         <ion-label stacked>{{ "PRODUCT" | translate }}*</ion-label>
@@ -132,7 +139,7 @@
                         <!--<ion-select [(ngModel)]="ReceiptData.Unit" #Unit="ngModel" required [ngModelOptions]="{standalone: true}" [disabled]="!disableUnitFlag">-->
                         <!--<ion-option value="{{ unit['product_unit'] }}" *ngFor="let unit of unitArr">{{ unit['product_unit'] }}</ion-option>-->
                         <!-- <ion-input [(ngModel)]="ReceiptData.Unit" #UnitM="mobiscroll" #Unit="ngModel" #unitMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollUnitSettings" [mbsc-data]="unitArr" [ngModelOptions]="{standalone: true}" required formControlName="product_unit"></ion-input> -->
-                        <ion-input #UnitM="mobiscroll" #unitMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollUnitSettings" [mbsc-data]="unitArr" required formControlName="{{ product.product_unit }}" (ionFocus)="setClickedUnit(product.product_unit)"></ion-input>
+                        <ion-input #UnitM="mobiscroll" #unitMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollUnitSettings" [mbsc-data]="unitArrMore" required formControlName="{{ product.product_unit }}" (ionFocus)="setClickedUnit(product.product_unit)"></ion-input>
                         <!--</ion-select>-->
                     </ion-item>
                 </div>
@@ -156,7 +163,7 @@
                     <!-- <p [hidden]="!receiptForm.get(product.product_quantity).errors.pattern">
                         {{ "QUANTITY IS INVALID" | translate }}
                     </p> -->
-                </div>	
+                </div>
             </div>
     
             <div class="btn">
@@ -186,18 +193,18 @@
                         <ion-item class="inputLable">
                             <ion-label stacked>{{ "PURCHASE DATE" | translate }}*</ion-label>
                             <!-- <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="ReceiptData.PurchaseDate" #PurchaseDate="ngModel" [ngModelOptions]="{standalone: true}" required></ion-datetime> -->
-                            <!-- <ion-input [(ngModel)]="ReceiptData.PurchaseDate" #PurchaseDateMob="mobiscroll" #PurchaseDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsG" required formControlName="product_purchase_date"></ion-input> -->
-                            <ion-input #PurchaseDateMob="mobiscroll" #PurchaseDate mbsc-date [mbsc-options]="dateSettingsG" required formControlName="product_purchase_date"></ion-input>
-
+                            <!-- <ion-input #PurchaseDateMob="mobiscroll" [(ngModel)]="ReceiptData.PurchaseDate" mbsc-date [mbsc-options]="dateSettingsG" required formControlName="product_purchase_date"></ion-input> -->
+                            <!-- <ion-datetime displayFormat="D/MM/YYYY" pickerFormat="D MMMM YYYY" [(ngModel)]="ReceiptData.PurchaseDate" calcelText="BATAL" doneText="SETEL" max="{{ maxDate }}" formControlName="product_purchase_date"></ion-datetime> -->
+                            <ion-datetime displayFormat="D/MM/YYYY" pickerFormat="D MMMM YYYY" [(ngModel)]="ReceiptData.PurchaseDate" calcelText="BATAL" doneText="SETEL" formControlName="product_purchase_date"></ion-datetime>
                         </ion-item>
                         <i tappable role="button" class="icon-arrow"></i>
                     </div>
                 </div>
             </div>
-            <div *ngIf="!receiptForm.get('product_purchase_date').valid && (submitted)" class="alert alert-danger error">
-                <!-- <p [hidden]="ReceiptData.PurchaseDate"> -->
-                {{ "PURCHASE DATE IS REQUIRED" | translate }}
-                <!-- </p> -->
+            <div *ngIf="(submitted)" class="alert alert-danger error">
+                <p [hidden]="ReceiptData.PurchaseDate">
+                    {{ "PURCHASE DATE IS REQUIRED" | translate }}
+                </p>
             </div>
     
             <div class="rdIn">

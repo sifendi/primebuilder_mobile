@@ -99,6 +99,9 @@ export class TlhProjectsPendingPage {
         let tempSrku=(this.isSrku==0)?"0":this.isSrku;
         this.busy = this.projectApi.getProjectWithApp(null,null,this.searchString,this.projFilterArr.projectType,this.projFilterArr.projectStage,null,tempSrku,null,null,null,null,this.uId,this.userRole,this.limit,this.pages,this.approval,this.projFilterArr.subDistrict).subscribe(resData => {    
         this.pages++;  
+          
+          alert(JSON.stringify(resData));
+
           this.dataLen = resData.result.length;
           if(this.dataLen < this.limit){
             this.dataLoadCompleted = true;

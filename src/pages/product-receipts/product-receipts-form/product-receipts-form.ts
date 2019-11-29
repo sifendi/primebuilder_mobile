@@ -73,7 +73,6 @@ export class ProductReceiptsFormPage {
         updatedby:null
     };
 
-
     // Product addition to receipt. Excluding the first product
     public product_addition: any = [];
     public product_addition_count: number = 0;
@@ -83,6 +82,8 @@ export class ProductReceiptsFormPage {
     public product_unit = [];
     public product_quantity = [];
 
+    public maxDate: any = new Date(new Date().setFullYear(new Date().getFullYear() + 5)).toISOString();
+
     submitted:boolean= false;
 
     @ViewChild('Product') Product: any; 
@@ -91,7 +92,7 @@ export class ProductReceiptsFormPage {
     @ViewChild('Unit') Unit: any;  
     @ViewChild('RetDist') RetDist: any;  
     @ViewChild('PurchaseDate') PurchaseDate: any;
-    @ViewChild('PurchaseDateMob') PurchaseDateMob: any;  
+    // @ViewChild('PurchaseDateMob') PurchaseDateMob: any;  
     @ViewChild('InvoiceQuantity') InvoiceQuantity: any;
     @ViewChild('AdditionalComments') AdditionalComments: any; 
 
@@ -115,11 +116,15 @@ export class ProductReceiptsFormPage {
     disableUnitFlag:any=false;
     hpbServerId:any;
     projServerId:any;
+    
+    unitArrMore:any = [];
+
     dateSettingsG:any={
        theme: 'material',
        display: 'center',
-       dateFormat:'dd/mm/yy'
+       dateFormat:'dd/mm/yy',
     };
+    
     editMode:any=false;
 
     mobiScollRDSSettings:any = {
@@ -146,6 +151,7 @@ export class ProductReceiptsFormPage {
     };
 
     fcounter:number=0;
+
     mobiScollPRODSettings:any = {
         inputClass: 'text-input',
         theme: 'material',
@@ -170,12 +176,12 @@ export class ProductReceiptsFormPage {
                     // this.UnitM.instance.setVal(null,true);
                     
                     // this.setUnitData(this.ReceiptData.Product);
-                    this.setUnitData(this.receiptForm.get('product_name').value);
+                    this.setUnitData(this.receiptForm.get('product_name').value, 'first_product');
                 } else {
                     // this.ReceiptData.unit=null;
                     // this.UnitM.instance.setVal(null,true);
                     
-                    this.setUnitData(this.receiptForm.get(this.product_clicked).value);
+                    this.setUnitData(this.receiptForm.get(this.product_clicked).value, 'more_product');
                 }
                 this.fcounter++;
             }           
@@ -193,7 +199,7 @@ export class ProductReceiptsFormPage {
         filter: true,
         placeholder: 'Please select',
         rows:3,
-        data:[],
+        // data:[],
         readonly:false,
         buttons:['set','clear','cancel'],
         onClear: (event, inst)=>{
@@ -245,7 +251,7 @@ export class ProductReceiptsFormPage {
         MobiProps2['placeholder']= await this.appCom.getTranslatedTxt("Please select");
         this.mobiScollRDSSettings=MobiProps2;
         this.RetDistMobi.instance.option(MobiProps2);
-        
+
         this.busy=this.initFormData().then((res:any)=>{
         
         },()=>{
@@ -393,7 +399,7 @@ export class ProductReceiptsFormPage {
                 this.ReceiptData['longitude'] = insertData['longitude'];
              
                 //    this.setUnitData(this.ReceiptData.Product);
-                this.setUnitData(this.receiptForm.get(this.product_clicked).value);
+                this.setUnitData(this.receiptForm.get(this.product_clicked).value, '');
            
                 
                 
@@ -413,10 +419,10 @@ export class ProductReceiptsFormPage {
         }
 
 
-        let tempDateS=this.dateSettingsG;
-        tempDateS['max']=new Date(moment().add(0, 'days').format());
-        this.dateSettingsG=tempDateS;
-        this.PurchaseDateMob.instance.option(tempDateS);
+        // let tempDateS=this.dateSettingsG;
+        // tempDateS['max']=new Date(moment().add(0, 'days').format());
+        // this.dateSettingsG=tempDateS;
+        // this.PurchaseDateMob.instance.option(tempDateS);
 
         //SUBSCRIPTION FOR CAMERA OR GALLERY PHOTO CAPTURED..
          this.events.unsubscribe("getbase64Image");  
@@ -566,7 +572,7 @@ export class ProductReceiptsFormPage {
             product_unit: ['', Validators.required],
             product_quantity: ['', Validators.required],
             product_distributor: ['', Validators.required],
-            product_purchase_date: ['', Validators.required],
+            product_purchase_date: [''],
             product_invoice_quantity: ['', Validators.required],
         });
     }
@@ -595,30 +601,38 @@ export class ProductReceiptsFormPage {
             }
     }
 
-    setUnitData(prod_id) {
-        this.unitArr=[]; 
+    setUnitData(prod_id, product_form_selected) {
         var selectField = " `product_unit` ";
         var tablename = "product_master";
         var where =" `server_product_id` ='"+prod_id+"'";
         this.sqlS.selectTableData(selectField,tablename,where,"","").then((unitData) => {
-            this.unitArr=[];    
             for (let i = 0; i < unitData['rows'].length; i++) {
-                    //this.unitArr.push( unitData['rows'].item(i) );   
-                    let currTempObj=unitData.rows.item(i);
-                    this.unitArr.push({
+                //this.unitArr.push( unitData['rows'].item(i) );  
+                let currTempObj=unitData.rows.item(i);
+
+                if(product_form_selected == "first_product") {
+                    this.unitArr[i] = {
                             text:currTempObj['product_unit'],
                             value:currTempObj['product_unit']
-                    });
+                    }
                 }
-                this.unitMobi.instance.option({
-                    data: this.unitArr
-                });
-                
-                setTimeout(()=>{
-                        
-                    // this.UnitM.instance.setVal(this.ReceiptData.Unit,true);
-                    // this.UnitM.instance.setVal(this.receiptForm.get('product_unit').value,true);
-                },100);
+                else {
+                    this.unitArrMore[i] = {
+                        text:currTempObj['product_unit'],
+                        value:currTempObj['product_unit']
+                    }
+                }
+            }
+            this.unitMobi.instance.option({
+                data: this.unitArr
+            });
+            
+            setTimeout(()=>{
+                    
+                // this.UnitM.instance.setVal(this.ReceiptData.Unit,true);
+                this.UnitM.instance.setVal(this.receiptForm.get('product_unit').value,true);
+            
+            },100);
                 
         },error=>{
             console.log("error",error);
@@ -759,18 +773,18 @@ export class ProductReceiptsFormPage {
     submitProductReceiptForm(){
         this.submitted=true;
         let isvalid = false;
+
         // isvalid = ( this.Product.valid && this.Quantity.valid &&  this.RetDist.valid && this.ReceiptData.PurchaseDate != undefined && this.ReceiptData.PurchaseDate != '' && 
         //         this.ReceiptData.InvoiceQuantity>=0 && this.digitalSignPath !='' && this.digitalSignPath !=undefined &&
         //         this.invoicePhotoObj.length != 0 && this.invoicePhotoObj != '' && this.invoicePhotoObj !=undefined
         //         && this.Unit.value != undefined && this.Unit.value != '' && this.ReceiptData.RetDist>0
         //         )
-        isvalid = ( this.receiptForm.valid && this.ReceiptData.InvoiceQuantity>=0 && this.digitalSignPath !='' && this.digitalSignPath !=undefined &&
+        isvalid = ( this.receiptForm.valid && this.digitalSignPath !='' && this.digitalSignPath !=undefined &&
                     this.invoicePhotoObj.length != 0 && this.invoicePhotoObj != '' && this.invoicePhotoObj !=undefined
                 );
 
         if(isvalid){
             this.busy = this.checkReciptBalQuiL().then((resData:any)=>{
-
                 this.totalQ=resData['totalQ'];
                 this.totalIQ=resData['totalIQ'];
 
@@ -864,7 +878,7 @@ export class ProductReceiptsFormPage {
             insertData['quantity']=this.product_quantity[index];
             insertData['unit']=this.product_unit[index];
             insertData['rds_id']=this.receiptForm.get('product_distributor').value; //server rds id
-            insertData['purchase_date']= this.appCom.dateToTimeStamp(this.receiptForm.get('product_purchase_date').value);
+            insertData['purchase_date']= this.appCom.dateToTimeStamp(this.ReceiptData['PurchaseDate']);
             insertData['invoice_quantity']=this.receiptForm.get('product_invoice_quantity').value;
             insertData['sync_status']=0;
 
@@ -882,7 +896,8 @@ export class ProductReceiptsFormPage {
             // insertData['updatedby'] = this.ReceiptData['updatedby'];
             insertData['assigned_to'] = this.userId;
             insertData['updated_by']=sessionUserGlobalData['userIdG']?sessionUserGlobalData['userIdG']:this.userId; 
-        
+            
+          
             if( parseInt(this.ReceiptData['ReceiptId']) > 0 ){
                 console.log("this.ReceiptData['ReceiptId']=>",this.ReceiptData['ReceiptId']);
                 insertData['updated_date'] = currentTimeStamp;
@@ -1350,17 +1365,38 @@ export class ProductReceiptsFormPage {
     }
 
     addProductToReceipt() {
-        this.product_addition_count++;
-        
-        this.receiptForm.addControl('product_name' + this.product_addition_count, new FormControl('', Validators.required));
-        this.receiptForm.addControl('product_unit' + this.product_addition_count, new FormControl('', Validators.required));
-        this.receiptForm.addControl('product_quantity' + this.product_addition_count, new FormControl('', [ Validators.required, Validators.pattern('^[1-3]+$') ]));
+        if(this.receiptForm.get('product_name').valid && this.receiptForm.get('product_unit').valid && this.receiptForm.get('product_quantity').valid) {
+            this.product_addition_count++;
+            
+            this.receiptForm.addControl('product_name' + this.product_addition_count, new FormControl('', Validators.required));
+            this.receiptForm.addControl('product_unit' + this.product_addition_count, new FormControl('', Validators.required));
+            this.receiptForm.addControl('product_quantity' + this.product_addition_count, new FormControl('', [ Validators.required, Validators.pattern('^[1-3]+$') ]));
 
-        this.product_addition.push({
-            'product_name' : 'product_name' + this.product_addition_count,
-            'product_unit' : 'product_unit' + this.product_addition_count,
-            'product_quantity' : 'product_quantity' + this.product_addition_count,
-        });
+            this.product_addition.push({
+                'product_name' : 'product_name' + this.product_addition_count,
+                'product_unit' : 'product_unit' + this.product_addition_count,
+                'product_quantity' : 'product_quantity' + this.product_addition_count,
+            });
+        }
+        else {
+            this.appCom.showAlert("Please fill all product detail first.",'OK',null);
+        }
+    }
+
+    removeProductFromReceipt(product_control_name) {
+        for(let index=0; index<this.product_addition.length; index++) {
+            if(product_control_name == this.product_addition[index]) {
+                
+                var indexOf = this.product_addition.indexOf(product_control_name);
+                
+                this.receiptForm.removeControl(product_control_name.product_name);
+                this.receiptForm.removeControl(product_control_name.product_unit);
+                this.receiptForm.removeControl(product_control_name.product_quantity);
+
+                this.product_addition.splice(indexOf, 1);
+
+            }
+        }
     }
 
     setClickedProduct(product_control_name) {

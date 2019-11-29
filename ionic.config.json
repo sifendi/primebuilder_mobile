@@ -3,5 +3,10 @@
   "integrations": {
     "cordova": {}
   },
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "fonts": {
+    "src": ["node_modules/ionic-framework/fonts/**/*.ttf"],
+    "src": ["node_modules/ionic-framework/fonts/**/*.+(ttf|woff|woff2)"],
+    "dest": "www/build/fonts"
+  }
 }

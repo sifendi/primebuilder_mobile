@@ -788,11 +788,12 @@ export class AddProjectPage {
             syncHPBExt=true;
       }
 
-        this.navCtrl.push(addSrkuPage,{
-          "projData":this.projData,
-          "action":action,
-          "syncHPBExt":syncHPBExt
-        });
+      alert(JSON.stringify(this.projectPhotoObj));
+        // this.navCtrl.push(addSrkuPage,{
+        //   "projData":this.projData,
+        //   "action":action,
+        //   "syncHPBExt":syncHPBExt
+        // });
      
     }else{
       console.log("skru is invalid");

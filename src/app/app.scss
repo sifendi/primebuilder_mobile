@@ -265,6 +265,15 @@ $dir: cw) {
             width: $width90 - 40;
         }
     }
+    &.btn-remove {
+        width: 50px;
+        margin-bottom: -20px;
+        
+        button {
+            height: 40px;
+            border-radius: none;
+        }
+    }
 }
 
 .bar-buttons {
