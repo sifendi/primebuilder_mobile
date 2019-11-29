@@ -3,7 +3,7 @@
     <ion-navbar>
            <ion-buttons end>
             <button ion-button (click)="goToFilterPage()">
-                <i class="icon-filter"></i>
+                <ion-icon name="funnel"></ion-icon>
             </button>
         </ion-buttons>
 
@@ -13,9 +13,9 @@
     <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>Search by : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <i class="icon-close-thin"></i>
+            <ion-icon name="close"></ion-icon>
         </button>
-    </div> 
+    </div>
 </ion-header>
 <ion-content fullscreen="false" [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }">
     <ion-list class="listWrap">
@@ -55,7 +55,7 @@
                     </ion-grid>
 
                     <span class="tag">{{    (productReceiptItem['local_created_date'])?timeStampToDate(productReceiptItem['local_created_date']):"-"   }}</span>
-                    <i class="icon-next-thin checkIn"></i>
+                    <ion-icon name="log-in"></ion-icon>
                 </ion-item>
                  <div class="filterTag resultbg" *ngIf="productReceiptItem?.tlh_approval == -1">
                     <p class="resultRes">{{ "REASON" | translate }}:</p>

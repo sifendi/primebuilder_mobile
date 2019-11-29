@@ -5,15 +5,16 @@
             <button ion-button class="logo"></button>
         </ion-buttons>
         <ion-buttons end>
-            <button ion-button class="icon-notification" tapable (click)="goToNotifyPage()">
+            <button ion-button class="spinnerI" tapable (click)="goToNotifyPage()">
+                <ion-icon name="notifications"></ion-icon>
                 <ion-badge *ngIf="notificationCtn > 0" class="badge-value">{{notificationCtn}}</ion-badge>
             </button>
             <button ion-button icon-only class="spinnerI" (click)="globalSync()">
                 <img src="assets/images/white-sync-icon.png" [ngClass]="{ 'spinRt': globalSyncLoaderBtn }" title="sync" alt="sync Icon" />
             </button>
             <button ion-button iconHome menuToggle>
-                <i class="icon-menu" name="menu"></i>
-            </button>
+                <ion-icon name="menu"></ion-icon>
+              </button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
@@ -41,22 +42,22 @@
                 <button ion-button color="light" (click)="goToTabPage(0)">
                     <p>{{ "MASON" | translate }}</p>
                     <h3>{{massonCurrTodayVisitTotal}}/{{massonTodayVisitTotal}}</h3>
-                    <i class="icon-next"></i>
+                    <ion-icon name="fastforward"></ion-icon>
                 </button>
                 <button ion-button color="light" (click)="goToTabPage(1)">
                     <p>{{ "CONTRACTOR" | translate }}</p>
                     <h3>{{contractorCurrTodayVisitTotal}}/{{contractorTodayVisitTotal}}</h3>
-                    <i class="icon-next"></i>
+                    <ion-icon name="fastforward"></ion-icon>
                  </button>
                 <button ion-button color="light" (click)="goToTabPage(2)">
                     <p>{{ "DISTRIBUTOR" | translate }}</p>
                     <h3>{{distTodayCurrVisitTotal}}/{{distTodayVisitTotal}}</h3>
-                    <i class="icon-next"></i>
+                    <ion-icon name="fastforward"></ion-icon>
                 </button>
                 <button ion-button color="light" (click)="goToTabPage(3)">
                     <p>{{ "RETAILER" | translate }}</p>
                     <h3>{{retailerCurrTodayVisitTotal}}/{{retailerTodayVisitTotal}}</h3>
-                    <i class="icon-next"></i>
+                    <ion-icon name="fastforward"></ion-icon>
                 </button>
             </div>
         </ion-card-content>

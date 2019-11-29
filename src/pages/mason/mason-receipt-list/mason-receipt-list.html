@@ -58,7 +58,7 @@
 
                 <span class="tag">{{receipt.created_date}}</span>
                 <!--<button class="checkIn" ion-button color="light">-->
-                <i class="icon-next-thin checkIn"></i>
+                  <ion-icon name="log-in"></ion-icon>
                 <div *ngIf="receipt.points != 0 && receipt.points != null" class="pointPlace">
                     <p>{{ "POINTS" | translate }}</p>
                     <span>{{receipt['points'].toLocaleString()}}</span>

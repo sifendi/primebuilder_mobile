@@ -3,7 +3,7 @@
         <ion-toolbar>
             <ion-buttons end menuClose class="close">
                 <button ion-button>
-               <i class="icon-close" ></i>               
+                 <ion-icon name="close"></ion-icon>
            </button>
             </ion-buttons>
 
@@ -19,16 +19,16 @@
                     <button ion-button type="button" menuClose (click)="activateSphByAc()">{{ 'ACTIVATE AS SPH' | translate }}</button>
                 </div>
             </div>
-            <button menuClose ion-item (click)="goHome('ac')" class="homeNav"> 
+            <button menuClose ion-item (click)="goHome('ac')" class="homeNav">
                 {{ "HOME" | translate }}
-                <i class="icon-next-thin"></i>
+                  <ion-icon name="fastforward"></ion-icon>
             </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesAC">
                 <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
              {{ p.translation | translate }}
-        <i class="icon-next-thin"></i>
+          <ion-icon name="fastforward"></ion-icon>
       </button>
             </div>
 
@@ -58,7 +58,7 @@
         <ion-toolbar>
             <ion-buttons end menuClose class="close">
                 <button ion-button>
-               <i class="icon-close" ></i>               
+                 <ion-icon name="close"></ion-icon>
            </button>
             </ion-buttons>
 
@@ -69,16 +69,16 @@
         <ion-list class="shadowLeft">
             <div class="version">{{verTextShow}} {{appVersionNumber}}</div>
             <h3 class="menuHdTitle">{{ "WELCOME" | translate }} {{userName}}</h3>
-            <button menuClose ion-item (click)="goHome('am')" class="homeNav"> 
+            <button menuClose ion-item (click)="goHome('am')" class="homeNav">
                 {{ "HOME" | translate }}
-                <i class="icon-next-thin"></i>
+                  <ion-icon name="fastforward"></ion-icon>
             </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesAM">
                 <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
                     {{ p.translation | translate }}
-                    <i class="icon-next-thin"></i>
+                      <ion-icon name="fastforward"></ion-icon>
                 </button>
             </div>
 
@@ -108,7 +108,7 @@
         <ion-toolbar>
             <ion-buttons end menuClose class="close">
                 <button ion-button>
-               <i class="icon-close" ></i>               
+                 <ion-icon name="close"></ion-icon>
            </button>
             </ion-buttons>
 
@@ -128,19 +128,19 @@
                         {{ 'DEACTIVATE AS SPH' | translate }}
                         <small>{{this.appCom.getCurrentActiveUserName()?"("+this.appCom.getCurrentActiveUserName()+")":""}}</small>
                     </button>
-                   
+
                 </div>
             </div>
-            <button menuClose ion-item (click)="goHome('sph')" class="homeNav"> 
+            <button menuClose ion-item (click)="goHome('sph')" class="homeNav">
         {{ "HOME" | translate }}
-        <i class="icon-next-thin"></i>
+          <ion-icon name="fastforward"></ion-icon>
       </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesACACTMAINSPH">
                 <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
              {{ p.translation | translate }}
-        <i class="icon-next-thin"></i>
+          <ion-icon name="fastforward"></ion-icon>
       </button>
             </div>
 
@@ -169,7 +169,7 @@
         <ion-toolbar>
             <ion-buttons end menuClose class="close">
                 <button ion-button>
-               <i class="icon-close" ></i>               
+                 <ion-icon name="close"></ion-icon>
            </button>
             </ion-buttons>
 
@@ -185,16 +185,16 @@
                     <button ion-button type="button" menuClose (click)="activateSphByTlh()">{{ 'ACTIVATE AS SPH' | translate }}</button>
                 </div>
             </div>
-            <button menuClose ion-item (click)="goHome('tlh')" class="homeNav"> 
+            <button menuClose ion-item (click)="goHome('tlh')" class="homeNav">
         {{ "HOME" | translate }}
-        <i class="icon-next-thin"></i>
+          <ion-icon name="fastforward"></ion-icon>
       </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesTLH">
                 <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
              {{ p.translation | translate }}
-        <i class="icon-next-thin"></i>
+          <ion-icon name="fastforward"></ion-icon>
       </button>
             </div>
             <div class="languageSelect">
@@ -220,7 +220,7 @@
         <ion-toolbar>
             <ion-buttons end menuClose class="close">
                 <button ion-button>
-               <i class="icon-close" ></i>               
+                 <ion-icon name="close"></ion-icon>
            </button>
             </ion-buttons>
 
@@ -237,19 +237,19 @@
                         {{ 'DEACTIVATE AS SPH' | translate }}
                         <small>{{this.appCom.getCurrentActiveUserName()?"("+this.appCom.getCurrentActiveUserName()+")":""}}</small>
                     </button>
-                   
+
                 </div>
             </div>
-            <button menuClose ion-item (click)="goHome('sph')" class="homeNav"> 
+            <button menuClose ion-item (click)="goHome('sph')" class="homeNav">
         {{ "HOME" | translate }}
-        <i class="icon-next-thin"></i>
+          <ion-icon name="fastforward"></ion-icon>
       </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesTLHACTMAINSPH">
                 <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
              {{ p.translation | translate }}
-        <i class="icon-next-thin"></i>
+          <ion-icon name="fastforward"></ion-icon>
       </button>
             </div>
 
@@ -279,7 +279,7 @@
         <ion-toolbar>
             <ion-buttons end menuClose class="close">
                 <button ion-button>
-               <i class="icon-close" ></i>               
+                 <ion-icon name="close"></ion-icon>
            </button>
             </ion-buttons>
 
@@ -290,16 +290,16 @@
         <ion-list class="shadowLeft">
             <div class="version">{{verTextShow}} {{appVersionNumber}}</div>
             <h3 class="menuHdTitle">{{ "WELCOME" | translate }} {{userName}}</h3>
-            <button menuClose ion-item (click)="goHome('sph')" class="homeNav"> 
+            <button menuClose ion-item (click)="goHome('sph')" class="homeNav">
                 {{ "HOME" | translate }}
-                <i class="icon-next-thin"></i>
+                  <ion-icon name="fastforward"></ion-icon>
             </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesSPH">
                 <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
                     {{ p.translation | translate }}
-                    <i class="icon-next-thin"></i>
+                      <ion-icon name="fastforward"></ion-icon>
                 </button>
             </div>
 
@@ -327,7 +327,7 @@
         <ion-toolbar>
             <ion-buttons end menuClose class="close">
                 <button ion-button>
-               <i class="icon-close" ></i>               
+                 <ion-icon name="close"></ion-icon>
            </button>
             </ion-buttons>
 
@@ -338,16 +338,16 @@
         <ion-list class="shadowLeft">
             <div class="version">{{verTextShow}} {{appVersionNumber}}</div>
             <h3 class="menuHdTitle">{{ "WELCOME" | translate }} {{userName}}</h3>
-            <button menuClose ion-item (click)="goHome('hpb')" class="homeNav"> 
+            <button menuClose ion-item (click)="goHome('hpb')" class="homeNav">
             {{ "HOME" | translate }}
-            <i class="icon-next-thin"></i>
+              <ion-icon name="fastforward"></ion-icon>
       </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesHPB">
                 <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
              {{ p.translation | translate }}
-        <i class="icon-next-thin"></i>
+          <ion-icon name="fastforward"></ion-icon>
       </button>
             </div>
 

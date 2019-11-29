@@ -16,7 +16,7 @@
                             <span class="value" *ngIf=" projItem['hpb_name'] != undefined && projItem['hpb_name'] != '' ">{{  projItem['hpb_name']?projItem['hpb_name']:"-" }}</span>
                         </div>
                         <div class="projectWrap">
-                            <p class="title">{{ "SPH NAME" | translate }}</p> 
+                            <p class="title">{{ "SPH NAME" | translate }}</p>
                             <span class="value" *ngIf=" projItem['sph_name'] != undefined && projItem['sph_name'] != '' ">{{  projItem['sph_name']?projItem['sph_name']:"-" }}</span>
                         </div>
                         <div class="projectWrap">
@@ -58,7 +58,7 @@
                         </div>
                     </ion-grid>
                 </div>
-                <i class="icon-next-thin checkIn"></i>
+                <ion-icon name="log-in"></ion-icon>
             </ion-item>
             <div class="filterTag resultbg" *ngIf="projItem['app']['rejection_reason']?projItem['app']['rejection_reason']:false">
                 <p class="resultRes">{{ "REASON" | translate }}:</p>

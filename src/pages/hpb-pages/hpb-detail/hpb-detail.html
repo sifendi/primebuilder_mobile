@@ -69,9 +69,9 @@ Ionic pages and navigation.
                 <ion-card-content>
                     {{ hpbData['id_card_number']?hpbData['id_card_number']:"-" }}
                     <div class="notificationIndicator">
-                        <span class="pColor" *ngIf="hpbData['idapprovalstatus']==0"><i class="icon-pending"></i>Pending</span>
-                        <span class="fColor" *ngIf="hpbData['idapprovalstatus']==-1"><i class="icon-failed"></i>Rejected</span>
-                        <span class="dColor" *ngIf="hpbData['idapprovalstatus']==1"><i class="icon-deal"></i>Approved</span>
+                        <span class="pColor" *ngIf="hpbData['idapprovalstatus']==0"><ion-icon name="time"></ion-icon>Pending</span>
+                        <span class="fColor" *ngIf="hpbData['idapprovalstatus']==-1"><ion-icon name="close-circle"></ion-icon>Rejected</span>
+                        <span class="dColor" *ngIf="hpbData['idapprovalstatus']==1"><ion-icon name="checkmark-circle"></ion-icon>Approved</span>
                     </div>
                 </ion-card-content>
                 <div class="filterTag resultbg" *ngIf="hpbData['idapprovalstatus']==-1">
@@ -185,9 +185,9 @@ Ionic pages and navigation.
                     <ion-card-content>
                         {{ hpbData['primary_mobile_no']?hpbData['primary_mobile_no']:"-" }}
                         <div class="notificationIndicator">
-                            <span class="pColor" *ngIf="hpbData['mobapprovalstatus']==0"><i class="icon-pending"></i>Pending</span>
-                            <span class="fColor" *ngIf="hpbData['mobapprovalstatus']==-1"><i class="icon-failed"></i>Rejected</span>
-                            <span class="dColor" *ngIf="hpbData['mobapprovalstatus']==1"><i class="icon-deal"></i>Approved</span>
+                            <span class="pColor" *ngIf="hpbData['mobapprovalstatus']==0"><ion-icon name="time"></ion-icon>Pending</span>
+                            <span class="fColor" *ngIf="hpbData['mobapprovalstatus']==-1"><ion-icon name="close-circle"></ion-icon>Rejected</span>
+                            <span class="dColor" *ngIf="hpbData['mobapprovalstatus']==1"><ion-icon name="checkmark-circle"></ion-icon>Approved</span>
                         </div>
                     </ion-card-content>
                     <div class="filterTag resultbg" *ngIf="hpbData['mobapprovalstatus']==-1">

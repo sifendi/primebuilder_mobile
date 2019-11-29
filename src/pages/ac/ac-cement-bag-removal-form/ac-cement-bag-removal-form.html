@@ -7,7 +7,7 @@ Ionic pages and navigation.
     <ion-navbar>
         <ion-buttons end>
             <button ion-button menuToggle>
-                <i class="icon-menu"></i>
+                <ion-icon name="menu"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{ "CEMENT BAG REMOVAL" | translate }}</ion-title>
@@ -97,7 +97,7 @@ Ionic pages and navigation.
             <!--<div *ngIf="cBagRemovData.locationName != undefined && cBagRemovData.locationName != '' && (locationName.dirty || locationName.touched || submitted)" >
                  <p  [hidden]="!(cBagRemovData.locationName.trim()==null)" >
                       {{ "ONLY SPACES ARE NOT ALLOWED" | translate }}
-                 </p>   
+                 </p>
              </div>-->
 
             <div class="rdIn locate_btn">
@@ -105,7 +105,7 @@ Ionic pages and navigation.
                     <ion-label floating>{{ "ADDRESS" | translate }}*</ion-label>
                     <ion-textarea class="textAarea" [(ngModel)]="cBagRemovData.address" #address="ngModel" required [ngModelOptions]="{standalone: true}"></ion-textarea>
                 </ion-item>
-                <button ion-button (click)="getAddress()">{{ "LOCATE" | translate }} <i class="icon-location"></i></button>
+                <button ion-button (click)="getAddress()">{{ "LOCATE" | translate }} <ion-icon name="pin"></ion-icon></button>
             </div>
             <div *ngIf="address.errors && (address.dirty || address.touched || submitted)" class="alert alert-danger error">
                 <p [hidden]="!address.errors.required">
@@ -236,12 +236,12 @@ Ionic pages and navigation.
                             <div class="id_items" text-right *ngFor="let image of removalProofPathObjDisp; let i = index;">
                                 <img [src]="image" alt="">
                                 <button ion-button color="light" class="close_btn" (click)="removeProofImages(i)">
-                                <i class="icon-close-thin"></i>
+                                  <ion-icon name="close-circle"></ion-icon>
                             </button>
                             </div>
                             <div class="id_items upload" text-center>
                                 <button ion-button color="light" class="upload_btn" (click)="openSelectCameraPop($event,'rem_proof_pics')">
-                                <i class="icon-Camera"></i>
+                                  <ion-icon name="camera"></ion-icon>
                             </button>
                             </div>
                         </div>

@@ -2,7 +2,7 @@
         <ion-navbar>
         <ion-buttons end>
                 <button ion-button menuToggle>
-                    <i class="icon-menu"></i>
+                    <ion-icon name="menu"></ion-icon>
                 </button>
             </ion-buttons>
             <ion-title>{{ "PROJECT OR CUSTOMER DETAIL" | translate }}</ion-title>
@@ -20,7 +20,7 @@
                         <img src="assets/images/user_create.png">
                     </div>
                      <div class="customerPhoto" >
-              
+
                           <ul class="project_list">
                             <li class="project_item" *ngFor="let photoDataObj of projDetailData.lead_photos">
                                   <img [src]="photoDataObj?.serverPath" *ngIf="photoDataObj?.serverPath" (click)="openFile(photoDataObj?.serverPath)" >
@@ -139,10 +139,10 @@
                     </ion-card>
                 </div>
             </div>
-    
+
         <div class="chatBtn" *ngIf="chatbtnShowFlag">
             <button ion-button (click)="leadChatShow(projDetailData['lead_id'],projDetailData)">
-                <i class="icon-chat"></i>
+                <ion-icon name="chatboxes"></ion-icon>
             </button>
         </div>
     </ion-content>

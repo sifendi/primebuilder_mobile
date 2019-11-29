@@ -27,7 +27,7 @@ import {  App_hpbApi }  from '../../shared/loopback_sdk';
 import { appCommonMethods } from '../../providers/appCommonMethods';
 
 import * as moment from 'moment';
-import async from 'async'; 
+import async from 'async';
 
 @Component({
   selector: 'page-home',
@@ -52,9 +52,9 @@ export class HomePage {
   busyContractor: any;
   busyContractorMessage:any;
   busyDistributor: any;
-  busyDistributorMessage:any;  
+  busyDistributorMessage:any;
   busyRetailer: any;
-  busyRetailerMessage:any; 
+  busyRetailerMessage:any;
   massonTodayVisitTotal=0;
   contractorTodayVisitTotal=0;
   distTodayVisitTotal=0;
@@ -85,12 +85,12 @@ export class HomePage {
             this.globalSync();
         });
 
-      let masterSync =  this.shareS.getshareData('masterSync'); 
+      let masterSync =  this.shareS.getshareData('masterSync');
       if(masterSync){
           this.busyMessage="Syncing...";
           this.globalSyncLoaderBtn=true;
           this.busy=this.firstGlobaSync().then(()=>{
-            
+
             // stats functions calls
             this.appCom.updateMasonContractorStats('mason');
             this.appCom.updateMasonContractorStats('contractor');
@@ -101,12 +101,12 @@ export class HomePage {
             this.appCom.updateHomeSliderStats();
             this.busy = setTimeout(()=>{
                 this.globalSyncLoaderBtn=false;
-                console.log(" timeout called ");  
+                console.log(" timeout called ");
                 this.homeDashbaordDataInit();
             },3000);
-            
+
             this.notificationCountSet();
-            
+
           },()=>{
             this.homeDashbaordDataInit();
           });
@@ -184,7 +184,7 @@ notificationCountSet(){
                     allTaskComplete();
                   });
 
-        });    
+        });
   }
 
   globalSync(){
@@ -196,8 +196,8 @@ notificationCountSet(){
         this.globalSyncLoaderBtn=true;
         this.busy=this.syncS.syncAllUpDownLocalMaster().then(()=>{
             this.globalSyncLoaderBtn=false;
-            let currDate = moment().format("DD-MM-YYYY, h:mm:ss").toString(); 
-            this.globalSyncUpdatedDate=currDate; 
+            let currDate = moment().format("DD-MM-YYYY, h:mm:ss").toString();
+            this.globalSyncUpdatedDate=currDate;
             this.appCom.storeAppPreference('globalSyncUpdatedDateTimeStamp',moment().valueOf());
             this.appCom.updateMasonContractorStats('mason');
             this.appCom.updateMasonContractorStats('contractor');
@@ -210,7 +210,7 @@ notificationCountSet(){
                 this.homeDashbaordDataInit();
             },2000);
             this.notificationCountSet();
-        },()=>{ 
+        },()=>{
           this.globalSyncLoaderBtn=false;
         });
   }
@@ -221,11 +221,19 @@ notificationCountSet(){
   }
 
   async ionViewDidEnter(){
+<<<<<<< HEAD
+    this.busyMessage = await this.appCom.getTranslatedTxt("Please wait...");
+    // if(this.globalSyncLoaderBtn==false){
+    //     this.busyMessage="Please wait...";
+    //     this.homeDashbaordDataInit();
+    // }
+=======
     this.busyMessage = await this.appCom.getTranslatedTxt("Please wait...");  
     if(this.globalSyncLoaderBtn==false){
         this.busyMessage="Please wait...";
         this.homeDashbaordDataInit();
     }
+>>>>>>> 1d915240ecf4e3a8af87d31abd95a5363632888e
   }
 
   openFile(file){
@@ -314,10 +322,10 @@ notificationCountSet(){
                     tempObj['rds_type']= tmpData['rds_type'] || false;
                     dataFinal.push(tempObj);
                     console.log('reslData',reslData);
-                } 
+                }
                 j++;
                 checkInDataRec(dataArr,j);
-               
+
               },(error)=>{
                 j++;
                 checkInDataRec(dataArr,j);
@@ -336,7 +344,7 @@ notificationCountSet(){
       this.navCtrl.push(ProductStatsPage);
   }
   addProject(){
-    
+
     this.busy=this.appCom.projectAddCheckPrvSRKUApp().then((resResult:any)=>{
         if(resResult){
               this.navCtrl.push(AddProjectPage);
@@ -344,7 +352,7 @@ notificationCountSet(){
             this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.NEW_PRE_PROJECT_SRKU_ERR,"Ok",null);
         }
     });
-  
+
   }
 
   goToVisitsList(){
@@ -354,6 +362,6 @@ notificationCountSet(){
  goToNotifyPage(){
     this.navCtrl.push(NotificationsTabPage);
   }
- 
+
 
 }

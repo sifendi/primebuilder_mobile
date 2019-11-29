@@ -1,8 +1,8 @@
 <ion-header>
     <ion-navbar>
-        <ion-buttons end *ngIf="editFlag"> 
+        <ion-buttons end *ngIf="editFlag">
             <button ion-button (click)="editProject()">
-                <i class="icon-edit"></i>
+                <ion-icon name="create"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{ hpbName }}</ion-title>
@@ -30,7 +30,7 @@
         </button>-->
 
         <!--<button class="vProject" ion-button type="button" (click)="checkOut()" *ngIf="(false) && globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == projData['project_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == 'project'">
-                        CHECK OUT                    
+                        CHECK OUT
                     </button>
         <button class="vProject" ion-button type="button" (click)="checkIn()" [disabled]="globalCheckInData['checkinFlag'] == true" *ngIf="(false) && globalCheckInData['checkinFlag'] == false">
                         CHECK IN
