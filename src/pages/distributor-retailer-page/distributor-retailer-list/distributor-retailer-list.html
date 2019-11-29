@@ -7,7 +7,7 @@
         </ion-buttons>
         <ion-buttons end>
             <button ion-button (click)="openRetDistFilter()">
-                   <i class="icon-filter"></i>  
+                <ion-icon name="funnel"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{ "DISTRIBUTOR/RETAILER LIST" | translate }}</ion-title>
@@ -19,7 +19,7 @@
     <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>{{"SEARCH BY" | translate }} : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <i class="icon-close-thin"></i>
+            <ion-icon name="close"></ion-icon>
         </button>
     </div>
     <ion-list class="listWrap">
@@ -40,7 +40,7 @@
                         <p class="title inline">{{ "MOBILE NO." | translate }}</p>
                         <span class="value inline"> {{ rds['rds_mobile'] ? rds['rds_mobile']:(rds['rds_phone'] ? rds['rds_phone'] : '-') }}</span>
                         <button ion-button color="light" (click)="makephonecall(rds)" *ngIf="rds['rds_phone'] || rds['rds_mobile']">
-                            <i class="icon-call"></i>
+                            <ion-icon name="call"></ion-icon>
                         </button>
                         <p class="title dark marg5">{{"CITY / MUNICIPLITY" | translate }}: <span> {{ appCom.jsonParseCityName(rds.rds_city) ? appCom.jsonParseCityName(rds.rds_city):(appCom.jsonParseCityName(rds.rds_province) ? appCom.jsonParseCityName(rds.rds_province) : '-') }}</span></p>
 

@@ -10,7 +10,7 @@
         <ion-title>{{ "ACHIEVEMENTS" | translate }}</ion-title>
         <ion-buttons end>
             <button ion-button iconHome menuToggle>
-                <i class="icon-menu" name="menu"></i>
+                <ion-icon name="menu"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -121,7 +121,7 @@
         </ion-row>
     </ion-grid>
 
-    
+
         <!-- <ion-grid class="personData" *ngFor="let prodArr of prodArrObj">
             <h4 class="personTitle">{{prodArr['target_for']}}</h4>
             <ion-row class="crdAll cardBlack">
@@ -135,7 +135,7 @@
                     <h3>{{prodArr['productsTodayAchievementTarget']?prodArr['productsTodayAchievementTarget']:"0"}}</h3>
                 </ion-col>
             </ion-row>
-           
+
             <ion-row class="crdAll" [ngClass]="{ 'cardDiff':prodArr['todayActualPerc']>prodArr['productsMonthlyTargetAchievPerc'] }">
                 <ion-col class="crdOne"><span class="preVal">{{prodArr['productsMonthlyTargetAchievPerc']?prodArr['productsMonthlyTargetAchievPerc']:"0"}}%</span></ion-col>
                 <ion-col class="crdTwo">
@@ -148,6 +148,6 @@
                 </ion-col>
             </ion-row>
         </ion-grid> -->
-    
+
 
 </ion-content>

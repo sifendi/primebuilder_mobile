@@ -4,7 +4,7 @@
             <div class="textBtn">
                 <h4 *ngIf="today == true">{{"TODAY'S PROGRESS" | translate }}</h4>
                 <h4 *ngIf="today != true">{{achiveDate}} {{ "PROGRESS" | translate}}</h4>
-                <button ion-button class="icon-button" [(ngModel)]="currentDataSel" (change)="dateChange();" mbsc-calendar clear><i class="icon-calendar" tappable></i></button>
+                <button ion-button class="icon-button" [(ngModel)]="currentDataSel" (change)="dateChange();" mbsc-calendar clear>  <ion-icon name="calendar"></ion-icon></button>
             </div>
         </ion-card-content>
         <ion-grid class="cardBgOne">
@@ -50,7 +50,7 @@
                             <p class="title">{{"MOBILE NO." | translate }}</p>
                             <span class="value inline">{{ userObj.rds_mobile ? userObj.rds_mobile:(userObj.rds_phone ? userObj.rds_phone : '-') }}</span>
                             <button ion-button color="light">
-                                <i class="icon-call" *ngIf="(userObj.rds_mobile) || (userObj.rds_phone)" (click)="call(userObj)"></i>
+                                <ion-icon name="call" *ngIf="(userObj.rds_mobile) || (userObj.rds_phone)" (click)="call(userObj)"></ion-icon>
                             </button>
                             <p class="title dark marg5">{{"CITY / MUNICIPLITY" | translate }}: <span> {{ appCom.jsonParseCityName(userObj.rds_city) ? appCom.jsonParseCityName(userObj.rds_city):(appCom.jsonParseCityName(userObj.rds_province) ? appCom.jsonParseCityName(userObj.rds_province) : '-') }}</span></p>
                         </div>
@@ -104,7 +104,7 @@
                             <p class="title">{{"MOBILE NO." | translate }}</p>
                             <span class="value inline">{{ userObj.rds_mobile ? userObj.rds_mobile:(userObj.rds_phone ? userObj.rds_phone : '-') }}</span>
                             <button ion-button color="light">
-                                <i class="icon-call" *ngIf="(userObj.rds_mobile) || (userObj.rds_phone)" (click)="call(userObj)"></i>
+                                <ion-icon name="call" *ngIf="(userObj.rds_mobile) || (userObj.rds_phone)" (click)="call(userObj)"></ion-icon>
                             </button>
                             <p class="title dark marg5">{{"CITY / MUNICIPLITY" | translate }}: <span> {{ appCom.jsonParseCityName(userObj.rds_city) ? appCom.jsonParseCityName(userObj.rds_city):(appCom.jsonParseCityName(userObj.rds_province) ? appCom.jsonParseCityName(userObj.rds_province) : '-') }}</span></p>
                         </div>
@@ -159,7 +159,7 @@
                             <p class="title">{{"MOBILE NO." | translate }}</p>
                             <span class="value inline">{{ userObj.rds_mobile ? userObj.rds_mobile:(userObj.rds_phone ? userObj.rds_phone : '-') }}</span>
                             <button ion-button color="light">
-                                <i class="icon-call" *ngIf="(userObj.rds_mobile) || (userObj.rds_phone)" (click)="call(userObj)"></i>
+                                <ion-icon name="call" *ngIf="(userObj.rds_mobile) || (userObj.rds_phone)" (click)="call(userObj)"></ion-icon>
                             </button>
                             <p class="title dark marg5">{{"CITY / MUNICIPLITY" | translate }}: <span> {{ appCom.jsonParseCityName(userObj.rds_city) ? appCom.jsonParseCityName(userObj.rds_city):(appCom.jsonParseCityName(userObj.rds_province) ? appCom.jsonParseCityName(userObj.rds_province) : '-') }}</span></p>
                         </div>

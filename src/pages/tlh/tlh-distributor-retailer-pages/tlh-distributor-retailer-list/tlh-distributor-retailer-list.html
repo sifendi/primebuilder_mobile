@@ -7,7 +7,7 @@
         </ion-buttons>
         <ion-buttons end>
             <button ion-button (click)="goToFilterPage()" >
-                   <i class="icon-filter"></i>  
+                <ion-icon name="funnel"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{ "DISTRIBUTOR/RETAILER LIST" | translate }}</ion-title>
@@ -19,9 +19,9 @@
     <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>Search by : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <i class="icon-close-thin"></i>
+            <ion-icon name="close"></ion-icon>
         </button>
-    </div> 
+    </div>
      <!--<ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
         </ion-refresher-content>
@@ -30,7 +30,7 @@
             <h2 class="noData contMid">{{ "NO DISTRIBUTOR RETAILER FOUND." | translate }}</h2>
         </div>
     <ion-list class="listWrap">
-      
+
         <div class="itemWrap" *ngFor="let rds of retailerDistributorAllData;let i = index;">
             <ion-item class="listItem receipt">
                 <!--<ion-avatar item-left>
@@ -45,12 +45,12 @@
                         <p class="title inline">{{ "MOBILE NO" | translate }}.</p>
                         <span class="value inline">{{ rds['rds_phone']?rds['rds_phone']:"-" }}</span>
                         <button ion-button color="light" (click)="makephonecall(rds['rds_phone'])" *ngIf="rds['rds_phone'] != undefined && rds['rds_phone'] != ''">
-                                        <i class="icon-call"></i>
-                                    </button>
+                            <ion-icon name="call"></ion-icon>
+                        </button>
                         <p class="title dark marg5">{{ "CITY / MUNICIPALITY" | translate }}: <span>{{ rds['city_display_str']?rds['city_display_str']:"-" }}</span></p>
                     </div>
                 </div>
-                <i class="icon-next-thin checkIn" (click)="goToRdsDetail(rds)"></i>
+                <ion-icon name="log-in" (click)="goToRdsDetail(rds)"></ion-icon>
             </ion-item>
         </div>
 

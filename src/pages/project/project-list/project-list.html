@@ -7,7 +7,7 @@
         </ion-buttons>-->
         <ion-buttons end>
             <button ion-button (click)="goToFilterPage()">
-                <i class="icon-filter"></i>
+                <ion-icon name="funnel"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{"PROJECT LIST" | translate }}</ion-title>
@@ -91,12 +91,12 @@
                     </button>
 
                     <!-- <button class="CheckOut" *ngIf="checkInOutCheckCondition" ion-button type="button" checkInOut [data-cdata]="projItem" [data-ctype]="'project'"  [data-cdataid]="projItem['project_id']"  [data-cdisplay]="'list'">
-                        CHECK In                    
+                        CHECK In
                     </button> -->
 
                     <button class="CheckOut" ion-button type="button" (click)="checkOut(projItem)" *ngIf="globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == projItem['project_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == 'project'">
-                        
-                         {{"CHECK OUT" | translate }}                    
+
+                         {{"CHECK OUT" | translate }}
                     </button>
 
                     <!---checkin function button ---->

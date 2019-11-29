@@ -4,7 +4,7 @@
             <div class="textBtn">
                 <h4 *ngIf="today == true">{{"TODAY'S PROGRESS" | translate }}</h4>
                 <h4 *ngIf="today != true">{{achiveDate}} {{"PROGRESS" | translate }}</h4>
-                <button ion-button class="icon-button" mbsc-calendar [mbsc-options]="settingsCalenders" #currentDataSelInst="mobiscroll" (change)="dateChange();" [(ngModel)]="currentDataSel" clear><i class="icon-calendar" tappable></i></button>
+                <button ion-button class="icon-button" mbsc-calendar [mbsc-options]="settingsCalenders" #currentDataSelInst="mobiscroll" (change)="dateChange();" [(ngModel)]="currentDataSel" clear>  <ion-icon name="calendar"></ion-icon></button>
             </div>
             <div class="btnPerson achievement">
                 <button ion-button color="light">
@@ -81,7 +81,7 @@
                             <p class="title">{{"MOBILE NO." | translate }}</p>
                             <span class="value inline">{{masonObj.primary_mobile_no}}</span>
                             <button ion-button color="light">
-                            <i class="icon-call" (click)="call(masonObj.primary_mobile_no)"></i>
+                            <ion-icon name="call" (click)="call(masonObj.primary_mobile_no)"></ion-icon>
                         </button>
                             <p class="title dark marg5">{{"CITY / MUNICIPLITY" | translate }}: <span> {{masonObj.domicile_city ?masonObj.domicile_city:'-' }}</span></p>
                         </div>
@@ -118,7 +118,8 @@
                             <p class="title">{{"MOBILE NO." | translate }}</p>
                             <span class="value inline">{{masonObj.primary_mobile_no}}</span>
                             <button ion-button color="light">
-                            <i class="icon-call" (click)="call(masonObj.primary_mobile_no)"></i>
+                                <ion-icon name="call" (click)="call(masonObj.primary_mobile_no)"></ion-icon>
+                            <!-- <i class="icon-call" (click)="call(masonObj.primary_mobile_no)"></i> -->
                         </button>
                             <p class="title dark marg5">{{"CITY / MUNICIPLITY" | translate }}: <span> {{masonObj.domicile_city ?masonObj.domicile_city:'-' }}</span></p>
                         </div>
@@ -155,7 +156,7 @@
                             <p class="title">{{"MOBILE NO." | translate }}</p>
                             <span class="value inline">{{masonObj.primary_mobile_no}}</span>
                             <button ion-button color="light">
-                            <i class="icon-call" (click)="call(masonObj.primary_mobile_no)"></i>
+                            <ion-icon name="call" (click)="call(masonObj.primary_mobile_no)"></ion-icon>
                         </button>
                             <p class="title dark marg5">{{"CITY / MUNICIPLITY" | translate }}: <span> {{masonObj.domicile_city ?masonObj.domicile_city:'-' }}</span></p>
                         </div>
@@ -164,7 +165,7 @@
                     <div *ngIf="masonObj.visitStatus == false" class="arrow_box notVisit">
                         {{"NOT VISITED" | translate }}
                     </div>
-                    <!-- 
+                    <!--
                     <div *ngIf="masonObj.visitStatus == true" class="arrow_box notVisit">
                         {{"VISITED" | translate }}
                     </div>

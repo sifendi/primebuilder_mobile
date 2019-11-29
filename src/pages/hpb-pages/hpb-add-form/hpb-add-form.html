@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-buttons end>
       <button ion-button menuToggle>
-        <i class="icon-menu"></i>
+          <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>{{ pageTitle }}</ion-title>
@@ -16,7 +16,7 @@
           <button ion-button type="button">
             <img [src]="profimagePath" alt="">
           </button>
-          <i class="icon-Camera"></i>
+          <ion-icon name="camera"></ion-icon>
         </div>
       </div>
     </div>
@@ -73,11 +73,11 @@
           <ion-input type="tel" placeholder=" {{ 'CHECK YOUR ID CARD' | translate }}"  class="input_item" [(ngModel)]="HpbData.IdCardNumber" [readonly]="HpbData['IdApprovalStatus']==0" #IdCardNumber="ngModel" required [ngModelOptions]="{standalone: true}" pattern="[0-9]+" maxlength="50"></ion-input>
         </ion-item>
         <div class="notificationIndicator" [hidden]="Action">
-          <span class="pColor" *ngIf="HpbData['IdApprovalStatus']==0"><i class="icon-pending"></i>Pending</span>
-          <span class="fColor" *ngIf="HpbData['IdApprovalStatus']==-1"><i class="icon-failed"></i>Rejected</span>
-          <span class="dColor" *ngIf="HpbData['IdApprovalStatus']==1"><i class="icon-deal"></i>Approved</span>
+          <span class="pColor" *ngIf="HpbData['IdApprovalStatus']==0"><ion-icon name="time"></ion-icon>Pending</span>
+          <span class="fColor" *ngIf="HpbData['IdApprovalStatus']==-1"><ion-icon name="close-circle"></ion-icon>Rejected</span>
+          <span class="dColor" *ngIf="HpbData['IdApprovalStatus']==1"><ion-icon name="checkmark-circle"></ion-icon>Approved</span>
         </div>
-        
+
       </div>
       <div *ngIf="IdCardNumber.errors && (IdCardNumber.dirty || IdCardNumber.touched || submitted)" class="alert alert-danger error">
         <p [hidden]="!IdCardNumber.errors.required">
@@ -92,7 +92,7 @@
           <ion-label floating>{{ "ID CARD ADDRESS" | translate }}*</ion-label>
           <ion-textarea fz-elastic row="1" class="textAarea" [(ngModel)]="HpbData.IdCardAddress" #IdCardAddress="ngModel" required [ngModelOptions]="{standalone: true}"></ion-textarea>
         </ion-item>
-        <button *ngIf="showLocateBtn"  ion-button (click)="getAddress()">{{ "LOCATE" | translate }} <i class="icon-location"></i></button>
+        <button *ngIf="showLocateBtn"  ion-button (click)="getAddress()">{{ "LOCATE" | translate }}   <ion-icon name="pin"></ion-icon></button>
       </div>
       <div *ngIf="IdCardAddress.errors && (IdCardAddress.dirty || IdCardAddress.touched || submitted)" class="alert alert-danger error">
         <p [hidden]="!IdCardAddress.errors.required">
@@ -164,12 +164,12 @@
             <div class="id_items" text-right *ngFor="let image of idCardPhotoObj; let i = index;">
               <img [src]="image" alt="">
               <button ion-button color="light" class="close_btn" (click)="removeIdCardImage(i)">
-                <i class="icon-close-thin"></i>
+                  <ion-icon name="close"></ion-icon>
               </button>
             </div>
             <div class="id_items upload" text-center (click)="openSelectCameraPop($event,'id_card_photo')">
               <button ion-button color="light" class="upload_btn">
-                <i class="icon-Camera"></i>
+                  <ion-icon name="camera"></ion-icon>
               </button>
             </div>
           </div>
@@ -265,11 +265,11 @@
           <ion-input type="tel" placeholder="'" class="input_item" [(ngModel)]="HpbData.MobileNo_1" #MobileNo_1="ngModel" [readonly]="HpbData['MobApprovalStatus']==0" required [ngModelOptions]="{standalone: true}" pattern="[0][1-9][0-9]+" minlength="10" maxlength="15"></ion-input>
         </ion-item>
         <div class="notificationIndicator" [hidden]="Action">
-          <span class="pColor" *ngIf="HpbData['MobApprovalStatus']==0"><i class="icon-pending"></i>Pending</span>
-          <span class="fColor" *ngIf="HpbData['MobApprovalStatus']==-1"><i class="icon-failed"></i>Rejected</span>
-          <span class="dColor" *ngIf="HpbData['MobApprovalStatus']==1"><i class="icon-deal"></i>Approved</span>
+          <span class="pColor" *ngIf="HpbData['MobApprovalStatus']==0"><ion-icon name="time"></ion-icon>Pending</span>
+          <span class="fColor" *ngIf="HpbData['MobApprovalStatus']==-1"><ion-icon name="close-circle"></ion-icon>Rejected</span>
+          <span class="dColor" *ngIf="HpbData['MobApprovalStatus']==1"><ion-icon name="checkmark-circle"></ion-icon>Approved</span>
         </div>
-        
+
       </div>
       <div *ngIf="MobileNo_1.errors && (MobileNo_1.dirty || MobileNo_1.touched || submitted)" class="alert alert-danger error">
         <p [hidden]="!MobileNo_1.errors.required">

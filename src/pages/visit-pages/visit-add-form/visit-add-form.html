@@ -3,7 +3,7 @@
 
         <ion-buttons end>
             <button ion-button menuToggle>
-                 <i class="icon-menu"></i>
+                <ion-icon name="menu"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{"VISIT FORM" | translate }}</ion-title>
@@ -28,7 +28,7 @@
         <div class="userSpaceRepet">
             <h2 class="labelHeading">{{"CURRENT STOCK DETAILS" | translate }}</h2>
             <ion-list class="inputBox" *ngFor="let stockItem of currStockDetailArr; let i = index;trackBy:trackByIndex;">
-                <div class="deleBox"><span>Brand {{i+1}} </span><span *ngIf="this.currStockDetailArr.length>1" (click)="removeStockItem(i)"><i class="icon-Delete"></i></span></div>
+                <div class="deleBox"><span>Brand {{i+1}} </span><span *ngIf="this.currStockDetailArr.length>1" (click)="removeStockItem(i)">  <ion-icon name="trash"></ion-icon></span></div>
 
 
 
@@ -54,12 +54,12 @@
 
 
 
-              
+
                 <div class="rdIn" [class.disabledDiv]="currStockDetailArr[i]['unitArr'] == null || currStockDetailArr[i]['unitArr'] == undefined" >
                     <ion-item class="inputLable">
                         <ion-label stacked>{{ "TYPE OF PACKAGING" | translate }}*</ion-label>
                         <!--<ion-select [(ngModel)]="currStockDetailArr[i].StockUnit" #Unit="ngModel" required [ngModelOptions]="{standalone: true}" [disabled]="!currStockDetailArr[i].disableUnitFlag">-->
-                            <!--<ion-option value="{{ unit['product_unit'] }}" *ngFor="let unit of currStockDetailArr[i]['unitArr']">{{ unit['product_unit'] }}</ion-option>--> 
+                            <!--<ion-option value="{{ unit['product_unit'] }}" *ngFor="let unit of currStockDetailArr[i]['unitArr']">{{ unit['product_unit'] }}</ion-option>-->
                             <ion-input  [(ngModel)]="currStockDetailArr[i].StockUnit" #Unit="ngModel"  mbsc-select [mbsc-options]="mobiScollUnitSettings" [mbsc-data]="currStockDetailArr[i]['unitArr']"  [ngModelOptions]="{standalone: true}" required></ion-input>
                         <!--</ion-select>-->
                     </ion-item>

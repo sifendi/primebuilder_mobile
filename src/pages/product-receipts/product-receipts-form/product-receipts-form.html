@@ -7,7 +7,7 @@
         </ion-buttons> -->
         <ion-buttons end>
             <button ion-button menuToggle>
-                  <i class="icon-menu"></i>
+                <ion-icon name="menu"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{ "PRODUCT RECEIPT FORM" | translate }}</ion-title>
@@ -91,7 +91,7 @@
                     {{ "UNIT IS REQUIRED" | translate }}
                 </p>
             </div>
-    
+
             <div class="rdIn">
                 <ion-item class="inputLable">
                     <ion-label stacked>{{ "QUANTITY" | translate }}*</ion-label>
@@ -156,20 +156,20 @@
                     <p [hidden]="!receiptForm.get(product.product_quantity).errors.pattern">
                         {{ "QUANTITY IS INVALID" | translate }}
                     </p>
-                </div>	
+                </div>
             </div>
-    
+
             <div class="btn">
                 <button ion-button (click)="addProductToReceipt()">{{ "ADD PRODUCT" | translate }}</button>
             </div>
-    
+
             <div class="rdIn">
                 <ion-item class="inputLable">
                     <ion-label stacked> {{ "RETAILER / DISTRIBUTOR" | translate }}*</ion-label>
                     <!--<ion-select [(ngModel)]="ReceiptData.RetDist" #RetDist="ngModel" required [ngModelOptions]="{standalone: true}">-->
                     <!--<ion-option *ngFor="let rds of rdsArr" value="{{ rds['server_rds_id'] }}">{{ rds['rds_name'] }}</ion-option>-->
                     <!-- <ion-input [(ngModel)]="ReceiptData.RetDist" #RetDist="ngModel" #RetDistMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollRDSSettings" [mbsc-data]="rdsArr" [ngModelOptions]="{standalone: true}" required formControlName="product_distributor"></ion-input> -->
-                    
+
                     <ion-input #RetDistMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollRDSSettings" [mbsc-data]="rdsArr" required formControlName="product_distributor"></ion-input>
                     <!--</ion-select>-->
                 </ion-item>
@@ -179,7 +179,7 @@
                     {{ "RETAILER / DISTRIBUTOR IS REQUIRED" | translate }}
                 <!-- </p> -->
             </div>
-    
+
             <div class="rdIn">
                 <div class="date_picker">
                     <div class="date_list">
@@ -199,7 +199,7 @@
                 {{ "PURCHASE DATE IS REQUIRED" | translate }}
                 <!-- </p> -->
             </div>
-    
+
             <div class="rdIn">
                 <ion-item class="inputLable">
                     <ion-label floating>{{ "INVOICE QUANTITY" | translate }}*</ion-label>
@@ -214,7 +214,7 @@
                 <!-- <p [hidden]="!InvoiceQuantity.errors.pattern">
                     {{ "INVOICE QUANTITY IS REQUIRED" | translate }}
                 </p> -->
-            </div>	
+            </div>
 
             <div class="rdIn">
                 <div class="upload_proof">
@@ -223,12 +223,12 @@
                         <div class="id_items" text-right *ngFor="let image of invoicePhotoObj; let i = index;">
                             <img [src]="image" alt="">
                             <button ion-button color="light" class="close_btn" (click)="removeInvoiceImage(i)">
-                                <i class="icon-close-thin"></i>
+                                <ion-icon name="close"></ion-icon>
                             </button>
                         </div>
                         <div class="id_items upload" text-center (click)="openSelectCameraPop($event,'invoice_photo')">
                             <button ion-button color="light" class="upload_btn">
-                                <i class="icon-Camera"></i>
+                                <ion-icon name="camera"></ion-icon>
                             </button>
                         </div>
                     </div>
@@ -238,7 +238,7 @@
                 </div>
             </div>
         </ion-list>
-        
+
         <div class="comment_note">
             <ion-list class="inputBox">
                 <div class="rdIn">

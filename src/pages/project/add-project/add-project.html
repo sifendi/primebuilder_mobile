@@ -2,7 +2,7 @@
     <ion-navbar>
         <ion-buttons end>
             <button ion-button menuToggle>
-                <i class="icon-menu"></i>
+                <ion-icon name="menu"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{ pageTitle.toString().toUpperCase() | translate }}</ion-title>
@@ -73,7 +73,7 @@
                     <ion-label floating>{{"ADDRESS" | translate }}*</ion-label>
                     <ion-textarea fz-elastic class="textAarea" [(ngModel)]="projData.ProjectAddress" #ProjectAddress="ngModel" required [ngModelOptions]="{standalone: true}"></ion-textarea>
                 </ion-item>
-                <button ion-button *ngIf="showLocateBtn" (click)="getAddress()">{{"LOCATE" | translate }} <i class="icon-location"></i></button>
+                <button ion-button *ngIf="showLocateBtn" (click)="getAddress()">{{"LOCATE" | translate }}<ion-icon name="pin"></ion-icon></button>
             </div>
             <div *ngIf="ProjectAddress.errors && (ProjectAddress.dirty || ProjectAddress.touched || submitted)" class="alert alert-danger error">
                 <p [hidden]="!ProjectAddress.errors.required">
@@ -184,12 +184,12 @@
                         <div class="id_items" text-right *ngFor="let image of projectPhotoObj; let i = index;">
                             <img [src]="image" alt="">
                             <button ion-button color="light" class="close_btn" (click)="removeProjectImage(i)">
-                                <i class="icon-close-thin"></i>
+                                <ion-icon name="close"></ion-icon>
                             </button>
                         </div>
                         <div class="id_items upload" text-center (click)="openSelectCameraPop($event,'project_photo')">
                             <button ion-button color="light" class="upload_btn">
-                                <i class="icon-Camera"></i>
+                                <ion-icon name="camera"></ion-icon>
                             </button>
                         </div>
                     </div>

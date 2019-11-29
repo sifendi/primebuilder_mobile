@@ -39,7 +39,7 @@
                     </ion-grid>
 
                     <span class="tag">{{ (productReceiptItem['local_created_date'])?appCom.timeStampToDate(productReceiptItem['local_created_date']):"-" }}</span>
-                    <i class="icon-next-thin checkIn"></i>
+                    <ion-icon name="log-in"></ion-icon>
                 </ion-item>
                 <div class="filterTag resultbg" *ngIf="productReceiptItem?.tlh_approval == -1">
                     <p class="resultRes">{{"REASON" | translate }}:</p>

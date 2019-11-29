@@ -59,9 +59,9 @@
                     <ion-row>
                         <ion-col>
                             <div class="projectWrap contMid ">
-                                <span class="gridValue pColor " *ngIf="receipt.status == 0"><i class="icon-pending "></i>{{ "PENDING" | translate }}</span>
-                                <span class="gridValue dColor " *ngIf="receipt.status == 1"><i class="icon-approved "></i>{{ "APPROVED" | translate }}</span>
-                                <span class="gridValue fColor " *ngIf="receipt.status == -1"><i class="icon-failed "></i>{{ "REJECTED" | translate }}</span>
+                                <span class="gridValue pColor " *ngIf="receipt.status == 0"><ion-icon name="time"></ion-icon>{{ "PENDING" | translate }}</span>
+                                <span class="gridValue dColor " *ngIf="receipt.status == 1"><ion-icon name="close-circle"></ion-icon>{{ "APPROVED" | translate }}</span>
+                                <span class="gridValue fColor " *ngIf="receipt.status == -1"><ion-icon name="checkmark-circle"></ion-icon>{{ "REJECTED" | translate }}</span>
                             </div>
                         </ion-col>
                         <ion-col>

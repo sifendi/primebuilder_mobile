@@ -19,8 +19,8 @@ declare var sessionUserGlobalData;
   templateUrl: 'ac-distributor-retailer-detail-page.html',
 })
 export class AcDistributorRetailerDetailPage {
-  page1: any = AcDistributorVisitListPage; 
-  page2: any = AcDistributorDetail; 
+  page1: any = AcDistributorVisitListPage;
+  page2: any = AcDistributorDetail;
   parentThis = this;
   paramsData:any=[];
   selectedIndex:any=0;
@@ -33,7 +33,7 @@ export class AcDistributorRetailerDetailPage {
     userId:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public shareS :ShareService,public appCom:appCommonMethods,public sqlS: SqlServices,public alertCtrl:AlertController,public events:Events,public platform: Platform ) {
-     
+
 
     this.shareS.setshareData("this",this);
     this.paramsData=this.navParams.data;
@@ -43,17 +43,17 @@ export class AcDistributorRetailerDetailPage {
     if( tab == "visit" ){
         this.selectedIndex = 1;
     }else{
-        this.selectedIndex = 0; 
+        this.selectedIndex = 0;
     }
 
- 
+
     this.page1 = AcDistributorVisitListPage;
     this.page2 = AcDistributorDetail;
   }
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad SphVisitPage');
-        
+
         this.events.subscribe('visitListData',(rdsData) => {
             this.paramsData['rdsData']=rdsData;
             console.log("this.paramsRdsData--,",this.paramsData);
@@ -70,7 +70,7 @@ export class AcDistributorRetailerDetailPage {
     }
 
     async ionViewDidEnter(){
-     this.busyMessage = await this.appCom.getTranslatedTxt("Please wait...");       
+     this.busyMessage = await this.appCom.getTranslatedTxt("Please wait...");
     }
 
     goToVisitForm(){
@@ -97,9 +97,9 @@ export class AcDistributorRetailerDetailPage {
 @Component({
   selector: 'ac-distributor-visit-list',
   template: `
-  
-  
- 
+
+
+
 <ion-content  fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}" >
   <div *ngIf="showEmptyFlag">
             <h2 class="noData contMid">{{ 'NO VISITS FOUND' | translate }}</h2>
@@ -109,9 +109,9 @@ export class AcDistributorRetailerDetailPage {
         <div class="visitDate">
             <h2>{{  visit['visit_date'] }}</h2>
         </div>
-        <i class="icon-next-thin checkIn"></i>
+        <ion-icon name="log-in"></ion-icon>
     </div>
-   
+
 </ion-content>
   `
 })
@@ -129,12 +129,12 @@ export class AcDistributorVisitListPage {
 
     visitsData:any=[];
     paramsRdsData:any=[];
-    busyMessage:any="Please Wait...";  
+    busyMessage:any="Please Wait...";
     busy:any;
     showEmptyFlag:any=false;
- 
+
   constructor(private appRdsVisit:App_rds_visitApi,public navCtrl: NavController, public navParams: NavParams,public sqlS:SqlServices,public shareS :ShareService,private appCom:appCommonMethods,public events:Events) {
-    this.paramsData=this.navParams.data;  
+    this.paramsData=this.navParams.data;
     this.rdsDataArr=this.paramsData['rdsData'];
     console.log(" visit tab this.rdsDataArr ",this.rdsDataArr);
   }
@@ -144,13 +144,13 @@ export class AcDistributorVisitListPage {
             setTimeout(()=> {
                 this.listData();
             }, 300);
-        }); 
+        });
 
         this.listData();*/
     }
 
     async ionViewDidEnter() {
-        this.busyMessage = await this.appCom.getTranslatedTxt("Please wait...");   
+        this.busyMessage = await this.appCom.getTranslatedTxt("Please wait...");
         console.log(" tlh ionViewDidEnter called ");
         this.userName = sessionUserGlobalData.user.userinfo[0].name;
         this.roleName = sessionUserGlobalData.user.roles[0].name;
@@ -166,8 +166,8 @@ export class AcDistributorVisitListPage {
     loadData(){
         console.log('ionViewDidLoad tlh VisitPage');
         this.busy=this.appRdsVisit.getRdsVisit(null,this.rdsDataArr.id).subscribe(resData => {
-            this.pages++;  
-            this.dataLen = resData.result.length; 
+            this.pages++;
+            this.dataLen = resData.result.length;
             if(this.dataLen < this.limit){
                 this.dataLoadCompleted = true;
             }
@@ -198,7 +198,7 @@ export class AcDistributorVisitListPage {
 
 
 
-  
+
 
 }
 
@@ -212,7 +212,7 @@ export class AcDistributorVisitListPage {
 @Component({
   selector: 'ac-page-sph-detail',
   template: `
-  
+
 
 <ion-content fullscreen="false">
     <div class="userForm">
@@ -282,7 +282,7 @@ export class AcDistributorDetail {
   paramsRdsData:any=[];
   rdsDataArr:any=[];
   constructor(public navCtrl: NavController, public navParams: NavParams,public events:Events) {
-  this.paramsRdsData=this.navParams.data;  
+  this.paramsRdsData=this.navParams.data;
   this.rdsDataArr=this.paramsRdsData['rdsData'];
     console.log(" this.paramsRdsData2 ",this.paramsRdsData,this.rdsDataArr);
   }

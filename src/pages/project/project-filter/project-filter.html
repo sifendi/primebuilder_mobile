@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
-        <i class="icon-close"></i>
+          <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>{{"SEARCH BY" | translate }}</ion-title>
@@ -18,7 +18,7 @@
                       <ion-option value="{{ districtItem['subdistrict'] }}" *ngFor="let districtItem of allDistrictData" >{{ districtItem['subdistrict'] }}</ion-option>
                     </ion-select> -->
           <ion-input [(ngModel)]="projFilterArr.subDistrict" #subdistrict="ngModel" #subdistrictMob="mobiscroll"  mbsc-select [mbsc-options]="mobiScollSubDistrictSettings" [mbsc-data]="subdistrictArrG"  [ngModelOptions]="{standalone: true}"></ion-input>
-         
+
         </ion-item>
       </div>
     </ion-list>

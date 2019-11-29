@@ -3,13 +3,13 @@
         <ion-navbar>
         <ion-buttons end>
                 <button ion-button menuToggle>
-                    <i class="icon-menu"></i>
+                    <ion-icon name="menu"></ion-icon>
                 </button>
             </ion-buttons>
-            <ion-title>{{ "INQUIRY" | translate }}</ion-title> 
+            <ion-title>{{ "INQUIRY" | translate }}</ion-title>
         </ion-navbar>
     </ion-header>
-    <ion-content class="notification" fullscreen="false"  [ngBusy]="{busy: busy, minDuration: 600}"> 
+    <ion-content class="notification" fullscreen="false"  [ngBusy]="{busy: busy, minDuration: 600}">
         <div class="userForm" *ngIf="showChatTextBoxBtn">
             <div class="rdIn">
                 <ion-item class="inputLable">

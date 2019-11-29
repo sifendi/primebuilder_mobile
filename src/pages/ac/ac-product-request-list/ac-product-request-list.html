@@ -2,7 +2,7 @@
     <ion-navbar>
            <ion-buttons end>
             <button ion-button (click)="openProductRequestFilter()">
-                <i class="icon-filter"></i>
+                <ion-icon name="funnel"></ion-icon>
             </button>
         </ion-buttons>
 
@@ -12,9 +12,9 @@
     <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>"{{ 'SEARCH BY' | translate }}" : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <i class="icon-close-thin"></i>
+            <ion-icon name="close"></ion-icon>
         </button>
-    </div> 
+    </div>
 </ion-header>
 <ion-content fullscreen="false" [ngBusy]="{busy: busy,message:busyMessage, minDuration: 600}" [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }">
     <ion-refresher (ionRefresh)="doRefresh($event)">
@@ -46,11 +46,10 @@
                     </div>
                 </div>
                 <span class="tag">{{produtRequestListobj['request_date']?appCom.timeStampToDate(produtRequestListobj['request_date']):"-"}}</span>
-                <i class="icon-next-thin checkIn"></i>
-
-                <span class="hpbStatus pColor" *ngIf="produtRequestListobj['product_request_status']==0 || produtRequestListobj['product_request_status']=='0'"><i class="icon-pending"></i>{{ "IN PROGRESS" | translate }}</span>
-                <span class="hpbStatus fColor" *ngIf="produtRequestListobj['product_request_status']==-1 || produtRequestListobj['product_request_status']=='-1'"><i class="icon-failed"></i>{{ "FAILED" | translate }}</span>
-                <span class="hpbStatus dColor" *ngIf="produtRequestListobj['product_request_status']==1 || produtRequestListobj['product_request_status']=='1'"><i class="icon-deal"></i>{{ "DEAL" | translate }}</span>
+                <ion-icon name="checkbox-outline"></ion-icon>
+                <span class="hpbStatus pColor" *ngIf="produtRequestListobj['product_request_status']==0 || produtRequestListobj['product_request_status']=='0'"> <ion-icon name="time"></ion-icon>{{ "IN PROGRESS" | translate }}</span>
+                <span class="hpbStatus fColor" *ngIf="produtRequestListobj['product_request_status']==-1 || produtRequestListobj['product_request_status']=='-1'"> <ion-icon name="close-circle"></ion-icon>{{ "FAILED" | translate }}</span>
+                <span class="hpbStatus dColor" *ngIf="produtRequestListobj['product_request_status']==1 || produtRequestListobj['product_request_status']=='1'"> <ion-icon name="checkmark-circle"></ion-icon>{{ "DEAL" | translate }}</span>
 
             </ion-item>
             <div class="filterTag resultbg" *ngIf="produtRequestListobj['product_request_status']==-1 || produtRequestListobj['product_request_status']=='-1'">

@@ -11,7 +11,7 @@
             <ion-card-content>
                 <div class="textBtn">
                     <p>{{ "SELECT YOUR REWARD FROM LIST" | translate }}</p>
-                    <button ion-button class="viewAll" (click)="showWishModal();"><i class="icon-wishlist"></i>{{ "WISHLIST" | translate }}</button>
+                    <button ion-button class="viewAll" (click)="showWishModal();">  <ion-icon name="list"></ion-icon>{{ "WISHLIST" | translate }}</button>
                 </div>
             </ion-card-content>
         </ion-card>
@@ -31,7 +31,7 @@
                     <h4>{{reward['points'].toLocaleString(appCom.getCurrCCode())}} {{ "POINTS" | translate }}</h4>
                     <div class="selectors">
                         <button ion-button class="selectBtn" [hidden]="reward.selected" (click)="selectProduct(i)">{{ "SELECT" | translate }}</button>
-                        <button ion-button class="selectYes" [hidden]="!reward.selected" (click)="removeProduct(i,reward.id)"><i class="icon-checkmark"></i></button>
+                        <button ion-button class="selectYes" [hidden]="!reward.selected" (click)="removeProduct(i,reward.id)">  <ion-icon name="checkmark"></ion-icon></button>
                     </div>
                 </div>
             </ion-item>

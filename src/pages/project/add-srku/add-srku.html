@@ -2,7 +2,7 @@
     <ion-navbar>
         <ion-buttons end>
             <button ion-button menuToggle>
-                 <i class="icon-menu"></i>
+                <ion-icon name="menu"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{"ADD PROJECT" | translate }}</ion-title>
@@ -33,14 +33,14 @@
                         {{"OWNER NAME CANNOT BE MORE THAN 100 CHARACTERS LONG" | translate }}.
                     </p>
                 </div>
-                
+
 
                 <div class="rdIn locate_btn">
                     <ion-item class="inputLable">
                         <ion-label floating>{{"ADDRESS" | translate }}*</ion-label>
                         <ion-textarea fz-elastic class="textAarea" [(ngModel)]="projData.SrkuOwnerAddress" #SrkuOwnerAddress="ngModel" required [ngModelOptions]="{standalone: true}"></ion-textarea>
                     </ion-item>
-                    <button ion-button *ngIf="showLocateBtn" (click)="getAddress()">{{"LOCATE" | translate }} <i class="icon-location"></i></button>
+                    <button ion-button *ngIf="showLocateBtn" (click)="getAddress()">{{"LOCATE" | translate }}<ion-icon name="pin"></ion-icon></button>
                 </div>
 
                 <div *ngIf="SrkuOwnerAddress.errors && (SrkuOwnerAddress.dirty || SrkuOwnerAddress.touched || submitted)" class="alert alert-danger error">
@@ -230,13 +230,13 @@
                             <div class="id_items" text-right *ngFor="let image of bankDocPhotosObj; let i = index;">
                                 <img [src]="image" alt="">
                                 <button ion-button color="light" class="close_btn" (click)="removebankDocImage(i)">
-                                <i class="icon-close-thin"></i>
+                                    <ion-icon name="close"></ion-icon>
                             </button>
                             </div>
                             <div class="id_items upload" text-center>
                                 <!-- <button ion-button color="light" class="upload_btn" (click)="openSelectCameraPop($event,'bank_doc_photo')"> -->
                                 <button ion-button color="light" class="upload_btn" (click)="openSelectCameraPop($event,'bank_doc_photo')">
-                                <i class="icon-Camera"></i>
+                                    <ion-icon name="camera"></ion-icon>
                                 </button>
                             </div>
                         </div>
@@ -276,12 +276,12 @@
                                 <div class="id_items" text-right *ngFor="let image of nmcDocPhotosObj; let i = index;">
                                     <img [src]="image" alt="">
                                     <button ion-button color="light" class="close_btn" (click)="removeNmcDocImage(i)">
-                                <i class="icon-close-thin"></i>
+                                        <ion-icon name="close"></ion-icon>
                             </button>
                                 </div>
                                 <div class="id_items upload" text-center>
                                     <button ion-button color="light" class="upload_btn" (click)="openSelectCameraPop($event,'nmc_doc_photo')">
-                                <i class="icon-Camera"></i>
+                                        <ion-icon name="camera"></ion-icon>
                             </button>
                                 </div>
                             </div>

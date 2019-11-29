@@ -9,8 +9,8 @@
     <ion-navbar>
         <ion-title>{{ "CEMENT BAG REMOVAL LIST" | translate }}</ion-title>
         <ion-buttons end>
-            <button ion-button (click)="openFilterPage()" > 
-                <i class="icon-filter"></i>
+            <button ion-button (click)="openFilterPage()" >
+                <ion-icon name="funnel"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -20,14 +20,14 @@
 
 
 <ion-content fullscreen="false"  [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}" [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }" >
-    
-    
+
+
     <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>"{{ 'SEARCH BY' | translate }}" : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <i class="icon-close-thin"></i>
+            <ion-icon name="close-circle"></ion-icon>
         </button>
-    </div> 
+    </div>
    <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
         </ion-refresher-content>
@@ -35,7 +35,7 @@
 
 
     <ion-list class="listWrap">
-     <div *ngIf="removalAllData.length == 0"> 
+     <div *ngIf="removalAllData.length == 0">
         <h2 class="noData contMid">{{ "NO REMOVAL RECEIPTS FOUND" | translate }}</h2>
     </div>
 
@@ -92,7 +92,7 @@
                         </ion-col>
                     </ion-row>
                 </ion-grid>
-                <i class="icon-next-thin checkIn"></i>
+                <ion-icon name="log-in"></ion-icon>
             </ion-item>
         </div>
        <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="!dataLoadCompleted">

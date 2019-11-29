@@ -56,7 +56,7 @@
                     </ion-grid>
                 </div>
 
-                <i class="icon-next-thin checkIn"></i>
+                <ion-icon name="log-in"></ion-icon>
             </ion-item>
 
             <div class="filterTag resultbg" *ngIf="projItem['srku_rejection_reason']?projItem['srku_rejection_reason']:false">
@@ -71,7 +71,7 @@
             VIEW DETAILS
                      </button>-->
                     <!--<button class="vProject" ion-button type="button" (click)="goToProductReceiptForm(projItem)">
-            CHECK IN  
+            CHECK IN
                     </button>-->
 
 
@@ -80,7 +80,7 @@
                     </button>
 
                     <button class="CheckOut" ion-button type="button" (click)="checkOut(projItem)" *ngIf="globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == projItem['project_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == 'project'">
-                            {{ "CHECK OUT" | translate }}                
+                            {{ "CHECK OUT" | translate }}
                     </button>
                     <button class="vProject" ion-button type="button" (click)="checkIn(projItem)" [disabled]="globalCheckInData['checkinFlag'] == true " *ngIf="globalCheckInData['checkinFlag'] == false">
                         {{ "CHECK IN" | translate }}
@@ -112,6 +112,6 @@
                 Add project
             </button>
         </div>
-    </div> 
+    </div>
 </ion-footer>
 -->
