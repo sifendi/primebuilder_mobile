@@ -41,8 +41,9 @@
                         <ion-item class="inputLable">
                             <ion-label stacked>{{"COMPLETION DATE" | translate }}*</ion-label>
                             <!-- <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="projData.ProjectCompletionDate" #completionDateObj #ProjectCompletionDate="ngModel" [ngModelOptions]="{standalone: true}" min="{{MinDate}}" max="{{ MaxDate }}" required></ion-datetime> -->
-                            <ion-input [(ngModel)]="projData.ProjectCompletionDate" #ProjectCompletionDateMob="mobiscroll" #ProjectCompletionDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsG" required></ion-input>
+                            <!-- <ion-input [(ngModel)]="projData.ProjectCompletionDate" #ProjectCompletionDateMob="mobiscroll" #ProjectCompletionDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsG" required></ion-input> -->
 
+                            <ion-datetime displayFormat="D/MM/YYYY" pickerFormat="D MMMM YYYY" [(ngModel)]="projData.ProjectCompletionDate" #ProjectCompletionDate="ngModel" calcelText="BATAL" doneText="SETEL" [max]="MaxDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
                         </ion-item>
                         <i tappable role="button" class="icon-arrow"></i>
                     </div>

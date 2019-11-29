@@ -16,6 +16,7 @@ declare var debugDataCustom;
 declare var globalInternetCheckConnection;
 declare var sessionUserGlobalData;
 declare var pleaseWaitTxtTransl,mobisPlaceHolderWaitTxtTransl,filterEmptyText,filterPlaceholderText,mobisBtnArr;
+
 @Component({
   selector: 'page-add-project',
   templateUrl: 'add-project.html',
@@ -112,11 +113,11 @@ export class AddProjectPage {
   municipalityArrG:any=[];
   subDistrictArrG:any=[];
 
-   allAddressDataF:any=[];
-   postalCodeArrF:any=[];
-   provinceArrF:any=[];
-   municipalityArrF:any=[];
-   subDistrictArrF:any=[];
+  allAddressDataF:any=[];
+  postalCodeArrF:any=[];
+  provinceArrF:any=[];
+  municipalityArrF:any=[];
+  subDistrictArrF:any=[];
 
   allAddressDataS:any=[];
   postalCodeArrS:any=[];
@@ -131,7 +132,7 @@ export class AddProjectPage {
 
   hpbLocalData:any=[];
  
- dateSettingsG:any={
+  dateSettingsG:any={
     theme: 'material',
     display: 'center',
     dateFormat:'dd/mm/yy'
@@ -139,7 +140,6 @@ export class AddProjectPage {
   
 
  /* F Address Mater : Start */
-
   mobiScollProjectProvinceSettings:any = {
       inputClass: 'text-input',
       theme: 'material',
@@ -195,6 +195,7 @@ export class AddProjectPage {
       //     } 
       // }
   };  
+
   mobiScollProjectCitySettings:any = {
       inputClass: 'text-input',
       theme: 'material',
@@ -254,7 +255,8 @@ export class AddProjectPage {
                  
       //     } 
       // }
-  }; 
+  };
+
   mobiScollProjectSubDistrictSettings:any = {
       inputClass: 'text-input',
       theme: 'material',
@@ -314,103 +316,99 @@ export class AddProjectPage {
       //     } 
       // }
   };
-   mobiScollProjectPincodeSettings:any = {
-      inputClass: 'text-input',
-      theme: 'material',
-      showOnFocus: true,
-      group: false,
-      filter: true,
-      filterEmptyText:filterEmptyText,
-      filterPlaceholderText:filterPlaceholderText,
-      placeholder: mobisPlaceHolderWaitTxtTransl,
-      rows:8,
-      data:[],
-      readonly:false,
-      buttons:mobisBtnArr,
-      onClear: (event, inst)=>{
-   
 
-            this.projData.ProjectCity=null;
-            this.projData.ProjectSubDistrict=null;
-            this.projData.ProjectProvince=null;
+  mobiScollProjectPincodeSettings:any = {
+    inputClass: 'text-input',
+    theme: 'material',
+    showOnFocus: true,
+    group: false,
+    filter: true,
+    filterEmptyText:filterEmptyText,
+    filterPlaceholderText:filterPlaceholderText,
+    placeholder: mobisPlaceHolderWaitTxtTransl,
+    rows:8,
+    data:[],
+    readonly:false,
+    buttons:mobisBtnArr,
+    onClear: (event, inst)=>{
+      this.projData.ProjectCity=null;
+      this.projData.ProjectSubDistrict=null;
+      this.projData.ProjectProvince=null;
 
-            this.postalCodeArrF=[];
-            for(let i = 0; i < this.postalCodeArrG.length; i++) {
-              this.postalCodeArrF.push({
-                    text:this.postalCodeArrG[i].text,
-                    value:this.postalCodeArrG[i].value,
-                  });
-                // if(i==50){
-                //   break;
-                // }
-            }
-           
-            this.pincodeMob.instance.option({
-              data: this.postalCodeArrF
-            });
-            this.provinceArrF=[];
-            for(let i = 0; i < this.provinceArrG.length; i++) {
-              this.provinceArrF.push({
-                    text:this.provinceArrG[i].text,
-                    value:this.provinceArrG[i].value,
-                  });
-                // if(i==50){
-                //   break;
-                // }
-            }
-            
-            this.ProvinceMob.instance.option({
-              data: this.provinceArrF
-            });
-      },
-      onSet: (event, inst)=> {
+      this.postalCodeArrF=[];
+      
+      for(let i = 0; i < this.postalCodeArrG.length; i++) {
+        this.postalCodeArrF.push({
+          text:this.postalCodeArrG[i].text,
+          value:this.postalCodeArrG[i].value,
+        });
+        // if(i==50){
+        //   break;
+        // }
+      }
+          
+      this.pincodeMob.instance.option({
+        data: this.postalCodeArrF
+      });
+      
+      this.provinceArrF=[];
+      for(let i = 0; i < this.provinceArrG.length; i++) {
+        this.provinceArrF.push({
+          text:this.provinceArrG[i].text,
+          value:this.provinceArrG[i].value,
+        });
+        // if(i==50){
+        //   break;
+        // }
+      }
         
-        if(event.valueText){
-          this.addressDataFiltersF(event.valueText,'postalcode');
-        }else{
+      this.ProvinceMob.instance.option({
+        data: this.provinceArrF
+      });
+    },
+    onSet: (event, inst)=> {
+      if(event.valueText){
+        this.addressDataFiltersF(event.valueText,'postalcode');
+      }else{
 
-        }
-                   
-      },
-      // onFilter: (event, inst)=> {
-      //   console.log('onFilter ',event);
-      //   let filtered : any[] = [];
-      //   let query = event.filterText;
-      //   this.postalCodeArrF=[];
-      //    for(let i = 0; i < this.postalCodeArrG.length; i++) {
-      //             let currData = this.postalCodeArrG[i];
-      //             if(query=='' || query==null){
-      //                     this.postalCodeArrF.push({
-      //                       text:currData.text,
-      //                       value:currData.value,
-      //                     });
-      //                   if(i==50){
-      //                     // this.pincodeMob.instance.option({
-      //                     //   data: this.postalCodeArrF
-      //                     // });
-      //                     break;
-      //                   }
-      //             }else if(currData.value.toString().toLowerCase().includes(query.toString().toLowerCase())) {
-      //                    this.postalCodeArrF.push({
-      //                       text:currData.text,
-      //                       value:currData.value,
-      //                     });
-      //                   if(i==50){
-      //                     // this.pincodeMob.instance.option({
-      //                     //   data: this.postalCodeArrF
-      //                     // });
-      //                     break;
-      //                   }
-      //             }
-
-                 
-      //     } 
-      // }
-  };
+      }              
+    },
+    onFilter: (event, inst)=> {
+      console.log('onFilter ',event);
+      let filtered : any[] = [];
+      let query = event.filterText;
+      this.postalCodeArrF=[];
+      for(let i = 0; i < this.postalCodeArrG.length; i++) {
+        let currData = this.postalCodeArrG[i];
+        if(query=='' || query==null){
+          this.postalCodeArrF.push({
+            text:currData.text,
+            value:currData.value,
+          });
+          if(i==50){
+            // this.pincodeMob.instance.option({
+            //   data: this.postalCodeArrF
+            // });
+            break;
+          }
+        }else if(currData.value.toString().toLowerCase().includes(query.toString().toLowerCase())) {
+          this.postalCodeArrF.push({
+            text:currData.text,
+            value:currData.value,
+          });
+          
+          if(i==50){
+            // this.pincodeMob.instance.option({
+            //   data: this.postalCodeArrF
+            // });
+            break;
+          }
+        }      
+      } 
+    }
+  }
 
  /* F Address Mater : End */
-
-
   mobiScollHpbListSettings:any = {
       inputClass: 'text-input',
       theme: 'material',
@@ -436,7 +434,9 @@ export class AddProjectPage {
   };
 
   updateFlag:boolean=false;
+
   constructor(public navCtrl: NavController,public syncS:SyncServices,public appHpbApi:App_hpbApi, public navParams: NavParams,public events:Events,public popoverCtrl: PopoverController,public sqlS:SqlServices,public shareS:ShareService,public appCom:appCommonMethods) {
+    
     this.MinDate=moment(new Date()).format();
     this.MaxDate=moment().add(20,'years').format(); 
     this.pageTitle="Add Project";
@@ -487,7 +487,6 @@ export class AddProjectPage {
     this.mobiScollHpbListSettings=MobiProps4;
     this.HpbMob.instance.option(MobiProps4);
 
-
     //POPULATE HPBs
     var selectField = " * ";
     var where =" server_hpb_id > 0 AND status = 1";
@@ -495,15 +494,15 @@ export class AddProjectPage {
     this.hpbList=[];
     this.sqlS.selectTableData(selectField,tablename,where,"","").then((data) => {
       for (let i = 0; i < data['rows'].length; i++) {
-              let currTempObj=data.rows.item(i);
-              let displayText = currTempObj['hpb_name']+" ("+currTempObj['primary_mobile_no']+")";
-              this.hpbList.push({
-                      text:displayText,
-                      value:currTempObj['server_hpb_id']
-              });
-              this.hpbLocalData.push(currTempObj['server_hpb_id']);
+        let currTempObj=data.rows.item(i);
+        let displayText = currTempObj['hpb_name']+" ("+currTempObj['primary_mobile_no']+")";
+        this.hpbList.push({
+                text:displayText,
+                value:currTempObj['server_hpb_id']
+        });
+        this.hpbLocalData.push(currTempObj['server_hpb_id']);
       }
-          console.log("this.hpbList----->",this.hpbList);    
+      console.log("this.hpbList----->",this.hpbList);    
     });
 
     // Get project Stages
@@ -511,11 +510,11 @@ export class AddProjectPage {
     var where =" status = 1 ";
     var tablename = "project_stage_tbl";
     this.sqlS.selectTableData(selectField,tablename,where,"","").then((data) => {
-          for(var i=0;i<data['rows'].length;i++){
-              this.projectStages.push(data['rows'].item(i));
-          }
+      for(var i=0;i<data['rows'].length;i++){
+          this.projectStages.push(data['rows'].item(i));
+      }
           
-          console.log(" projectStages ---- ",this.projectStages);
+      console.log(" projectStages ---- ",this.projectStages);
     });
 
     // Get project Types
@@ -523,16 +522,16 @@ export class AddProjectPage {
     var where =" status = 1 ";
     var tablename = "project_type_tbl";
     this.sqlS.selectTableData(selectField,tablename,where,"","").then((data) => {
-          for(var i=0;i<data['rows'].length;i++){
-              this.projectTypes.push(data['rows'].item(i));
-          }
-          console.log(" projectTypes ---- ",this.projectTypes);
+      for(var i=0;i<data['rows'].length;i++){
+          this.projectTypes.push(data['rows'].item(i));
+      }
+      console.log(" projectTypes ---- ",this.projectTypes);
     });
 
 
-      let action = this.navParams.get("action"); 
-      console.log("action",action);
-      if( action == 'edit' ){
+    let action = this.navParams.get("action"); 
+    console.log("action",action);
+    if( action == 'edit' ){
       //TREAT THIS PAGE AS EDIT HPB
       this.pageTitle="Edit Project";
       this.disableFieldsFlag=true;
@@ -541,81 +540,76 @@ export class AddProjectPage {
    
       insertData = this.navParams.get("projData"); 
 
-
-     
-
        //FETCH DATA FROM DATABASE USING HPB ID..
       let selectField = " * ";
       let tablename = "project_master";
       let where = " `project_id` = "+insertData['project_id'];
       this.sqlS.selectTableData(selectField,tablename,where,"","").then((data) => {
-            console.log('data fetched', data);
-            for(let i=0;i<data['rows'].length;i++){       
-              insertData = ( data['rows'].item(i) );                
-            }
+        console.log('data fetched', data);
+        for(let i=0;i<data['rows'].length;i++){       
+          insertData = ( data['rows'].item(i) );                
+        }
             
-            console.log("insertData",insertData);
+        console.log("insertData",insertData);
               
-            if( insertData['is_srku'] == 1 ){
-              this.disableSrkuBtn = true;     
-            }else{
-              this.disableSrkuBtn = false;
-            }
+        if( insertData['is_srku'] == 1 ){
+          this.disableSrkuBtn = true;     
+        }else{
+          this.disableSrkuBtn = false;
+        }
 
-            //PREFILL ALL FORM VALUES HERE    
-            this.projData['ProjectId']=insertData['project_id'];
-            this.projData['ProjectName']=insertData['project_name'];
-            this.projData['ProjectCompletionDate']=this.appCom.timeStampToDateMMMnewM((insertData['project_completion_date']));
-            this.projData['ProjectQuantityEstimation']=insertData['project_quantity_estimation'];
-            this.projData['ProjectType']=insertData['project_type'];
-            this.projData['ProjectTypeId']=insertData['project_type_mid'];
-            this.projData['ProjectStage']=insertData['project_stage'];
-            this.projData['ProjectStageId']=insertData['project_stage_mid'];
-            this.projData['ProjectAddress']=insertData['project_address'];
-            this.projData['ProjectProvince']= insertData['project_province']; 
-            this.projData['ProjectCity']=insertData['project_city'];
-            this.projData['ProjectSubDistrict']=insertData['project_sub_district']; 
-            this.projData['ProjectPincode']=insertData['project_pincode'];
-            this.projData['HpbId']=insertData['server_hpb_id'];
-            this.projData['IsSrku']=(insertData['is_srku'] == 0)? 'no':'yes';
-            this.projData['SrkuOwnerName']=insertData['srku_owner_name'];
-            this.projData['SrkuOwnerAddress']=insertData['srku_owner_address'];
-            this.projData['SrkuProvince']=insertData['srku_province'];
-            this.projData['SrkuCity']=insertData['srku_city'];
-            this.projData['SrkuSubDistrict']=insertData['srku_sub_district'];
-            this.projData['SrkuPincode']=insertData['srku_pincode'];
-            this.projData['SrkuOwnerMobileNumber']=insertData['srku_owner_mobile_no'];
-            this.projData['FloorSize']=insertData['floor_size'];
-            this.projData['NumberOfUnit']=insertData['number_of_units'];
-            this.projData['IsMicroCredit']=insertData['is_micro_credit'];
-            this.projData['BankName']=insertData['bank_name'];
-            this.projData['NonMicroCreditType']=insertData['non_micro_credit_type'];   
-            this.projData['NonMicroCreditTypeMid']=insertData['non_micro_credit_type_mid'];   
-            this.projData['HpbDigitalSign']=insertData['hpb_digital_sign'];
-            this.projData['AdditionalComments']=insertData['additional_comments'];
-            this.projData['NMCDocument'] = insertData['nmc_document'];
-            this.projData['BankDocument'] =insertData['bank_document'];
+          //PREFILL ALL FORM VALUES HERE    
+          this.projData['ProjectId']=insertData['project_id'];
+          this.projData['ProjectName']=insertData['project_name'];
+          this.projData['ProjectCompletionDate']=this.appCom.timeStampToDateMMMnewM((insertData['project_completion_date']));
+          this.projData['ProjectQuantityEstimation']=insertData['project_quantity_estimation'];
+          this.projData['ProjectType']=insertData['project_type'];
+          this.projData['ProjectTypeId']=insertData['project_type_mid'];
+          this.projData['ProjectStage']=insertData['project_stage'];
+          this.projData['ProjectStageId']=insertData['project_stage_mid'];
+          this.projData['ProjectAddress']=insertData['project_address'];
+          this.projData['ProjectProvince']= insertData['project_province']; 
+          this.projData['ProjectCity']=insertData['project_city'];
+          this.projData['ProjectSubDistrict']=insertData['project_sub_district']; 
+          this.projData['ProjectPincode']=insertData['project_pincode'];
+          this.projData['HpbId']=insertData['server_hpb_id'];
+          this.projData['IsSrku']=(insertData['is_srku'] == 0)? 'no':'yes';
+          this.projData['SrkuOwnerName']=insertData['srku_owner_name'];
+          this.projData['SrkuOwnerAddress']=insertData['srku_owner_address'];
+          this.projData['SrkuProvince']=insertData['srku_province'];
+          this.projData['SrkuCity']=insertData['srku_city'];
+          this.projData['SrkuSubDistrict']=insertData['srku_sub_district'];
+          this.projData['SrkuPincode']=insertData['srku_pincode'];
+          this.projData['SrkuOwnerMobileNumber']=insertData['srku_owner_mobile_no'];
+          this.projData['FloorSize']=insertData['floor_size'];
+          this.projData['NumberOfUnit']=insertData['number_of_units'];
+          this.projData['IsMicroCredit']=insertData['is_micro_credit'];
+          this.projData['BankName']=insertData['bank_name'];
+          this.projData['NonMicroCreditType']=insertData['non_micro_credit_type'];   
+          this.projData['NonMicroCreditTypeMid']=insertData['non_micro_credit_type_mid'];   
+          this.projData['HpbDigitalSign']=insertData['hpb_digital_sign'];
+          this.projData['AdditionalComments']=insertData['additional_comments'];
+          this.projData['NMCDocument'] = insertData['nmc_document'];
+          this.projData['BankDocument'] =insertData['bank_document'];
 
-            var projPhoto = JSON.parse(insertData['project_photo']);      
-            this.projData['ProjectPhoto']=JSON.parse(insertData['project_photo']);
-            console.log("this.projData['ProjectPhoto']--------->",this.projData['ProjectPhoto']);
-            if( projPhoto !=undefined && projPhoto !=''  ){
-              for( var i=0;i<projPhoto.length;i++ ){
-                    //this.projectPhotoObj.push(  this.appCom.urlSanitizer(projPhoto[i]['path']) ); 
-                    this.projectPhotoObj.push(  this.appCom.getImageLocalPathFull(projPhoto[i]) ); 
-              } 
-            }
+          var projPhoto = JSON.parse(insertData['project_photo']);      
+          this.projData['ProjectPhoto']=JSON.parse(insertData['project_photo']);
+          console.log("this.projData['ProjectPhoto']--------->",this.projData['ProjectPhoto']);
+          if( projPhoto !=undefined && projPhoto !=''  ){
+            for( var i=0;i<projPhoto.length;i++ ){
+              //this.projectPhotoObj.push(  this.appCom.urlSanitizer(projPhoto[i]['path']) ); 
+              this.projectPhotoObj.push(  this.appCom.getImageLocalPathFull(projPhoto[i]) ); 
+            } 
+          }
 
+          if( this.projData['HpbId'] != undefined &&  this.projData['HpbId'] != '' && this.projData['HpbId'] >0 ){    
+            let ds=[];
+            ds=JSON.parse(insertData['hpb_digital_sign']);     
+            this.projData['HpbDigitalSign']=ds;
+          }else{
+            this.projData['HpbDigitalSign']='';
+          }
 
-            if( this.projData['HpbId'] != undefined &&  this.projData['HpbId'] != '' && this.projData['HpbId'] >0 ){    
-                              let ds=[];
-                              ds=JSON.parse(insertData['hpb_digital_sign']);     
-                              this.projData['HpbDigitalSign']=ds;
-            }else{
-                  this.projData['HpbDigitalSign']='';
-            }
-
-            
 
             this.projData['AdditionalComments']=insertData['additional_comments'];
             this.projData['latitude']=insertData['latitude'];
@@ -632,35 +626,36 @@ export class AddProjectPage {
 
       });
 
-      }else{
+    }else{
       //TREAT THIS PAGE AS ADD HPB
-        this.pageTitle="ADD Project";
-        let tempDateS=this.dateSettingsG;
-        tempDateS['max']=new Date(moment().add(20,'years').format());
-        tempDateS['min']=new Date(moment().add(1, 'days').format());
-        this.dateSettingsG=tempDateS;
-        this.ProjectCompletionDateMob.instance.option(tempDateS);
-      }
+      this.pageTitle="ADD Project";
 
-      console.log("getAddressData=>out");
+      // let tempDateS=this.dateSettingsG;
+      // tempDateS['max']=new Date(moment().add(20,'years').format());
+      // tempDateS['min']=new Date(moment().add(1, 'days').format());
+      // this.dateSettingsG=tempDateS;
+      // this.ProjectCompletionDateMob.instance.option(tempDateS);
+    }
 
-       this.busy=this.getAddressData().then(()=>{
-              
-              this.busy=this.addressInitInput().then(()=>{
-                      
-                      if(this.projData.ProjectPincode && this.projData.ProjectPincode!=''){
-                          this.addressDataFiltersF(this.projData.ProjectPincode,'postalcode');
-                      }else{
+    console.log("getAddressData=>out");
+
+    this.busy=this.getAddressData().then(()=>{
+      this.busy=this.addressInitInput().then(()=>{
+
+
+        if(this.projData.ProjectPincode && this.projData.ProjectPincode!=''){
+            this.addressDataFiltersF(this.projData.ProjectPincode,'postalcode');
+        }else{
                         
-                      }
+        }
 
-                },()=>{
+      },()=>{
                   
-                });
+      });
             
-          },()=>{
+    },()=>{
 
-        });
+    });
 
     setTimeout(()=> {
       console.log('completionDateObj',this.completionDateObj);
@@ -742,7 +737,6 @@ export class AddProjectPage {
     this.submitted= true;
     let isvalid = false;
 
-
     //IF HPB ID HAS CHANGED >>CLEAR SIGNATURE PAD..
     console.log("this.projData['HpbId']",this.projData['HpbId']);
     console.log("this.oldHpbDataArray['HpbId']",this.oldHpbDataArray['server_hpb_id']);
@@ -787,13 +781,12 @@ export class AddProjectPage {
       }else{
             syncHPBExt=true;
       }
-
-      alert(JSON.stringify(this.projectPhotoObj));
-        // this.navCtrl.push(addSrkuPage,{
-        //   "projData":this.projData,
-        //   "action":action,
-        //   "syncHPBExt":syncHPBExt
-        // });
+      
+      this.navCtrl.push(addSrkuPage,{
+        "projData":this.projData,
+        "action":action,
+        "syncHPBExt":syncHPBExt
+      });
      
     }else{
       console.log("skru is invalid");
@@ -804,69 +797,69 @@ export class AddProjectPage {
   }
 
 
-    getAddress(){
-      this.hideLocate=true;
-      this.appCom.isGpsLocationEnabledC((successCallback)=>{			
-        if(successCallback)	{ 
-          this.appCom.getLocationModeC((res) => {
-            console.log("res",res);
-            //if(res == 'high_accuracy'){
-              this.busy=this.appCom.getAddressOfCurrLocation().then((address)=>{
-                if(address){
-                  this.projData['ProjectAddress'] = address; 
-                } 
-                this.hideLocate=false;
-              },(error)=>{
-                console.log(error);
-                this.hideLocate=false;
-              });
-            // }else{
-            //   //show pop up for set high accuracy..
-            //   //this.hideLocate=false;
-            //   //this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");
-            //   this.busy=this.appCom.getAddressOfCurrLocation().then((address)=>{
-            //     if(address){
-            //       this.projData['ProjectAddress'] = address; 
-            //     } 
-            //     this.hideLocate=false;
-            //   },(error)=>{
-            //     console.log(error);
-            //     this.hideLocate=false;
-            //   });
-            // }
-          },(err)=>{
-          console.log(err);
-          this.hideLocate=false;
-          });
-        }else{
-          //show alert enable gps
-          this.hideLocate=false;
-          this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");  
-        }
-      },(err)=>{
+  getAddress(){
+    this.hideLocate=true;
+    this.appCom.isGpsLocationEnabledC((successCallback)=>{			
+      if(successCallback)	{ 
+        this.appCom.getLocationModeC((res) => {
+          console.log("res",res);
+          //if(res == 'high_accuracy'){
+            this.busy=this.appCom.getAddressOfCurrLocation().then((address)=>{
+              if(address){
+                this.projData['ProjectAddress'] = address; 
+              } 
+              this.hideLocate=false;
+            },(error)=>{
+              console.log(error);
+              this.hideLocate=false;
+            });
+          // }else{
+          //   //show pop up for set high accuracy..
+          //   //this.hideLocate=false;
+          //   //this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");
+          //   this.busy=this.appCom.getAddressOfCurrLocation().then((address)=>{
+          //     if(address){
+          //       this.projData['ProjectAddress'] = address; 
+          //     } 
+          //     this.hideLocate=false;
+          //   },(error)=>{
+          //     console.log(error);
+          //     this.hideLocate=false;
+          //   });
+          // }
+        },(err)=>{
         console.log(err);
         this.hideLocate=false;
-        this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok",""); 
-      });
-    }
-
-
-    //CAMERA OR GALLERY SELECTION POP
-    openSelectCameraPop(myEvent,photo_source){
-      if( this.projData.ProjectPhoto.length > 4 && photo_source == 'project_photo' ){
-        this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.PROJ_PHOTO_LIMIT_REACHED,"Ok","");
-        return false;
+        });
       }else{
-       
+        //show alert enable gps
+        this.hideLocate=false;
+        this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");  
       }
+    },(err)=>{
+      console.log(err);
+      this.hideLocate=false;
+      this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok",""); 
+    });
+  }
 
-      var popover;
-      popover = this.popoverCtrl.create(ImageSelectPopPage,{photo_source});
-      popover.present({
-        ev: myEvent
-      });
-   
+
+  //CAMERA OR GALLERY SELECTION POP
+  openSelectCameraPop(myEvent,photo_source){
+    if( this.projData.ProjectPhoto.length > 4 && photo_source == 'project_photo' ){
+      this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.PROJ_PHOTO_LIMIT_REACHED,"Ok","");
+      return false;
+    }else{
+      
     }
+
+    var popover;
+    popover = this.popoverCtrl.create(ImageSelectPopPage,{photo_source});
+    popover.present({
+      ev: myEvent
+    });
+  
+  }
 
     removeProjectImage(i){
       this.projectPhotoObj.splice(i, 1);
@@ -1120,48 +1113,55 @@ addressInitInput(){
         this.postalCodeArrF=[];
         this.postalCodeArrS=[];
         for(let i = 0; i < this.postalCodeArrG.length; i++) {
-                this.postalCodeArrF.push({
-                      text:this.postalCodeArrG[i].text,
-                      value:this.postalCodeArrG[i].value,
-                });
+          this.postalCodeArrF.push({
+            text:this.postalCodeArrG[i].text,
+            value:this.postalCodeArrG[i].value,
+          });
                 
-                  // if(i==50){
-                  //   break;
-                  // }
+          // if(i==50){
+          //   break;
+          // }
         }
+
         this.pincodeMob.instance.option({
           data: this.postalCodeArrF
         });
+
         this.provinceArrF=[];
         this.provinceArrS=[];
         for(let i = 0; i < this.provinceArrG.length; i++) {
-                this.provinceArrF.push({
-                      text:this.provinceArrG[i].text,
-                      value:this.provinceArrG[i].value,
-                });
+          this.provinceArrF.push({
+            text:this.provinceArrG[i].text,
+            value:this.provinceArrG[i].value,
+          });
                 
-                  // if(i==50){
-                  //    break;
-                  // }
+          // if(i==50){
+          //    break;
+          // }
         }
+        
         this.ProvinceMob.instance.option({
           data: this.provinceArrF
         });
+        
         this.municipalityArrF=[];
         this.municipalityArrS=[];
+        
         for(let i = 0; i < this.municipalityArrG.length; i++) {
-                this.municipalityArrF.push({
-                      text:this.municipalityArrG[i].text,
-                      value:this.municipalityArrG[i].value,
-                });
+          this.municipalityArrF.push({
+            text:this.municipalityArrG[i].text,
+            value:this.municipalityArrG[i].value,
+          });
                 
-                  // if(i==50){
-                  //   break;
-                  // }
+          // if(i==50){
+          //   break;
+          // }
         }
+
         this.CityMob.instance.option({
           data: this.municipalityArrF
         });
+
         this.subDistrictArrF=[];
         this.subDistrictArrS=[];
         for(let i = 0; i < this.subDistrictArrG.length; i++) {
@@ -1185,98 +1185,99 @@ addressInitInput(){
 
 }
 
-
-
-
   selectProjectStage(projectStage?:any){
-      console.log(" selectProjectStage ",projectStage);
-      this.projData.ProjectStage = projectStage.project_stage;
-      this.projData.ProjectStageId = projectStage.server_id;
+    console.log(" selectProjectStage ",projectStage);
+    this.projData.ProjectStage = projectStage.project_stage;
+    this.projData.ProjectStageId = projectStage.server_id;
   }
+
   selectProjectType(projectType?:any){
-      console.log(" selectProjectType ",projectType);
-      this.projData.ProjectType = projectType.project_type;
-      this.projData.ProjectTypeId = projectType.server_id;
+    console.log(" selectProjectType ",projectType);
+    this.projData.ProjectType = projectType.project_type;
+    this.projData.ProjectTypeId = projectType.server_id;
   }
 
-mobiScrollHpbFilter(serchKey?:any){
-			return new Promise((resolve,reject)=>{
-            
-			  		let query="SELECT * FROM hpb_master WHERE server_hpb_id > 0 AND status = 1 " ;
-            if(serchKey){
-                if(isNaN(serchKey)){
-                    query="SELECT * FROM hpb_master WHERE server_hpb_id > 0 AND status = 1 AND hpb_name LIKE '%"+serchKey+"%' " ;
-                }else{
-                    query="SELECT * FROM hpb_master WHERE server_hpb_id > 0 AND status = 1 AND primary_mobile_no LIKE '%"+serchKey+"%' " ;
-                }
-            }
-            this.sqlS.queryExecuteSql(query,[]).then((ressqlData) => {
-            this.hpbList=[];
-            for(let i=0;i<ressqlData.rows.length;i++){
-            let tempObj=ressqlData.rows.item(i);
-            let displayText = tempObj['hpb_name']+" ("+tempObj['primary_mobile_no']+")";
-            this.hpbList.push({
-              text:displayText,
-              value:tempObj['server_hpb_id']
-            });
-           }
-          console.log("this.hpbList",this.hpbList);
-
-         
-
-          if(serchKey!='' && serchKey!=null){
-            this.getHPBOnlineSearch(serchKey).then(()=>{
-                  resolve(true);
-              },(errorHH)=>{
-                  resolve(true);
-            });
-          }else{
-               resolve(true);
-          }
+  mobiScrollHpbFilter(serchKey?:any){
+    return new Promise((resolve,reject)=>{
           
-				},(error)=>{
-						reject(error);
-						console.log('mobiScrollProductFilter sql error',error); 
-					});
-			}); 
-	} 
-
-getHPBOnlineSearch(serchKey?:any){
-  		return new Promise((resolve,reject)=>{
-          if(globalInternetCheckConnection){
-
-            let idsExcld = [];
-            for(let i=0;i<this.hpbList.length;i++){
-              idsExcld.push(this.hpbList[i]['value']);
-            }
-            let serchLike="%"+serchKey+"%";
-            let searchFF={};
-            if(isNaN(serchKey)){
-                searchFF={hpb_name:{like:serchLike}};
-            }else{
-                 searchFF={primary_mobile_no:{like:serchLike}};
-            }
-            let filterH={"limit": 100, "skip": 0,"where":{and:[{hpb_id:{nin:idsExcld}},{status:1},searchFF]}};  
-            this.appHpbApi.find(filterH).subscribe((respData:any)=>{
-                    console.log('respData',respData);
-                    for(let i=0;i<respData.length;i++){
-                      let tempObj=respData[i];
-                      let displayText = tempObj['hpb_name']+" ("+tempObj['primary_mobile_no']+")";
-                      this.hpbList.push({
-                        text:displayText,
-                        value:tempObj['hpb_id']
-                      });
-                    }
-                     resolve(true);
-                },(errorH)=>{
-                    console.log('errorH',errorH);
-                    resolve(true);
-              });
+      let query="SELECT * FROM hpb_master WHERE server_hpb_id > 0 AND status = 1 " ;
+      if(serchKey){
+          if(isNaN(serchKey)){
+              query="SELECT * FROM hpb_master WHERE server_hpb_id > 0 AND status = 1 AND hpb_name LIKE '%"+serchKey+"%' " ;
           }else{
-                    console.log('No Internet Connection...');
-                    resolve(true);
+              query="SELECT * FROM hpb_master WHERE server_hpb_id > 0 AND status = 1 AND primary_mobile_no LIKE '%"+serchKey+"%' " ;
           }
+      }
+      this.sqlS.queryExecuteSql(query,[]).then((ressqlData) => {
+        this.hpbList=[];
+        
+        for(let i=0;i<ressqlData.rows.length;i++){
+          let tempObj=ressqlData.rows.item(i);
+          let displayText = tempObj['hpb_name']+" ("+tempObj['primary_mobile_no']+")";
+          this.hpbList.push({
+            text:displayText,
+            value:tempObj['server_hpb_id']
+          });
+        }
+        
+        console.log("this.hpbList",this.hpbList);
+
+      
+
+        if(serchKey!='' && serchKey!=null) {
+          this.getHPBOnlineSearch(serchKey).then(()=>{
+                resolve(true);
+            },(errorHH)=>{
+                resolve(true);
+          });
+        } else { 
+          resolve(true);
+        }
+      
+      },(error)=>{
+        reject(error);
+        console.log('mobiScrollProductFilter sql error',error); 
       });
-}
+
+    }); 
+  } 
+
+  getHPBOnlineSearch(serchKey?:any){
+    return new Promise((resolve,reject)=>{
+      if(globalInternetCheckConnection){
+
+        let idsExcld = [];
+        for(let i=0;i<this.hpbList.length;i++){
+          idsExcld.push(this.hpbList[i]['value']);
+        }
+        let serchLike="%"+serchKey+"%";
+        let searchFF={};
+        if(isNaN(serchKey)){
+            searchFF={hpb_name:{like:serchLike}};
+        }else{
+              searchFF={primary_mobile_no:{like:serchLike}};
+        }
+        let filterH={"limit": 100, "skip": 0,"where":{and:[{hpb_id:{nin:idsExcld}},{status:1},searchFF]}};  
+        this.appHpbApi.find(filterH).subscribe((respData:any)=>{
+                console.log('respData',respData);
+                for(let i=0;i<respData.length;i++){
+                  let tempObj=respData[i];
+                  let displayText = tempObj['hpb_name']+" ("+tempObj['primary_mobile_no']+")";
+                  this.hpbList.push({
+                    text:displayText,
+                    value:tempObj['hpb_id']
+                  });
+                }
+                  resolve(true);
+            },(errorH)=>{
+                console.log('errorH',errorH);
+                resolve(true);
+          });
+      }else{
+        console.log('No Internet Connection...');
+        resolve(true);
+      }
+    });
+  }
 
 }
