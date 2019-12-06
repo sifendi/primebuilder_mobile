@@ -89,22 +89,22 @@
     }
 }
 
-.select {
-    .select-icon {
-        .select-icon-inner {
-            font-family: icomoon;
-            border: $none;
-        }
-        .select-icon-inner::before {
-            content: "\e90e";
-        }
-    }
-}
+// .select {
+//     .select-icon {
+//         .select-icon-inner {
+//             font-family: Ionicons;
+//             border: $none;
+//         }
+//         .select-icon-inner::before {
+//             content: "\f35f";
+//         }
+//     }
+// }
 
-.back-button-icon::before {
-    content: "\e924" !important;
-    font-family: 'icomoon' !important;
-}
+// .back-button-icon::before {
+//     content: "\e924" !important;
+//     font-family: 'icomoon' !important;
+// }
 
 .ion-md-arrow-dropdown:before {
     content: "\e907"!important;

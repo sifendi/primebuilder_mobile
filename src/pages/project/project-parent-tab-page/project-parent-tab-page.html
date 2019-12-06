@@ -30,13 +30,13 @@
             {{"CHECK OUT" | translate }}
         </button>
 
-        <button ion-button type="button" (click)="checkIn()" *ngIf="globalCheckInData['checkinFlag'] == false">
-            {{"CHECK IN" | translate }}
-        </button>
-        <button ion-button type="button" *ngIf="globalCheckInData['checkinFlag'] == true  && (globalCheckInData['checkinDetails']['check_in_out_type_id'] != projData['project_id'] ||  globalCheckInData['checkinDetails']['check_in_out_type'] != 'project') && (projData['server_hpb_id']?projData['server_hpb_id']:'-') != '-' "
+        <!-- <button ion-button type="button" (click)="checkIn()" *ngIf="globalCheckInData['checkinFlag'] == false">
+            {{"ACTION" | translate }}
+        </button> -->
+        <!-- <button ion-button type="button" *ngIf="globalCheckInData['checkinFlag'] == true  && (globalCheckInData['checkinDetails']['check_in_out_type_id'] != projData['project_id'] ||  globalCheckInData['checkinDetails']['check_in_out_type'] != 'project') && (projData['server_hpb_id']?projData['server_hpb_id']:'-') != '-' "
             (click)="alreadyCheckInAlert()">
-            {{"CHECK IN" | translate }}
-        </button>
+            {{"ACTION" | translate }}
+        </button> -->
         <!---checkin disabled no Hpb added button function button {{ (projData['hpbName']?projData['hpbName']:'-') }} ---->
         <!--<button ion-button type="button" (click)="hpbNotAssigned()" *ngIf=" (projData['server_hpb_id']?projData['server_hpb_id']:'-') == '-'">
             {{"CHECK IN" | translate }}

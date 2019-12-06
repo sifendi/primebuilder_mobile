@@ -221,19 +221,17 @@ notificationCountSet(){
   }
 
   async ionViewDidEnter(){
-<<<<<<< HEAD
-    this.busyMessage = await this.appCom.getTranslatedTxt("Please wait...");
+    // this.busyMessage = await this.appCom.getTranslatedTxt("Please wait...");
     // if(this.globalSyncLoaderBtn==false){
     //     this.busyMessage="Please wait...";
     //     this.homeDashbaordDataInit();
     // }
-=======
+
     this.busyMessage = await this.appCom.getTranslatedTxt("Please wait...");  
     if(this.globalSyncLoaderBtn==false){
         this.busyMessage="Please wait...";
         this.homeDashbaordDataInit();
     }
->>>>>>> 1d915240ecf4e3a8af87d31abd95a5363632888e
   }
 
   openFile(file){

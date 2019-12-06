@@ -3,6 +3,10 @@ module.exports = {
     src: ['{{SRC}}/assets/images/*'],
     dest: '{{WWW}}/assets/images'
   },
+  copyAssets: {
+    src: ['{{SRC}}/assets/img/*'],
+    dest: '{{WWW}}/assets/img'
+  },
   copyMobiscrollCss: {
     src: ['{{ROOT}}/src/lib/mobiscroll/css/*'],
     dest: '{{WWW}}/lib/mobiscroll/css/'

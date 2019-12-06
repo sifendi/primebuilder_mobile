@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AppPreferences } from '@ionic-native/app-preferences';
 import { ALL_KEYS, SQL_QUERY, SITE_API, ALL_MESSAGE } from './constant';
 import * as moment from 'moment';
-import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { SqlServices } from '../providers/sqlService';
 import 'rxjs/add/operator/toPromise';
@@ -52,7 +52,7 @@ export class SyncServices {
     syncTargetsMasterRunningFlag:boolean=false;
     syncEAPLeadsDRunningFlag: boolean;
     toastSflag:boolean=false;
-    constructor(public appPreferences: AppPreferences,public sqlS: SqlServices,private userMapping:User_mappingApi,private monthlyStats:Monthly_statsApi,private prodReqBrandCap:Products_request_brand_capture_tblApi,private appProdReq:App_product_requestApi,private toastCtrl:ToastController,private  appProdRecApproval:App_product_receipt_approvalApi,private hpbUpdateApproval:Hpb_update_approvalApi,private appSrkuApproval:App_srku_approvalApi,private app_hpbApi:App_hpbApi,private app_check_in_outApi:App_check_in_outApi, private appProjApi:App_projectsApi,private app_rds_stockApi:App_rds_stockApi,private appRdsVisitApi:App_rds_visitApi,private appProdApi:App_product_receiptApi,private monthly_actual_targetApi:Monthly_actual_targetApi,private monthly_forecast_targetApi:Monthly_forecast_targetApi, private monthly_visiting_scheduleApi:Monthly_visiting_scheduleApi  , private nmcApi:NmcApi,private project_typeApi:Project_typeApi,private project_stageApi:Project_stageApi,private app_rdsApi:App_rdsApi,private appNotifyCenApi:App_notification_centerApi,private app_productsApi:App_productsApi,private elApi:Eap_leadApi,private escApi:Eap_support_chatApi,public platform:Platform,private transfer: Transfer, private file: File,private translateS:TranslateService) {
+    constructor(public appPreferences: AppPreferences,public sqlS: SqlServices,private userMapping:User_mappingApi,private monthlyStats:Monthly_statsApi,private prodReqBrandCap:Products_request_brand_capture_tblApi,private appProdReq:App_product_requestApi,private toastCtrl:ToastController,private  appProdRecApproval:App_product_receipt_approvalApi,private hpbUpdateApproval:Hpb_update_approvalApi,private appSrkuApproval:App_srku_approvalApi,private app_hpbApi:App_hpbApi,private app_check_in_outApi:App_check_in_outApi, private appProjApi:App_projectsApi,private app_rds_stockApi:App_rds_stockApi,private appRdsVisitApi:App_rds_visitApi,private appProdApi:App_product_receiptApi,private monthly_actual_targetApi:Monthly_actual_targetApi,private monthly_forecast_targetApi:Monthly_forecast_targetApi, private monthly_visiting_scheduleApi:Monthly_visiting_scheduleApi  , private nmcApi:NmcApi,private project_typeApi:Project_typeApi,private project_stageApi:Project_stageApi,private app_rdsApi:App_rdsApi,private appNotifyCenApi:App_notification_centerApi,private app_productsApi:App_productsApi,private elApi:Eap_leadApi,private escApi:Eap_support_chatApi,public platform:Platform,private transfer: FileTransfer, private file: File,private translateS:TranslateService) {
         console.log('SyncServices...');
         window["thisRef"] = this;
         platform.ready().then(()=>{
@@ -1832,10 +1832,10 @@ syncProjectD(){
                                                 this.uploadLocalFileToServer(allFileObjeArr).then((allFileObjeArrRet)=>{
                                                   console.log('upload LOcal to server end');
                                                        // a llFileObjeArrRet
-                                                     //   insertUpdateObj['project_photo']=JSON.stringify(allFileObjeArrRet['project_photo']);
-                                                     //   insertUpdateObj['bank_document']=JSON.stringify(allFileObjeArrRet['bank_document']);
-                                                     //   insertUpdateObj['nmc_document']=JSON.stringify(allFileObjeArrRet['nmc_document']);
-                                                     //   insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
+                                                    //    insertUpdateObj['project_photo']=JSON.stringify(allFileObjeArrRet['project_photo']);
+                                                    //    insertUpdateObj['bank_document']=JSON.stringify(allFileObjeArrRet['bank_document']);
+                                                    //    insertUpdateObj['nmc_document']=JSON.stringify(allFileObjeArrRet['nmc_document']);
+                                                    //    insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
 
                                                         if(allFileObjeArrRet['project_photo'].length>0){
                                                             insertUpdateObj['project_photo']=JSON.stringify(allFileObjeArrRet['project_photo']);
@@ -1846,9 +1846,9 @@ syncProjectD(){
                                                         if(allFileObjeArrRet['nmc_document'].length>0){
                                                             insertUpdateObj['nmc_document']=JSON.stringify(allFileObjeArrRet['nmc_document']);
                                                         }
-                                                        // if(allFileObjeArrRet['hpb_digital_sign'].length>0){
-                                                        //     insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
-                                                        // }
+                                                        if(allFileObjeArrRet['hpb_digital_sign'].length>0){
+                                                            insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
+                                                        }
 
                                                         this.appProjApi.addEditProject(insertUpdateObj,project_id).subscribe((resSSSData:any)=>{
                                                                 console.log('resSSSData',resSSSData);
@@ -2176,6 +2176,7 @@ syncReceiptsD():any{
                 }
                
                 this.appProdApi.getProductReceipt(null,null,cProjectId,null,null,null,null,null,null,null,null,updated_date).subscribe((respDatas:any)=>{
+
 
                     let responseResults = respDatas['result']?respDatas['result']:[];
 
@@ -2618,14 +2619,12 @@ syncReceiptsApprovalDProcess(project_id,server_project_id,receipt_id,server_rece
                  // updated_date=resQ['updated_date'];
             }
             this.appProdRecApproval.getProductReceiptApproval(null,s_receipt_id,null,null,null,null,updated_date).subscribe((respDatas:any)=>{
-
-
                        let responseResults = respDatas['result']?respDatas['result']:[];
                         async.each(responseResults,(respData,callback:any)=>{
 
                                     let sQuery="SELECT * FROM "+tableName+" WHERE server_id="+respData['id']+"";
                                     this.queryExecuteSql(sQuery,[]).then((resQuData:any)=>{
-
+                                    
                                     if(resQuData.rows.length > 0){
 
                                             let locaDataRow=resQuData.rows.item(0);
@@ -2648,7 +2647,7 @@ syncReceiptsApprovalDProcess(project_id,server_project_id,receipt_id,server_rece
                                             updateObj['ext_data']="";
                                             let whereCon=" server_id="+respData['id']+" ";
                                             this.downloadServerFileToLocal(allFileObjeArr).then((allFileObjeArrRet)=>{
-                                              
+
                                                 this.updateData(updateObj,tableName,whereCon).then((resInsData)=>{
                                                     callback();
                                                 },(err)=>{
@@ -2685,7 +2684,6 @@ syncReceiptsApprovalDProcess(project_id,server_project_id,receipt_id,server_rece
 
 
                                             this.downloadServerFileToLocal(allFileObjeArr).then((allFileObjeArrRet)=>{
-
 
                                             this.insertData(insertObj,tableName).then((resInsData)=>{
                                             callback();
@@ -5034,7 +5032,7 @@ uploadLocalFileToServer(allFileObjeArr){
 
          let  asyncTaksFiles = [];
 
-        const fileTransfer: TransferObject = this.transfer.create();
+        const fileTransfer: FileTransferObject = this.transfer.create();
 
         for (let key in allFileObjeArr) {
 
@@ -5126,7 +5124,7 @@ downloadServerFileToLocal113(allFileObjeArr){
 
          let  asyncTaksFiles = [];
 
-        const fileTransfer: TransferObject = this.transfer.create();
+        const fileTransfer: FileTransferObject = this.transfer.create();
 
         for (let key in allFileObjeArr) {
 
@@ -5189,7 +5187,7 @@ downloadServerFileToLocal(allFileObjeArr){
 
     let  asyncTaksFiles = [];
 
-   const fileTransfer: TransferObject = this.transfer.create();
+   const fileTransfer: FileTransferObject = this.transfer.create();
 
    for (let key in allFileObjeArr) {
 

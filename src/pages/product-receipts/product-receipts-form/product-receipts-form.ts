@@ -572,7 +572,7 @@ export class ProductReceiptsFormPage {
             product_unit: ['', Validators.required],
             product_quantity: ['', Validators.required],
             product_distributor: ['', Validators.required],
-            product_purchase_date: [''],
+            product_purchase_date: ['', Validators.required],
             product_invoice_quantity: ['', Validators.required],
         });
     }
@@ -908,7 +908,6 @@ export class ProductReceiptsFormPage {
                 this.sqlS.updateData(insertData,"product_receipt_master",whereCond).then((data) => {
                             
                     this.receiptsAprovalInsertUpdate(this.ReceiptData['ReceiptId'],'update').then((success)=>{
-
                         this.globalCheckInData['visitCheckFlag'] = true;
                         this.appCom.setLocalStorageItem("globalCheckinData",this.globalCheckInData).then(()=>{});
 
@@ -968,22 +967,22 @@ export class ProductReceiptsFormPage {
         }
 
         // Show alert
-        if(this.progress_status == "receipt_success_updated") {
-            this.navCtrl.pop().then(()=>{
-                this.appCom.showAlert(ALL_MESSAGE.SUCCESS_MESSAGE.PRODUCT_RECEIPT_UPDATE_SUCCESS,"Ok",""); 
-                setTimeout(()=>{
-                        this.events.publish('globalSync'); 
-                },1000)
-            });
-        } else if(this.progress_status == 'receipt_error_update') {
-            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.PRODUCT_RECEIPT_UPDATE_ERR,"Ok","");  
-        } else if(this.progress_status == "receipt_error_location") {
-            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok","");
-        } else if(this.progress_status == "receipt_err_get_location_coord") {
-            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");  
-        } else if(this.progress_status == "receipt_err_generic_location_err") {
-            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok",""); 
-        }
+        // if(this.progress_status == "receipt_success_updated") {
+        //     this.navCtrl.pop().then(()=>{
+        //         this.appCom.showAlert(ALL_MESSAGE.SUCCESS_MESSAGE.PRODUCT_RECEIPT_UPDATE_SUCCESS,"Ok",""); 
+        //         setTimeout(()=>{
+        //                 this.events.publish('globalSync'); 
+        //         },1000)
+        //     });
+        // } else if(this.progress_status == 'receipt_error_update') {
+        //     this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.PRODUCT_RECEIPT_UPDATE_ERR,"Ok","");  
+        // } else if(this.progress_status == "receipt_error_location") {
+        //     this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok","");
+        // } else if(this.progress_status == "receipt_err_get_location_coord") {
+        //     this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");  
+        // } else if(this.progress_status == "receipt_err_generic_location_err") {
+        //     this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok",""); 
+        // }
 
     } 
 
@@ -1089,14 +1088,20 @@ export class ProductReceiptsFormPage {
                         let roleArrs=['TLH','SA'];
                         let insert_cnt = 0;
                         if(resFlag){
-                                    roleArrs=['TLH','AC','SA'];
+                            roleArrs=['TLH','AC','SA'];
                         }
                         async.each(roleArrs,(roleArr,callback)=>{
                             
                                 let approvalInsert={};
                                 approvalInsert['receipt_id']=receipt_id;
                                 approvalInsert['server_receipt_id']=0;
-                                approvalInsert['approval_status']=0;
+
+                                if(roleArr == "TLH") {
+                                    approvalInsert['approval_status']=1;
+                                } else {
+                                    approvalInsert['approval_status']=0;
+                                }
+                                    
                                 approvalInsert['approval_role']=roleArr; 
                                 //approvalInsert['approved_by']=this.userId;                                                          
                                 approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();
@@ -1164,13 +1169,21 @@ export class ProductReceiptsFormPage {
                                         let insert_cnt = 0;      
                                         let roleArrs=['TLH','SA'];
                                         if(resFlag){
-                                                roleArrs=['TLH','AC','SA'];
+                                            roleArrs=['TLH','AC','SA'];
                                         }
                                         async.each(roleArrs,(roleArr,callback)=>{
                                                 let approvalInsert={};
                                                 approvalInsert['receipt_id']=receipt_id;
                                                 approvalInsert['server_receipt_id']=0;
-                                                approvalInsert['approval_status']=0;
+
+                                                // Current change
+                                                if(roleArr == "TLH")
+                                                {
+                                                    approvalInsert['approval_status']=1;
+                                                } else {
+                                                    approvalInsert['approval_status']=0;
+                                                }
+
                                                 approvalInsert['approval_role']=roleArr; 
                                                 //approvalInsert['approved_by']=this.userId;                                                          
                                                 approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();;
@@ -1178,6 +1191,7 @@ export class ProductReceiptsFormPage {
                                                 approvalInsert['created_by']=this.userId;
                                                 approvalInsert['updated_by']=this.userId;
                                                 approvalInsert['sync_status']=0;
+
                                                 this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
                                                     insert_cnt++;
                                                     console.log("callback"+insert_cnt);
@@ -1210,113 +1224,127 @@ export class ProductReceiptsFormPage {
     
                         }else{
     
-                                let queryCheck="SELECT * FROM products_receipt_approval_tbl WHERE receipt_id="+receipt_id+" AND approval_status =0 AND is_closed=0";
-                                this.sqlS.queryExecuteSql(queryCheck,[]).then((dataRes:any)=>{
-        
-                            
-                                    if(dataRes.rows.length==0){
+                            let queryCheck="SELECT * FROM products_receipt_approval_tbl WHERE receipt_id="+receipt_id+" AND approval_status =0 AND is_closed=0";
+                            this.sqlS.queryExecuteSql(queryCheck,[]).then((dataRes:any)=>{
     
-                                    this.checkAcApproval().then((resFlag:any)=>{
-                                            
-                                        let roleArrs=['TLH','SA'];
-                                        let insert_cnt = 0;
-                                        if(resFlag){
-                                                roleArrs=['TLH','AC','SA'];
-                                        }
-                                        async.each(roleArrs,(roleArr,callback)=>{
-                                                let approvalInsert={};
-                                                approvalInsert['receipt_id']=receipt_id;
-                                                approvalInsert['server_receipt_id']=0;
+                        
+                                if(dataRes.rows.length==0){
+
+                                this.checkAcApproval().then((resFlag:any)=>{
+                                        
+                                    let roleArrs=['TLH','SA'];
+                                    let insert_cnt = 0;
+                                    if(resFlag){
+                                            roleArrs=['TLH','AC','SA'];
+                                    }
+                                    async.each(roleArrs,(roleArr,callback)=>{
+                                            let approvalInsert={};
+                                            approvalInsert['receipt_id']=receipt_id;
+                                            approvalInsert['server_receipt_id']=0;
+
+                                            if(roleArr == "TLH") {
+                                                approvalInsert['approval_status']=1;
+                                            } else {
                                                 approvalInsert['approval_status']=0;
-                                                approvalInsert['approval_role']=roleArr; 
-                                                //approvalInsert['approved_by']=this.userId;                                                          
-                                                approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();;
-                                                approvalInsert['local_updated_date']=this.appCom.getCurrentTimeStamp();;
-                                                approvalInsert['created_by']=this.userId;
-                                                approvalInsert['updated_by']=this.userId;
-                                                approvalInsert['sync_status']=0;
+                                            }
+
+                                            approvalInsert['approval_role']=roleArr; 
+                                            //approvalInsert['approved_by']=this.userId;                                                          
+                                            approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();;
+                                            approvalInsert['local_updated_date']=this.appCom.getCurrentTimeStamp();;
+                                            approvalInsert['created_by']=this.userId;
+                                            approvalInsert['updated_by']=this.userId;
+                                            approvalInsert['sync_status']=0;
+
+                                            this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
+                                                insert_cnt++;
+                                                console.log("callback"+insert_cnt);
+                                                callback();                             
+                                            },(error)=>{
                                                 this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
                                                     insert_cnt++;
                                                     console.log("callback"+insert_cnt);
                                                     callback();                             
                                                 },(error)=>{
-                                                    this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
-                                                        insert_cnt++;
-                                                        console.log("callback"+insert_cnt);
-                                                        callback();                             
-                                                    },(error)=>{
-                                                        this.errRecieptFlag = true;
-                                                        console.log("errRecieptFlag=>",this.errRecieptFlag);
-                                                        callback();
-                                                    });
+                                                    this.errRecieptFlag = true;
+                                                    console.log("errRecieptFlag=>",this.errRecieptFlag);
+                                                    callback();
                                                 });
-    
-                                        },(complete)=>{
-                                            resolve(true);
-                                        });
-    
-                                    },(error)=>{
-                                        resolve(false); 
+                                            });
+
+                                    },(complete)=>{
+                                        resolve(true);
                                     });
+
+                                },(error)=>{
+                                    resolve(false); 
+                                });
                                 }else{
-                                            let approvalInsertUpdate={};
-                                            approvalInsertUpdate['is_closed']=1;
-                                            approvalInsertUpdate['sync_status']=0;
-                                            let whereCond =" receipt_id="+receipt_id;
-                                            this.sqlS.updateData(approvalInsertUpdate,"products_receipt_approval_tbl",whereCond).then((data) => {
-                                                    console.log("data--->",data);  
-                                                    this.checkAcApproval().then((resFlag:any)=>{
-                                                        console.log("resFlag--->",resFlag);       
-                                                        let roleArrs=['TLH','SA'];
-                                                        let insert_cnt = 0;
-                                                        if(resFlag){
-                                                                roleArrs=['TLH','AC','SA'];
-                                                        }
-                                                        async.each(roleArrs,(roleArr,callback)=>{
-                                                                let approvalInsert={};
-                                                                approvalInsert['receipt_id']=receipt_id;
-                                                                approvalInsert['server_receipt_id']=0;
+                                        let approvalInsertUpdate={};
+                                        approvalInsertUpdate['is_closed']=1;
+                                        approvalInsertUpdate['sync_status']=0;
+                                        let whereCond =" receipt_id="+receipt_id;
+                                        this.sqlS.updateData(approvalInsertUpdate,"products_receipt_approval_tbl",whereCond).then((data) => {
+                                                console.log("data--->",data);  
+                                                this.checkAcApproval().then((resFlag:any)=>{
+                                                    console.log("resFlag--->",resFlag);       
+                                                    let roleArrs=['TLH','SA'];
+                                                    let insert_cnt = 0;
+                                                    if(resFlag){
+                                                            roleArrs=['TLH','AC','SA'];
+                                                    }
+                                                    async.each(roleArrs,(roleArr,callback)=>{
+                                                            let approvalInsert={};
+                                                            approvalInsert['receipt_id']=receipt_id;
+                                                            approvalInsert['server_receipt_id']=0;
+
+                                                            if(roleArr == "TLH") {
+                                                                approvalInsert['approval_status']=1;
+                                                            } else {
                                                                 approvalInsert['approval_status']=0;
-                                                                approvalInsert['approval_role']=roleArr; 
-                                                                //approvalInsert['approved_by']=this.userId;                                                          
-                                                                approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();;
-                                                                approvalInsert['local_updated_date']=this.appCom.getCurrentTimeStamp();;
-                                                                approvalInsert['created_by']=this.userId;
-                                                                approvalInsert['updated_by']=this.userId;
-                                                                approvalInsert['sync_status']=0;
+                                                            }
+
+                                                            approvalInsert['approval_role']=roleArr; 
+                                                            //approvalInsert['approved_by']=this.userId;                                                          
+                                                            approvalInsert['local_created_date']=this.appCom.getCurrentTimeStamp();;
+                                                            approvalInsert['local_updated_date']=this.appCom.getCurrentTimeStamp();;
+                                                            approvalInsert['created_by']=this.userId;
+                                                            approvalInsert['updated_by']=this.userId;
+                                                            approvalInsert['sync_status']=0;
+                                                            
+                                                            this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
+                                                                insert_cnt++;
+                                                                console.log("callback"+insert_cnt);
+                                                                callback();                             
+                                                            },(error)=>{
                                                                 this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
                                                                     insert_cnt++;
                                                                     console.log("callback"+insert_cnt);
                                                                     callback();                             
                                                                 },(error)=>{
-                                                                    this.sqlS.insertData(approvalInsert,"products_receipt_approval_tbl").then((data)=>{ 
-                                                                        insert_cnt++;
-                                                                        console.log("callback"+insert_cnt);
-                                                                        callback();                             
-                                                                    },(error)=>{
-                                                                        this.errRecieptFlag = true;
-                                                                        console.log("errRecieptFlag=>",this.errRecieptFlag);
-                                                                        callback();
-                                                                    });
+                                                                    this.errRecieptFlag = true;
+                                                                    console.log("errRecieptFlag=>",this.errRecieptFlag);
+                                                                    callback();
                                                                 });
-    
-                                                        },(complete)=>{
-                                                            resolve(true);
-                                                        });
-    
-                                                    },(error)=>{
-                                                        resolve(false);
+                                                            });
+
+                                                    },(complete)=>{
+                                                        resolve(true);
                                                     });
-    
-                                            },error=>{
-                                                this.errRecieptFlag = true;
-                                                console.log("error",error);
-                                                resolve(false);
-                                            });
-    
+
+                                                },(error)=>{
+                                                    resolve(false);
+                                                });
+
+                                        },error=>{
+                                            this.errRecieptFlag = true;
+                                            console.log("error",error);
+                                            resolve(false);
+                                        });
+
                                 }
-    
-                        });    
+
+                            });    
     
     
                         }
@@ -1370,7 +1398,7 @@ export class ProductReceiptsFormPage {
             
             this.receiptForm.addControl('product_name' + this.product_addition_count, new FormControl('', Validators.required));
             this.receiptForm.addControl('product_unit' + this.product_addition_count, new FormControl('', Validators.required));
-            this.receiptForm.addControl('product_quantity' + this.product_addition_count, new FormControl('', [ Validators.required, Validators.pattern('^[1-3]+$') ]));
+            this.receiptForm.addControl('product_quantity' + this.product_addition_count, new FormControl('', [ Validators.required ]));
 
             this.product_addition.push({
                 'product_name' : 'product_name' + this.product_addition_count,

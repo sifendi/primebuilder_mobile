@@ -19,7 +19,8 @@
     <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>{{"SEARCH BY" | translate }} : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <i class="icon-close-thin"></i>
+            <!-- <i class="icon-close-thin"></i> -->
+            <ion-icon name="close"></ion-icon>
         </button>
     </div>
     <ion-list class="listWrap">
@@ -102,13 +103,13 @@
 
                     <!---checkin function button ---->
                     <button class="vProject" ion-button type="button" (click)="checkIn(projItem)" *ngIf="globalCheckInData['checkinFlag'] == false">
-                         {{"CHECK IN" | translate }}
+                         {{"ACTION" | translate }}
                     </button>
 
                     <!---checkin disabled already checked in function button ---->
                     <button class="vProject" ion-button type="button" *ngIf=" globalCheckInData['checkinFlag'] == true  && (globalCheckInData['checkinDetails']['check_in_out_type_id'] != projItem['project_id'] ||  globalCheckInData['checkinDetails']['check_in_out_type'] != 'project') "
                         (click)="alreadyCheckInAlert()">
-                        {{"CHECK IN" | translate }}
+                        {{"ACTION" | translate }}
                     </button>
 
 

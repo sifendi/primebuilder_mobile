@@ -61,14 +61,14 @@ export class AcProjectDetailPage {
       this.projectId= parseInt(paramData['projectId']);
       console.log("this.projectId",this.projectId);
       this.busy = this.projectApi.getProjectWithApp(null,this.projectId,null,null,null,null,null,null,null,null,null,null,null,null,null,null).subscribe(resData => {    
-      this.projData= resData.result[0];
+        this.projData= resData.result[0];
 
-      console.log("this.projData", this.projData);
-       if(this.projData['app']){
-         if( this.projData['app']['tlh'] != undefined && this.projData['app']['tlh'] != "" ){
+        console.log("this.projData", this.projData);
+        if(this.projData['app']){
+          if( this.projData['app']['tlh'] != undefined && this.projData['app']['tlh'] != "" ){
             this.srkuApprovalId=this.projData['app']['tlh']['id'];
-         }
-     }
+          }
+        }
      
       
       if( this.projData.is_micro_credit == 0 ){

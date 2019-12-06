@@ -4,7 +4,8 @@
       <button ion-button class="logo"></button>
     </ion-buttons>
     <ion-buttons end>
-      <button ion-button class="icon-notification" tapable (click)="goToNotifyPage()">
+      <button ion-button icon-only tapable (click)="goToNotifyPage()">
+        <ion-icon name="notifications"></ion-icon>
         <ion-badge *ngIf="notificationCtn > 0" class="badge-value">{{notificationCtn}}</ion-badge>
       </button>
       <button ion-button icon-only class="spinnerI" (click)="globalSync()">

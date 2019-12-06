@@ -126,7 +126,7 @@ initProjectDisList(){
             this.projData=[];    
             for(let i=0;i<data['rows'].length;i++){       
                 this.projData.push( data['rows'].item(i) );  
-                }
+            }
             this.projDataTemp=this.projData;
             resolve(true);
             }, (error) => {
@@ -249,7 +249,7 @@ goToAddProjectForm(){
   async checkinRequireRule(projItem) {
       let titleYes = await this.appCom.getTranslatedTxt("Yes");
       let titleNo = await this.appCom.getTranslatedTxt("No");
-      let titleAsk = await this.appCom.getTranslatedTxt("Do you need to check in first ?");
+      let titleAsk = await this.appCom.getTranslatedTxt("Apakah anda ada di lokasi proyek ?");
 
       let alert = this.alertCtrl.create({
           cssClass: 'confirm',

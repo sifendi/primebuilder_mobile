@@ -21,14 +21,14 @@
             </div>
             <button menuClose ion-item (click)="goHome('ac')" class="homeNav">
                 {{ "HOME" | translate }}
-                  <ion-icon name="fastforward"></ion-icon>
+                  <!-- <ion-icon name="fastforward"></ion-icon> -->
             </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesAC">
                 <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
              {{ p.translation | translate }}
-          <ion-icon name="fastforward"></ion-icon>
+          <!-- <ion-icon name="fastforward"></ion-icon> -->
       </button>
             </div>
 
@@ -71,15 +71,20 @@
             <h3 class="menuHdTitle">{{ "WELCOME" | translate }} {{userName}}</h3>
             <button menuClose ion-item (click)="goHome('am')" class="homeNav">
                 {{ "HOME" | translate }}
-                  <ion-icon name="fastforward"></ion-icon>
+                  <!-- <ion-icon name="fastforward" item-end></ion-icon> -->
             </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesAM">
-                <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
-                    {{ p.translation | translate }}
-                      <ion-icon name="fastforward"></ion-icon>
-                </button>
+                <ion-list>
+                    <ion-item>
+                        <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
+                            {{ p.translation | translate }}
+                            <!-- <ion-icon name="fastforward"></ion-icon> -->
+                            <!-- <ion-icon name="fastforward" item-end></ion-icon> -->
+                        </button>
+                    </ion-item>
+                </ion-list>
             </div>
 
 
@@ -133,14 +138,14 @@
             </div>
             <button menuClose ion-item (click)="goHome('sph')" class="homeNav">
         {{ "HOME" | translate }}
-          <ion-icon name="fastforward"></ion-icon>
+          <!-- <ion-icon name="fastforward"></ion-icon> -->
       </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesACACTMAINSPH">
                 <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
              {{ p.translation | translate }}
-          <ion-icon name="fastforward"></ion-icon>
+          <!-- <ion-icon name="fastforward"></ion-icon> -->
       </button>
             </div>
 
@@ -187,14 +192,14 @@
             </div>
             <button menuClose ion-item (click)="goHome('tlh')" class="homeNav">
         {{ "HOME" | translate }}
-          <ion-icon name="fastforward"></ion-icon>
+          <!-- <ion-icon name="fastforward"></ion-icon> -->
       </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesTLH">
                 <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
              {{ p.translation | translate }}
-          <ion-icon name="fastforward"></ion-icon>
+          <!-- <ion-icon name="fastforward"></ion-icon> -->
       </button>
             </div>
             <div class="languageSelect">
@@ -242,14 +247,14 @@
             </div>
             <button menuClose ion-item (click)="goHome('sph')" class="homeNav">
         {{ "HOME" | translate }}
-          <ion-icon name="fastforward"></ion-icon>
+          <!-- <ion-icon name="fastforward"></ion-icon> -->
       </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesTLHACTMAINSPH">
                 <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
              {{ p.translation | translate }}
-          <ion-icon name="fastforward"></ion-icon>
+          <!-- <ion-icon name="fastforward"></ion-icon> -->
       </button>
             </div>
 
@@ -292,14 +297,14 @@
             <h3 class="menuHdTitle">{{ "WELCOME" | translate }} {{userName}}</h3>
             <button menuClose ion-item (click)="goHome('sph')" class="homeNav">
                 {{ "HOME" | translate }}
-                  <ion-icon name="fastforward"></ion-icon>
+                  <!-- <ion-icon name="fastforward"></ion-icon> -->
             </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesSPH">
                 <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
                     {{ p.translation | translate }}
-                      <ion-icon name="fastforward"></ion-icon>
+                      <!-- <ion-icon name="fastforward"></ion-icon> -->
                 </button>
             </div>
 
@@ -340,14 +345,14 @@
             <h3 class="menuHdTitle">{{ "WELCOME" | translate }} {{userName}}</h3>
             <button menuClose ion-item (click)="goHome('hpb')" class="homeNav">
             {{ "HOME" | translate }}
-              <ion-icon name="fastforward"></ion-icon>
+              <!-- <ion-icon name="fastforward"></ion-icon> -->
       </button>
             <h3 class="menuHdTitle"> {{ "VIEW ALL" | translate }}</h3>
 
             <div *ngFor="let p of pagesHPB">
                 <button menuClose ion-item *ngIf="p.section == 'viewall'" (click)="openPage(p)">
              {{ p.translation | translate }}
-          <ion-icon name="fastforward"></ion-icon>
+          <!-- <ion-icon name="fastforward"></ion-icon> -->
       </button>
             </div>
 

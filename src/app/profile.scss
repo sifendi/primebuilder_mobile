@@ -88,7 +88,7 @@
 }
 
 .user_profile {
-    background: url('../assets/img/details_bg.jpg') no-repeat;
+    background-image: url('../assets/img/details_bg.jpg') no-repeat;
     padding: $size $size - 1.5 0;
     background-attachment: fixed;
     .profileTitle {
