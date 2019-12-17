@@ -3,7 +3,7 @@
     <ion-navbar>
         <ion-buttons end>
             <button ion-button (click)="editProject()">
-                <i class="icon-edit"></i>
+                <ion-icon name="create"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{ projData['project_name']?projData['project_name']:"-" }}</ion-title>
@@ -272,7 +272,7 @@
         </div>
     </div>
 </ion-content>
-<!--<ion-footer class="ntpr">
+<ion-footer class="ntpr">
     <div class="btn" *ngIf="showApproveBtnFlag">
         <button ion-button type="button" (click)="approve()">
             {{"APPROVE" | translate }}
@@ -281,4 +281,5 @@
         {{"REJECT" | translate }}
         </button>
     </div>
-</ion-footer>-->
+</ion-footer>
+

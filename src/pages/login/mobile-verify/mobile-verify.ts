@@ -126,7 +126,7 @@ export class MobileVerifyPage {
 
 
 openTermsAndCond(){
-    this.appCom.openTNC(SITE_API.TNC);
+    this.appCom.openTNC("https://www.primebuilder.id/tnc.html");
 }
 
 

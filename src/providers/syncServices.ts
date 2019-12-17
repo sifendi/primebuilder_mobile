@@ -611,28 +611,39 @@ syncHpbD(){
                                                                // insertUpdateObj['hpb_profile_pic']=JSON.stringify(allFileObjeArrRet['hpb_profile_pic']);
                                                                // insertUpdateObj['id_photo']=JSON.stringify(allFileObjeArrRet['id_photo']);
                                                               //  insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
-
-                                                                if(allFileObjeArrRet['hpb_profile_pic'].length>0){
-                                                                    insertUpdateObj['hpb_profile_pic']=JSON.stringify(allFileObjeArrRet['hpb_profile_pic']);
+                                                                if(allFileObjeArrRet['hpb_profile_pic'] != undefined){
+                                                                    if(allFileObjeArrRet['hpb_profile_pic'].length>0){
+                                                                        insertUpdateObj['hpb_profile_pic']=JSON.stringify(allFileObjeArrRet['hpb_profile_pic']);
+                                                                    }
                                                                 }
-                                                                if(allFileObjeArrRet['id_photo'].length>0){
-                                                                    insertUpdateObj['id_photo']=JSON.stringify(allFileObjeArrRet['id_photo']);
+                                                                if(allFileObjeArrRet['id_photo'] != undefined){
+                                                                    if(allFileObjeArrRet['id_photo'].length>0){
+                                                                        insertUpdateObj['id_photo']=JSON.stringify(allFileObjeArrRet['id_photo']);
+                                                                    }
                                                                 }
-                                                                if(allFileObjeArrRet['hpb_digital_sign'].length>0){
-                                                                    insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
+                                                                if(allFileObjeArrRet['hpb_digital_sign'] != undefined){
+                                                                    if(allFileObjeArrRet['hpb_digital_sign'].length>0){
+                                                                        insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
+                                                                    }
                                                                 }
 
                                                                 this.app_hpbApi.addEditHpb(insertUpdateObj,hpb_id).subscribe((resSSSData:any)=>{
                                                                     console.log('resSSSData',resSSSData);
                                                                     let updateDataObj={};
-                                                                    if(allFileObjeArrRet['hpb_profile_pic'].length>0){
-                                                                        updateDataObj['hpb_profile_pic']=insertUpdateObj['hpb_profile_pic'];
+                                                                    if(allFileObjeArrRet['hpb_profile_pic'] != undefined){
+                                                                        if(allFileObjeArrRet['hpb_profile_pic'].length>0){
+                                                                            updateDataObj['hpb_profile_pic']=insertUpdateObj['hpb_profile_pic'];
+                                                                        }
                                                                     }
-                                                                    if(allFileObjeArrRet['id_photo'].length>0){
-                                                                        updateDataObj['id_photo']=insertUpdateObj['id_photo'];
+                                                                    if(allFileObjeArrRet['id_photo'] != undefined){
+                                                                        if(allFileObjeArrRet['id_photo'].length>0){
+                                                                            updateDataObj['id_photo']=insertUpdateObj['id_photo'];
+                                                                        }
                                                                     }
-                                                                    if(allFileObjeArrRet['hpb_digital_sign'].length>0){
-                                                                         updateDataObj['hpb_digital_sign']=insertUpdateObj['hpb_digital_sign'];
+                                                                    if(allFileObjeArrRet['hpb_digital_sign'] != undefined){
+                                                                        if(allFileObjeArrRet['hpb_digital_sign'].length>0){
+                                                                            updateDataObj['hpb_digital_sign']=insertUpdateObj['hpb_digital_sign'];
+                                                                        }
                                                                     }
                                                                     updateDataObj['server_hpb_id']=resSSSData['result']['id']?resSSSData['result']['id']:0;
                                                                     updateDataObj['updated_date']=resSSSData['result']['updated_date']?resSSSData['result']['updated_date']:0;
@@ -678,27 +689,39 @@ syncHpbD(){
                                                       //  insertUpdateObj['id_photo']=JSON.stringify(allFileObjeArrRet['id_photo']);
                                                      //   insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
 
-                                                      if(allFileObjeArrRet['hpb_profile_pic'].length>0){
-                                                         insertUpdateObj['hpb_profile_pic']=JSON.stringify(allFileObjeArrRet['hpb_profile_pic']);
+                                                        if(allFileObjeArrRet['hpb_profile_pic'] != undefined){
+                                                            if(allFileObjeArrRet['hpb_profile_pic'].length>0){
+                                                                insertUpdateObj['hpb_profile_pic']=JSON.stringify(allFileObjeArrRet['hpb_profile_pic']);
+                                                            }
                                                         }
-                                                        if(allFileObjeArrRet['id_photo'].length>0){
-                                                          insertUpdateObj['id_photo']=JSON.stringify(allFileObjeArrRet['id_photo']);
+                                                        if(allFileObjeArrRet['id_photo'] != undefined){
+                                                            if(allFileObjeArrRet['id_photo'].length>0){
+                                                                insertUpdateObj['id_photo']=JSON.stringify(allFileObjeArrRet['id_photo']);
+                                                            }
                                                         }
-                                                        if(allFileObjeArrRet['hpb_digital_sign'].length>0){
-                                                         insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
+                                                        if(allFileObjeArrRet['hpb_digital_sign'] != undefined){
+                                                            if(allFileObjeArrRet['hpb_digital_sign'].length>0){
+                                                                insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
+                                                            }
                                                         }
 
                                                         this.app_hpbApi.addEditHpb(insertUpdateObj,hpb_id).subscribe((resSSSData:any)=>{
                                                             console.log('resSSSData',resSSSData);
                                                             let updateDataObj={};
-                                                            if(allFileObjeArrRet['hpb_profile_pic'].length>0){
-                                                            updateDataObj['hpb_profile_pic']=insertUpdateObj['hpb_profile_pic'];
+                                                            if(allFileObjeArrRet['hpb_profile_pic'] != undefined){
+                                                                if(allFileObjeArrRet['hpb_profile_pic'].length>0){
+                                                                   updateDataObj['hpb_profile_pic']=insertUpdateObj['hpb_profile_pic'];
+                                                                }
                                                             }
-                                                            if(allFileObjeArrRet['id_photo'].length>0){
-                                                            updateDataObj['id_photo']=insertUpdateObj['id_photo'];
+                                                            if(allFileObjeArrRet['id_photo'] != undefined){
+                                                                if(allFileObjeArrRet['id_photo'].length>0){
+                                                                   updateDataObj['id_photo']=insertUpdateObj['id_photo'];
+                                                                }
                                                             }
-                                                            if(allFileObjeArrRet['hpb_digital_sign'].length>0){
-                                                            updateDataObj['hpb_digital_sign']=insertUpdateObj['hpb_digital_sign'];
+                                                            if(allFileObjeArrRet['hpb_digital_sign'] != undefined){
+                                                                if(allFileObjeArrRet['hpb_digital_sign'].length>0){
+                                                                    updateDataObj['hpb_digital_sign']=insertUpdateObj['hpb_digital_sign'];
+                                                                }
                                                             }
                                                             updateDataObj['server_hpb_id']=resSSSData['result']['id']?resSSSData['result']['id']:0;
                                                             updateDataObj['updated_date']=resSSSData['result']['updated_date']?resSSSData['result']['updated_date']:0;
@@ -1486,435 +1509,425 @@ syncProjectAndReceipts(){
 }
 
 syncProjectD(){
- return new Promise((resolve,reject)=>{
+ return new Promise((resolve,reject)=>{ 
+    if(globalInternetCheckConnection==false){
+        this.showSyncToast(ALL_MESSAGE.COMMON_MESSAGE.SYNC_NO_FAILED_INTERNET);
+        reject(true);
+        return false;
+    }
       
-        if(globalInternetCheckConnection==false){
-            this.showSyncToast(ALL_MESSAGE.COMMON_MESSAGE.SYNC_NO_FAILED_INTERNET);
-            reject(true);
-            return false;
-        }
-
-      
-        let tableName='project_master';
-        let tableNameDepnd='hpb_master';
-        let filterS={};
-        let query="SELECT * FROM "+tableName+" ORDER BY updated_date desc LIMIT 1";
-        let hbpCheckSync=0;
-        this.queryExecuteSql(query,[]).then((resDataQ:any)=>{
-                let filterDataH={};
+    let tableName='project_master';
+    let tableNameDepnd='hpb_master';
+    let filterS={};
+    let query="SELECT * FROM "+tableName+" ORDER BY updated_date desc LIMIT 1";
+    let hbpCheckSync=0;
+    this.queryExecuteSql(query,[]).then((resDataQ:any)=>{
+        let filterDataH={};
               
-                filterDataH['created_by']=sessionUserGlobalData['userId'];
-                filterDataH['assigned_to']=sessionUserGlobalData['userId'];
-                console.log('resDataQ',resDataQ);
-                 if(resDataQ.rows.length > 0){
-                    let tmpDataObj=resDataQ.rows.item(0);
-                    filterDataH['updated_date']=tmpDataObj['updated_date'];
-                }
+        filterDataH['created_by']=sessionUserGlobalData['userId'];
+        filterDataH['assigned_to']=sessionUserGlobalData['userId'];
+        console.log('resDataQ',resDataQ);
+        if(resDataQ.rows.length > 0){
+            let tmpDataObj=resDataQ.rows.item(0);
+            filterDataH['updated_date']=tmpDataObj['updated_date'];
+        }
+                
+        // loop for limit offset and assigned_to
 
-                 // loop for limit offset and assigned_to
+        this.appProjApi.getProject(null,null,null,null,null,null,null,null,null,null,filterDataH['updated_date'],null,null,null,null,null,null,filterDataH['assigned_to']).subscribe((respDatas:any)=>{
+            console.log('respDatas',respDatas);
 
-                this.appProjApi.getProject(null,null,null,null,null,null,null,null,null,null,filterDataH['updated_date'],null,null,null,null,null,null,filterDataH['assigned_to']).subscribe((respDatas:any)=>{
-                    
-                    console.log('respDatas',respDatas);
+            let responseResults = respDatas['result'];
+            console.log('responseResults',responseResults);
 
-                    let responseResults = respDatas['result'];
+            // alert(responseResults);
+            // DownSync Start
+            
+            async.each(responseResults,(respData,callback:any)=>{
+                
+                // alert("Hello " + respData['project_id']);
+                console.log('DownSync each respData',respData);
 
-                    console.log('responseResults',responseResults);
+                let sQuery="SELECT * FROM "+tableName+"  WHERE server_project_id="+respData['project_id']+"";
+                
+                this.queryExecuteSql(sQuery,[]).then((resQuData:any)=>{
+                    console.log('queryExecuteSql resQuData',resQuData);
+                    if(resQuData.rows != undefined && resQuData.rows.length > 0){
+                                    
+                        let locaDataRow=resQuData.rows.item(0);
 
-                    // DownSync Start
-                    
-                    async.each(responseResults,(respData,callback:any)=>{
+                        console.log('locaDataRow',locaDataRow);
+
+                        let updateObj={};
+                        let syncStatus=1;
+
                         
-                        console.log('DownSync each respData',respData);
-
-                        let sQuery="SELECT * FROM "+tableName+"  WHERE server_project_id="+respData['project_id']+"";
+                        let allFileObjeArr = {};
                         
-                        this.queryExecuteSql(sQuery,[]).then((resQuData:any)=>{
 
-                            console.log('queryExecuteSql resQuData',resQuData);
-
-                            if(resQuData.rows.length > 0){
-                                    
-                                    let locaDataRow=resQuData.rows.item(0);
-
-                                    console.log('locaDataRow',locaDataRow);
-
-                                    let updateObj={};
-                                    let syncStatus=1;
-
-                                    
-                                    let allFileObjeArr = {};
-                                   
-
-                                   if(locaDataRow['sync_status']==1){
-                                    updateObj['project_name']=respData['project_name'];
-                                    updateObj['server_hpb_id']=respData['hpb_id'];
-                                    updateObj['project_completion_date']=respData['project_completion_date'];
-                                    updateObj['project_quantity_estimation']=respData['project_quantity_estimation'];
-                                    updateObj['project_type_mid']=respData['project_type'];
-                                    updateObj['project_stage_mid']=respData['project_stage'];
-                                    updateObj['project_photo']=respData['project_photo'];
-                                    if(locaDataRow['project_photo']!=respData['project_photo']){
-                                         allFileObjeArr['project_photo']=respData['project_photo'];
-                                    }
-                                    updateObj['project_address']=respData['project_address'];
-                                    updateObj['project_province']=respData['project_province'];
-                                    updateObj['project_city']=respData['project_city'];
-                                    updateObj['project_sub_district']=respData['project_sub_district'];
-                                    updateObj['project_pincode']=respData['project_pincode'];
-                                    updateObj['is_srku']=respData['is_srku'];
-                                    updateObj['srku_owner_name']=respData['srku_owner_name'];
-                                    updateObj['srku_owner_address']=respData['srku_owner_address'];
-                                    updateObj['srku_owner_mobile_no']=respData['srku_owner_mobile_no'];
-                                    updateObj['srku_province']=respData['srku_province'];
-                                    updateObj['srku_city']=respData['srku_city'];
-                                    updateObj['srku_sub_district']=respData['srku_sub_district'];
-                                    updateObj['srku_pincode']=respData['srku_pincode'];
-                                    updateObj['floor_size']=respData['floor_size'];
-                                    updateObj['number_of_units']=respData['number_of_units'];
-                                    updateObj['is_micro_credit']=respData['is_micro_credit'];
-                                    updateObj['bank_name']=respData['bank_name'];
-                                    updateObj['bank_document']=respData['bank_document'];
-                                    if(locaDataRow['bank_document']!=respData['bank_document']){
-                                         allFileObjeArr['bank_document']=respData['bank_document'];
-                                    }
-                                    updateObj['non_micro_credit_type_mid']=respData['non_micro_credit_type'];
-                                    updateObj['nmc_document']=respData['nmc_document'];
-                                    if(locaDataRow['nmc_document']!=respData['nmc_document']){
-                                         allFileObjeArr['nmc_document']=respData['nmc_document'];
-                                    }
-                                    updateObj['additional_comments']=respData['additional_comments'];
-                                    updateObj['hpb_digital_sign']=respData['hpb_digital_sign'];
-                                    if(locaDataRow['hpb_digital_sign']!=respData['hpb_digital_sign']){
-                                         allFileObjeArr['hpb_digital_sign']=respData['hpb_digital_sign'];
-                                    }
-                                    updateObj['latitude']=respData['latitude'];
-                                    updateObj['longitude']=respData['longitude'];
-                                    updateObj['created_date']=respData['created_date'];
-                                    updateObj['updated_date']=respData['updated_date'];
-                                    updateObj['created_by']=respData['created_by'];
-                                    updateObj['updated_by']=respData['updated_by'];
-                                    updateObj['assigned_to']=respData['assigned_to'];
-                                    updateObj['generated_by']=respData['generated_by'];
-                                    updateObj['local_updated_date']=respData['local_updated_date'];
-                                    updateObj['local_created_date']=respData['local_created_date'];
-                                    updateObj['status']=respData['status'];
-                                   }
+                        if(locaDataRow['sync_status']==1){
+                            updateObj['project_name']=respData['project_name'];
+                            updateObj['server_hpb_id']=respData['hpb_id'];
+                            updateObj['project_completion_date']=respData['project_completion_date'];
+                            updateObj['project_quantity_estimation']=respData['project_quantity_estimation'];
+                            updateObj['project_type_mid']=respData['project_type'];
+                            updateObj['project_stage_mid']=respData['project_stage'];
+                            updateObj['project_photo']=respData['project_photo'];
+                            if(locaDataRow['project_photo']!=respData['project_photo']){
+                                    allFileObjeArr['project_photo']=respData['project_photo'];
+                            }
+                            updateObj['project_address']=respData['project_address'];
+                            updateObj['project_province']=respData['project_province'];
+                            updateObj['project_city']=respData['project_city'];
+                            updateObj['project_sub_district']=respData['project_sub_district'];
+                            updateObj['project_pincode']=respData['project_pincode'];
+                            updateObj['is_srku']=respData['is_srku'];
+                            updateObj['srku_owner_name']=respData['srku_owner_name'];
+                            updateObj['srku_owner_address']=respData['srku_owner_address'];
+                            updateObj['srku_owner_mobile_no']=respData['srku_owner_mobile_no'];
+                            updateObj['srku_province']=respData['srku_province'];
+                            updateObj['srku_city']=respData['srku_city'];
+                            updateObj['srku_sub_district']=respData['srku_sub_district'];
+                            updateObj['srku_pincode']=respData['srku_pincode'];
+                            updateObj['floor_size']=respData['floor_size'];
+                            updateObj['number_of_units']=respData['number_of_units'];
+                            updateObj['is_micro_credit']=respData['is_micro_credit'];
+                            updateObj['bank_name']=respData['bank_name'];
+                            updateObj['bank_document']=respData['bank_document'];
+                            if(locaDataRow['bank_document']!=respData['bank_document']){
+                                allFileObjeArr['bank_document']=respData['bank_document'];
+                            }
+                            updateObj['non_micro_credit_type_mid']=respData['non_micro_credit_type'];
+                            updateObj['nmc_document']=respData['nmc_document'];
+                            if(locaDataRow['nmc_document']!=respData['nmc_document']){
+                                    allFileObjeArr['nmc_document']=respData['nmc_document'];
+                            }
+                            updateObj['additional_comments']=respData['additional_comments'];
+                            updateObj['hpb_digital_sign']=respData['hpb_digital_sign'];
+                            if(locaDataRow['hpb_digital_sign']!=respData['hpb_digital_sign']){
+                                    allFileObjeArr['hpb_digital_sign']=respData['hpb_digital_sign'];
+                            }
+                            updateObj['latitude']=respData['latitude'];
+                            updateObj['longitude']=respData['longitude'];
+                            updateObj['created_date']=respData['created_date'];
+                            updateObj['updated_date']=respData['updated_date'];
+                            updateObj['created_by']=respData['created_by'];
+                            updateObj['updated_by']=respData['updated_by'];
+                            updateObj['assigned_to']=respData['assigned_to'];
+                            updateObj['generated_by']=respData['generated_by'];
+                            updateObj['local_updated_date']=respData['local_updated_date'];
+                            updateObj['local_created_date']=respData['local_created_date'];
+                            updateObj['status']=respData['status'];
+                        }
                                   
+                            updateObj['ext_data']="";
+                            let whereCon=" server_project_id="+respData['project_id']+" ";
+                                         
+                            this.downloadServerFileToLocal(allFileObjeArr).then((allFileObjeArrRet)=>{
 
-                                    
-                                    updateObj['ext_data']="";
-                                    let whereCon=" server_project_id="+respData['project_id']+" ";
-                                  
-                                   
-                                    this.downloadServerFileToLocal(allFileObjeArr).then((allFileObjeArrRet)=>{
-
-                                        if(locaDataRow['project_photo']!=respData['project_photo']){
-                                          updateObj['project_photo']=JSON.stringify(allFileObjeArrRet['project_photo']);
-                                        }
-                                        if(locaDataRow['bank_document']!=respData['bank_document']){
-                                          updateObj['bank_document']=JSON.stringify(allFileObjeArrRet['bank_document']);
-                                        }
-                                        if(locaDataRow['nmc_document']!=respData['nmc_document']){
-                                          updateObj['nmc_document']=JSON.stringify(allFileObjeArrRet['nmc_document']);
-                                        }
-                                        if(locaDataRow['hpb_digital_sign']!=respData['hpb_digital_sign']){
-                                          updateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
-                                        }
-                                       
-                                        this.updateData(updateObj,tableName,whereCon).then((resInsData)=>{
+                                if(locaDataRow['project_photo']!=respData['project_photo']){
+                                    updateObj['project_photo']=JSON.stringify(allFileObjeArrRet['project_photo']);
+                                }
+                                if(locaDataRow['bank_document']!=respData['bank_document']){
+                                    updateObj['bank_document']=JSON.stringify(allFileObjeArrRet['bank_document']);
+                                }
+                                if(locaDataRow['nmc_document']!=respData['nmc_document']){
+                                    updateObj['nmc_document']=JSON.stringify(allFileObjeArrRet['nmc_document']);
+                                }
+                                if(locaDataRow['hpb_digital_sign']!=respData['hpb_digital_sign']){
+                                    updateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
+                                }
+                                
+                                this.updateData(updateObj,tableName,whereCon).then((resInsData)=>{
                                       
                                          
-                                         callback();
-                                        // File Save To Local IF Updated
+                                    callback();
+                                    // File Save To Local IF Updated
 
-                                        },(err)=>{
+                                },(err)=>{
 
-                                          callback();
+                                    callback();
 
-                                        }); 
+                                }); 
 
-                                },(errDDDDD)=>{
+                            },(errDDDDD)=>{
 
-                                     callback();
+                                callback();
 
+                            });
+                                  
+                                  
+
+
+                    }else{
+
+                        let insertObj={};
+                        insertObj['server_project_id']=respData['project_id'];
+                        insertObj['project_name']=respData['project_name'];
+                        insertObj['server_hpb_id']=respData['hpb_id'];
+                        insertObj['hpb_id']=0;
+                        insertObj['project_completion_date']=respData['project_completion_date'];
+                        insertObj['project_quantity_estimation']=respData['project_quantity_estimation'];
+                        insertObj['project_type_mid']=respData['project_type'];
+                        insertObj['project_stage_mid']=respData['project_stage'];
+                        insertObj['project_photo']=respData['project_photo'];
+                        insertObj['project_address']=respData['project_address'];
+                        insertObj['project_province']=respData['project_province'];
+                        insertObj['project_city']=respData['project_city'];
+                        insertObj['project_sub_district']=respData['project_sub_district'];
+                        insertObj['project_pincode']=respData['project_pincode'];
+                        insertObj['is_srku']=respData['is_srku'];
+                        insertObj['srku_owner_name']=respData['srku_owner_name'];
+                        insertObj['srku_owner_address']=respData['srku_owner_address'];
+                        insertObj['srku_owner_mobile_no']=respData['srku_owner_mobile_no'];
+                        insertObj['srku_province']=respData['srku_province'];
+                        insertObj['srku_city']=respData['srku_city'];
+                        insertObj['srku_sub_district']=respData['srku_sub_district'];
+                        insertObj['srku_pincode']=respData['srku_pincode'];
+                        insertObj['floor_size']=respData['floor_size'];
+                        insertObj['number_of_units']=respData['number_of_units'];
+                        insertObj['is_micro_credit']=respData['is_micro_credit'];
+                        insertObj['bank_name']=respData['bank_name'];
+                        insertObj['bank_document']=respData['bank_document'];
+                        insertObj['non_micro_credit_type_mid']=respData['non_micro_credit_type'];
+                        insertObj['nmc_document']=respData['nmc_document'];
+                        insertObj['additional_comments']=respData['additional_comments'];
+                        insertObj['hpb_digital_sign']=respData['hpb_digital_sign'];
+                        insertObj['latitude']=respData['latitude'];
+                        insertObj['longitude']=respData['longitude'];
+                        insertObj['created_date']=respData['created_date'];
+                        insertObj['updated_date']=respData['updated_date'];
+                        insertObj['created_by']=respData['created_by'];
+                        insertObj['updated_by']=respData['updated_by'];
+                        insertObj['assigned_to']=respData['assigned_to'];
+                        insertObj['generated_by']=respData['generated_by'];
+                        insertObj['local_updated_date']=respData['local_updated_date'];
+                        insertObj['local_created_date']=respData['local_created_date'];
+                        insertObj['status']=respData['status'];
+                        
+                        insertObj['sync_status']=1;
+                        insertObj['ext_data']="";
+
+                        let allFileObjeArr = {};
+                        allFileObjeArr['project_photo']=respData['project_photo'];
+                        allFileObjeArr['bank_document']=respData['bank_document'];
+                        allFileObjeArr['nmc_document']=respData['nmc_document'];
+                        allFileObjeArr['hpb_digital_sign']=respData['hpb_digital_sign'];
+
+                            this.downloadServerFileToLocal(allFileObjeArr).then((allFileObjeArrRet)=>{
+
+                                insertObj['project_photo']=JSON.stringify(allFileObjeArrRet['project_photo']);
+                                insertObj['bank_document']=JSON.stringify(allFileObjeArrRet['bank_document']);
+                                insertObj['nmc_document']=JSON.stringify(allFileObjeArrRet['nmc_document']);
+                                insertObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
+
+
+                                this.insertData(insertObj,tableName).then((resInsData)=>{
+                                    console.log('resInsData',resInsData);
+                                        
+                                        
+                                    callback();
+                                },(err)=>{
+                                    callback();
                                 });
-                                  
-                                  
 
 
-                            }else{
+                            },(errDDD)=>{
+                                console.log('errDDD',errDDD);
+                                callback();
+
+                            });
+                    }
+
+                },(errChild)=>{
+                    callback();
+                });
+            },(err)=>{
+                        
+
+                // UpSync Start
+                
+                let queryU="SELECT * FROM "+tableName+" WHERE sync_status=0";
+
+                this.queryExecuteSql(queryU,[]).then((resDataU:any)=>{
+                        console.log('resDataU',resDataU);
+
+                        let resDatasUss=[];
+                        for(let m=0;m<resDataU.rows.length;m++){
+                            resDatasUss.push(resDataU.rows.item(m));
+                        }
+                        console.log('resDatasUss project',resDatasUss);
+                        async.each(resDatasUss,(resDatasUs,callbackUss)=>{
+
+                                    console.log('resDatasUs aync',resDatasUs);
+
+                                    let project_id=0;
+                                    let insertUpdateObj={};
+                                
+                                    
+                                    insertUpdateObj['project_name']=resDatasUs['project_name'];
+                                    insertUpdateObj['hpb_id']=resDatasUs['server_hpb_id'];
+                                    insertUpdateObj['project_completion_date']=resDatasUs['project_completion_date'];
+                                    insertUpdateObj['project_quantity_estimation']=resDatasUs['project_quantity_estimation'];
+                                    insertUpdateObj['project_type']=resDatasUs['project_type_mid'];
+                                    insertUpdateObj['project_stage']=resDatasUs['project_stage_mid'];
+                                //  insertUpdateObj['project_photo']=resDatasUs['project_photo'];
+                                    insertUpdateObj['project_address']=resDatasUs['project_address'];
+                                    insertUpdateObj['project_province']=resDatasUs['project_province'];
+                                    insertUpdateObj['project_city']=resDatasUs['project_city'];
+                                    insertUpdateObj['project_sub_district']=resDatasUs['project_sub_district'];
+                                    insertUpdateObj['project_pincode']=resDatasUs['project_pincode'];
+                                    insertUpdateObj['is_srku']=resDatasUs['is_srku'];
+                                    insertUpdateObj['srku_owner_name']=resDatasUs['srku_owner_name'];
+                                    insertUpdateObj['srku_owner_address']=resDatasUs['srku_owner_address'];
+                                    insertUpdateObj['srku_owner_mobile_no']=resDatasUs['srku_owner_mobile_no'];
+                                    insertUpdateObj['srku_province']=resDatasUs['srku_province'];
+                                    insertUpdateObj['srku_city']=resDatasUs['srku_city'];
+                                    insertUpdateObj['srku_sub_district']=resDatasUs['srku_sub_district'];
+                                    insertUpdateObj['srku_pincode']=resDatasUs['srku_pincode'];
+                                    insertUpdateObj['floor_size']=resDatasUs['floor_size'];
+                                    insertUpdateObj['number_of_units']=resDatasUs['number_of_units'];
+                                    insertUpdateObj['is_micro_credit']=resDatasUs['is_micro_credit'];
+                                    insertUpdateObj['bank_name']=resDatasUs['bank_name'];
+                                //  insertUpdateObj['bank_document']=resDatasUs['bank_document'];
+                                    insertUpdateObj['non_micro_credit_type']=resDatasUs['non_micro_credit_type_mid'];
+                                //  insertUpdateObj['nmc_document']=resDatasUs['nmc_document'];
+                                    insertUpdateObj['additional_comments']=resDatasUs['additional_comments'];
+                                    insertUpdateObj['hpb_digital_sign']=resDatasUs['hpb_digital_sign'];
+                                    insertUpdateObj['updated_date']=resDatasUs['updated_date'];
+                                    insertUpdateObj['updated_by']=resDatasUs['updated_by'];
+                                    insertUpdateObj['assigned_to']=resDatasUs['assigned_to'];
+                                    insertUpdateObj['local_updated_date']=resDatasUs['local_updated_date'];
+                                    insertUpdateObj['generated_by']=resDatasUs['generated_by'];
+                                    
+
+                                    if(resDatasUs['server_project_id']>0){
+                                        project_id=resDatasUs['server_project_id'];
+                                    }else{
+                                        insertUpdateObj['latitude']=resDatasUs['latitude'];
+                                        insertUpdateObj['longitude']=resDatasUs['longitude'];
+                                        insertUpdateObj['local_created_date']=resDatasUs['local_created_date'];
+                                        insertUpdateObj['created_by']=resDatasUs['created_by'];
+                                        //insertUpdateObj['generated_by']=insertUpdateObj['generated_by'];
+                                    }
 
 
-
-
-
-                                    let insertObj={};
-                                    insertObj['server_project_id']=respData['project_id'];
-                                    insertObj['project_name']=respData['project_name'];
-                                    insertObj['server_hpb_id']=respData['hpb_id'];
-                                    insertObj['hpb_id']=0;
-                                    insertObj['project_completion_date']=respData['project_completion_date'];
-                                    insertObj['project_quantity_estimation']=respData['project_quantity_estimation'];
-                                    insertObj['project_type_mid']=respData['project_type'];
-                                    insertObj['project_stage_mid']=respData['project_stage'];
-                                    insertObj['project_photo']=respData['project_photo'];
-                                    insertObj['project_address']=respData['project_address'];
-                                    insertObj['project_province']=respData['project_province'];
-                                    insertObj['project_city']=respData['project_city'];
-                                    insertObj['project_sub_district']=respData['project_sub_district'];
-                                    insertObj['project_pincode']=respData['project_pincode'];
-                                    insertObj['is_srku']=respData['is_srku'];
-                                    insertObj['srku_owner_name']=respData['srku_owner_name'];
-                                    insertObj['srku_owner_address']=respData['srku_owner_address'];
-                                    insertObj['srku_owner_mobile_no']=respData['srku_owner_mobile_no'];
-                                    insertObj['srku_province']=respData['srku_province'];
-                                    insertObj['srku_city']=respData['srku_city'];
-                                    insertObj['srku_sub_district']=respData['srku_sub_district'];
-                                    insertObj['srku_pincode']=respData['srku_pincode'];
-                                    insertObj['floor_size']=respData['floor_size'];
-                                    insertObj['number_of_units']=respData['number_of_units'];
-                                    insertObj['is_micro_credit']=respData['is_micro_credit'];
-                                    insertObj['bank_name']=respData['bank_name'];
-                                    insertObj['bank_document']=respData['bank_document'];
-                                    insertObj['non_micro_credit_type_mid']=respData['non_micro_credit_type'];
-                                    insertObj['nmc_document']=respData['nmc_document'];
-                                    insertObj['additional_comments']=respData['additional_comments'];
-                                    insertObj['hpb_digital_sign']=respData['hpb_digital_sign'];
-                                    insertObj['latitude']=respData['latitude'];
-                                    insertObj['longitude']=respData['longitude'];
-                                    insertObj['created_date']=respData['created_date'];
-                                    insertObj['updated_date']=respData['updated_date'];
-                                    insertObj['created_by']=respData['created_by'];
-                                    insertObj['updated_by']=respData['updated_by'];
-                                    insertObj['assigned_to']=respData['assigned_to'];
-                                    insertObj['generated_by']=respData['generated_by'];
-                                    insertObj['local_updated_date']=respData['local_updated_date'];
-                                    insertObj['local_created_date']=respData['local_created_date'];
-                                    insertObj['status']=respData['status'];
-                                   
-                                    insertObj['sync_status']=1;
-                                    insertObj['ext_data']="";
 
                                     let allFileObjeArr = {};
-                                    allFileObjeArr['project_photo']=respData['project_photo'];
-                                    allFileObjeArr['bank_document']=respData['bank_document'];
-                                    allFileObjeArr['nmc_document']=respData['nmc_document'];
-                                    allFileObjeArr['hpb_digital_sign']=respData['hpb_digital_sign'];
+                                    if( this.platform.is('ios') ) {
+                                        //console.log("resDatasUs['hpb_digital_sign']=>",resDatasUs['hpb_digital_sign']);
+                                        //insertUpdateObj['hpb_digital_sign']=(resDatasUs['hpb_digital_sign'] && resDatasUs['hpb_digital_sign']!="")?this.alterimgPath(resDatasUs['hpb_digital_sign']):"";
+                                        //console.log("project_photo=>",resDatasUs['project_photo']);
+                                        allFileObjeArr['project_photo']=(resDatasUs['project_photo'] && resDatasUs['project_photo']!="")?this.alterimgPath(resDatasUs['project_photo']):"";
+                                        allFileObjeArr['bank_document']=(resDatasUs['bank_document'] && resDatasUs['bank_document']!="")?this.alterimgPath(resDatasUs['bank_document']):"";
+                                        allFileObjeArr['nmc_document']=(resDatasUs['nmc_document'] && resDatasUs['nmc_document']!="")?this.alterimgPath(resDatasUs['nmc_document']):"";
+                                    } else {
+                                        //insertUpdateObj['hpb_digital_sign']=resDatasUs['hpb_digital_sign'];
+                                        allFileObjeArr['project_photo']=resDatasUs['project_photo'];
+                                        allFileObjeArr['bank_document']=resDatasUs['bank_document'];
+                                        allFileObjeArr['nmc_document']=resDatasUs['nmc_document'];
+                                    }
+                                    
+                                //  allFileObjeArr['hpb_digital_sign']=resDatasUs['hpb_digital_sign'];
+                                    console.log('upload LOcal to server start');
+                                
+                                
 
-                                    this.downloadServerFileToLocal(allFileObjeArr).then((allFileObjeArrRet)=>{
+                                    this.uploadLocalFileToServer(allFileObjeArr).then((allFileObjeArrRet)=>{
+                                      console.log('upload LOcal to server end');
 
-                                    insertObj['project_photo']=JSON.stringify(allFileObjeArrRet['project_photo']);
-                                    insertObj['bank_document']=JSON.stringify(allFileObjeArrRet['bank_document']);
-                                    insertObj['nmc_document']=JSON.stringify(allFileObjeArrRet['nmc_document']);
-                                    insertObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
+                                        // a llFileObjeArrRet
+                                        // insertUpdateObj['project_photo']=JSON.stringify(allFileObjeArrRet['project_photo']);
+                                        // insertUpdateObj['bank_document']=JSON.stringify(allFileObjeArrRet['bank_document']);
+                                        // insertUpdateObj['nmc_document']=JSON.stringify(allFileObjeArrRet['nmc_document']);
+                                        // insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
+
+                                        // alert(JSON.stringify(insertUpdateObj));
+                                        if(allFileObjeArrRet['project_photo'] != undefined) {
+                                            if(allFileObjeArrRet['project_photo'].length>0){
+                                                insertUpdateObj['project_photo']=JSON.stringify(allFileObjeArrRet['project_photo']);
+                                            }
+                                        }
+                                        if(allFileObjeArrRet['bank_document'] != undefined) {
+                                            if(allFileObjeArrRet['bank_document'].length>0){
+                                                insertUpdateObj['bank_document']=JSON.stringify(allFileObjeArrRet['bank_document']);
+                                            }
+                                        }
+                                        if(allFileObjeArrRet['nmc_document'] != undefined) {
+                                            if(allFileObjeArrRet['nmc_document'].length>0){
+                                                insertUpdateObj['nmc_document']=JSON.stringify(allFileObjeArrRet['nmc_document']);
+                                            }
+                                        }
+                                        if(allFileObjeArrRet['hpb_digital_sign'] != undefined){
+                                            if(allFileObjeArrRet['hpb_digital_sign'].length>0){
+                                                insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
+                                            }
+                                        }
+
+                                        this.appProjApi.addEditProject(insertUpdateObj,project_id).subscribe((resSSSData:any)=>{
+                                            console.log('resSSSData',resSSSData);
+                                            let updateDataObj={};
+                                            
+                                            if(allFileObjeArrRet['project_photo'] != undefined) {
+                                                if(allFileObjeArrRet['project_photo'].length>0){
+                                                    updateDataObj['project_photo']=insertUpdateObj['project_photo'];
+                                                }
+                                            }
+
+                                            if(allFileObjeArrRet['bank_document'] != undefined) {
+                                                if(allFileObjeArrRet['bank_document'].length>0){
+                                                    updateDataObj['bank_document']=insertUpdateObj['bank_document'];
+                                                }
+                                            }
+
+                                            if(allFileObjeArrRet['nmc_document'] != undefined) {
+                                                if(allFileObjeArrRet['nmc_document'].length>0){
+                                                    updateDataObj['nmc_document']=insertUpdateObj['nmc_document'];
+                                                }
+                                            }
+                                            
+                                            // if(allFileObjeArrRet['hpb_digital_sign'].length>0){
+                                            // updateDataObj['hpb_digital_sign']=insertUpdateObj['hpb_digital_sign'];
+                                            // }
+
+                                            updateDataObj['server_project_id']=resSSSData['result']['id']?resSSSData['result']['id']:0;
+                                            updateDataObj['updated_date']=resSSSData['result']['updated_date']?resSSSData['result']['updated_date']:0;
+                                            updateDataObj['sync_status']=1;
+                                            let whereCond=" project_id="+resDatasUs['project_id'];
+                                            this.updateData(updateDataObj,tableName,whereCond).then(()=>{
+                                                callbackUss();
+                                            },()=>{
+                                                callbackUss();
+                                            });
+
+                                                            
+                                        },(errSSS)=>{
+                                                console.log('errSSS',errSSS);
+                                                callbackUss();
+                                        });
 
 
-                                    this.insertData(insertObj,tableName).then((resInsData)=>{
-                                        console.log('resInsData',resInsData);
-                                          
-                                          
-                                        callback();
-                                    },(err)=>{
-                                        callback();
+                                    },(errRejU)=>{
+                                        console.log('errRejU',errRejU);
+                                        callbackUss();
                                     });
 
-
-                                 },(errDDD)=>{
-                                     console.log('errDDD',errDDD);
-                                      callback();
-
-                                 });
-
-
                                     
+                        },(errSSS)=>{
 
+                            resolve(true); 
 
-                            }
-                            
-
-                        },(errChild)=>{
-                                callback();
                         });
 
-                    
-                  },(err)=>{
                         
-
-                        // UpSync Start
-                        
-                        let queryU="SELECT * FROM "+tableName+" WHERE sync_status=0";
-
-                            this.queryExecuteSql(queryU,[]).then((resDataU:any)=>{
-                                    console.log('resDataU',resDataU);
-
-                                    let resDatasUss=[];
-                                    for(let m=0;m<resDataU.rows.length;m++){
-                                        resDatasUss.push(resDataU.rows.item(m));
-                                    }
-                                    console.log('resDatasUss project',resDatasUss);
-                                     async.each(resDatasUss,(resDatasUs,callbackUss)=>{
-
-                                                console.log('resDatasUs aync',resDatasUs);
-
-                                                let project_id=0;
-                                                let insertUpdateObj={};
-                                               
-                                                
-                                                insertUpdateObj['project_name']=resDatasUs['project_name'];
-                                                insertUpdateObj['hpb_id']=resDatasUs['server_hpb_id'];
-                                                insertUpdateObj['project_completion_date']=resDatasUs['project_completion_date'];
-                                                insertUpdateObj['project_quantity_estimation']=resDatasUs['project_quantity_estimation'];
-                                                insertUpdateObj['project_type']=resDatasUs['project_type_mid'];
-                                                insertUpdateObj['project_stage']=resDatasUs['project_stage_mid'];
-                                              //  insertUpdateObj['project_photo']=resDatasUs['project_photo'];
-                                                insertUpdateObj['project_address']=resDatasUs['project_address'];
-                                                insertUpdateObj['project_province']=resDatasUs['project_province'];
-                                                insertUpdateObj['project_city']=resDatasUs['project_city'];
-                                                insertUpdateObj['project_sub_district']=resDatasUs['project_sub_district'];
-                                                insertUpdateObj['project_pincode']=resDatasUs['project_pincode'];
-                                                insertUpdateObj['is_srku']=resDatasUs['is_srku'];
-                                                insertUpdateObj['srku_owner_name']=resDatasUs['srku_owner_name'];
-                                                insertUpdateObj['srku_owner_address']=resDatasUs['srku_owner_address'];
-                                                insertUpdateObj['srku_owner_mobile_no']=resDatasUs['srku_owner_mobile_no'];
-                                                insertUpdateObj['srku_province']=resDatasUs['srku_province'];
-                                                insertUpdateObj['srku_city']=resDatasUs['srku_city'];
-                                                insertUpdateObj['srku_sub_district']=resDatasUs['srku_sub_district'];
-                                                insertUpdateObj['srku_pincode']=resDatasUs['srku_pincode'];
-                                                insertUpdateObj['floor_size']=resDatasUs['floor_size'];
-                                                insertUpdateObj['number_of_units']=resDatasUs['number_of_units'];
-                                                insertUpdateObj['is_micro_credit']=resDatasUs['is_micro_credit'];
-                                                insertUpdateObj['bank_name']=resDatasUs['bank_name'];
-                                              //  insertUpdateObj['bank_document']=resDatasUs['bank_document'];
-                                                insertUpdateObj['non_micro_credit_type']=resDatasUs['non_micro_credit_type_mid'];
-                                              //  insertUpdateObj['nmc_document']=resDatasUs['nmc_document'];
-                                                insertUpdateObj['additional_comments']=resDatasUs['additional_comments'];
-                                                insertUpdateObj['hpb_digital_sign']=resDatasUs['hpb_digital_sign'];
-                                                insertUpdateObj['updated_date']=resDatasUs['updated_date'];
-                                                insertUpdateObj['updated_by']=resDatasUs['updated_by'];
-                                                insertUpdateObj['assigned_to']=resDatasUs['assigned_to'];
-                                                insertUpdateObj['local_updated_date']=resDatasUs['local_updated_date'];
-                                                insertUpdateObj['generated_by']=resDatasUs['generated_by'];
-                                                
-
-                                                if(resDatasUs['server_project_id']>0){
-                                                   project_id=resDatasUs['server_project_id'];
-                                                }else{
-                                                    insertUpdateObj['latitude']=resDatasUs['latitude'];
-                                                    insertUpdateObj['longitude']=resDatasUs['longitude'];
-                                                    insertUpdateObj['local_created_date']=resDatasUs['local_created_date'];
-                                                    insertUpdateObj['created_by']=resDatasUs['created_by'];
-                                                    //insertUpdateObj['generated_by']=insertUpdateObj['generated_by'];
-                                                }
-
-
-
-                                                let allFileObjeArr = {};
-                                                if( this.platform.is('ios') ) {
-                                                    //console.log("resDatasUs['hpb_digital_sign']=>",resDatasUs['hpb_digital_sign']);
-                                                    //insertUpdateObj['hpb_digital_sign']=(resDatasUs['hpb_digital_sign'] && resDatasUs['hpb_digital_sign']!="")?this.alterimgPath(resDatasUs['hpb_digital_sign']):"";
-                                                    //console.log("project_photo=>",resDatasUs['project_photo']);
-                                                    allFileObjeArr['project_photo']=(resDatasUs['project_photo'] && resDatasUs['project_photo']!="")?this.alterimgPath(resDatasUs['project_photo']):"";
-                                                    allFileObjeArr['bank_document']=(resDatasUs['bank_document'] && resDatasUs['bank_document']!="")?this.alterimgPath(resDatasUs['bank_document']):"";
-                                                    allFileObjeArr['nmc_document']=(resDatasUs['nmc_document'] && resDatasUs['nmc_document']!="")?this.alterimgPath(resDatasUs['nmc_document']):"";
-                                                } else {
-                                                    //insertUpdateObj['hpb_digital_sign']=resDatasUs['hpb_digital_sign'];
-                                                    allFileObjeArr['project_photo']=resDatasUs['project_photo'];
-                                                    allFileObjeArr['bank_document']=resDatasUs['bank_document'];
-                                                    allFileObjeArr['nmc_document']=resDatasUs['nmc_document'];
-                                                }
-                                                
-                                              //  allFileObjeArr['hpb_digital_sign']=resDatasUs['hpb_digital_sign'];
-                                                console.log('upload LOcal to server start');
-                                               
-                                            
-
-                                                this.uploadLocalFileToServer(allFileObjeArr).then((allFileObjeArrRet)=>{
-                                                  console.log('upload LOcal to server end');
-                                                       // a llFileObjeArrRet
-                                                     //   insertUpdateObj['project_photo']=JSON.stringify(allFileObjeArrRet['project_photo']);
-                                                     //   insertUpdateObj['bank_document']=JSON.stringify(allFileObjeArrRet['bank_document']);
-                                                     //   insertUpdateObj['nmc_document']=JSON.stringify(allFileObjeArrRet['nmc_document']);
-                                                     //   insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
-
-                                                        if(allFileObjeArrRet['project_photo'].length>0){
-                                                            insertUpdateObj['project_photo']=JSON.stringify(allFileObjeArrRet['project_photo']);
-                                                        }
-                                                        if(allFileObjeArrRet['bank_document'].length>0){
-                                                            insertUpdateObj['bank_document']=JSON.stringify(allFileObjeArrRet['bank_document']);
-                                                        }
-                                                        if(allFileObjeArrRet['nmc_document'].length>0){
-                                                            insertUpdateObj['nmc_document']=JSON.stringify(allFileObjeArrRet['nmc_document']);
-                                                        }
-                                                        // if(allFileObjeArrRet['hpb_digital_sign'].length>0){
-                                                        //     insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
-                                                        // }
-
-                                                        this.appProjApi.addEditProject(insertUpdateObj,project_id).subscribe((resSSSData:any)=>{
-                                                                console.log('resSSSData',resSSSData);
-                                                                let updateDataObj={};
-                                                               
-                                                                if(allFileObjeArrRet['project_photo'].length>0){
-                                                                updateDataObj['project_photo']=insertUpdateObj['project_photo'];
-                                                                }
-                                                                if(allFileObjeArrRet['bank_document'].length>0){
-                                                                updateDataObj['bank_document']=insertUpdateObj['bank_document'];
-                                                                }
-                                                                if(allFileObjeArrRet['nmc_document'].length>0){
-                                                                updateDataObj['nmc_document']=insertUpdateObj['nmc_document'];
-                                                                }
-                                                                
-                                                                // if(allFileObjeArrRet['hpb_digital_sign'].length>0){
-                                                                // updateDataObj['hpb_digital_sign']=insertUpdateObj['hpb_digital_sign'];
-                                                                // }
-
-                                                                updateDataObj['server_project_id']=resSSSData['result']['id']?resSSSData['result']['id']:0;
-                                                                updateDataObj['updated_date']=resSSSData['result']['updated_date']?resSSSData['result']['updated_date']:0;
-                                                                updateDataObj['sync_status']=1;
-                                                                let whereCond=" project_id="+resDatasUs['project_id'];
-                                                                this.updateData(updateDataObj,tableName,whereCond).then(()=>{
-   
-                                                                   callbackUss();
-                                                                },()=>{
-                                                                    callbackUss();
-                                                                });
-
-                                                                
-                                                        },(errSSS)=>{
-                                                                console.log('errSSS',errSSS);
-                                                                callbackUss();
-                                                        });
-
-
-                                                    },(errRejU)=>{
-                                                           console.log('errRejU',errRejU);
-                                                            callbackUss();
-                                                 });
-
-                                                
-                                     },(errSSS)=>{
-
-                                        resolve(true); 
-
-                                    });
-
-                                    
-                            },(errorU)=>{
-                                    console.log('errorU',errorU);
-                                    resolve(true); 
-                            });
-
-
-
-                  });
-
-
-
-                },(error)=>{
-                    
-                    reject(false);
-
+                },(errorU)=>{
+                        console.log('errorU',errorU);
+                        resolve(true); 
                 });
+
+            // },(error) => {
+            //     reject(false);
+            });
 
 
         },()=>{
@@ -1922,6 +1935,7 @@ syncProjectD(){
         });
 
     });    
+    });
 }
 
 syncReceiptProjectGet(){
@@ -2055,12 +2069,16 @@ syncReceiptsUpSync2():any{
                                           this.uploadLocalFileToServer(allFileObjeArr).then((allFileObjeArrRet)=>{
 
                                                   // allFileObjeArrRet
-                                                     if(allFileObjeArrRet['invoice_image'].length>0){
-                                                         insertUpdateObj['invoice_image']=JSON.stringify(allFileObjeArrRet['invoice_image']);
-                                                     }
+                                                    if(allFileObjeArrRet['invoice_image'] != undefined){ 
+                                                        if(allFileObjeArrRet['invoice_image'].length>0){
+                                                            insertUpdateObj['invoice_image']=JSON.stringify(allFileObjeArrRet['invoice_image']);
+                                                        }
+                                                    }
+                                                    if(allFileObjeArrRet['digital_sign'] != undefined){
                                                      if(allFileObjeArrRet['digital_sign'].length>0){
                                                          insertUpdateObj['digital_sign']=JSON.stringify(allFileObjeArrRet['digital_sign']);
                                                      }
+                                                    }
 
                                                      let updateDataObj={};
                                                      updateDataObj['sync_status']=2;
@@ -2074,12 +2092,16 @@ syncReceiptsUpSync2():any{
                                                              console.log("up sync of product receipt to api completed");
                                                              console.log('resSSSData',resSSSData);
                                                             
-                                                             if(allFileObjeArrRet['invoice_image'].length>0){
-                                                                 updateDataObj['invoice_image']=insertUpdateObj['invoice_image'];
-                                                             }
+                                                             if(allFileObjeArrRet['invoice_image'] != undefined){
+                                                                if(allFileObjeArrRet['invoice_image'].length>0){
+                                                                    updateDataObj['invoice_image']=insertUpdateObj['invoice_image'];
+                                                                }
+                                                            }
+                                                            if(allFileObjeArrRet['digital_sign'] != undefined){
                                                              if(allFileObjeArrRet['digital_sign'].length>0){
                                                                  updateDataObj['digital_sign']=insertUpdateObj['digital_sign'];
                                                              }
+                                                            }
                                                              
                                                              updateDataObj['server_hpb_id']=resltData['h_serverId'];
                                                              updateDataObj['server_project_id']=resltData['p_serverId'];
@@ -2176,6 +2198,7 @@ syncReceiptsD():any{
                 }
                
                 this.appProdApi.getProductReceipt(null,null,cProjectId,null,null,null,null,null,null,null,null,updated_date).subscribe((respDatas:any)=>{
+
 
                     let responseResults = respDatas['result']?respDatas['result']:[];
 
@@ -2398,11 +2421,15 @@ syncReceiptsD():any{
                                                      this.uploadLocalFileToServer(allFileObjeArr).then((allFileObjeArrRet)=>{
 
                                                              // allFileObjeArrRet
-                                                                if(allFileObjeArrRet['invoice_image'].length>0){
-                                                                    insertUpdateObj['invoice_image']=JSON.stringify(allFileObjeArrRet['invoice_image']);
+                                                                if(allFileObjeArrRet['invoice_image'] != undefined){
+                                                                    if(allFileObjeArrRet['invoice_image'].length>0){
+                                                                        insertUpdateObj['invoice_image']=JSON.stringify(allFileObjeArrRet['invoice_image']);
+                                                                    }
                                                                 }
-                                                                if(allFileObjeArrRet['digital_sign'].length>0){
-                                                                    insertUpdateObj['digital_sign']=JSON.stringify(allFileObjeArrRet['digital_sign']);
+                                                                if(allFileObjeArrRet['digital_sign'] !+ undefined){
+                                                                    if(allFileObjeArrRet['digital_sign'].length>0){
+                                                                        insertUpdateObj['digital_sign']=JSON.stringify(allFileObjeArrRet['digital_sign']);
+                                                                    }
                                                                 }
 
                                                                 let updateDataObj={};
@@ -2417,11 +2444,15 @@ syncReceiptsD():any{
                                                                         console.log("up sync of product receipt to api completed");
                                                                         console.log('resSSSData',resSSSData);
                                                                        
-                                                                        if(allFileObjeArrRet['invoice_image'].length>0){
-                                                                            updateDataObj['invoice_image']=insertUpdateObj['invoice_image'];
+                                                                        if(allFileObjeArrRet['invoice_image'] != undefined){
+                                                                            if(allFileObjeArrRet['invoice_image'].length>0){
+                                                                                updateDataObj['invoice_image']=insertUpdateObj['invoice_image'];
+                                                                            }
                                                                         }
-                                                                        if(allFileObjeArrRet['digital_sign'].length>0){
-                                                                            updateDataObj['digital_sign']=insertUpdateObj['digital_sign'];
+                                                                        if(allFileObjeArrRet['digital_sign'] != undefined){
+                                                                            if(allFileObjeArrRet['digital_sign'].length>0){
+                                                                                updateDataObj['digital_sign']=insertUpdateObj['digital_sign'];
+                                                                            }
                                                                         }
                                                                         
                                                                         updateDataObj['server_hpb_id']=resltData['h_serverId'];
@@ -2618,14 +2649,12 @@ syncReceiptsApprovalDProcess(project_id,server_project_id,receipt_id,server_rece
                  // updated_date=resQ['updated_date'];
             }
             this.appProdRecApproval.getProductReceiptApproval(null,s_receipt_id,null,null,null,null,updated_date).subscribe((respDatas:any)=>{
-
-
                        let responseResults = respDatas['result']?respDatas['result']:[];
                         async.each(responseResults,(respData,callback:any)=>{
 
                                     let sQuery="SELECT * FROM "+tableName+" WHERE server_id="+respData['id']+"";
                                     this.queryExecuteSql(sQuery,[]).then((resQuData:any)=>{
-
+                                    
                                     if(resQuData.rows.length > 0){
 
                                             let locaDataRow=resQuData.rows.item(0);
@@ -2648,7 +2677,7 @@ syncReceiptsApprovalDProcess(project_id,server_project_id,receipt_id,server_rece
                                             updateObj['ext_data']="";
                                             let whereCon=" server_id="+respData['id']+" ";
                                             this.downloadServerFileToLocal(allFileObjeArr).then((allFileObjeArrRet)=>{
-                                              
+
                                                 this.updateData(updateObj,tableName,whereCon).then((resInsData)=>{
                                                     callback();
                                                 },(err)=>{
@@ -2685,7 +2714,6 @@ syncReceiptsApprovalDProcess(project_id,server_project_id,receipt_id,server_rece
 
 
                                             this.downloadServerFileToLocal(allFileObjeArr).then((allFileObjeArrRet)=>{
-
 
                                             this.insertData(insertObj,tableName).then((resInsData)=>{
                                             callback();
@@ -4420,14 +4448,18 @@ syncProjectRequestD(){
                                                         
                                                         this.uploadLocalFileToServer(allFileObjeArr).then((allFileObjeArrRet)=>{
 
-                                                                if(allFileObjeArrRet['hpb_digital_sign'].length>0){
-                                                                    insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
+                                                                if(allFileObjeArrRet['hpb_digital_sign'] != undefined){
+                                                                    if(allFileObjeArrRet['hpb_digital_sign'].length>0){
+                                                                        insertUpdateObj['hpb_digital_sign']=JSON.stringify(allFileObjeArrRet['hpb_digital_sign']);
+                                                                    }
                                                                 }
                                                                 this.appProdReq.addEditRequest(insertUpdateObj,id).subscribe((resSSSData:any)=>{
                                                                     
                                                                         let updateDataObj={};
-                                                                        if(allFileObjeArrRet['hpb_digital_sign'].length>0){
-                                                                            updateDataObj['hpb_digital_sign']=insertUpdateObj['hpb_digital_sign'];
+                                                                        if(allFileObjeArrRet['hpb_digital_sign'] != undefined){
+                                                                            if(allFileObjeArrRet['hpb_digital_sign'].length>0){
+                                                                                updateDataObj['hpb_digital_sign']=insertUpdateObj['hpb_digital_sign'];
+                                                                            }
                                                                         }
                                                                         updateDataObj['server_id']=resSSSData['result']['id']?resSSSData['result']['id']:0;
                                                                         updateDataObj['sync_status']=1;
@@ -5032,7 +5064,7 @@ uploadLocalFileToServer(allFileObjeArr){
 
         let newAllFileObjeArr={};
 
-         let  asyncTaksFiles = [];
+        let  asyncTaksFiles = [];
 
         const fileTransfer: TransferObject = this.transfer.create();
 
@@ -5070,9 +5102,13 @@ uploadLocalFileToServer(allFileObjeArr){
                             mimeType: mimeType,
                             params : {"fileName":fileName}
                         };
+                        
                         console.log("fileLocalPath=>",fileLocalPath);
                         console.log("uploadUrl=>",uploadUrl);
                         console.log("options=>",options);
+
+                        // console.log("uploadUrl=>" + uploadUrl);
+                        // console.log("options=>",options);
 
                         console.log("<===========================================>");
                         console.log("cordova.file.datadirectory=>",cordova.file.dataDirectory);

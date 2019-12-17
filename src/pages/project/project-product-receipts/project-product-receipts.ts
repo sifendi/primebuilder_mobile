@@ -101,14 +101,15 @@ export class ProjectProductReceiptsPage {
                       receipt_id: data['rows'].item(j).receipt_id
                     });
                   
+                  } 
                   // Run it if the receipt contain more than one product
-                  } else if(data['rows'].item(j).product_id.includes(product['rows'].item(produ).server_product_id)) {
-                    this.product_name.push({ 
-                      product_id: product['rows'].item(produ).server_product_id, 
-                      product_name: product['rows'].item(produ).product_name ,
-                      receipt_id: data['rows'].item(j).receipt_id
-                    });
-                  }
+                  // else if(data['rows'].item(j).product_id.includes(product['rows'].item(produ).server_product_id)) {
+                  //   this.product_name.push({ 
+                  //     product_id: product['rows'].item(produ).server_product_id, 
+                  //     product_name: product['rows'].item(produ).product_name ,
+                  //     receipt_id: data['rows'].item(j).receipt_id
+                  //   });
+                  // }
                 }
                 // alert(JSON.stringify(this.product_name));
               });

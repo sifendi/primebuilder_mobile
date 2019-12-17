@@ -7,7 +7,7 @@
         </ion-buttons>-->
         <ion-buttons end>
             <button ion-button (click)="goToFilterPage()">
-                <i class="icon-filter"></i>
+                <ion-icon name="funnel"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{"PROJECT LIST" | translate }}</ion-title>
@@ -19,7 +19,8 @@
     <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>{{"SEARCH BY" | translate }} : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <i class="icon-close-thin"></i>
+            <!-- <i class="icon-close-thin"></i> -->
+            <ion-icon name="close"></ion-icon>
         </button>
     </div>
     <ion-list class="listWrap">
@@ -68,22 +69,22 @@
                         </ion-col>
                     </ion-row>
                 </ion-grid>
-                <!--<i class="icon-next-thin checkIn"></i>-->
+                <i class="icon-next-thin checkIn"></i>
 
-                <!-- <div class="tag">
+                <div class="tag">
                     <ion-grid class="gridWrap">
                         <div class="row" *ngIf="projItem" [innerHTML]="appCom.renderSPHAppStatusARP(projItem)">
-                        </div>
+                    </div>
                     </ion-grid>
-                </div> -->
+                </div>
 
             </ion-item>
 
             <!-- TLH Aprroval status -->
-            <!-- <div class="filterTag resultbg" *ngIf="projItem['tlh_rejection_res']?projItem['tlh_rejection_res']:false">
+            <div class="filterTag resultbg" *ngIf="projItem['tlh_rejection_res']?projItem['tlh_rejection_res']:false">
                 <p class="resultRes">{{"REASON" | translate }}:</p>
                 <p> {{ projItem['tlh_rejection_res'] }} </p>
-            </div> -->
+            </div>
 
             <div class="ntpr">
                 <div class="btn">
@@ -92,23 +93,23 @@
                     </button>
 
                     <!-- <button class="CheckOut" *ngIf="checkInOutCheckCondition" ion-button type="button" checkInOut [data-cdata]="projItem" [data-ctype]="'project'"  [data-cdataid]="projItem['project_id']"  [data-cdisplay]="'list'">
-                        CHECK In                    
+                        CHECK In
                     </button> -->
 
                     <button class="CheckOut" ion-button type="button" (click)="checkOut(projItem)" *ngIf="globalCheckInData['checkinFlag'] == true && globalCheckInData['checkinDetails']['check_in_out_type_id'] == projItem['project_id']  &&  globalCheckInData['checkinDetails']['check_in_out_type'] == 'project'">
-                        
-                         {{"CHECK OUT" | translate }}                    
+
+                         {{"CHECK OUT" | translate }}
                     </button>
 
                     <!---checkin function button ---->
                     <button class="vProject" ion-button type="button" (click)="checkIn(projItem)" *ngIf="globalCheckInData['checkinFlag'] == false">
-                         {{"CHECK IN" | translate }}
+                         {{"ACTION" | translate }}
                     </button>
 
                     <!---checkin disabled already checked in function button ---->
                     <button class="vProject" ion-button type="button" *ngIf=" globalCheckInData['checkinFlag'] == true  && (globalCheckInData['checkinDetails']['check_in_out_type_id'] != projItem['project_id'] ||  globalCheckInData['checkinDetails']['check_in_out_type'] != 'project') "
                         (click)="alreadyCheckInAlert()">
-                        {{"CHECK IN" | translate }}
+                        {{"ACTION" | translate }}
                     </button>
 
 

@@ -77,8 +77,6 @@ export class addSrkuPage {
     userId: any;
     serverHpbId: any = [];
 
-
-
     /* F Address Mater : Start */
 
     mobiScollSrkuProvinceSettings: any = {
@@ -1459,11 +1457,10 @@ export class addSrkuPage {
                     this.sqlS.queryExecuteSql(updateQuery, []).then((updatDataRes: any) => {
                         console.log('updateQuery', updateQuery, updatDataRes);
                         let approvInsert = {};
-                        // approvInsert['srku_approval_status'] = 0;
-                        
-                        // This is for change appoval
-                        approvInsert['srku_approval_status'] = 1;
 
+                        // This is for change appoval
+                        approvInsert['srku_approval_status'] = 0;
+                        
                         approvInsert['project_id'] = srkuProjectId;
                         approvInsert['local_created_date'] = this.appCom.getCurrentTimeStamp();
                         approvInsert['local_updated_date'] = this.appCom.getCurrentTimeStamp();

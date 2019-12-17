@@ -3,7 +3,7 @@
             <ion-title>{{ "DUTA HOLCIM LEADS" | translate }}</ion-title>
             <ion-buttons end>
                 <button ion-button menuToggle>
-                        <i class="icon-menu"></i>
+                    <ion-icon name="menu"></ion-icon>
                 </button>
                 <!-- <button ion-button (click)="openSearch()">
                     <i class="icon-search"></i>
@@ -11,7 +11,7 @@
             </ion-buttons>
         </ion-navbar>
     </ion-header>
-    
+
     <ion-content fullscreen="false"  [ngBusy]="{busy: busy, minDuration: 600}">
         <ion-list class="listWrap">
             <div *ngIf="projCustListObjArrs.length==0">
@@ -25,7 +25,7 @@
                     <ion-avatar item-left *ngIf="projCustListObj?.lead_photos?.length>0">
                     <img [src]="projCustListObj?.lead_photos[0]?.serverPath" *ngIf="projCustListObj?.lead_photos[0]?.serverPath">
                     </ion-avatar>
-                    <div class="leftContent"> 
+                    <div class="leftContent">
                         <div class="projectWrap">
                             <p class="title">{{ "EMPLOYEE NAME" | translate }}</p>
                             <span class="value">{{projCustListObj['createdBy']?projCustListObj.createdBy:"-"}}</span>
@@ -54,11 +54,10 @@
                             <span class="value">{{projCustListObj['lead_status']?projCustListObj.lead_status:"-"}}</span>
                         </div>
                     </div>
-                    <i class="icon-Next checkIn"></i>
-                  
+                    <ion-icon name="log-in"></ion-icon>
                 </ion-item>
             </div>
-            
-           
+
+
         </ion-list>
     </ion-content>

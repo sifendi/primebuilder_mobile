@@ -2,7 +2,7 @@
     <ion-navbar>
         <ion-buttons end>
             <button ion-button *ngIf="(dataDisplayObj['product_request_status']==0 || dataDisplayObj['product_request_status']=='0') && editBtnEnb" (click)="goToEditPage()">
-        <i class="icon-edit"></i>
+                <ion-icon name="create"></ion-icon>
       </button>
         </ion-buttons>
         <ion-title>{{ "PRODUCT REQUEST DETAILS" | translate }}</ion-title>

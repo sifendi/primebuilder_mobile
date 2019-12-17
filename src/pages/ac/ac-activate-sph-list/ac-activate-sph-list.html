@@ -6,8 +6,8 @@
     <ion-searchbar [(ngModel)]="searchUserM" (ionInput)="searchUser($event)" name="searchUserBar" placeholder="{{ 'SEARCH' | translate }}"></ion-searchbar>
 </ion-header>
 <ion-content fullscreen="false"  [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}">
-   
-   
+
+
     <h3 class="custT pointV" *ngIf="userListDataArrs.length>0">{{ "SELECT SPH" | translate }}</h3>
     <div class="rdIn" [(ngModel)]="selectedUserId" #selectedUserN="ngModel" required [ngModelOptions]="{standalone: true}" radio-group>
     <div class="flexWrap lineInOne" *ngFor="let userListDataArr of userListDataArrs;let i=index">

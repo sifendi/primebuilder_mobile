@@ -29,7 +29,7 @@ import { Network } from '@ionic-native/network';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FilePath } from '@ionic-native/file-path';
-import { FileTransfer } from '@ionic-native/file-transfer';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { Globalization } from '@ionic-native/globalization';
 import { Push } from '@ionic-native/push';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
@@ -703,7 +703,8 @@ export function createTranslateLoader(http: Http) {
     FileOpener,
     InAppBrowser,
     SQLitePorter,
-    FileTransfer,
+    FileTransfer, 
+    FileTransferObject,
     Globalization,
     Push,
     AndroidPermissions,

@@ -15,8 +15,8 @@
 
                             <div class="projectWrap">
                                 <p class="title">{{"PRODUCT" | translate }}</p>
-                                <div *ngFor="let product of product_name">
-                                    <p class="value" *ngIf="productReceiptItem['receipt_id'] == product['receipt_id']">- {{ product['product_name'] }}</p>
+                                <div>
+                                    <p class="value">{{ productReceiptItem['product_name'] }}</p>
                                 </div>
                             </div>
                             <div class="projectWrap">
@@ -39,7 +39,7 @@
                     </ion-grid>
 
                     <span class="tag">{{ (productReceiptItem['local_created_date'])?appCom.timeStampToDate(productReceiptItem['local_created_date']):"-" }}</span>
-                    <i class="icon-next-thin checkIn"></i>
+                    <!-- <ion-icon name="log-in"></ion-icon> -->
                 </ion-item>
                 <div class="filterTag resultbg" *ngIf="productReceiptItem?.tlh_approval == -1">
                     <p class="resultRes">{{"REASON" | translate }}:</p>

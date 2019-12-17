@@ -7,7 +7,7 @@ import { MobileVerifyPage } from '../pages/login/mobile-verify/mobile-verify';
 import { ActivationRegisterPage } from '../pages/login/activation-register/activation-register';
 import { LoginPage } from '../pages/login/login/login';
 import { Component, ViewChild } from '@angular/core';
-import { AlertController, MenuController, Nav, Platform,Events } from 'ionic-angular';
+import { AlertController, MenuController, Nav, Platform,Events, Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Network } from '@ionic-native/network';
@@ -191,7 +191,7 @@ export class MyApp {
      checkinDetails: this.details
   };
   
-  constructor(private device:Device, private pushApi:PushApi, private syncS:SyncServices,private loopBackAuth:LoopBackAuth,public platform: Platform, public statusBar: StatusBar,public storage: Storage, public splashScreen: SplashScreen,public translate: TranslateService,public geolocation: Geolocation,public shareS:ShareService,public sqlS:SqlServices,public alertCtrl: AlertController,private menu: MenuController,public appCom:appCommonMethods,private network: Network,public events:Events,private splashS:SplashScreen) {
+  constructor(private device:Device, private pushApi:PushApi, private syncS:SyncServices,private loopBackAuth:LoopBackAuth,public platform: Platform, public statusBar: StatusBar,public storage: Storage, public splashScreen: SplashScreen,public translate: TranslateService,public geolocation: Geolocation,public shareS:ShareService,public sqlS:SqlServices,public alertCtrl: AlertController,private menu: MenuController,public appCom:appCommonMethods,private network: Network,public events:Events,private splashS:SplashScreen, public config: Config) {
     LoopBackConfig.setBaseURL(SITE_API.SITE_URL);
     LoopBackConfig.setApiVersion('api');
     
@@ -199,6 +199,8 @@ export class MyApp {
     this.menu.enable(false);
 
     this.initializeApp();
+
+    this.config.set('backButtonIcon', 'arrow-back');
 
     // used for an example of ngFor and navigation
   

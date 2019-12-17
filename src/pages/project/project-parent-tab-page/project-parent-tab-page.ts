@@ -26,7 +26,7 @@ export class ProjectParentTabsPage {
     page2: any = ProjectProductReceiptsPage;
     page3: any = ProjectProductRequestsPage;
     paramsData: any;
-    selectedIndex: any = 0;
+    selectedIndex: any = 2;
     projectName: any = "";
     projData: any = [];
     hpbData: any = [];
@@ -53,8 +53,6 @@ export class ProjectParentTabsPage {
         this.hpbData = this.paramsData['hpbData'];
         this.projectName = (this.navParams.data) ? this.navParams.data['projName'] : "-";
         console.log("paramsData---proj parent", this.paramsData);
-
-
 
         let tab = this.paramsData['tab'];
         if (tab == "receipt") {
@@ -127,13 +125,15 @@ export class ProjectParentTabsPage {
             if (!(this.projData['server_hpb_id'] > 0)) {
                 this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.NO_HPB_ERR, "Ok", "");
             } else if ((this.projData['is_srku'] == 1 || this.projData['is_srku'] == "1")) {
-                if ((this.projData['tlh_approval'] == 1 || this.projData['tlh_approval'] == "1")) {
+                // if ((this.projData['tlh_approval'] == 1 || this.projData['tlh_approval'] == "1")) {
+                if ((this.projData['ac_approval'] == 1 || this.projData['ac_approval'] == "1")) {
                     this.navCtrl.push(ProductReceiptsFormPage, {
                         "projId": this.projData['project_id']
                     });
                 } else {
                     this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.SRKU_APPR_ERR, "Ok", "");
                 }
+
             } else {
                 this.navCtrl.push(ProductReceiptsFormPage, {
                     "projId": this.projData['project_id']
@@ -227,6 +227,7 @@ export class ProjectParentTabsPage {
                                         let earlier2DayDate = moment(new Date().getTime()).subtract(3, 'day').valueOf();
                                         console.log("locD----->", locD);
                                         console.log("earlier2DayDate----->", earlier2DayDate);
+
                                         if (locD > earlier2DayDate) {
                                             //allow user 
                                         } else {

@@ -2,7 +2,7 @@
     <ion-navbar>
         <ion-buttons end>
             <button ion-button menuToggle>
-                <i class="icon-menu"></i>
+                <ion-icon name="menu"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{ "SYNC" | translate }}</ion-title>
@@ -30,7 +30,7 @@
                         <h2 *ngIf="projectsSyncUpdatedDate && projectsSyncUpdatedDate!=''">{{ "LAST UPDATED" | translate }}: {{projectsSyncUpdatedDate}}</h2>
                     </div>
                 </ion-item>
-                <!--            
+                <!--
                 <ion-item>
                     <a href="javascript:void(0);" [ngClass]="{ 'spinRt': receiptsSyncBtn }" (click)="receiptsSync()"  class="syncBtn orderBtnCls"></a>
                     <div class="orDataCm">

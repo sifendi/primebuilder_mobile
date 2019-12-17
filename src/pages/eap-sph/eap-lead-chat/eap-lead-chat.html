@@ -3,7 +3,7 @@
     <ion-navbar>
     <ion-buttons end>
             <button ion-button menuToggle>
-                <i class="icon-menu"></i>
+                <ion-icon name="menu"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{ "INQUIRY" | translate }}</ion-title>
@@ -24,7 +24,7 @@
         <div *ngIf="leadChatDatas.length==0">
             <h2 class="noData contMid">{{"NO INQUIRY FOUND" | translate }}</h2>
         </div>
-        <div class="itemWrap"> 
+        <div class="itemWrap">
             <ion-item class="msgBox chatBox" *ngFor="let chatDobj of leadChatDatas" [ngClass]="{'left': chatDobj['chat_from_id']==chatDobj['assigned_sph'], 'rigth':chatDobj['chat_from_id']!=chatDobj['assigned_sph']}">
                 <div class="flexWrap">
                     <span class="date">{{chatDobj['created_date']?appCom.timeStampToDate(chatDobj['created_date']):appCom.timeStampToDate(chatDobj['local_created_date'])}}</span>

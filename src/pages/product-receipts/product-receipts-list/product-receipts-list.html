@@ -1,9 +1,9 @@
 
 <ion-header>
     <ion-navbar>
-           <ion-buttons end>
+        <ion-buttons end>
             <button ion-button (click)="goToFilterPage()">
-                <i class="icon-filter"></i>
+                <ion-icon name="funnel"></ion-icon>
             </button>
         </ion-buttons>
 
@@ -12,10 +12,10 @@
     <ion-searchbar [(ngModel)]="myInput" placeholder="Search" (ionInput)="searchProductReceipt($event)" name="searchbar"></ion-searchbar>
     <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>Search by : {{ filterby }} </p>
-        <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <i class="icon-close-thin"></i>
+        <button ion-button color="light" (click)="clearFilter()">
+            <ion-icon name="close"></ion-icon>
         </button>
-    </div> 
+    </div>
 </ion-header>
 <ion-content fullscreen="false" [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }">
     <ion-list class="listWrap">
@@ -54,8 +54,8 @@
                         </div>
                     </ion-grid>
 
-                    <span class="tag">{{    (productReceiptItem['local_created_date'])?timeStampToDate(productReceiptItem['local_created_date']):"-"   }}</span>
-                    <i class="icon-next-thin checkIn"></i>
+                    <span class="tag">{{ (productReceiptItem['local_created_date'])?timeStampToDate(productReceiptItem['local_created_date']):"-"   }}</span>
+                    <!-- <ion-icon name="log-in"></ion-icon> -->
                 </ion-item>
                  <div class="filterTag resultbg" *ngIf="productReceiptItem?.tlh_approval == -1">
                     <p class="resultRes">{{ "REASON" | translate }}:</p>

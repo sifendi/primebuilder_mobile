@@ -2,7 +2,7 @@
     <ion-navbar>
         <ion-buttons start>
             <button ion-button (click)="dismiss()">
-             <i class="icon-close"></i>
+              <ion-icon name="close"></ion-icon>
            </button>
         </ion-buttons>
         <ion-title>{{"PROJECT EDIT" | translate }}</ion-title>
@@ -16,8 +16,8 @@
                     <div class="date_list">
                         <ion-item class="inputLable">
                             <ion-label stacked>{{"COMPLETION DATE" | translate }}*</ion-label>
-                            <ion-input [(ngModel)]="projData.project_completion_date" #ProjectCompletionDateMob="mobiscroll" #ProjectCompletionDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsG" required></ion-input>
-
+                            <!-- <ion-input [(ngModel)]="projData.project_completion_date" #ProjectCompletionDateMob="mobiscroll" #ProjectCompletionDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsG" required></ion-input> -->
+                            <ion-datetime displayFormat="D/MM/YYYY" pickerFormat="D MMMM YYYY" [(ngModel)]="projData.project_completion_date" calcelText="BATAL" doneText="SETEL" [max]="MaxDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
                         </ion-item>
                         <i tappable role="button" class="icon-arrow"></i>
                     </div>

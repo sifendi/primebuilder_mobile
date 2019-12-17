@@ -188,7 +188,7 @@ ion-header {
 /** Search Bar ***/
 
 .searchbar {
-    background: #f7f7f7;
+    background: $blue-dark-color;
     border-bottom: 1px $solid #e9e9e9;
     .searchbar-search-icon {
         left: $auto;
@@ -255,7 +255,7 @@ ion-header {
 .header {
     .seleRole {
         // padding: $zero $size;
-        background: #262626;
+        background: $blue-dark-color;
         margin: $zero;
         .list {
             margin-bottom: $zero;
@@ -276,7 +276,7 @@ ion-header {
                 color: $white-color;
             }
             .select {
-                background: #464646;
+                background: $search-bar-blue-color;
             }
         }
     }

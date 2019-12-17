@@ -1,14 +1,14 @@
 <ion-header>
     <ion-searchbar [(ngModel)]="myInput"   (ionInput)="searchProjects($event)" placeholder="{{ 'SEARCH' | translate }}" name="searchBar"></ion-searchbar>
-     
+
 </ion-header>
 <ion-content padding [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}" [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }">
      <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>"{{ 'SEARCH BY' | translate }}" : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <i class="icon-close-thin"></i>
+            <ion-icon name="close"></ion-icon>
         </button>
-    </div> 
+    </div>
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
         </ion-refresher-content>
@@ -66,6 +66,7 @@
                     </ion-grid>
                 </div>
                 <i class="icon-next-thin checkIn"></i>
+                <!-- <ion-icon name="log-in"></ion-icon> -->
             </ion-item>
             <div class="filterTag resultbg" *ngIf="projItem['srku_rejection_reason']?projItem['srku_rejection_reason']:false">
                 <p class="resultRes">{{ "REASON" | translate }}:</p>
@@ -76,6 +77,6 @@
             <ion-infinite-scroll-content></ion-infinite-scroll-content>
         </ion-infinite-scroll>
     </ion-list>
-  
+
 
 </ion-content>

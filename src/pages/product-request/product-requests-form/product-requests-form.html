@@ -2,8 +2,8 @@
     <ion-navbar>
         <ion-buttons end>
             <button ion-button menuToggle>
-        <i class="icon-menu"></i>
-      </button>
+                <ion-icon name="funnel"></ion-icon>
+            </button>
         </ion-buttons>
         <ion-title>{{ "PRODUCT REQUEST FORM" | translate }}</ion-title>
     </ion-navbar>
@@ -19,7 +19,7 @@
                                 <ion-label floating>{{ "DATE" | translate }}</ion-label>
                                   <ion-input   [(ngModel)]="produtRequestObj.request_date"  mbsc-calendar [mbsc-options]="mobiScollRequestDateSettings"  required [ngModelOptions]="{standalone: true}"></ion-input>
                             </ion-item>
-                             <i   role="button" class="icon-arrow"></i> 
+                             <i   role="button" class="icon-arrow"></i>
                         </div>
                     </div>
                 </div> -->
@@ -95,7 +95,7 @@
                 <!-- <div class="rdIn" [hidden]="true" [class.disabledDiv]="updateFlag">
                     <ion-item class="inputLable"  [hidden]="updateFlag">
                         <ion-label stacked>{{ "RETAILER / DISTRIBUTOR" | translate }}</ion-label>
-                     
+
                         <ion-input  [(ngModel)]="produtRequestObj.rds_id"  #rdsI="ngModel"  mbsc-select [mbsc-options]="mobiScollRDSSettings" [mbsc-data]="allRDSDataArrs"  [ngModelOptions]="{standalone: true}"></ion-input>
                     </ion-item>
                     <ion-card class="cardRow"  [hidden]="!updateFlag">
@@ -183,7 +183,7 @@
         <div class="userSpaceRepet" [class.disabledDiv]="updateFlag">
             <h2 class="labelHeading">{{ "BRAND IN USE" | translate }}</h2>
             <ion-list class="inputBox" [class.disabledDiv]="updateFlag" *ngFor="let brandInUseArr of brandInUseArrs; let i = index;trackBy:trackByIndex;">
-                <div class="deleBox"><span>Brand {{i+1}} </span><span *ngIf="brandInUseArrs.length>1" (click)="removeBrandInUseItem(i)"><i class="icon-Delete"></i></span></div>
+                <div class="deleBox"><span>Brand {{i+1}} </span><span *ngIf="brandInUseArrs.length>1" (click)="removeBrandInUseItem(i)">  <ion-icon name="trash"></ion-icon></span></div>
                 <div class="rdIn">
                     <ion-item class="inputLable">
                         <ion-label floating>{{ "RETAILER / DISTRIBUTOR" | translate }}*</ion-label>

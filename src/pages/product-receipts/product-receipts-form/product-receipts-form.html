@@ -7,7 +7,7 @@
         </ion-buttons> -->
         <ion-buttons end>
             <button ion-button menuToggle>
-                  <i class="icon-menu"></i>
+                <ion-icon name="menu"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title>{{ "PRODUCT RECEIPT FORM" | translate }}</ion-title>
@@ -92,7 +92,7 @@
                     {{ "UNIT IS REQUIRED" | translate }}
                 </p>
             </div>
-    
+
             <div class="rdIn">
                 <ion-item class="inputLable">
                     <ion-label stacked>{{ "QUANTITY" | translate }}*</ion-label>
@@ -139,7 +139,7 @@
                         <!--<ion-select [(ngModel)]="ReceiptData.Unit" #Unit="ngModel" required [ngModelOptions]="{standalone: true}" [disabled]="!disableUnitFlag">-->
                         <!--<ion-option value="{{ unit['product_unit'] }}" *ngFor="let unit of unitArr">{{ unit['product_unit'] }}</ion-option>-->
                         <!-- <ion-input [(ngModel)]="ReceiptData.Unit" #UnitM="mobiscroll" #Unit="ngModel" #unitMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollUnitSettings" [mbsc-data]="unitArr" [ngModelOptions]="{standalone: true}" required formControlName="product_unit"></ion-input> -->
-                        <ion-input #UnitM="mobiscroll" #unitMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollUnitSettings" [mbsc-data]="unitArrMore" required formControlName="{{ product.product_unit }}" (ionFocus)="setClickedUnit(product.product_unit)"></ion-input>
+                        <ion-input #UnitM="mobiscroll" #unitMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollUnitSettings" [mbsc-data]="unitArrMore" required formControlName="{{ product.product_unit }}" (ionFocus)="setClickedUnit(product.product_unit)" [(ngModel)]="ReceiptData.Unit"></ion-input>
                         <!--</ion-select>-->
                     </ion-item>
                 </div>
@@ -165,18 +165,17 @@
                     </p> -->
                 </div>
             </div>
-    
-            <div class="btn">
+            <div class="btn" *ngIf="!editMode">
                 <button ion-button (click)="addProductToReceipt()">{{ "ADD PRODUCT" | translate }}</button>
             </div>
-    
+
             <div class="rdIn">
                 <ion-item class="inputLable">
                     <ion-label stacked> {{ "RETAILER / DISTRIBUTOR" | translate }}*</ion-label>
                     <!--<ion-select [(ngModel)]="ReceiptData.RetDist" #RetDist="ngModel" required [ngModelOptions]="{standalone: true}">-->
                     <!--<ion-option *ngFor="let rds of rdsArr" value="{{ rds['server_rds_id'] }}">{{ rds['rds_name'] }}</ion-option>-->
                     <!-- <ion-input [(ngModel)]="ReceiptData.RetDist" #RetDist="ngModel" #RetDistMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollRDSSettings" [mbsc-data]="rdsArr" [ngModelOptions]="{standalone: true}" required formControlName="product_distributor"></ion-input> -->
-                    
+
                     <ion-input #RetDistMobi="mobiscroll" mbsc-select [mbsc-options]="mobiScollRDSSettings" [mbsc-data]="rdsArr" required formControlName="product_distributor"></ion-input>
                     <!--</ion-select>-->
                 </ion-item>
@@ -186,14 +185,14 @@
                     {{ "RETAILER / DISTRIBUTOR IS REQUIRED" | translate }}
                 <!-- </p> -->
             </div>
-    
+
             <div class="rdIn">
                 <div class="date_picker">
                     <div class="date_list">
                         <ion-item class="inputLable">
                             <ion-label stacked>{{ "PURCHASE DATE" | translate }}*</ion-label>
                             <!-- <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="ReceiptData.PurchaseDate" #PurchaseDate="ngModel" [ngModelOptions]="{standalone: true}" required></ion-datetime> -->
-                            <!-- <ion-input #PurchaseDateMob="mobiscroll" [(ngModel)]="ReceiptData.PurchaseDate" mbsc-date [mbsc-options]="dateSettingsG" required formControlName="product_purchase_date"></ion-input> -->
+                            <!-- <ion-input #PurchaseDateMob="mobiscroll" [(ngModel)]="ReceiptData.PurchaseDate" mbsc-date [mbsc-options]="dateSettingsG" required formControlName="product_purchase_date" *ngIf="dateEditMode" (focus)="changeMode()"></ion-input> -->
                             <!-- <ion-datetime displayFormat="D/MM/YYYY" pickerFormat="D MMMM YYYY" [(ngModel)]="ReceiptData.PurchaseDate" calcelText="BATAL" doneText="SETEL" max="{{ maxDate }}" formControlName="product_purchase_date"></ion-datetime> -->
                             <ion-datetime displayFormat="D/MM/YYYY" pickerFormat="D MMMM YYYY" [(ngModel)]="ReceiptData.PurchaseDate" calcelText="BATAL" doneText="SETEL" formControlName="product_purchase_date"></ion-datetime>
                         </ion-item>
@@ -206,7 +205,7 @@
                     {{ "PURCHASE DATE IS REQUIRED" | translate }}
                 </p>
             </div>
-    
+
             <div class="rdIn">
                 <ion-item class="inputLable">
                     <ion-label floating>{{ "INVOICE QUANTITY" | translate }}*</ion-label>
@@ -221,7 +220,7 @@
                 <!-- <p [hidden]="!InvoiceQuantity.errors.pattern">
                     {{ "INVOICE QUANTITY IS REQUIRED" | translate }}
                 </p> -->
-            </div>	
+            </div>
 
             <div class="rdIn">
                 <div class="upload_proof">
@@ -230,12 +229,12 @@
                         <div class="id_items" text-right *ngFor="let image of invoicePhotoObj; let i = index;">
                             <img [src]="image" alt="">
                             <button ion-button color="light" class="close_btn" (click)="removeInvoiceImage(i)">
-                                <i class="icon-close-thin"></i>
+                                <ion-icon name="close"></ion-icon>
                             </button>
                         </div>
                         <div class="id_items upload" text-center (click)="openSelectCameraPop($event,'invoice_photo')">
                             <button ion-button color="light" class="upload_btn">
-                                <i class="icon-Camera"></i>
+                                <ion-icon name="camera"></ion-icon>
                             </button>
                         </div>
                     </div>
@@ -245,7 +244,7 @@
                 </div>
             </div>
         </ion-list>
-        
+
         <div class="comment_note">
             <ion-list class="inputBox">
                 <div class="rdIn">

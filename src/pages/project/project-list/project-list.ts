@@ -114,7 +114,10 @@ initProjectDisList(){
     return new Promise((resolve,reject)=>{
         this.projData=[];  
         let checkInOutFlag=this.globalCheckInData['checkinFlag'] == true && this.globalCheckInData['checkinDetails']['check_in_out_type_id']>0   &&  this.globalCheckInData['checkinDetails']['check_in_out_type'] == 'project';
-        let query=" SELECT  projm.project_photo,ptt.project_type, projm.hpb_digital_sign,projm.hpb_id,projm.server_hpb_id,projm.project_completion_date,projm.project_quantity_estimation,projm.project_address,projm.project_stage,projm.project_stage_mid,projm.project_sub_district,projm.project_pincode,projm.is_srku,projm.srku_owner_name,projm.srku_owner_address,projm.srku_owner_mobile_no,projm.non_micro_credit_type,projm.non_micro_credit_type_mid,projm.bank_name,projm.nmc_document,projm.bank_document,projm.assigned_to,projm.created_by,projm.updated_by,projm.sync_status,projm.status,projm.local_created_date,projm.local_updated_date,projm.project_id,projm.server_project_id,projm.project_name,projm.project_address,projm.is_srku,hm.hpb_name,hm.server_hpb_id,hm.hpb_id,(SELECT sast.srku_approval_status FROM srku_approval_status_tbl AS sast WHERE sast.project_id = projm.project_id  AND sast.is_closed = 0 ) AS tlh_approval,(SELECT sast.srku_rejection_reason FROM srku_approval_status_tbl AS sast WHERE sast.project_id = projm.project_id  AND sast.is_closed = 0 ) AS tlh_rejection_res FROM project_master projm LEFT JOIN hpb_master hm ON projm.server_hpb_id = hm.server_hpb_id LEFT JOIN project_type_tbl ptt ON projm.project_type_mid = ptt.server_id ";
+        
+        // Change query
+        // let query=" SELECT  projm.project_photo,ptt.project_type, projm.hpb_digital_sign,projm.hpb_id,projm.server_hpb_id,projm.project_completion_date,projm.project_quantity_estimation,projm.project_address,projm.project_stage,projm.project_stage_mid,projm.project_sub_district,projm.project_pincode,projm.is_srku,projm.srku_owner_name,projm.srku_owner_address,projm.srku_owner_mobile_no,projm.non_micro_credit_type,projm.non_micro_credit_type_mid,projm.bank_name,projm.nmc_document,projm.bank_document,projm.assigned_to,projm.created_by,projm.updated_by,projm.sync_status,projm.status,projm.local_created_date,projm.local_updated_date,projm.project_id,projm.server_project_id,projm.project_name,projm.project_address,projm.is_srku,hm.hpb_name,hm.server_hpb_id,hm.hpb_id,(SELECT sast.srku_approval_status FROM srku_approval_status_tbl AS sast WHERE sast.project_id = projm.project_id  AND sast.is_closed = 0 ) AS tlh_approval,(SELECT sast.srku_rejection_reason FROM srku_approval_status_tbl AS sast WHERE sast.project_id = projm.project_id  AND sast.is_closed = 0 ) AS tlh_rejection_res FROM project_master projm LEFT JOIN hpb_master hm ON projm.server_hpb_id = hm.server_hpb_id LEFT JOIN project_type_tbl ptt ON projm.project_type_mid = ptt.server_id ";
+        let query="SELECT  projm.project_photo,ptt.project_type, projm.hpb_digital_sign, projm.hpb_id, projm.server_hpb_id, projm.project_completion_date, projm.project_quantity_estimation, projm.project_address, projm.project_stage,projm.project_stage_mid,projm.project_sub_district,projm.project_pincode,projm.is_srku,projm.srku_owner_name,projm.srku_owner_address,projm.srku_owner_mobile_no,projm.non_micro_credit_type,projm.non_micro_credit_type_mid,projm.bank_name,projm.nmc_document,projm.bank_document,projm.assigned_to,projm.created_by,projm.updated_by,projm.sync_status,projm.status,projm.local_created_date,projm.local_updated_date,projm.project_id,projm.server_project_id,projm.project_name,projm.project_address,projm.is_srku,hm.hpb_name,hm.server_hpb_id,hm.hpb_id,(SELECT sast.srku_approval_status FROM srku_approval_status_tbl AS sast WHERE sast.project_id = projm.project_id  AND sast.is_closed = 0 ) AS ac_approval,(SELECT sast.srku_rejection_reason FROM srku_approval_status_tbl AS sast WHERE sast.project_id = projm.project_id  AND sast.is_closed = 0 ) AS ac_rejection_res FROM project_master projm LEFT JOIN hpb_master hm ON projm.server_hpb_id = hm.server_hpb_id LEFT JOIN project_type_tbl ptt ON projm.project_type_mid = ptt.server_id ";
 
         if(checkInOutFlag){
             query+=" ORDER BY CASE WHEN projm.project_id ="+this.globalCheckInData['checkinDetails']['check_in_out_type_id']+" THEN 1 ELSE 2 END, projm.local_created_date desc";
@@ -126,7 +129,7 @@ initProjectDisList(){
             this.projData=[];    
             for(let i=0;i<data['rows'].length;i++){       
                 this.projData.push( data['rows'].item(i) );  
-                }
+            }
             this.projDataTemp=this.projData;
             resolve(true);
             }, (error) => {
@@ -249,7 +252,7 @@ goToAddProjectForm(){
   async checkinRequireRule(projItem) {
       let titleYes = await this.appCom.getTranslatedTxt("Yes");
       let titleNo = await this.appCom.getTranslatedTxt("No");
-      let titleAsk = await this.appCom.getTranslatedTxt("Do you need to check in first ?");
+      let titleAsk = await this.appCom.getTranslatedTxt("Apakah anda ada di lokasi proyek ?");
 
       let alert = this.alertCtrl.create({
           cssClass: 'confirm',

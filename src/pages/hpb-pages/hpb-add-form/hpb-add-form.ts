@@ -116,13 +116,13 @@ export class addHpbFormPage {
    @ViewChild('DomicileCityMob') DomicileCityMob: any;  
    @ViewChild('DomicileSubDistrictMob') DomicileSubDistrictMob: any; 
 
-   MaxDate:any;
-   MinDate:any;
-   pageTitle:any;
-   disableDomicileAddrFlag:any=0;
-   profimagePath:any="assets/img/user_create.png";
-   digitalSignPath:any;
-   idCardPhotoObj:any=[];
+  MaxDate:any;
+  MinDate:any;
+  pageTitle:any;
+  disableDomicileAddrFlag:any=0;
+  profimagePath:any="assets/img/user_create.png";
+  digitalSignPath:any;
+  idCardPhotoObj:any=[];
    
 
   allAddressDataG:any=[];
@@ -131,11 +131,11 @@ export class addHpbFormPage {
   municipalityArrG:any=[];
   subDistrictArrG:any=[];
 
-   allAddressDataF:any=[];
-   postalCodeArrF:any=[];
-   provinceArrF:any=[];
-   municipalityArrF:any=[];
-   subDistrictArrF:any=[];
+  allAddressDataF:any=[];
+  postalCodeArrF:any=[];
+  provinceArrF:any=[];
+  municipalityArrF:any=[];
+  subDistrictArrF:any=[];
 
   allAddressDataS:any=[];
   postalCodeArrS:any=[];
@@ -207,6 +207,7 @@ export class addHpbFormPage {
       //     } 
       // }
   };  
+
   mobiScollIdCardCitySettings:any = {
       inputClass: 'text-input',
       theme: 'material',
@@ -259,7 +260,8 @@ export class addHpbFormPage {
                  
       //     } 
       // }
-  }; 
+  };
+
   mobiScollIdCardSubDistrictSettings:any = {
       inputClass: 'text-input',
       theme: 'material',
@@ -312,6 +314,7 @@ export class addHpbFormPage {
       //     } 
       // }
   };
+
    mobiScollIdCardPincodeSettings:any = {
       inputClass: 'text-input',
       theme: 'material',
@@ -457,7 +460,8 @@ export class addHpbFormPage {
                  
       //     } 
       // }
-  };  
+  };
+
   mobiScollDomicileCitySettings:any = {
       inputClass: 'text-input',
       theme: 'material',
@@ -512,6 +516,7 @@ export class addHpbFormPage {
       //     } 
       // }
   }; 
+
   mobiScollDomicileSubDistrictSettings:any = {
       inputClass: 'text-input',
       theme: 'material',
@@ -565,6 +570,7 @@ export class addHpbFormPage {
       //     } 
       // }
   };
+
    mobiScollDomicilePincodeSettings:any = {
       inputClass: 'text-input',
       theme: 'material',
@@ -655,7 +661,7 @@ export class addHpbFormPage {
     this.MaxDate=moment().subtract(15,'years').format();
     this.MinDate=moment().subtract(99,'years').format();
     this.pageTitle="Add DPB";
-     this.userId=sessionUserGlobalData['userId'];
+    this.userId=sessionUserGlobalData['userId'];
   }
 
   async ionViewDidLoad() {
@@ -726,10 +732,10 @@ export class addHpbFormPage {
       var tablename = "hpb_master";
       var where = " `hpb_id` = "+insertData['hpb_id'];
       this.sqlS.selectTableData(selectField,tablename,where,"","").then((data) => {
-            console.log('data fetched', data);
-            for(let i=0;i<data['rows'].length;i++){       
-            insertData = ( data['rows'].item(i) );                
-            }
+          console.log('data fetched', data);
+          for(let i=0;i<data['rows'].length;i++){       
+              insertData = ( data['rows'].item(i) );                
+          }
             
       console.log("insertData--check insert data->",insertData);
       //PREFILL ALL FORM VALUES HERE    
@@ -896,18 +902,18 @@ export class addHpbFormPage {
 
 
         
-          let tempDateS=this.dateSettingsG;
+          // let tempDateS=this.dateSettingsG;
          // tempDateS['max']=new Date(moment().subtract(1,'days').format());
-          tempDateS['max']=new Date(moment().subtract(18,'years').format());
-          this.dateSettingsG=tempDateS;
-          this.DateOfBirthMob.instance.option(tempDateS);
+          // tempDateS['max']=new Date(moment().subtract(18,'years').format());
+          // this.dateSettingsG=tempDateS;
+          // this.DateOfBirthMob.instance.option(tempDateS);
       }else{
       //TREAT THIS PAGE AS ADD HPB
         this.pageTitle="ADD HPB";
-        let tempDateS=this.dateSettingsG;
-        tempDateS['max']=new Date(moment().subtract(18,'years').format());
-        this.dateSettingsG=tempDateS;
-        this.DateOfBirthMob.instance.option(tempDateS);
+        // let tempDateS=this.dateSettingsG;
+        // tempDateS['max']=new Date(moment().subtract(18,'years').format());
+        // this.dateSettingsG=tempDateS;
+        // this.DateOfBirthMob.instance.option(tempDateS);
       }
       
 
@@ -982,8 +988,7 @@ export class addHpbFormPage {
       }); 
 
 
-        this.busy=this.getAddressData().then(()=>{
-
+        this.busy=this.getAddressData().then((response)=>{
               this.busy=this.addressInitInput().then(()=>{
                       console.log('this.HpbData.IdCardPincode',this.HpbData.IdCardPincode);
                       if(this.HpbData.IdCardPincode && this.HpbData.IdCardPincode!=''){
@@ -1939,7 +1944,10 @@ export class addHpbFormPage {
       let municipalityArr=[];
       let subDistrictArr=[];
       this.sqlS.selectTableData(selectField,tableName,where,orderBy,limit).then((ressqlData:any)=>{
-         console.log('getOpenTendersData sql ressqlData',ressqlData);
+        //  console.log('getOpenTendersData sql ressqlData',ressqlData);
+
+        // alert(JSON.stringify(ressqlData));
+
         for(let i=0;i<ressqlData.rows.length;i++){
           let tempObj=ressqlData.rows.item(i);
           allAddressData.push(tempObj);
@@ -1948,6 +1956,7 @@ export class addHpbFormPage {
           municipalityArr.push(tempObj['citykabname']);
           subDistrictArr.push(tempObj['subdistrict']);
         }
+
         this.allAddressDataG =  new Set(allAddressData);
         postalCodeArr = Array.from(new Set(postalCodeArr));
         provinceArr =  Array.from(new Set(provinceArr));

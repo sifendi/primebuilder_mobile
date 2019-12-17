@@ -4,14 +4,15 @@
       <button ion-button class="logo"></button>
     </ion-buttons>
     <ion-buttons end>
-      <button ion-button class="icon-notification" tapable (click)="goToNotifyPage()">
+      <button ion-button icon-only tapable (click)="goToNotifyPage()">
+        <ion-icon name="notifications"></ion-icon>
         <ion-badge *ngIf="notificationCtn > 0" class="badge-value">{{notificationCtn}}</ion-badge>
       </button>
       <button ion-button icon-only class="spinnerI" (click)="globalSync()">
         <img src="assets/images/white-sync-icon.png" [ngClass]="{ 'spinRt': globalSyncLoaderBtn }" title="sync" alt="sync Icon" />
       </button>
       <button ion-button iconHome menuToggle>
-        <i class="icon-menu" name="menu"></i>
+          <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -119,7 +120,7 @@
           </div>
         </ion-grid>
         <span class="tag">{{ receipt['created_date']? timeStampToDate(receipt['created_date']):"-" }}</span>
-        <i class="icon-next-thin checkIn"></i>
+        <!-- <ion-icon name="log-in"></ion-icon> -->
       </ion-item>
       <div class="filterTag resultbg" *ngIf="receipt['app']['rejection_reason']?receipt['app']['rejection_reason']:false">
         <p class="resultRes">{{ "REASON" | translate }}:/p>

@@ -114,6 +114,10 @@ export let ALL_KEYS={
 var url = "http://139.255.88.90:4109"
 var SITE_URL = "http://139.255.88.90:4109"
 
+// Local dev server
+// var url = "http://192.168.43.142:9000"
+// var SITE_URL = "http://192.168.43.142:9000"
+
 let END_POINT = '/api/';
 
 export let SITE_API={

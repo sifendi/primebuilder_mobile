@@ -61,14 +61,14 @@ export class AcProjectDetailPage {
       this.projectId= parseInt(paramData['projectId']);
       console.log("this.projectId",this.projectId);
       this.busy = this.projectApi.getProjectWithApp(null,this.projectId,null,null,null,null,null,null,null,null,null,null,null,null,null,null).subscribe(resData => {    
-      this.projData= resData.result[0];
+        this.projData= resData.result[0];
 
-      console.log("this.projData", this.projData);
-       if(this.projData['app']){
-         if( this.projData['app']['tlh'] != undefined && this.projData['app']['tlh'] != "" ){
-            this.srkuApprovalId=this.projData['app']['tlh']['id'];
-         }
-     }
+        console.log("this.projData", this.projData);
+        if(this.projData['app']){
+          if( this.projData['app']['ac'] != undefined && this.projData['app']['ac'] != "" ){
+            this.srkuApprovalId=this.projData['app']['ac']['id'];
+          }
+        }
      
       
       if( this.projData.is_micro_credit == 0 ){
@@ -127,7 +127,7 @@ export class AcProjectDetailPage {
         }
       }
       
-      if(  this.srkuApprovalId > 0 && this.projData['app'] != undefined && this.projData['app'] != '' && this.projData['app']['tlh']['approval_status'] == 0 ){
+      if(  this.srkuApprovalId > 0 && this.projData['app'] != undefined && this.projData['app'] != '' && this.projData['app']['ac']['approval_status'] == 0 ){
         this.showApproveBtnFlag=true;
       }else{
         this.showApproveBtnFlag=false; 

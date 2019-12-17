@@ -31,21 +31,27 @@ submitted:boolean=false;
     display: 'center',
     dateFormat:'dd/mm/yy'
 };
+
+public MaxDate: any;
+
 constructor(public navCtrl: NavController,public appProjApi:App_projectsApi,public params:NavParams,public viewCtrl:ViewController, public navParams: NavParams,public sqlS:SqlServices,public appCom:appCommonMethods,public events:Events) {
   console.log('params',this.params.get('projectData'));
   this.projData = this.params.get('projectData');
-  this.projData['project_completion_date']=this.appCom.timeStampToDateMMMnewM(this.projData['project_completion_date']);
+  this.projData['project_completion_date']=this.appCom.timeStampToDateMMMnewM(this.projData['project_completion_date']).toISOString();
   this.busy=this.initFormData();
 }
 
 
 initFormData(){
   return new Promise((resolve,reject)=>{
-    let tempDateS=this.dateSettingsG;
-    tempDateS['max']=new Date(moment().add(20,'years').format());
-    tempDateS['min']=new Date(moment().add(1, 'days').format());
-    this.dateSettingsG=tempDateS;
-    this.ProjectCompletionDateMob.instance.option(tempDateS);
+    // let tempDateS=this.dateSettingsG;
+    // tempDateS['max']=new Date(moment().add(20,'years').format());
+    // tempDateS['min']=new Date(moment().add(1, 'days').format());
+    // this.dateSettingsG=tempDateS;
+    // this.ProjectCompletionDateMob.instance.option(tempDateS);
+    // this.MaxDate = new Date(moment().add(20,'years').format());
+    // this.MinDate=moment(new Date()).format();
+    this.MaxDate=moment().add(20,'years').format(); 
     resolve(true);
   });
 }

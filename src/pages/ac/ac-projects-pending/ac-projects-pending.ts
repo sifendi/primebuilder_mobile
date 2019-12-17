@@ -101,7 +101,6 @@ export class AcProjectsPendingPage {
           console.log("resData.result",resData.result);
           for (let x=0; x< resData.result.length;x++) {
             this.projData.push(resData.result[x]);
-          
           }
           this.projDataTemp=this.projData;
           resolve(true);

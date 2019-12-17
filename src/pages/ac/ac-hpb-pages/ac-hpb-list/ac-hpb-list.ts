@@ -17,8 +17,8 @@ import   async  from 'async';
   templateUrl: 'ac-hpb-list.html',
 })
 export class AcHpbListPage {
- 
-  
+
+
   page1: any = AcHpbListMasonPage;
   page2: any = AcHpbListContractorPage;
   selectedIndex:any =0;
@@ -32,9 +32,9 @@ export class AcHpbListPage {
      hpbType:null,
      hpbStatus:null,
   }
-  
+
   constructor(public navCtrl: NavController,public navParams: NavParams,public sqlS:SqlServices,public appCom:appCommonMethods,public shareS :ShareService,public app:App,public modalCtrl:ModalController,public events:Events) {
- 
+
         this.page1 = AcHpbListMasonPage;
         this.page2 = AcHpbListContractorPage;
   }
@@ -45,7 +45,7 @@ export class AcHpbListPage {
     }
 
      goToHpbFilter(){
-       
+
         let selFilterData={
             hpbType:this.hpbType,
             hpbFilterArr:this.hpbFilterArr
@@ -55,12 +55,12 @@ export class AcHpbListPage {
             if( fDataRes['type']=='mason' ){
                 this.hpbFilterArr=fDataRes['hpbFilterArr'];
                 this.events.publish("acHpbMasonListFilter",fDataRes);
-                
+
             }else if( fDataRes['type']=='contractor' ){
                 this.hpbFilterArr=fDataRes['hpbFilterArr'];
                 this.events.publish("acHpbContrListFilter",fDataRes);
             }
-            
+
         });
         filterPageD.present();
     }
@@ -72,24 +72,24 @@ onTabSelect(ev: any) {
         this.hpbFilterArr['city']=null;
         this.hpbFilterArr['searchFilter']=null;
         this.hpbFilterArr['hpbStatus']=null;
-        
-        this.events.publish("clearacHpbMasonListFilter"); 
+
+        this.events.publish("clearacHpbMasonListFilter");
      }else{
         this.hpbType="contractor";
         this.hpbFilterArr['city']=null;
         this.hpbFilterArr['searchFilter']=null;
         this.hpbFilterArr['hpbStatus']=null;
-        
-        this.events.publish("clearacHpbContrListFilter"); 
+
+        this.events.publish("clearacHpbContrListFilter");
      }
-    
+
   }
 
 
 
 
-   
- 
+
+
 
 
 }
@@ -104,19 +104,19 @@ onTabSelect(ev: any) {
 
 @Component({
   selector: 'ac-hpb-list-mason',
-  template: ` 
-<ion-header> 
+  template: `
+<ion-header>
 <ion-searchbar [(ngModel)]="myInput"  (ionInput)="searchHpb($event)" name="searchBar" placeholder="{{ 'SEARCH' | translate }}"></ion-searchbar>
-    
-</ion-header>           
+
+</ion-header>
 
     <ion-content fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}" [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }" >
                  <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>"{{ 'SEARCH BY' | translate }}" : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <i class="icon-close-thin"></i>
+        <ion-icon name="close"></ion-icon>
         </button>
-    </div> 
+    </div>
                 <ion-list class="listWrap">
                     <div *ngIf="hpbData == undefined || hpbData == '' "> <h2 class="noData contMid">No Masons Found</h2> </div>
                     <div class="itemWrap" *ngFor="let hpb of hpbData">
@@ -130,7 +130,7 @@ onTabSelect(ev: any) {
                                     <p class="title inline" *ngIf="hpb['primary_mobile_no'] !=undefined && hpb['primary_mobile_no'] !=''">{{ 'MOBILE NO. ' | translate }}</p>
                                     <span class="value inline">{{ hpb['primary_mobile_no'] }}</span>
                                     <button ion-button color="light" (click)=" makephonecall(hpb['primary_mobile_no'])" >
-                                        <i class="icon-call"></i>
+                                      <ion-icon name="call"></ion-icon>
                                     </button>
                                     <p class="title dark" *ngIf="hpb['domicile_city'] !=undefined && hpb['domicile_city'] !=''">City: <span> {{ hpb['domicile_city'] }}</span></p>
                                     <p class="title dark">SPH Name: <span> {{ hpb['sph_name']?hpb['sph_name']:'-' }}</span></p>
@@ -205,13 +205,13 @@ export class AcHpbListMasonPage {
   }
 
   ionViewDidLoad() {
-        
+
      this.searchhit=false;
   }
 
   async ionViewDidEnter(){
         this.busyMessage = await this.appCom.getTranslatedTxt("Please wait...");
-        this.searchhit=false; 
+        this.searchhit=false;
         this.clearFilter();
 
   }
@@ -225,31 +225,31 @@ export class AcHpbListMasonPage {
                 console.log("hpbFilterArr",this.hpbFilterArr);
                 this.busy =  this.hpbApi.getHpb(null,null,null,null,null,null,this.uId,this.userRole,null,null,null,"mason",this.limit,this.pages,this.hpbFilterArr.hpbStatus,this.hpbFilterArr.city,null,null,searchObjData).subscribe(resData => {
                     //this.hpbApi.getHpb(null,null,null,null,null,null,this.uId,this.userRole,null,null,null,'mason',this.limit,this.pages,this.hpbFilterArr.hpbStatus,this.hpbFilterArr.city,null)
-                    this.pages++;  
+                    this.pages++;
                     this.dataLen = resData.result.length;
                     console.log("this.dataLen- mason -",this.dataLen);
                     this.hpbData = [];
                     for (let x=0; x< resData.result.length;x++) {
                         this.hpbData.push(resData.result[x]);
-                            let profilePhoto ; 
+                            let profilePhoto ;
                             if( this.hpbData != undefined && this.hpbData != '' && this.hpbData.length > 0 ){
                                 for( let i=0;i<this.hpbData.length;i++ ){
                                     if( this.hpbData[i]['hpb_profile_pic'] != undefined && this.hpbData[i]['hpb_profile_pic'] != '' ){
-                                        profilePhoto = JSON.parse( this.hpbData[i]['hpb_profile_pic'] );  
+                                        profilePhoto = JSON.parse( this.hpbData[i]['hpb_profile_pic'] );
                                         this.hpbData[i]['hpb_profile_pic_parsed'] = profilePhoto[0]['serverPath'];
                                     }else{
-                                        this.hpbData[i].hpb_profile_pic_parsed = "assets/img/profile.jpg";    
+                                        this.hpbData[i].hpb_profile_pic_parsed = "assets/img/profile.jpg";
                                     }
-                                } 
+                                }
                             }
                     }
                     this.hpbDataTemp=this.hpbData;
                     resolve(true);
 
                 },(error)=>{
-                   reject(error); 
+                   reject(error);
                 });
-        });        
+        });
     }
 
     //SEARCH Hpb
@@ -265,7 +265,7 @@ export class AcHpbListMasonPage {
             this.searchString =null;
             this.hpbFilterArr['searchFilter']=this.searchString;
         }
-        
+
         if(!this.searchhit && this.searchString!=null){
             this.searchhit = true;
             let prevScstrng = parseInt(this.searchString.length);
@@ -288,9 +288,9 @@ export class AcHpbListMasonPage {
                 this.loadData();
             });
         }
-            
+
     }
-	
+
 
 
   goToHpbDetail(hpb){
@@ -302,13 +302,13 @@ export class AcHpbListMasonPage {
   }
 
    goToProjectList(hpb){
-  
+
     this.app.getRootNav().push(AcHpbParentTabsPage,{
       "hpbData":hpb,
       "hpbId" :hpb['hpb_id'],
       "hpbName": hpb['hpb_name'],
       "tab":"projects"
-    }); 
+    });
   }
 
     doInfinite(infiniteScroll) {
@@ -326,12 +326,12 @@ export class AcHpbListMasonPage {
       if( mobno !=undefined && mobno !='' ){
              this.callNumber.callNumber(mobno, true)
             .then(() => console.log('Launched dialer!'))
-            .catch(() => console.log('Error launching dialer')); 
-      }     
+            .catch(() => console.log('Error launching dialer'));
+      }
     }
 
   clearFilter(){
-      
+
       this.dataLoadCompleted=false;
         this.appCom.getAppPreference("userCreds").then(
         resDataU => {
@@ -342,7 +342,7 @@ export class AcHpbListMasonPage {
         this.pages=0;
         this.limit=5;
         this.myInput='';
-        
+
         this.hpbFilterArr={
             city:null,
             searchFilter:null,
@@ -378,17 +378,17 @@ export class AcHpbListMasonPage {
   selector: 'ac-hpb-list-contractor',
   template: `
 <ion-header>
-     <ion-searchbar [(ngModel)]="myInput"   (ionInput)="searchHpb($event)" placeholder="{{ 'SEARCH' | translate }}" name="searchBar"></ion-searchbar> 
-     
+     <ion-searchbar [(ngModel)]="myInput"   (ionInput)="searchHpb($event)" placeholder="{{ 'SEARCH' | translate }}" name="searchBar"></ion-searchbar>
+
 </ion-header>
- 
+
     <ion-content  fullscreen="false" [ngBusy]="{busy: busy, message:busyMessage, minDuration: 600}" [ngClass]="{'searchExtraMar': (filterby !=undefined && filterby != '') }">
                 <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>"{{ 'SEARCH BY' | translate }}" : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <i class="icon-close-thin"></i>
+          <ion-icon name="close"></ion-icon>
         </button>
-    </div> 
+    </div>
                 <ion-list class="listWrap">
                  <div *ngIf="hpbData == undefined || hpbData == '' "> <h2 class="noData contMid">No Contractors Found</h2> </div>
                     <div class="itemWrap" *ngFor="let hpb of hpbData">
@@ -402,7 +402,7 @@ export class AcHpbListMasonPage {
                                     <p class="title inline" *ngIf="hpb['primary_mobile_no'] !=undefined && hpb['primary_mobile_no'] !=''">{{ 'MOBILE NO. ' | translate }}</p>
                                     <span class="value inline">{{ hpb['primary_mobile_no'] }}</span>
                                     <button ion-button color="light" (click)="makephonecall( hpb['primary_mobile_no'] )" >
-                                        <i class="icon-call"></i>
+                                      <ion-icon name="call"></ion-icon>
                                     </button>
                                     <p class="title dark" *ngIf="hpb['domicile_city'] !=undefined && hpb['domicile_city'] !=''">City: <span> {{ hpb['domicile_city'] }}</span></p>
                                     <p class="title dark">SPH Name: <span> {{ hpb['sph_name']?hpb['sph_name']:'-' }}</span></p>
@@ -433,8 +433,8 @@ export class AcHpbListMasonPage {
                 </ion-list>
 
             </ion-content>
-  
-  
+
+
   `
 })
 export class AcHpbListContractorPage {
@@ -473,17 +473,17 @@ export class AcHpbListContractorPage {
 
         /*this.events.subscribe('clearacHpbContrListFilter',() => {
          console.log("<------------------------------------------------------------->");
-         
+
         })*/
   }
 
   ionViewDidLoad() {
-      
+
        this.searchhit=false;
   }
 
     async ionViewDidEnter(){
-        this.busyMessage = await this.appCom.getTranslatedTxt("Please wait..."); 
+        this.busyMessage = await this.appCom.getTranslatedTxt("Please wait...");
         this.searchhit=false;
         this.clearFilter();
 
@@ -496,33 +496,33 @@ export class AcHpbListContractorPage {
         if(this.hpbFilterArr.searchFilter){
             searchObjData = {'searchFilter':this.hpbFilterArr.searchFilter};
         }
-            console.log("hpbFilterArr",this.hpbFilterArr);   
+            console.log("hpbFilterArr",this.hpbFilterArr);
               this.busy =  this.hpbApi.getHpb(null,null,null,null,null,null,this.uId,this.userRole,null,null,null,"contractor",this.limit,this.pages,this.hpbFilterArr.hpbStatus,this.hpbFilterArr.city,null,null,searchObjData).subscribe(resData => {
-                this.pages++;  
+                this.pages++;
                 this.dataLen = resData.result.length;
                 console.log("this.dataLen- contractor -",this.dataLen);
                 this.hpbData = [];
                 for (let x=0; x< resData.result.length;x++) {
                 this.hpbData.push(resData.result[x]);
-                        let profilePhoto ; 
+                        let profilePhoto ;
                         if( this.hpbData != undefined && this.hpbData != '' && this.hpbData.length > 0 ){
                             for( let i=0;i<this.hpbData.length;i++ ){
                                 if( this.hpbData[i]['hpb_profile_pic'] != undefined && this.hpbData[i]['hpb_profile_pic'] != '' ){
-                                    profilePhoto = JSON.parse( this.hpbData[i]['hpb_profile_pic'] );  
+                                    profilePhoto = JSON.parse( this.hpbData[i]['hpb_profile_pic'] );
                                     this.hpbData[i]['hpb_profile_pic_parsed'] = profilePhoto[0]['serverPath'];
                                 }else{
-                                    this.hpbData[i].hpb_profile_pic_parsed = "assets/img/profile.jpg";    
+                                    this.hpbData[i].hpb_profile_pic_parsed = "assets/img/profile.jpg";
                                 }
                             }
-                           
+
                         }
-                }   
+                }
                  this.hpbDataTemp=this.hpbData;
-                 resolve(true);  
+                 resolve(true);
             },error=>{
                 reject(error);
             });
-        });    
+        });
     }
 
 
@@ -542,7 +542,7 @@ export class AcHpbListContractorPage {
     //SEARCH Hpb
     searchHpb(ev){
      console.log("ev",ev);
-        
+
         this.pages=0;
         this.limit=5;
         this.hpbData=[];
@@ -554,7 +554,7 @@ export class AcHpbListContractorPage {
              this.searchString=null;
              this.hpbFilterArr['searchFilter']=this.searchString;
         }
-         
+
         if(!this.searchhit && this.searchString!=null){
             this.searchhit = true;
             let prevScstrng = parseInt(this.searchString.length);
@@ -588,13 +588,13 @@ export class AcHpbListContractorPage {
   }
 
   goToProjectList(hpb){
-   
+
     this.app.getRootNav().push(AcHpbParentTabsPage,{
       "hpbData":hpb,
       "hpbId" : hpb['hpb_id'],
       "hpbName": hpb['hpb_name'],
       "tab":"projects"
-    }); 
+    });
   }
 
  //MAKE PHONE CALL
@@ -602,8 +602,8 @@ export class AcHpbListContractorPage {
       if( mobno !=undefined && mobno !='' ){
              this.callNumber.callNumber(mobno, true)
             .then(() => console.log('Launched dialer!'))
-            .catch(() => console.log('Error launching dialer')); 
-      }     
+            .catch(() => console.log('Error launching dialer'));
+      }
   }
 
    clearFilter(){
@@ -628,16 +628,16 @@ export class AcHpbListContractorPage {
             this.filterby="";
             this.pages=0;
             this.hpbData=[];
-           
+
             this.loadData();
         },
         err => {
             console.log("err ref", err);
         });
 
-    
+
    }
-   
+
 
 
 }

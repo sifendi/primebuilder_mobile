@@ -172,9 +172,9 @@ openFile(file){
             console.log('checkinObj',checkinObj);
             let tempCheckOutMainObj= checkinObj['checkinDetails'];
             if(tempCheckOutMainObj['check_in_out_type'] && tempCheckOutMainObj['check_in_out_type_id']){
-                    if(tempCheckOutMainObj['check_in_out_type']=="project"){
-                           console.log('tempCheckOutMainObj- check_in_out_type_id',tempCheckOutMainObj['check_in_out_type_id']);
-                           console.log('tempCheckOutMainObj- check_in_out_type_id',this.productReceiptData['project_id']);
+              if(tempCheckOutMainObj['check_in_out_type']=="project"){
+                console.log('tempCheckOutMainObj- check_in_out_type_id',tempCheckOutMainObj['check_in_out_type_id']);
+                console.log('tempCheckOutMainObj- check_in_out_type_id',this.productReceiptData['project_id']);
                             if(tempCheckOutMainObj['check_in_out_type_id']==this.productReceiptData['project_id']){
                                 console.log("finalCheckFlagR=>",finalCheckFlagR);
                                 if(finalCheckFlagR>0){

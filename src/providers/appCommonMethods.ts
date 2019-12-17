@@ -1306,44 +1306,42 @@ export class appCommonMethods {
     renderTHAppStatusARP(appData){
         let returnHtml = ``;
         if(appData){
-            if(appData['tlh']){
+            // if(appData['tlh']){
+            //     let title='';
+            //     let titleColor='';
+            //     let iconName='';
 
-                let title='';
-                let titleColor='';
-                let iconName='';
+            //     if(appData['tlh']['approval_status']==0){
+            //         // title='Pending';
+            //         title = allAppPendRejObj.p;
+            //         titleColor='pColor';
+            //         iconName='pending';
+            //     }else if(appData['tlh']['approval_status']==1){
+            //         // title='Approved';
+            //         title = allAppPendRejObj.a;
+            //         titleColor='dColor';
+            //         iconName='approved';
+            //     }else if(appData['tlh']['approval_status']==-1){
+            //         // title='Rejected';
+            //         title = allAppPendRejObj.r;
+            //         titleColor='fColor';
+            //         iconName='failed';
+            //     }
 
-                if(appData['tlh']['approval_status']==0){
-                    // title='Pending';
-                    title = allAppPendRejObj.p;
-                    titleColor='pColor';
-                    iconName='pending';
-                }else if(appData['tlh']['approval_status']==1){
-                    // title='Approved';
-                    title = allAppPendRejObj.a;
-                    titleColor='dColor';
-                    iconName='approved';
-                }else if(appData['tlh']['approval_status']==-1){
-                    // title='Rejected';
-                    title = allAppPendRejObj.r;
-                    titleColor='fColor';
-                    iconName='failed';
-                }
+            //     returnHtml+=`<div class="col" >
+            //                     <div class="projectWrap" >
+            //                         <p class="title">${title}</p>
+            //                         <span class="gridValue ${titleColor}"><i class="icon-${iconName}"></i>AC</span>
+            //                     </div>
+            //                 </div>`;
 
-                returnHtml+=`<div class="col" >
-                                <div class="projectWrap" >
-                                    <p class="title">${title}</p>
-                                    <span class="gridValue ${titleColor}"><i class="icon-${iconName}"></i>TLH</span>
-                                </div>
-                            </div>`;
+            //     if(appData['tlh']['approval_status']==-1){
+            //     return returnHtml; 
+            //     }  
 
-                if(appData['tlh']['approval_status']==-1){
-                return returnHtml; 
-                }  
-
-            }
+            // }
 
             if(appData['ac']){
-
                 let title='';
                 let titleColor='';
                 let iconName='';
@@ -1416,42 +1414,49 @@ export class appCommonMethods {
     renderSPHAppStatusARP(appData){
         let returnHtml = ``;
         if(appData){
-            if(appData['tlh_approval'] != undefined && appData['tlh_approval'] != null ){
-                appData['tlh_approval']=parseInt(appData['tlh_approval']); 
-                let title='';
-                let titleColor='';
-                let iconName='';
+            // if(appData['tlh_approval'] != undefined && appData['tlh_approval'] != null ){
+            //     appData['tlh_approval']=parseInt(appData['tlh_approval']); 
+            //     let title='';
+            //     let titleColor='';
+            //     let iconName='';
 
-                if(appData['tlh_approval']==0){
-                    //title='Pending';
-                    title = allAppPendRejObj.p;
-                    titleColor='pColor';
-                    iconName='pending';
-                }else if(appData['tlh_approval']==1){
-                    //title='Approved';
-                    title = allAppPendRejObj.a;
-                    titleColor='dColor';
-                    iconName='approved';
-                }else if(appData['tlh_approval']==-1){
-                // title='Rejected';
-                    title = allAppPendRejObj.r;
-                    titleColor='fColor';
-                    iconName='failed';
-                }
+            //     if(appData['tlh_approval']==0){
+            //         //title='Pending';
+            //         title = allAppPendRejObj.p;
+            //         titleColor='pColor';
+            //         iconName='pending';
+            //     }else if(appData['tlh_approval']==1){
+            //         //title='Approved';
+            //         title = allAppPendRejObj.a;
+            //         titleColor='dColor';
+            //         iconName='approved';
+            //     }else if(appData['tlh_approval']==-1){
+            //     // title='Rejected';
+            //         title = allAppPendRejObj.r;
+            //         titleColor='fColor';
+            //         iconName='failed';
+            //     }
             
 
-                returnHtml+=`<div class="col" >
-                                <div class="projectWrap" >
-                                    <p class="title">${title}</p>
-                                    <span class="gridValue ${titleColor}"><i class="icon-${iconName}"></i>TLH</span>
-                                </div>
-                            </div>`;
+            //     returnHtml+=`<div class="col" >
+            //                     <div class="projectWrap" >
+            //                         <p class="title">${title}</p>
+            //                         <span class="gridValue ${titleColor}"><i class="icon-${iconName}"></i>TLH</span>
+            //                     </div>
+            //                 </div>`;
 
-                if(appData['tlh_approval']==-1){
-                return returnHtml; 
-                }  
+            //     // returnHtml+=`<div class="col" >
+            //     //                 <div class="projectWrap" >
+            //     //                     <p class="title">${title}</p>
+            //     //                     <span class="gridValue ${titleColor}"><ion-icon name="${iconName}"></ion-icon>AC</span>
+            //     //                 </div>
+            //     //             </div>`;
 
-            }
+            //     if(appData['tlh_approval']==-1){
+            //         return returnHtml; 
+            //     }  
+
+            // }
 
             if(appData['ac_approval'] != undefined && appData['ac_approval'] != null ){
                 appData['ac_approval']=parseInt(appData['ac_approval']); 
@@ -1479,12 +1484,12 @@ export class appCommonMethods {
                 returnHtml+=`<div class="col" >
                                 <div class="projectWrap" >
                                     <p class="title">${title}</p>
-                                    <span class="gridValue ${titleColor}"><i class="icon-${iconName}"></i>AC</span>
+                                    <span class="gridValue ${titleColor}"><i class="${iconName}"></i>AC</span>
                                 </div>
                             </div>`;
 
                 if(appData['ac_approval']==-1){
-                return returnHtml; 
+                    return returnHtml; 
                 } 
 
             }
@@ -1515,7 +1520,7 @@ export class appCommonMethods {
                 returnHtml+=`<div class="col" >
                                 <div class="projectWrap" >
                                     <p class="title">${title}</p>
-                                    <span class="gridValue ${titleColor}"><i class="icon-${iconName}"></i>Admin</span>
+                                    <span class="gridValue ${titleColor}"><i class="${iconName}"></i>Admin</span>
                                 </div>
                             </div>`;
             }
