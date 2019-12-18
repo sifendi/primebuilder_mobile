@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AppPreferences } from '@ionic-native/app-preferences';
 import { ALL_KEYS, SQL_QUERY, SITE_API, ALL_MESSAGE } from './constant';
 import * as moment from 'moment';
-import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { SqlServices } from '../providers/sqlService';
 import 'rxjs/add/operator/toPromise';
@@ -52,7 +52,7 @@ export class SyncServices {
     syncTargetsMasterRunningFlag:boolean=false;
     syncEAPLeadsDRunningFlag: boolean;
     toastSflag:boolean=false;
-    constructor(public appPreferences: AppPreferences,public sqlS: SqlServices,private userMapping:User_mappingApi,private monthlyStats:Monthly_statsApi,private prodReqBrandCap:Products_request_brand_capture_tblApi,private appProdReq:App_product_requestApi,private toastCtrl:ToastController,private  appProdRecApproval:App_product_receipt_approvalApi,private hpbUpdateApproval:Hpb_update_approvalApi,private appSrkuApproval:App_srku_approvalApi,private app_hpbApi:App_hpbApi,private app_check_in_outApi:App_check_in_outApi, private appProjApi:App_projectsApi,private app_rds_stockApi:App_rds_stockApi,private appRdsVisitApi:App_rds_visitApi,private appProdApi:App_product_receiptApi,private monthly_actual_targetApi:Monthly_actual_targetApi,private monthly_forecast_targetApi:Monthly_forecast_targetApi, private monthly_visiting_scheduleApi:Monthly_visiting_scheduleApi  , private nmcApi:NmcApi,private project_typeApi:Project_typeApi,private project_stageApi:Project_stageApi,private app_rdsApi:App_rdsApi,private appNotifyCenApi:App_notification_centerApi,private app_productsApi:App_productsApi,private elApi:Eap_leadApi,private escApi:Eap_support_chatApi,public platform:Platform,private transfer: Transfer, private file: File,private translateS:TranslateService) {
+    constructor(public appPreferences: AppPreferences,public sqlS: SqlServices,private userMapping:User_mappingApi,private monthlyStats:Monthly_statsApi,private prodReqBrandCap:Products_request_brand_capture_tblApi,private appProdReq:App_product_requestApi,private toastCtrl:ToastController,private  appProdRecApproval:App_product_receipt_approvalApi,private hpbUpdateApproval:Hpb_update_approvalApi,private appSrkuApproval:App_srku_approvalApi,private app_hpbApi:App_hpbApi,private app_check_in_outApi:App_check_in_outApi, private appProjApi:App_projectsApi,private app_rds_stockApi:App_rds_stockApi,private appRdsVisitApi:App_rds_visitApi,private appProdApi:App_product_receiptApi,private monthly_actual_targetApi:Monthly_actual_targetApi,private monthly_forecast_targetApi:Monthly_forecast_targetApi, private monthly_visiting_scheduleApi:Monthly_visiting_scheduleApi  , private nmcApi:NmcApi,private project_typeApi:Project_typeApi,private project_stageApi:Project_stageApi,private app_rdsApi:App_rdsApi,private appNotifyCenApi:App_notification_centerApi,private app_productsApi:App_productsApi,private elApi:Eap_leadApi,private escApi:Eap_support_chatApi,public platform:Platform,private transfer: FileTransfer, private file: File,private translateS:TranslateService) {
         console.log('SyncServices...');
         window["thisRef"] = this;
         platform.ready().then(()=>{
@@ -5066,7 +5066,7 @@ uploadLocalFileToServer(allFileObjeArr){
 
         let  asyncTaksFiles = [];
 
-        const fileTransfer: TransferObject = this.transfer.create();
+        const fileTransfer: FileTransferObject = this.transfer.create();
 
         for (let key in allFileObjeArr) {
 
@@ -5162,7 +5162,7 @@ downloadServerFileToLocal113(allFileObjeArr){
 
          let  asyncTaksFiles = [];
 
-        const fileTransfer: TransferObject = this.transfer.create();
+        const fileTransfer: FileTransferObject = this.transfer.create();
 
         for (let key in allFileObjeArr) {
 
@@ -5225,7 +5225,7 @@ downloadServerFileToLocal(allFileObjeArr){
 
     let  asyncTaksFiles = [];
 
-   const fileTransfer: TransferObject = this.transfer.create();
+   const fileTransfer: FileTransferObject = this.transfer.create();
 
    for (let key in allFileObjeArr) {
 

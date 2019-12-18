@@ -1350,17 +1350,17 @@ export class appCommonMethods {
                     // title='Pending';
                     title = allAppPendRejObj.p;
                     titleColor='pColor';
-                    iconName='pending';
+                    iconName='warning';
                 }else if(appData['ac']['approval_status']==1){
                     // title='Approved';
                     title = allAppPendRejObj.a;
                     titleColor='dColor';
-                    iconName='approved';
+                    iconName='checkmark-circle';
                 }else if(appData['ac']['approval_status']==-1){
                     // title='Rejected';
                     title = allAppPendRejObj.r;
                     titleColor='fColor';
-                    iconName='failed';
+                    iconName='alert';
                 }
 
                 returnHtml+=`<div class="col" >
@@ -1385,17 +1385,17 @@ export class appCommonMethods {
                     // title='Pending';
                     title = allAppPendRejObj.p;
                     titleColor='pColor';
-                    iconName='pending';
+                    iconName='warning';
                 }else if(appData['sa']['approval_status']==1){
                     // title='Approved';
                     title = allAppPendRejObj.a;
                     titleColor='dColor';
-                    iconName='approved';
+                    iconName='checkmark-circle';
                 }else if(appData['sa']['approval_status']==-1){
                     // title='Rejected';
                     title = allAppPendRejObj.r;
                     titleColor='fColor';
-                    iconName='failed';
+                    iconName='alert';
                 }
 
                 returnHtml+=`<div class="col" >
@@ -1468,17 +1468,17 @@ export class appCommonMethods {
                     // title='Pending';
                     title = allAppPendRejObj.p;
                     titleColor='pColor';
-                    iconName='pending';
+                    iconName='warning';
                 }else if(appData['ac_approval']==1){
                     // title='Approved';
                     title = allAppPendRejObj.a;
                     titleColor='dColor';
-                    iconName='approved';
+                    iconName='checkmark-circle';
                 }else if(appData['ac_approval']==-1){
                     // title='Rejected';
                     title = allAppPendRejObj.r;
                     titleColor='fColor';
-                    iconName='failed';
+                    iconName='alert';
                 }
 
                 returnHtml+=`<div class="col" >
@@ -1504,17 +1504,17 @@ export class appCommonMethods {
                     // title='Pending';
                     title = allAppPendRejObj.p;
                     titleColor='pColor';
-                    iconName='pending';
+                    iconName='warning';
                 }else if(appData['sa_approval']==1){
                     // title='Approved';
                     title = allAppPendRejObj.a;
                     titleColor='dColor';
-                    iconName='approved';
+                    iconName='checkmark-circle';
                 }else if(appData['sa_approval']==-1){
                     // title='Rejected';
                     title = allAppPendRejObj.r;
                     titleColor='fColor';
-                    iconName='failed';
+                    iconName='alert';
                 }
 
                 returnHtml+=`<div class="col" >

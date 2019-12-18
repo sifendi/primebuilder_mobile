@@ -975,22 +975,22 @@ export class ProductReceiptsFormPage {
         }
 
         // Show alert
-        if(this.progress_status == "receipt_success_updated") {
-            this.navCtrl.pop().then(()=>{
-                this.appCom.showAlert(ALL_MESSAGE.SUCCESS_MESSAGE.PRODUCT_RECEIPT_UPDATE_SUCCESS,"Ok",""); 
-                setTimeout(()=>{
-                        this.events.publish('globalSync'); 
-                },1000)
-            });
-        } else if(this.progress_status == 'receipt_error_update') {
-            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.PRODUCT_RECEIPT_UPDATE_ERR,"Ok","");  
-        } else if(this.progress_status == "receipt_error_location") {
-            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok","");
-        } else if(this.progress_status == "receipt_err_get_location_coord") {
-            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");  
-        } else if(this.progress_status == "receipt_err_generic_location_err") {
-            this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok",""); 
-        }
+        // if(this.progress_status == "receipt_success_updated") {
+        //     this.navCtrl.pop().then(()=>{
+        //         this.appCom.showAlert(ALL_MESSAGE.SUCCESS_MESSAGE.PRODUCT_RECEIPT_UPDATE_SUCCESS,"Ok",""); 
+        //         setTimeout(()=>{
+        //                 this.events.publish('globalSync'); 
+        //         },1000)
+        //     });
+        // } else if(this.progress_status == 'receipt_error_update') {
+        //     this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.PRODUCT_RECEIPT_UPDATE_ERR,"Ok","");  
+        // } else if(this.progress_status == "receipt_error_location") {
+        //     this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok","");
+        // } else if(this.progress_status == "receipt_err_get_location_coord") {
+        //     this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GET_LOCATION_COORDS_ERR,"Ok","");  
+        // } else if(this.progress_status == "receipt_err_generic_location_err") {
+        //     this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.GENERIC_LOCATION_ERR,"Ok",""); 
+        // }
 
     } 
 
