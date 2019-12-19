@@ -31,7 +31,9 @@
                         <ion-item class="inputLable">
                             <ion-label floating>{{ "FROM DATE" | translate }}</ion-label>
                             <!--<ion-datetime displayFormat="DD MMM YYYY"></ion-datetime>-->
-                            <ion-input [(ngModel)]="prodReceiptFilterArr.fromDate" #fromDateMob="mobiscroll" #fromDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsFrom" required></ion-input>
+                            <!-- <ion-input [(ngModel)]="prodReceiptFilterArr.fromDate" #fromDateMob="mobiscroll" #fromDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsFrom" required></ion-input> -->
+
+                            <ion-datetime displayFormat="D/MM/YYYY" pickerFormat="D MMMM YYYY" [(ngModel)]="prodReceiptFilterArr.fromDate" calcelText="BATAL" doneText="SETEL" #fromDate="ngModel" [ngModelOptions]="{standalone: true}"(ngModelChange)="startDateActive()"></ion-datetime>
                         </ion-item>
                         <i tappable role="button" class="icon-arrow"></i>
                     </div>
@@ -39,7 +41,9 @@
                         <ion-item class="inputLable">
                             <ion-label floating>{{ "TO DATE" | translate }}</ion-label>
                             <!--<ion-datetime displayFormat="DD MMM YYYY"></ion-datetime>-->
-                             <ion-input [(ngModel)]="prodReceiptFilterArr.toDate" #toDateMob="mobiscroll" #toDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsTo" required></ion-input>
+                             <!-- <ion-input [(ngModel)]="prodReceiptFilterArr.toDate" #toDateMob="mobiscroll" #toDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsTo" required></ion-input> -->
+
+                             <ion-datetime displayFormat="D/MM/YYYY" pickerFormat="D MMMM YYYY" [(ngModel)]="prodReceiptFilterArr.toDate" calcelText="BATAL" doneText="SETEL" #fromDate="ngModel" [ngModelOptions]="{standalone: true}"></ion-datetime>
                         </ion-item>
                         <i tappable role="button" class="icon-arrow"></i>
                     </div>

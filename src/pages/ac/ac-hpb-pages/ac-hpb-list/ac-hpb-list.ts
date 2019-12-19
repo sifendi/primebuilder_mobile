@@ -114,7 +114,7 @@ onTabSelect(ev: any) {
                  <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>"{{ 'SEARCH BY' | translate }}" : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-        <ion-icon name="close"></ion-icon>
+        <i class="icon-close"></i>
         </button>
     </div>
                 <ion-list class="listWrap">
@@ -386,7 +386,7 @@ export class AcHpbListMasonPage {
                 <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>"{{ 'SEARCH BY' | translate }}" : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-          <ion-icon name="close"></ion-icon>
+          <i class="icon-close"></i>
         </button>
     </div>
                 <ion-list class="listWrap">

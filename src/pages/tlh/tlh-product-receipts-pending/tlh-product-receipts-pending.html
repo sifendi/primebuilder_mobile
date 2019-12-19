@@ -6,7 +6,7 @@
   <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>Search by : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <ion-icon name="close"></ion-icon>
+            <i class="icon-close"></i>
         </button>
     </div>
     <ion-refresher (ionRefresh)="doRefresh($event)">
@@ -68,7 +68,7 @@
 
 
                 <span class="tag">{{ receipt['created_date']? timeStampToDate(receipt['created_date']):"-" }}</span>
-                <ion-icon name="log-in"></ion-icon>
+                <!-- <ion-icon name="log-in"></ion-icon> -->
             </ion-item>
             <div class="filterTag resultbg" *ngIf="receipt['app']['rejection_reason']?receipt['app']['rejection_reason']:false">
                 <p class="resultRes">{{ "REASON" | translate }}:</p>

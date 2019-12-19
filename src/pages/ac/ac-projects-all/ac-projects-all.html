@@ -6,7 +6,7 @@
      <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>"{{ 'SEARCH BY' | translate }}" : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <ion-icon name="create"></ion-icon>
+            <i class="icon-close"></i>
         </button>
     </div>
     <ion-refresher (ionRefresh)="doRefresh($event)">

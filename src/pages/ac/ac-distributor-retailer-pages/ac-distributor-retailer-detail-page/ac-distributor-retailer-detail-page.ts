@@ -109,7 +109,7 @@ export class AcDistributorRetailerDetailPage {
         <div class="visitDate">
             <h2>{{  visit['visit_date'] }}</h2>
         </div>
-        <ion-icon name="log-in"></ion-icon>
+        <!-- <ion-icon name="log-in"></ion-icon> -->
     </div>
 
 </ion-content>

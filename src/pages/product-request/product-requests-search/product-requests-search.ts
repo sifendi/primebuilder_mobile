@@ -75,31 +75,31 @@ export class ProductRequestsSearchPage {
   }
 
   ionViewDidLoad() {
-    let tempDateS=this.dateSettingsTo;
-    tempDateS['max']=new Date(moment().format());
-    this.dateSettingsTo=tempDateS;
-    this.toDateMob.instance.option(tempDateS);
+    // let tempDateS=this.dateSettingsTo;
+    // tempDateS['max']=new Date(moment().format());
+    // this.dateSettingsTo=tempDateS;
+    // this.toDateMob.instance.option(tempDateS);
 
-    let tempDateE=this.dateSettingsFrom;
-    tempDateE['max']=new Date(moment().format());
-    this.dateSettingsFrom=tempDateE;
-    this.fromDateMob.instance.option(tempDateE);
+    // let tempDateE=this.dateSettingsFrom;
+    // tempDateE['max']=new Date(moment().format());
+    // this.dateSettingsFrom=tempDateE;
+    // this.fromDateMob.instance.option(tempDateE);
 
     let selData = this.navParams.get("prodRequestFilterArr");
       
       if( selData ){ 
           if( selData['fromDate'] ){
              this.prodRequestFilterArr['fromDate']=selData['fromDate'];
-            setTimeout(()=>{
-                  this.fromDate.valueAccessor._instance.setVal(this.prodRequestFilterArr['fromDate'],true);  
-            },10);
+            // setTimeout(()=>{
+            //       this.fromDate.valueAccessor._instance.setVal(this.prodRequestFilterArr['fromDate'],true);  
+            // },10);
           }
           if( selData['toDate'] ){
              this.prodRequestFilterArr['toDate']=selData['toDate'];
-             setTimeout(()=>{
-                  this.disableToDateFlag=false;
-                  this.toDate.valueAccessor._instance.setVal(this.prodRequestFilterArr['toDate'],true);  
-            },10);
+             this.disableToDateFlag=false;
+            //  setTimeout(()=>{
+            //       this.toDate.valueAccessor._instance.setVal(this.prodRequestFilterArr['toDate'],true);  
+            // },10);
           }
           if( selData['status'] ){
              this.prodRequestFilterArr['status']=selData['status'];
@@ -233,7 +233,9 @@ dismiss(){
   this.viewCtrl.dismiss({}); 
 }
 
-    
+startDateActive() {
+  this.disableToDateFlag = false;
+}
 
 
 }

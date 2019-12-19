@@ -57,13 +57,13 @@
                 </div>
 
                 <span class="tag">{{receipt.created_date}}</span>
-                <!--<button class="checkIn" ion-button color="light">-->
-                  <ion-icon name="log-in"></ion-icon>
+                <button class="checkIn" ion-button color="light">
+                  <!-- <ion-icon name="log-in"></ion-icon> -->
                 <div *ngIf="receipt.points != 0 && receipt.points != null" class="pointPlace">
                     <p>{{ "POINTS" | translate }}</p>
                     <span>{{receipt['points'].toLocaleString()}}</span>
                 </div>
-                <!--</button>-->
+                </button>
             </ion-item>
         </div>
     </ion-list>

@@ -98,10 +98,14 @@ export class AcProjectsPendingPage {
           if(this.dataLen < this.limit){
             this.dataLoadCompleted = true;
           }
+          
+          // alert(JSON.stringify(this.projData));
+
           console.log("resData.result",resData.result);
           for (let x=0; x< resData.result.length;x++) {
             this.projData.push(resData.result[x]);
           }
+
           this.projDataTemp=this.projData;
           resolve(true);
           console.log("this.projData pending", this.projData); 

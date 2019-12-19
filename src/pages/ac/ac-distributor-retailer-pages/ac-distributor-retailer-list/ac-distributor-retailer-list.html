@@ -19,7 +19,7 @@
 <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
     <p>"{{ 'SEARCH BY' | translate }}" : {{ filterby }} </p>
     <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-        <ion-icon name="close"></ion-icon>
+        <i class="icon-close"></i>
     </button>
 </div>
   <div *ngIf="retailerDistributorAllData == undefined || retailerDistributorAllData == ''">
@@ -46,8 +46,8 @@
                         <p class="title dark marg5">{{ "CITY / MUNICIPALITY" | translate }}: <span>{{ rds['city_display_str']?rds['city_display_str']:"-" }}</span></p>
                     </div>
                 </div>
-                <ion-icon name="log-in" (click)="goToRdsDetail(rds)"></ion-icon>
-                <!-- <i class="icon-next-thin checkIn" (click)="goToRdsDetail(rds)"></i> -->
+                <!-- <ion-icon name="log-in" (click)="goToRdsDetail(rds)"></ion-icon> -->
+                <i class="icon-next-thin checkIn" (click)="goToRdsDetail(rds)"></i>
             </ion-item>
         </div>
 

@@ -12,7 +12,7 @@
     <div class="filterTag" *ngIf="filterby !=undefined && filterby != ''">
         <p>Search by : {{ filterby }} </p>
         <button ion-button color="light" class="closeStyle" (click)="clearFilter()">
-            <ion-icon name="close"></ion-icon>
+            <i class="icon-close"></i>
         </button>
     </div>
 </ion-header>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <span class="tag">{{produtRequestListobj['request_date']?appCom.timeStampToDate(produtRequestListobj['request_date']):"-"}}</span>
-                <ion-icon name="log-in"></ion-icon>
+                <!-- <ion-icon name="log-in"></ion-icon> -->
 
                 <span class="hpbStatus pColor" *ngIf="produtRequestListobj['product_request_status']==0 || produtRequestListobj['product_request_status']=='0'"><ion-icon name="time"></ion-icon>{{ "IN PROGRESS" | translate }}</span>
                 <span class="hpbStatus fColor" *ngIf="produtRequestListobj['product_request_status']==-1 || produtRequestListobj['product_request_status']=='-1'"><ion-icon name="close-circle"></ion-icon>{{ "FAILED" | translate }}</span>

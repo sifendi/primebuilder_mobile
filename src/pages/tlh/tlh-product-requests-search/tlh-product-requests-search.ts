@@ -59,31 +59,33 @@ export class TlhProductRequestsSearchPage {
   }
 
   ionViewDidLoad() {
-      let tempDateS=this.dateSettingsTo;
-			tempDateS['max']=new Date(moment().format());
-			this.dateSettingsTo=tempDateS;
-			this.toDateMob.instance.option(tempDateS);
+      // let tempDateS=this.dateSettingsTo;
+			// tempDateS['max']=new Date(moment().format());
+			// this.dateSettingsTo=tempDateS;
+			// this.toDateMob.instance.option(tempDateS);
 
-      let tempDateE=this.dateSettingsFrom;
-      tempDateE['max']=new Date(moment().format());
-      this.dateSettingsFrom=tempDateE;
-      this.fromDateMob.instance.option(tempDateE); 
+      // let tempDateE=this.dateSettingsFrom;
+      // tempDateE['max']=new Date(moment().format());
+      // this.dateSettingsFrom=tempDateE;
+      // this.fromDateMob.instance.option(tempDateE); 
     
       let selData = this.navParams.get("prodRequestFilterArr");
       
       if( selData ){ 
           if( selData['fromDate'] ){
-             this.prodRequestFilterArr['fromDate']=selData['fromDate'];
-            setTimeout(()=>{
-                  this.fromDate.valueAccessor._instance.setVal(this.appCom.timeStampToDateMMMnewM((this.prodRequestFilterArr['fromDate'])),true);  
-            },10);
+            let fromDate = this.appCom.timeStampToDateMMMnewM(selData['fromDate']);
+             this.prodRequestFilterArr['fromDate']=fromDate.toISOString();
+            // setTimeout(()=>{
+            //       this.fromDate.valueAccessor._instance.setVal(this.appCom.timeStampToDateMMMnewM((this.prodRequestFilterArr['fromDate'])),true);  
+            // },10);
           }
           if( selData['toDate'] ){
-             this.prodRequestFilterArr['toDate']=selData['toDate'];
-             setTimeout(()=>{
-                  this.disableToDateFlag=false;
-                  this.toDate.valueAccessor._instance.setVal(this.appCom.timeStampToDateMMMnewM((this.prodRequestFilterArr['toDate'])),true);  
-            },10);
+            let toDate = this.appCom.timeStampToDateMMMnewM(selData['toDate']);
+             this.prodRequestFilterArr['toDate']=toDate.toISOString();
+             this.disableToDateFlag=false;
+            //  setTimeout(()=>{
+            //       this.toDate.valueAccessor._instance.setVal(this.appCom.timeStampToDateMMMnewM((this.prodRequestFilterArr['toDate'])),true);  
+            // },10);
           }
           if( selData['status'] ){
              this.prodRequestFilterArr['status']=selData['status'];
@@ -198,6 +200,8 @@ dismiss(){
 }
 
     
-
+startDateActive() {
+  this.disableToDateFlag = false;
+}
 
 }

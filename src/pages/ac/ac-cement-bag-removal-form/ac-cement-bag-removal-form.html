@@ -35,14 +35,16 @@ Ionic pages and navigation.
                         <ion-item class="inputLable" [class.disabledDiv]="disableFromDateFlag" >
                             <ion-label stacked>{{ "FROM DATE" | translate }}*</ion-label>
                             <!--<ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="cBagRemovData.fromDate" #fromDate="ngModel" [ngModelOptions]="{standalone: true}" (ngModelChange)="fromDateSelected($event)" [disabled]="disableFromDateFlag" max="{{fromMaxDate}}" required></ion-datetime>-->
-                            <ion-input [(ngModel)]="cBagRemovData.fromDate" #fromDateMob="mobiscroll" #fromDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsF" required ></ion-input>
+                            <!-- <ion-input [(ngModel)]="cBagRemovData.fromDate" #fromDateMob="mobiscroll" #fromDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsF" required ></ion-input> -->
+
+                            <ion-datetime displayFormat="D/MM/YYYY" pickerFormat="D MMMM YYYY" [(ngModel)]="cBagRemovData.fromDate" calcelText="BATAL" doneText="SETEL" #fromDate="ngModel" [ngModelOptions]="{standalone: true}" (ngModelChange)="startDateActive()"></ion-datetime>
                         </ion-item>
                         <i tappable role="button" class="icon-arrow"></i>
                     </div>
                 </div>
             </div>
-            <div *ngIf="fromDate.errors && (submitted)" class="alert alert-danger error">
-                <p [hidden]="!fromDate.errors.required">
+            <div *ngIf="fromDate == undefined && (submitted)" class="alert alert-danger error">
+                <p [hidden]="fromDate != undefined">
                     {{ "FROM DATE IS REQUIRED" | translate }}.
                 </p>
             </div>
@@ -53,14 +55,16 @@ Ionic pages and navigation.
                         <ion-item class="inputLable" [class.disabledDiv]="disableToDateFlag">
                             <ion-label stacked>{{ "TO DATE" | translate }}*</ion-label>
                             <!--<ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="cBagRemovData.toDate" #toDate="ngModel" [ngModelOptions]="{standalone: true}" (ngModelChange)="toDateSelected($event)" min="{{toMinDate}}" max="{{toMaxDate}}" [disabled]="disableToDateFlag" required></ion-datetime>-->
-                            <ion-input [(ngModel)]="cBagRemovData.toDate" #toDateMob="mobiscroll" #toDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsT" required ></ion-input>
+                            <!-- <ion-input [(ngModel)]="cBagRemovData.toDate" #toDateMob="mobiscroll" #toDate="ngModel" [ngModelOptions]="{standalone: true}" mbsc-date [mbsc-options]="dateSettingsT" required ></ion-input> -->
+
+                            <ion-datetime displayFormat="D/MM/YYYY" pickerFormat="D MMMM YYYY" [(ngModel)]="cBagRemovData.toDate" calcelText="BATAL" doneText="SETEL" #fromDate="ngModel" [ngModelOptions]="{standalone: true}" (ngModelChange)="endDateActive()"></ion-datetime>
                         </ion-item>
                         <i tappable role="button" class="icon-arrow"></i>
                     </div>
                 </div>
             </div>
-            <div *ngIf="toDate.errors && (submitted)" class="alert alert-danger error">
-                <p [hidden]="!toDate.errors.required">
+            <div *ngIf="toDate == undefined && (submitted)" class="alert alert-danger error">
+                <p [hidden]="toDate != undefined">
                     {{ "TO DATE IS REQUIRED" | translate }}.
                 </p>
             </div>

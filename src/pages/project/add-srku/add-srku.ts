@@ -1465,6 +1465,7 @@ export class addSrkuPage {
                         approvInsert['local_created_date'] = this.appCom.getCurrentTimeStamp();
                         approvInsert['local_updated_date'] = this.appCom.getCurrentTimeStamp();
                         approvInsert['sync_status'] = 0;
+
                         this.sqlS.insertData(approvInsert, "srku_approval_status_tbl").then((approvData: any) => {
                             resolve(true);
                         }, error => {

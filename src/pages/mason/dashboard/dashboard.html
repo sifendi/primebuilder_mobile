@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <span class="tag">{{receipt.created_date}}</span>
-                    <ion-icon name="log-in"></ion-icon>
+                    <!-- <ion-icon name="log-in"></ion-icon> -->
                     <div *ngIf="receipt.points != 0 && receipt.points != null" class="pointPlace">
                         <p>{{ "POINTS" | translate }}</p>
                         <span>{{receipt['points'].toLocaleString(appCom.getCurrCCode())}}</span>

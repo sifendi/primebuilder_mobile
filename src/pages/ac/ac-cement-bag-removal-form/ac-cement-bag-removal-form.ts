@@ -112,50 +112,13 @@ export class AcCementBagRemovalFormPage {
       },
   };
 
-    dateSettingsT:any={
-      theme: 'material',
-      display: 'center',
-      dateFormat:'dd/mm/yy',
-      onSet: (event, inst)=> {
-                    console.log("from date selected",event);
-
-                    let fd= this.appCom.dateToTimeStamp(this.cBagRemovData.fromDate);
-                    let td= this.appCom.dateToTimeStamp(this.cBagRemovData.toDate);
-                    if( fd > td ){
-                      this.appCom.showAlert("Please enter a valid date range","Ok","");
-                       this.cBagRemovData.toDate=null;
-                      return false;
-                    }    
-                    
-                    let tempToDate=this.appCom.dateToTimeStamp(this.cBagRemovData.toDate);
-                    this.cBagRemovData.toDate= new Date(tempToDate).setHours(23,59,59); 
-                      
-                    
-                    let isvalid = false;
-                    isvalid = this.cBagRemovData.district != undefined && this.cBagRemovData.district != null && this.cBagRemovData.fromDate != undefined && this.cBagRemovData.fromDate != null && this.cBagRemovData.toDate != null && this.cBagRemovData.toDate != undefined && fd <= td;
-                    if(isvalid){
-                      //QUERY SERVER TO GET QUANTITY
-                      try{
-                          let fdate=this.appCom.dateToTimeStamp(this.cBagRemovData.fromDate);
-                          let tdate=this.appCom.dateToTimeStamp(this.cBagRemovData.toDate);
-                          console.log("fdate",fdate);
-                          console.log("tdate",tdate);
-                          this.busy = this.getCementBagRemApi.getReceiptQuantity(fdate,tdate,this.cBagRemovData.district).subscribe(resData => {
-                                    if(resData){
-                                      let res= resData['result'][0];
-                                      if(res){
-                                        this.cBagRemovData['quantity']=res['totalQuantity']?res['totalQuantity']:0;
-                                      }
-                                      
-                                    }
-                          });
-                      }catch(e){
-                        console.log("error",e);
-                      }  
-                    }else{
-                      //this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.FILL_ALL_N_GET_QUANTITY_ERR,"Ok","");
-                    } 
-         
+  dateSettingsT:any={
+    theme: 'material',
+    display: 'center',
+    dateFormat:'dd/mm/yy',
+    onSet: (event, inst)=> {
+                  console.log("from date selected",event);
+        
       },
   };
 
@@ -428,8 +391,8 @@ export class AcCementBagRemovalFormPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public sqlS:SqlServices,public appCom:appCommonMethods,public getCementBagRemApi:Cement_bag_removals_tblApi,public modalCtrl: ModalController,public syncS: SyncServices,private transfer: Transfer,public events:Events,public popoverCtrl: PopoverController ) {
 
-  this.dateSettingsF['max'] = new Date(moment().format());  
-  this.dateSettingsT['max'] = new Date(moment().format());
+  // this.dateSettingsF['max'] = new Date(moment().format());  
+  // this.dateSettingsT['max'] = new Date(moment().format());
 
   }
 
@@ -468,8 +431,8 @@ export class AcCementBagRemovalFormPage {
       this.mobiScollDistrictSettings=MobiProps4;
       this.districtMob.instance.option(MobiProps4);
 
-     this.toMaxDate=moment().format();
-     this.fromMaxDate=moment().format();
+    //  this.toMaxDate=moment().format();
+    //  this.fromMaxDate=moment().format();
      this.appCom.getAppPreference("userCreds").then(
         resDataU => {
         this.userName = resDataU.user.realm;
@@ -484,9 +447,9 @@ export class AcCementBagRemovalFormPage {
     //GET ADDRESS DATA
     this.busy=this.getAddressData().then(()=>{
         this.busy=this.addressInitInput().then(()=>{
-                if(this.cBagRemovData.postalCode && this.cBagRemovData.postalCode!=''){
-                    this.addressDataFiltersF(this.cBagRemovData.postalCode,'postalcode');
-                }
+              if(this.cBagRemovData.postalCode && this.cBagRemovData.postalCode!=''){
+                  this.addressDataFiltersF(this.cBagRemovData.postalCode,'postalcode');
+              }
           },()=>{
           });
     },()=>{
@@ -915,29 +878,6 @@ onDistrictSelect(event){
   }
 }
 
-
-toDateSelected(event){
-  this.cBagRemovData.toDate= moment(event).endOf('day').format(); 
-  let isvalid = false;
-  isvalid = this.cBagRemovData.district != undefined && this.cBagRemovData.district != null && this.cBagRemovData.fromDate != undefined && this.cBagRemovData.fromDate != null && this.cBagRemovData.toDate != null && this.cBagRemovData.toDate != undefined;
-  if(isvalid){
-    //QUERY SERVER TO GET QUANTITY
-    let fdate=this.appCom.dateToTimeStamp(this.cBagRemovData.fromDate);
-    let tdate=this.appCom.dateToTimeStamp(this.cBagRemovData.toDate);
-    this.busy = this.getCementBagRemApi.getReceiptQuantity(fdate,tdate,this.cBagRemovData.district).subscribe(resData => {
-              if(resData){
-                let res= resData['result'][0];
-                if(res){
-                  this.cBagRemovData['quantity']=res['totalQuantity']?res['totalQuantity']:0;
-                }
-                
-              }
-    });
-  }else{
-    //this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.FILL_ALL_N_GET_QUANTITY_ERR,"Ok","");
-  } 
-}
-
   openSignPopup(){
       
       let signPop = this.modalCtrl.create(DigitalSignCanvasPage);
@@ -1206,6 +1146,27 @@ uploadBagRemovalProof(){
    });
 }
 
+toDateSelected(event){
+  this.cBagRemovData.toDate= moment(event).endOf('day').format(); 
+  let isvalid = false;
+  isvalid = this.cBagRemovData.district != undefined && this.cBagRemovData.district != null && this.cBagRemovData.fromDate != undefined && this.cBagRemovData.fromDate != null && this.cBagRemovData.toDate != null && this.cBagRemovData.toDate != undefined;
+  if(isvalid){
+    //QUERY SERVER TO GET QUANTITY
+    let fdate=this.appCom.dateToTimeStamp(this.cBagRemovData.fromDate);
+    let tdate=this.appCom.dateToTimeStamp(this.cBagRemovData.toDate);
+    this.busy = this.getCementBagRemApi.getReceiptQuantity(fdate,tdate,this.cBagRemovData.district).subscribe(resData => {
+              if(resData){
+                let res= resData['result'][0];
+                if(res){
+                  this.cBagRemovData['quantity']=res['totalQuantity']?res['totalQuantity']:0;
+                }
+                
+              }
+    });
+  }else{
+    //this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.FILL_ALL_N_GET_QUANTITY_ERR,"Ok","");
+  } 
+}
 
 
   //CAMERA OR GALLERY SELECTION POP
@@ -1224,6 +1185,46 @@ removeProofImages(i){
 }
 
 
+  startDateActive() {
+    this.disableToDateFlag = false;
+  }
 
+  endDateActive() {
+    let fd= this.appCom.dateToTimeStamp(this.cBagRemovData.fromDate);
+    let td= this.appCom.dateToTimeStamp(this.cBagRemovData.toDate);
+    if( fd > td ){
+      this.appCom.showAlert("Please enter a valid date range","Ok","");
+        this.cBagRemovData.toDate=null;
+      return false;
+    }    
+      
+    let tempToDate=this.appCom.dateToTimeStamp(this.cBagRemovData.toDate);
+    this.cBagRemovData.toDate= new Date(tempToDate).setHours(23,59,59); 
+        
+    let isvalid = false;
+    isvalid = this.cBagRemovData.district != undefined && this.cBagRemovData.district != null && this.cBagRemovData.fromDate != undefined && this.cBagRemovData.fromDate != null && this.cBagRemovData.toDate != null && this.cBagRemovData.toDate != undefined && fd <= td;
+    if(isvalid){
+        //QUERY SERVER TO GET QUANTITY
+      try{
+          let fdate=this.appCom.dateToTimeStamp(this.cBagRemovData.fromDate);
+          let tdate=this.appCom.dateToTimeStamp(this.cBagRemovData.toDate);
+          console.log("fdate",fdate);
+          console.log("tdate",tdate);
+          this.busy = this.getCementBagRemApi.getReceiptQuantity(fdate,tdate,this.cBagRemovData.district).subscribe(resData => {
+                    if(resData){
+                      let res= resData['result'][0];
+                      if(res){
+                        this.cBagRemovData['quantity']=res['totalQuantity']?res['totalQuantity']:0;
+                      }
+                      
+                    }
+          });
+      }catch(e){
+        console.log("error",e);
+      }  
+    }else{
+      //this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.FILL_ALL_N_GET_QUANTITY_ERR,"Ok","");
+    } 
+  }
 
 }

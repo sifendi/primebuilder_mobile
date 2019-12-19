@@ -64,48 +64,48 @@ export class ProductReceiptsSearchPage {
 
   };
 
-  dateSettingsFrom:any={
-      theme: 'material',
-      display: 'center',
-      dateFormat:'dd/mm/yy',
-      onSet: (event, inst)=> {
-           this.disableToDateFlag=false;
-           //this.prodReceiptFilterArr.toDate=null;
-      },
-  };
+  // dateSettingsFrom:any={
+  //     theme: 'material',
+  //     display: 'center',
+  //     dateFormat:'dd/mm/yy',
+  //     onSet: (event, inst)=> {
+  //          this.disableToDateFlag=false;
+  //          //this.prodReceiptFilterArr.toDate=null;
+  //     },
+  // };
 
-  dateSettingsTo:any={
-      theme: 'material',
-      display: 'center',
-      dateFormat:'dd/mm/yy',
-      onSet: (event, inst)=> {
-                    console.log("from date selected",event);
+  // dateSettingsTo:any={
+  //     theme: 'material',
+  //     display: 'center',
+  //     dateFormat:'dd/mm/yy',
+  //     onSet: (event, inst)=> {
+  //                   console.log("from date selected",event);
      
-      },
-  };
+  //     },
+  // };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public sqlS: SqlServices,public appCom:appCommonMethods,public viewCtrl:ViewController) {
- 
+
   }
 
   async ionViewDidLoad() {
-   
-    let tempDateS=this.dateSettingsTo;
-    tempDateS['max']=new Date(moment().format());
-    this.dateSettingsTo=tempDateS;
-    this.toDateMob.instance.option(tempDateS);
+    // let tempDateS=this.dateSettingsTo;
+    // tempDateS['max']=new Date(moment().format());
+    // this.dateSettingsTo=tempDateS;
+    // this.toDateMob.instance.option(tempDateS);
 
-    let tempDateE=this.dateSettingsFrom;
-    tempDateE['max']=new Date(moment().format());
-    this.dateSettingsFrom=tempDateE;
-    this.fromDateMob.instance.option(tempDateE);
+    // let tempDateE=this.dateSettingsFrom;
+    // tempDateE['max']=new Date(moment().format());
+    // this.dateSettingsFrom=tempDateE;
+    // this.fromDateMob.instance.option(tempDateE);
 
     let MobiProps1=this.mobiScollPRODSettings;
     MobiProps1['placeholder']= await this.appCom.getTranslatedTxt("Please select");
     this.mobiScollPRODSettings=MobiProps1;
     this.ProductMob.instance.option(MobiProps1);
 
-  let selData = this.navParams.get("prodReceiptFilterArr");
+  var selData = this.navParams.get("prodReceiptFilterArr");
+
   console.log("selData--->",selData);
   this.initFormData().then(()=>{
       if( selData ){
@@ -117,16 +117,16 @@ export class ProductReceiptsSearchPage {
           } 
           if( selData['fromDate'] ){
              this.prodReceiptFilterArr['fromDate']=selData['fromDate'];
-            setTimeout(()=>{
-                  this.fromDate.valueAccessor._instance.setVal(this.prodReceiptFilterArr['fromDate'],true);  
-            },10);
+            // setTimeout(()=>{
+            //       this.fromDate.valueAccessor._instance.setVal(this.prodReceiptFilterArr['fromDate'],true);  
+            // },10);
           }
           if( selData['toDate'] ){
              this.prodReceiptFilterArr['toDate']=selData['toDate'];
-             setTimeout(()=>{
-                  this.disableToDateFlag=false;
-                  this.toDate.valueAccessor._instance.setVal(this.prodReceiptFilterArr['toDate'],true);  
-            },10);
+             this.disableToDateFlag=false;
+            //  setTimeout(()=>{
+            //       this.toDate.valueAccessor._instance.setVal(this.prodReceiptFilterArr['toDate'],true);  
+            // },10);
           }
           if( selData['by'] ){
              this.prodReceiptFilterArr['by']=selData['by'];
@@ -409,11 +409,14 @@ dismiss(){
                     console.log('allDistrictData sql error',error); 
                 });
         }); 
+  
 }
 
     
 
-
+  startDateActive() {
+    this.disableToDateFlag = false;
+  }
 
 
 }

@@ -95,32 +95,34 @@ export class TlhProductReceiptsSearchPage {
     this.mobiScollPRODSettings=MobiProps1;
     this.ProductMob.instance.option(MobiProps1);  
 
-    let tempDateS=this.dateSettingsTo;
-    tempDateS['max']=new Date(moment().format());
-    this.dateSettingsTo=tempDateS;
-    this.toDateMob.instance.option(tempDateS);
+    // let tempDateS=this.dateSettingsTo;
+    // tempDateS['max']=new Date(moment().format());
+    // this.dateSettingsTo=tempDateS;
+    // this.toDateMob.instance.option(tempDateS);
 
-    let tempDateE=this.dateSettingsFrom;
-    tempDateE['max']=new Date(moment().format());
-    this.dateSettingsFrom=tempDateE;
-    this.fromDateMob.instance.option(tempDateE);
+    // let tempDateE=this.dateSettingsFrom;
+    // tempDateE['max']=new Date(moment().format());
+    // this.dateSettingsFrom=tempDateE;
+    // this.fromDateMob.instance.option(tempDateE);
 
     let selFilterData = this.navParams.get('selFilterData');
     console.log("selFilterData",selFilterData);
     let T = selFilterData['prodReceiptFilterArr'];
    // selFilterData=selFilterData?selFilterData:"";
         if( T['fromDate'] ){
-            this.prodReceiptFilterArr['fromDate']=T['fromDate'];
-            setTimeout(()=>{
-                    this.fromDate.valueAccessor._instance.setVal(this.appCom.timeStampToDateMMMnewM((this.prodReceiptFilterArr['fromDate'])),true);  
-            },10);
+            let fromDate = this.appCom.timeStampToDateMMMnewM(T['fromDate']);
+            this.prodReceiptFilterArr['fromDate']=fromDate.toISOString();
+            // setTimeout(()=>{
+            //         this.fromDate.valueAccessor._instance.setVal(this.appCom.timeStampToDateMMMnewM((this.prodReceiptFilterArr['fromDate'])),true);  
+            // },10);
         }
         if( T['toDate'] ){
-            this.prodReceiptFilterArr['toDate']=T['toDate'];
-                setTimeout(()=>{
-                    this.disableToDateFlag=false;
-                    this.toDate.valueAccessor._instance.setVal(this.appCom.timeStampToDateMMMnewM((this.prodReceiptFilterArr['toDate'])),true);  
-            },10);
+            let toDate = this.appCom.timeStampToDateMMMnewM(T['toDate']);
+            this.prodReceiptFilterArr['toDate']=toDate.toISOString();
+            this.disableToDateFlag=false;
+            //     setTimeout(()=>{
+            //         this.toDate.valueAccessor._instance.setVal(this.appCom.timeStampToDateMMMnewM((this.prodReceiptFilterArr['toDate'])),true);  
+            // },10);
         }
 
     this.initFormData().then(()=>{
@@ -387,7 +389,9 @@ productsMobiFilter(serchKey?:any){
     
 
 
-
+ startDateActive() {
+     this.disableToDateFlag = false;
+ }
 
 
 }
