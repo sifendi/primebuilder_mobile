@@ -108,11 +108,11 @@ export let ALL_KEYS={
 // var SITE_URL = "http://172.20.103.129:9000"
 
 // Holcim Production Server
-// var url = "https://pb.solusibangunindonesia.com"
-// var SITE_URL = "https://pb.solusibangunindonesia.com"
+var url = "https://pb.solusibangunindonesia.com"
+var SITE_URL = "https://pb.solusibangunindonesia.com"
 
-var url = "http://139.255.88.90:4109"
-var SITE_URL = "http://139.255.88.90:4109"
+// var url = "http://139.255.88.90:4109"
+// var SITE_URL = "http://139.255.88.90:4109"
 
 // Local dev server
 // var url = "http://192.168.43.142:9000"

@@ -780,6 +780,17 @@ export class ProductReceiptsFormPage {
         this.submitted=true;
         let isvalid = false;
 
+        var product_quantity: number = 0;
+
+        for(let key in this.receiptForm.value)
+        {
+            if(key.includes('product_quantity'))
+            {
+                product_quantity =  product_quantity + parseInt(this.receiptForm.get(key).value);
+            }
+        }
+
+        // alert(product_quantity);
         // isvalid = ( this.Product.valid && this.Quantity.valid &&  this.RetDist.valid && this.ReceiptData.PurchaseDate != undefined && this.ReceiptData.PurchaseDate != '' && 
         //         this.ReceiptData.InvoiceQuantity>=0 && this.digitalSignPath !='' && this.digitalSignPath !=undefined &&
         //         this.invoicePhotoObj.length != 0 && this.invoicePhotoObj != '' && this.invoicePhotoObj !=undefined
@@ -799,8 +810,8 @@ export class ProductReceiptsFormPage {
                 // let currQ=parseInt(this.Quantity.value);
                 // let currIQ=parseInt(this.InvoiceQuantity.value);
 
-                let currQ=parseInt(this.receiptForm.get('product_quantity').value);
-                let currIQ=parseInt(this.receiptForm.get('product_invoice_quantity').value);
+                let currQ = product_quantity;
+                let currIQ = parseInt(this.receiptForm.get('product_invoice_quantity').value);
                 let subFlag=true;
 
                 if(diffTotal<=0){ // First check
@@ -812,8 +823,8 @@ export class ProductReceiptsFormPage {
                     if(  currQ > currIQ ){ // first inner check
                         //not allowed
                         this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.QTY_INVOICE_CONDITION_ERR,"Ok",""); 
-                        // subFlag=false;
-                        subFlag=true;
+                        subFlag=false;
+                        // subFlag=true;
                     }
                 } else { // Second check
                     let totalBal=diffTotal+currIQ;
@@ -824,8 +835,8 @@ export class ProductReceiptsFormPage {
                     if(  currQ > totalBal ){ // Second inner check
                         //not allowed
                         this.appCom.showAlert(ALL_MESSAGE.ERROR_MESSAGE.QTY_INVOICE_CONDITION_ERR,"Ok",""); 
-                        // subFlag=false;
-                        subFlag=true;
+                        subFlag=false;
+                        // subFlag=true;
                     }   
                 }
                 
